@@ -1,4 +1,4 @@
-package com.music.dzr.core.desygnsystem.theme
+package com.music.dzr.core.designsystem.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
