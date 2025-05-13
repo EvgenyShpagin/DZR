@@ -36,6 +36,8 @@ dependencies {
     api(libs.androidx.compose.runtime)
     api(libs.androidx.ui.text.google.fonts)
     api(libs.androidx.compose.material3)
+    api(libs.androidx.compose.material3.adaptive)
+    api(libs.androidx.compose.material3.navigationSuite)
     implementation(libs.androidx.ui.tooling.preview)
     debugImplementation(libs.androidx.ui.tooling)
 
