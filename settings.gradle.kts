@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "DZR"
 include(":app")
 include(":core:designsystem")
+include(":core:ui")

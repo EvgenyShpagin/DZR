@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cd_play_music">Play music</string>
+    <string name="cd_pause_music">Pause music</string>
+</resources>
