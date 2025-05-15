@@ -3,4 +3,5 @@
     <string name="cd_play_music">Play music</string>
     <string name="cd_pause_music">Pause music</string>
     <string name="cd_to_detailed_view">Go to detailed view</string>
+    <string name="cd_radio">Radio</string>
 </resources>
