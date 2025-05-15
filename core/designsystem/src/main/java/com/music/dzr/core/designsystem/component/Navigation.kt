@@ -3,8 +3,6 @@ package com.music.dzr.core.designsystem.component
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults
@@ -25,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
+import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
 @Composable
@@ -76,7 +75,7 @@ private fun DzrNavigationBarPreview() {
                         Text("Item $i")
                     },
                     icon = {
-                        Icon(Icons.Default.Favorite, null)
+                        Icon(DzrIcons.Favorite, null)
                     }
                 )
             }
@@ -133,7 +132,7 @@ private fun DzrNavigationRailPreview() {
                         Text("Item $i")
                     },
                     icon = {
-                        Icon(Icons.Default.Favorite, null)
+                        Icon(DzrIcons.Favorite, null)
                     }
                 )
             }

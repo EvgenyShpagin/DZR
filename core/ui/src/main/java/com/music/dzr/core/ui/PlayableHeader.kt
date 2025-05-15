@@ -15,9 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -36,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastFold
 import androidx.compose.ui.util.fastForEach
 import com.music.dzr.core.designsystem.component.DzrIconButton
+import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
 /**
@@ -180,9 +178,9 @@ private fun PlayButton(
         modifier = modifier
     ) {
         if (isPlaying) {
-            Icon(Icons.Default.Pause, stringResource(R.string.cd_pause_music))
+            Icon(DzrIcons.Pause, stringResource(R.string.cd_pause_music))
         } else {
-            Icon(Icons.Default.PlayArrow, stringResource(R.string.cd_play_music))
+            Icon(DzrIcons.PlayArrow, stringResource(R.string.cd_play_music))
         }
     }
 }

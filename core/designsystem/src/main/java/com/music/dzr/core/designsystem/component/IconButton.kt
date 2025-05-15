@@ -1,15 +1,12 @@
 package com.music.dzr.core.designsystem.component
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FilledIconToggleButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
 @Composable
@@ -32,8 +29,9 @@ fun DzrIconButton(
 @Composable
 private fun DzrIconButtonPreview() {
     DzrTheme {
-        DzrIconButton(onClick = {})
-        { Icon(Icons.Default.Call, null) }
+        DzrIconButton(onClick = {}) {
+            Icon(DzrIcons.Favorite, null)
+        }
     }
 }
 
@@ -64,10 +62,10 @@ private fun DzrIconToggleButtonCheckedPreview() {
             checked = true,
             onCheckedChange = {},
             icon = {
-                Icon(Icons.Default.FavoriteBorder, null)
+                Icon(DzrIcons.FavoriteBorder, null)
             },
             checkedIcon = {
-                Icon(Icons.Default.Favorite, null)
+                Icon(DzrIcons.Favorite, null)
             }
         )
     }
@@ -81,10 +79,10 @@ private fun DzrIconToggleButtonUncheckedPreview() {
             checked = false,
             onCheckedChange = {},
             icon = {
-                Icon(Icons.Default.FavoriteBorder, null)
+                Icon(DzrIcons.FavoriteBorder, null)
             },
             checkedIcon = {
-                Icon(Icons.Default.Favorite, null)
+                Icon(DzrIcons.Favorite, null)
             }
         )
     }

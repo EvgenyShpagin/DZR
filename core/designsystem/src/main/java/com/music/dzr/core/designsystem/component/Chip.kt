@@ -1,7 +1,5 @@
 package com.music.dzr.core.designsystem.component
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.FilterChip
@@ -15,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
 @Composable
@@ -65,7 +64,7 @@ fun DzrFilterChip(
         leadingIcon = if (selected) {
             {
                 Icon(
-                    imageVector = Icons.Default.Check,
+                    imageVector = DzrIcons.Check,
                     contentDescription = null,
                 )
             }
