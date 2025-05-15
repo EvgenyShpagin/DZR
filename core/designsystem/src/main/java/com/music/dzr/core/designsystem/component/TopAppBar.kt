@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
-import com.music.dzr.core.desygnsystem.R
+import com.music.dzr.core.designsystem.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

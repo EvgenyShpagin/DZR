@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.music.dzr.core.desygnsystem"
+    namespace = "com.music.dzr.core.designsystem"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {

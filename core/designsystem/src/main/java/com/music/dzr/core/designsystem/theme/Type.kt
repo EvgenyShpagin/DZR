@@ -5,7 +5,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
-import com.music.dzr.core.desygnsystem.R
+import com.music.dzr.core.designsystem.R
 
 private val provider = GoogleFont.Provider(
     providerAuthority = "com.google.android.gms.fonts",
