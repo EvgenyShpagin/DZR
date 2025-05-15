@@ -33,6 +33,7 @@ dependencies {
     implementation(composeBom)
     api(project(":core:designsystem"))
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.coil.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
