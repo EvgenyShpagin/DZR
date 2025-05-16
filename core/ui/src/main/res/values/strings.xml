@@ -12,4 +12,5 @@
     <string name="release_type_compilation">Compilation</string>
     <string name="release_type_featured_in">Featured in</string>
     <string name="cd_show_more">Show more</string>
+    <string name="cd_artist">Artist</string>
 </resources>
