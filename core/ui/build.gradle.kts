@@ -32,6 +32,7 @@ dependencies {
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     api(project(":core:designsystem"))
+    api(project(":core:model"))
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.coil.compose)
     testImplementation(libs.junit)

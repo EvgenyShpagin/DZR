@@ -5,4 +5,10 @@
     <string name="cd_to_detailed_view">Go to detailed view</string>
     <string name="cd_radio">Radio</string>
     <string name="cd_playlist">Playlist</string>
+    <string name="cd_release_cover">Album</string>
+    <string name="release_type_album">Album</string>
+    <string name="release_type_ep">EP</string>
+    <string name="release_type_single">Single</string>
+    <string name="release_type_compilation">Compilation</string>
+    <string name="release_type_featured_in">Featured in</string>
 </resources>
