@@ -4,10 +4,14 @@ import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
@@ -22,6 +26,8 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.fastJoinToString
+import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
 import com.music.dzr.core.model.ReleaseType
 
@@ -68,6 +74,56 @@ fun ReleaseCard(
 }
 
 @Composable
+fun ReleaseRow(
+    title: String,
+    contributors: List<String>,
+    coverUrl: String,
+    onClick: () -> Unit,
+    onMoreClick: () -> Unit,
+    releaseYear: String,
+    explicit: Boolean,
+    releaseType: ReleaseType,
+    modifier: Modifier = Modifier,
+    coverModifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .clip(ShapeDefaults.Small)
+            .clickable(
+                role = Role.Button,
+                onClick = onClick
+            ),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        TrackListCover(
+            coverUrl = coverUrl,
+            contentDescription = stringResource(R.string.cd_release_cover),
+            modifier = coverModifier.size(96.dp)
+        )
+        Spacer(Modifier.width(16.dp))
+        Column {
+            ReleaseTitle(title = title)
+            ReleaseSecondaryText(text = formatAlbumContributors(contributors))
+            ReleaseSecondaryText(
+                text = formatReleaseDetails(
+                    context = LocalContext.current,
+                    releaseYear = releaseYear,
+                    explicit = explicit,
+                    releaseType = releaseType
+                )
+            )
+        }
+        Spacer(Modifier.weight(1f))
+        IconButton(onClick = onMoreClick) {
+            Icon(
+                DzrIcons.MoreVert,
+                contentDescription = stringResource(R.string.cd_show_more)
+            )
+        }
+    }
+}
+
+@Composable
 private fun ReleaseTitle(
     title: String,
     modifier: Modifier = Modifier
@@ -97,22 +153,6 @@ private fun ReleaseSecondaryText(
     )
 }
 
-@Preview
-@Composable
-private fun ReleaseCardPreview() {
-    DzrTheme {
-        ReleaseCard(
-            title = "2000s Metal",
-            coverUrl = "",
-            onClick = {},
-            releaseYear = "2000",
-            explicit = true,
-            releaseType = ReleaseType.ALBUM,
-            coverModifier = Modifier.background(Color.Gray)
-        )
-    }
-}
-
 private fun formatReleaseDetails(
     context: Context,
     releaseYear: String,
@@ -129,5 +169,43 @@ private fun ReleaseType.toString(context: Context): String {
         ReleaseType.SINGLE -> context.getString(R.string.release_type_single)
         ReleaseType.COMPILATION -> context.getString(R.string.release_type_compilation)
         ReleaseType.FEATURED_IN -> context.getString(R.string.release_type_featured_in)
+    }
+}
+
+private fun formatAlbumContributors(contributors: List<String>): String {
+    return contributors.fastJoinToString()
+}
+
+@Preview
+@Composable
+private fun ReleaseCardPreview() {
+    DzrTheme {
+        ReleaseCard(
+            title = "2000s Metal",
+            coverUrl = "",
+            onClick = {},
+            releaseYear = "2000",
+            explicit = true,
+            releaseType = ReleaseType.ALBUM,
+            coverModifier = Modifier.background(Color.Gray)
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun ReleaseRowPreview() {
+    DzrTheme {
+        ReleaseRow(
+            title = "2000s Metal",
+            coverUrl = "",
+            contributors = listOf("Limp Bizkit", "Lil Wayne"),
+            onClick = {},
+            onMoreClick = {},
+            releaseYear = "2000",
+            explicit = true,
+            releaseType = ReleaseType.ALBUM,
+            coverModifier = Modifier.background(Color.Gray)
+        )
     }
 }

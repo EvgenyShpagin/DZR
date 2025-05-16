@@ -11,4 +11,5 @@
     <string name="release_type_single">Single</string>
     <string name="release_type_compilation">Compilation</string>
     <string name="release_type_featured_in">Featured in</string>
+    <string name="cd_show_more">Show more</string>
 </resources>
