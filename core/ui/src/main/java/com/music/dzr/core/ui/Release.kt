@@ -3,6 +3,7 @@ package com.music.dzr.core.ui
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -36,6 +37,7 @@ fun ReleaseCard(
     title: String,
     coverUrl: String,
     onClick: () -> Unit,
+    onLongClick: () -> Unit,
     releaseYear: String,
     explicit: Boolean,
     releaseType: ReleaseType,
@@ -45,9 +47,11 @@ fun ReleaseCard(
     Column(
         modifier = modifier
             .clip(ShapeDefaults.Small)
-            .clickable(
+            .combinedClickable(
                 role = Role.Button,
-                onClick = onClick
+                onClick = onClick,
+                onLongClick = onLongClick,
+                onLongClickLabel = stringResource(R.string.cd_show_more)
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -184,6 +188,7 @@ private fun ReleaseCardPreview() {
             title = "2000s Metal",
             coverUrl = "",
             onClick = {},
+            onLongClick = {},
             releaseYear = "2000",
             explicit = true,
             releaseType = ReleaseType.ALBUM,
