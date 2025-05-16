@@ -25,7 +25,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.util.fastJoinToString
 import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
 import com.music.dzr.core.model.ReleaseType
@@ -105,7 +104,7 @@ fun ReleaseRow(
         Spacer(Modifier.width(16.dp))
         Column {
             ReleaseTitle(title = title)
-            ReleaseSecondaryText(text = formatAlbumContributors(contributors))
+            ReleaseSecondaryText(text = formatContributors(contributors))
             ReleaseSecondaryText(
                 text = formatReleaseDetails(
                     context = LocalContext.current,
@@ -162,20 +161,6 @@ private fun formatReleaseDetails(
     releaseType: ReleaseType
 ): String {
     return "$releaseYear • ${if (explicit) "🅴" else ""} ${releaseType.toString(context)}"
-}
-
-private fun ReleaseType.toString(context: Context): String {
-    return when (this) {
-        ReleaseType.ALBUM -> context.getString(R.string.release_type_album)
-        ReleaseType.EP -> context.getString(R.string.release_type_ep)
-        ReleaseType.SINGLE -> context.getString(R.string.release_type_single)
-        ReleaseType.COMPILATION -> context.getString(R.string.release_type_compilation)
-        ReleaseType.FEATURED_IN -> context.getString(R.string.release_type_featured_in)
-    }
-}
-
-private fun formatAlbumContributors(contributors: List<String>): String {
-    return contributors.fastJoinToString()
 }
 
 @Preview
