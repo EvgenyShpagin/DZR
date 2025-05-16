@@ -8,6 +8,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import com.music.dzr.core.designsystem.theme.DzrTheme
 import com.music.dzr.core.designsystem.R as designSystemR
 
 @Composable
@@ -26,4 +28,15 @@ fun TrackListCover(
             .aspectRatio(1f)
             .clip(ShapeDefaults.Small)
     )
+}
+
+@Preview
+@Composable
+fun TrackListCoverPreview() {
+    DzrTheme {
+        TrackListCover(
+            coverUrl = "",
+            contentDescription = ""
+        )
+    }
 }
