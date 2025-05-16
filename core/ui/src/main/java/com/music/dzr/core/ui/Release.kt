@@ -1,7 +1,6 @@
 package com.music.dzr.core.ui
 
 import android.content.Context
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
@@ -20,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -191,8 +189,7 @@ private fun ReleaseCardPreview() {
             onLongClick = {},
             releaseYear = "2000",
             explicit = true,
-            releaseType = ReleaseType.ALBUM,
-            coverModifier = Modifier.background(Color.Gray)
+            releaseType = ReleaseType.ALBUM
         )
     }
 }
@@ -209,8 +206,7 @@ private fun ReleaseRowPreview() {
             onMoreClick = {},
             releaseYear = "2000",
             explicit = true,
-            releaseType = ReleaseType.ALBUM,
-            coverModifier = Modifier.background(Color.Gray)
+            releaseType = ReleaseType.ALBUM
         )
     }
 }

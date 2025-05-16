@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -48,15 +47,10 @@ fun PlaylistCard(
 @Composable
 private fun PlaylistCardPreview() {
     DzrTheme {
-        Surface(
-            color = MaterialTheme.colorScheme.primaryContainer,
-            modifier = Modifier.width(128.dp)
-        ) {
-            PlaylistCard(
-                name = "2000s Metal",
-                pictureUrl = "",
-                onClick = {}
-            )
-        }
+        PlaylistCard(
+            name = "2000s Metal",
+            pictureUrl = "",
+            onClick = {}
+        )
     }
 }

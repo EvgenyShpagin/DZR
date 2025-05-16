@@ -8,7 +8,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import coil3.compose.AsyncImage
 import com.music.dzr.core.designsystem.R as designSystemR
 
 @Composable
@@ -18,7 +17,7 @@ fun TrackListCover(
     modifier: Modifier = Modifier,
     placeholder: Painter = painterResource(designSystemR.drawable.ic_placeholder_default)
 ) {
-    AsyncImage(
+    InspectableAsyncImage(
         model = coverUrl,
         contentDescription = contentDescription,
         placeholder = placeholder,
