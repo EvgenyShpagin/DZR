@@ -52,5 +52,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
 
     androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation (libs.mockk.android)
+    debugImplementation(libs.androidx.ui.test.manifest)
 
 }
