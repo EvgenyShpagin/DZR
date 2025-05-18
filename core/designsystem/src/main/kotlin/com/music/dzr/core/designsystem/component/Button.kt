@@ -3,7 +3,7 @@ package com.music.dzr.core.designsystem.component
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.material3.Button
@@ -21,8 +21,7 @@ import com.music.dzr.core.designsystem.theme.DzrTheme
 
 @Composable
 private fun Modifier.buttonSize() = this
-    .padding(vertical = DzrButtonDefaults.VerticalPadding)
-    .height(DzrButtonDefaults.ContainerHeight)
+    .heightIn(min = DzrButtonDefaults.ContainerHeight)
 
 @Composable
 fun DzrButton(
@@ -173,6 +172,7 @@ private fun DzrButtonContent(
 
 object DzrButtonDefaults {
     val Shape = ShapeDefaults.Medium
+
+    // Default size for 14.sp text
     val ContainerHeight = 36.dp
-    val VerticalPadding = 6.dp
 }
