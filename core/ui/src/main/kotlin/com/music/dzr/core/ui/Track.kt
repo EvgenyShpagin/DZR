@@ -40,7 +40,7 @@ fun Track(
             {
                 InspectableAsyncImage(
                     model = url,
-                    contentDescription = "Track cover",
+                    contentDescription = stringResource(R.string.cd_track_cover),
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(designSystemR.drawable.ic_placeholder_default),
                     modifier = Modifier.clip(ShapeDefaults.ExtraSmall)
