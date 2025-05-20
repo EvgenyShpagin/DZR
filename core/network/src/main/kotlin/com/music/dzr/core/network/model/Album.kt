@@ -35,6 +35,7 @@ data class Album(
     val artist: AlbumArtist,
     val tracks: List<AlbumTrack>
 )
+
 @Serializable
 data class AlbumArtist(
     val id: Int,
@@ -58,14 +59,8 @@ data class AlbumTrack(
     val rank: Int,
     @SerialName("explicit_lyrics") val explicitLyrics: Boolean,
     val preview: String,
-    val artist: ArtistId,
+    val artist: ArtistBrief,
     val album: AlbumSummary
-)
-
-@Serializable
-data class ArtistId(
-    val id: Int,
-    val name: String
 )
 
 @Serializable
