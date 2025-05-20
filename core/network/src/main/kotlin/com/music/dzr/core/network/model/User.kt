@@ -8,32 +8,32 @@ import kotlinx.serialization.Serializable
 data class User(
     val id: Int,
     val name: String,
-    val lastname: String? = null,
-    val firstname: String? = null,
-    val email: String? = null,
-    val status: Int? = null,
-    val birthday: Instant? = null,
+    val lastname: String,
+    val firstname: String,
+    val email: String,
+    val status: Int,
+    val birthday: Instant,
     @SerialName("inscription_date")
-    val inscriptionDate: Instant? = null,
-    val gender: String? = null,
+    val inscriptionDate: Instant,
+    val gender: String,
     val link: String,
     val picture: String,
     @SerialName("picture_small")
-    val pictureSmall: String? = null,
+    val pictureSmall: String,
     @SerialName("picture_medium")
-    val pictureMedium: String? = null,
+    val pictureMedium: String,
     @SerialName("picture_big")
-    val pictureBig: String? = null,
+    val pictureBig: String,
     @SerialName("picture_xl")
-    val pictureXl: String? = null,
+    val pictureXl: String,
     val country: String,
     @SerialName("lang")
-    val language: String? = null,
+    val language: String,
     @SerialName("is_kid")
-    val isKid: Boolean? = null,
+    val isKid: Boolean,
     @SerialName("explicit_content_level")
-    val explicitContentLevel: String? = null,
+    val explicitContentLevel: String,
     @SerialName("explicit_content_levels_available")
-    val explicitContentLevelsAvailable: List<String>? = null,
+    val explicitContentLevelsAvailable: List<String>,
     val tracklist: String
 )
