@@ -8,13 +8,28 @@ data class Genre(
     val id: Int,
     val name: String,
     val picture: String,
-    @SerialName("picture_small") val pictureSmall: String? = null,
-    @SerialName("picture_medium") val pictureMedium: String? = null,
-    @SerialName("picture_big") val pictureBig: String? = null,
-    @SerialName("picture_xl") val pictureXl: String? = null
+    @SerialName("picture_small") val pictureSmall: String,
+    @SerialName("picture_medium") val pictureMedium: String,
+    @SerialName("picture_big") val pictureBig: String,
+    @SerialName("picture_xl") val pictureXl: String,
+    val type: String
 )
 
 @Serializable
 data class GenreList(
     val data: List<Genre>
+)
+
+@Serializable
+data class GenreArtist(
+    val id: Int,
+    val name: String,
+    val picture: String,
+    @SerialName("picture_small") val pictureSmall: String,
+    @SerialName("picture_medium") val pictureMedium: String,
+    @SerialName("picture_big") val pictureBig: String,
+    @SerialName("picture_xl") val pictureXl: String,
+    val radio: Boolean,
+    val tracklist: String,
+    val type: String
 )
