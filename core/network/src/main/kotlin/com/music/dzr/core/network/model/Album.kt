@@ -32,12 +32,11 @@ data class Album(
     @SerialName("explicit_content_cover") val explicitContentCover: Int,
     val contributors: List<Contributor>,
     val fallback: AlbumFallback,
-    val artist: ArtistBriefWithPic,
+    val artist: ArtistBriefWithPicture,
     val tracks: AlbumTrackList
 )
 
-// Returned from GET ALBUM TRACKS
-@Serializable // TODO: similar
+@Serializable
 data class AlbumTrack(
     val id: Int,
     val readable: Boolean,

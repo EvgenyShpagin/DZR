@@ -81,7 +81,7 @@ data class ChartArtists(
     val data: List<ChartArtist>
 )
 
-@Serializable // TODO: differs with brief version by position
+@Serializable
 data class ChartArtist(
     val id: Int,
     val name: String,
@@ -97,7 +97,7 @@ data class ChartArtist(
     val type: String
 )
 
-@Serializable // TODO: rename
+@Serializable
 data class ChartArtistBrief(
     val id: Int,
     val name: String,
@@ -112,13 +112,10 @@ data class ChartArtistBrief(
     val type: String
 )
 
-// TODO: mb interface positioned (in chart)
-
 @Serializable
 data class ChartPlaylists(
     val data: List<ChartPlaylist>
 )
-
 
 @Serializable
 data class ChartPlaylist(

@@ -53,5 +53,4 @@ data class EditorialSelectionAlbum(
     @SerialName("explicit_lyrics") val explicitLyrics: Boolean,
     val artist: ArtistBrief,
     val type: String
-
 )

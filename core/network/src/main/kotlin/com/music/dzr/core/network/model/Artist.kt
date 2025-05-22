@@ -12,8 +12,8 @@ data class ArtistBrief(
     val type: String
 )
 
-@Serializable // TODO: rename
-data class ArtistBriefWithPic(
+@Serializable
+data class ArtistBriefWithPicture(
     val id: Int,
     val name: String,
     val link: String? = null,
@@ -25,7 +25,6 @@ data class ArtistBriefWithPic(
     val tracklist: String,
     val type: String
 )
-
 
 @Serializable
 data class Artist(
@@ -45,7 +44,6 @@ data class Artist(
     val type: String
 )
 
-// Returned in GET ARTIST TOP TRACKS
 @Serializable
 data class ArtistTopTrack(
     val id: Int,
@@ -65,7 +63,6 @@ data class ArtistTopTrack(
     val album: AlbumBrief
 )
 
-// Returned in GET ARTIST ALBUMS
 @Serializable
 data class ArtistAlbum(
     val id: Int,
@@ -99,7 +96,6 @@ data class ArtistRadioAlbum(
 )
 
 
-// Returned in GET ARTIST RADIO
 @Serializable
 data class ArtistRadio(
     val data: List<ArtistRadioTrack>
@@ -116,7 +112,7 @@ data class ArtistRadioTrack(
     val rank: Int,
     @SerialName("explicit_lyrics") val explicitLyrics: Boolean,
     val preview: String,
-    val artist: ArtistBriefWithPic,
+    val artist: ArtistBriefWithPicture,
     val album: AlbumBrief
 )
 

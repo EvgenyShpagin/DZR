@@ -32,7 +32,6 @@ data class SearchTrack(
     val type: String
 )
 
-// Corresponds to album and track
 @Serializable
 data class SearchArtistBrief(
     val id: Int,

@@ -67,7 +67,7 @@ data class RadioTrack(
     val preview: String,
     val alternative: RadioTrackAlternative?,
     @SerialName("md5_image") val md5Image: String,
-    val artist: ArtistBriefWithPic,
+    val artist: ArtistBriefWithPicture,
     val album: RadioTrackAlbum
 )
 
@@ -86,7 +86,7 @@ data class RadioTrackAlternative(
     @SerialName("explicit_content_cover") val explicitContentCover: Int,
     val preview: String,
     @SerialName("md5_image") val md5Image: String,
-    val artist: ArtistBriefWithPic,
+    val artist: ArtistBriefWithPicture,
     val album: RadioTrackAlbum
 )
 
