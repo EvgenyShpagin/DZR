@@ -123,29 +123,3 @@ data class SearchPlaylist(
     val user: PlaylistCreator,
     val type: String
 )
-
-/**
- * Параметры для поиска контента
- */
-@Serializable
-data class SearchParams(
-    val strict: Boolean,
-    val order: SearchOrder
-)
-
-/**
- * Порядок сортировки результатов поиска
- */
-enum class SearchOrder {
-    RANKING,
-    TRACK_ASC,
-    TRACK_DESC,
-    ARTIST_ASC,
-    ARTIST_DESC,
-    ALBUM_ASC,
-    ALBUM_DESC,
-    RATING_ASC,
-    RATING_DESC,
-    DURATION_ASC,
-    DURATION_DESC
-}
