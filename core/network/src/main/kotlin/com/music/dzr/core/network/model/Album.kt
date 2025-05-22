@@ -32,23 +32,40 @@ data class Album(
     @SerialName("explicit_content_cover") val explicitContentCover: Int,
     val contributors: List<Contributor>,
     val fallback: AlbumFallback,
-    val artist: AlbumArtist,
-    val tracks: List<AlbumTrack>
+    val artist: ArtistBriefWithPic,
+    val tracks: AlbumTrackList
 )
 
-@Serializable
-data class AlbumArtist(
-    val id: Int,
-    val name: String,
-    val picture: String,
-    @SerialName("picture_small") val pictureSmall: String,
-    @SerialName("picture_medium") val pictureMedium: String,
-    @SerialName("picture_big") val pictureBig: String,
-    @SerialName("picture_xl") val pictureXl: String,
-)
-
-@Serializable
+// Returned from GET ALBUM TRACKS
+@Serializable // TODO: similar
 data class AlbumTrack(
+    val id: Int,
+    val readable: Boolean,
+    val title: String,
+    @SerialName("title_short") val titleShort: String,
+    @SerialName("title_version") val titleVersion: String,
+    val isrc: String,
+    val link: String,
+    val duration: Int,
+    @SerialName("track_position") val trackPosition: Int,
+    @SerialName("disk_number") val diskNumber: Int,
+    val rank: Int,
+    @SerialName("explicit_lyrics") val explicitLyrics: Boolean,
+    @SerialName("explicit_content_lyrics") val explicitContentLyrics: Int,
+    @SerialName("explicit_content_cover") val explicitContentCover: Int,
+    val preview: String,
+    @SerialName("md5_image") val md5Image: String,
+    val artist: ArtistBrief,
+    val type: String
+)
+
+@Serializable
+data class AlbumTrackList(
+    val data: List<AlbumTrackBrief>
+)
+
+@Serializable
+data class AlbumTrackBrief(
     val id: Int,
     val readable: Boolean,
     val title: String,
@@ -58,13 +75,17 @@ data class AlbumTrack(
     val duration: Int,
     val rank: Int,
     @SerialName("explicit_lyrics") val explicitLyrics: Boolean,
+    @SerialName("explicit_content_lyrics") val explicitContentLyrics: Int,
+    @SerialName("explicit_content_cover") val explicitContentCover: Int,
     val preview: String,
+    @SerialName("md5_image") val md5Image: String,
     val artist: ArtistBrief,
-    val album: AlbumSummary
+    val album: AlbumBrief,
+    val type: String
 )
 
 @Serializable
-data class AlbumSummary(
+data class AlbumBrief(
     val id: Int,
     val title: String,
     val cover: String,
@@ -72,6 +93,9 @@ data class AlbumSummary(
     @SerialName("cover_medium") val coverMedium: String,
     @SerialName("cover_big") val coverBig: String,
     @SerialName("cover_xl") val coverXl: String,
+    @SerialName("md5_image") val md5Image: String,
+    val tracklist: String,
+    val type: String
 )
 
 @Serializable
