@@ -4,6 +4,10 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Contains complete Deezer user profile data.
+ * Includes both private and public user profile information.
+ */
 @Serializable
 data class FullUser(
     val id: Int,

@@ -3,6 +3,9 @@ package com.music.dzr.core.network.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Contains part of Deezer user profile data.
+ */
 @Serializable
 data class PublicUser(
     val id: Int,
