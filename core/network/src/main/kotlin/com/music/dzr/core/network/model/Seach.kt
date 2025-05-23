@@ -46,6 +46,12 @@ data class SearchArtistBrief(
 typealias SearchArtist = Artist
 typealias SearchTrackAlbum = AlbumBrief
 
+/**
+ * Represents paginated search results for albums.
+ * Contains albums matching search query with pagination support.
+ */
+typealias SearchedAlbums = PaginatedList<SearchAlbum>
+
 @Serializable
 data class SearchAlbum(
     val id: Int,
