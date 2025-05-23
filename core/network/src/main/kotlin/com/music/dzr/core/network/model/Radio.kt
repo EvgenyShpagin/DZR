@@ -51,7 +51,7 @@ typealias TitledGenreRadioList = WholeList<TitledGenreRadio>
  * Represents a genre group containing multiple radio.
  */
 @Serializable
-data class RadioByGenre(
+data class TitledGenreRadio(
     val id: Int,
     val title: String,
     val radios: List<RadioBrief>
