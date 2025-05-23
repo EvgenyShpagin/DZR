@@ -3,6 +3,10 @@ package com.music.dzr.core.network.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Represents a full track in Deezer.
+ * Contains detailed metadata.
+ */
 @Serializable
 data class Track(
     val id: Int,
@@ -36,7 +40,7 @@ data class Track(
 
 /**
  * Network short representation of a track, used by many other models.
- *
+ * Contains essential metadata for quick reference without full details.
  */
 @Serializable
 data class TrackBrief(
@@ -57,6 +61,10 @@ data class TrackBrief(
     val album: AlbumBrief
 )
 
+/**
+ * Represents album information related to a track.
+ * Contains metadata including cover images, release date, and tracklist URL.
+ */
 @Serializable
 data class TrackAlbum(
     val id: Int,
