@@ -33,7 +33,7 @@ data class Album(
     val contributors: List<Contributor>,
     val fallback: AlbumFallback,
     val artist: ArtistBriefWithPicture,
-    val tracks: AlbumTrackList
+    val tracks: PaginatedList<AlbumTrackBrief>
 )
 
 @Serializable
@@ -58,10 +58,6 @@ data class AlbumTrack(
     val type: String
 )
 
-@Serializable
-data class AlbumTrackList(
-    val data: List<AlbumTrackBrief>
-)
 
 @Serializable
 data class AlbumTrackBrief(
