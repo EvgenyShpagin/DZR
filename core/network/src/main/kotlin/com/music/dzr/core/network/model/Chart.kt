@@ -4,6 +4,10 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Represents Deezer's complete music chart structure.
+ * Contains rankings for tracks, albums, artists, and playlists.
+ */
 @Serializable
 data class Chart(
     val tracks: ChartTracks,
@@ -12,8 +16,16 @@ data class Chart(
     val playlists: ChartPlaylists
 )
 
+/**
+ * Represents a collection of tracks from the chart.
+ * Contains a list of the most popular compositions with positions in the rating
+ */
 typealias ChartTracks = PaginatedList<ChartTrack>
 
+/**
+ * Contains chart track collection with ranking positions.
+ * Lists most popular tracks with chart positions.
+ */
 @Serializable
 data class ChartTrack(
     val id: Int,
@@ -34,6 +46,10 @@ data class ChartTrack(
     val type: String
 )
 
+/**
+ * Represents the album of a track in the context of a chart.
+ * A simplified version of the album for display in track charts.
+ */
 @Serializable
 data class ChartTrackAlbum(
     val id: Int,
@@ -48,8 +64,16 @@ data class ChartTrackAlbum(
     val type: String
 )
 
+/**
+ * Represents a collection of albums from the chart.
+ * Contains a list of the most popular albums with rating positions.
+ */
 typealias ChartAlbums = PaginatedList<ChartAlbum>
 
+/**
+ * Represents a charted album with position information.
+ * Includes the chart position and basic metadata for the album.
+ */
 @Serializable
 data class ChartAlbum(
     val id: Int,
@@ -69,8 +93,16 @@ data class ChartAlbum(
     val type: String
 )
 
+/**
+ * Presents a collection of artists from the chart.
+ * Contains a list of the most popular artists with ranking positions.
+ */
 typealias ChartArtists = PaginatedList<ChartArtist>
 
+/**
+ * Represents a chart artist with position information.
+ * Includes the chart position and basic artist data.
+ */
 @Serializable
 data class ChartArtist(
     val id: Int,
@@ -87,6 +119,10 @@ data class ChartArtist(
     val type: String
 )
 
+/**
+ * Provides a brief overview of the artist in the context of the chart.
+ * A simplified version of the artist for display in track and album charts.
+ */
 @Serializable
 data class ChartArtistBrief(
     val id: Int,
@@ -102,8 +138,16 @@ data class ChartArtistBrief(
     val type: String
 )
 
+/**
+ * Represents a collection of playlists from the chart.
+ * Contains a list of the most popular user playlists.
+ */
 typealias ChartPlaylists = PaginatedList<ChartPlaylist>
 
+/**
+ * Represents a chart playlist with position information.
+ * Includes the chart position and playlist metadata.
+ */
 @Serializable
 data class ChartPlaylist(
     val id: Int,
