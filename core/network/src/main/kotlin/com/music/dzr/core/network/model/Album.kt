@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.model
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -26,7 +27,7 @@ data class Album(
     @SerialName("nb_tracks") val nbTracks: Int,
     val duration: Int,
     val fans: Int,
-    @SerialName("release_date") val releaseDate: String,
+    @SerialName("release_date") val releaseDate: Instant,
     @SerialName("record_type") val recordType: String,
     val available: Boolean,
     val alternative: Album? = null,

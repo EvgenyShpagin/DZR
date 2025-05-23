@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.model
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -101,7 +102,7 @@ data class RadioTrack(
     val link: String,
     val duration: Int,
     val rank: Int,
-    @SerialName("release_date") val releaseDate: String,
+    @SerialName("release_date") val releaseDate: Instant,
     @SerialName("explicit_lyrics") val explicitLyrics: Boolean,
     @SerialName("explicit_content_lyrics") val explicitContentLyrics: Int,
     @SerialName("explicit_content_cover") val explicitContentCover: Int,

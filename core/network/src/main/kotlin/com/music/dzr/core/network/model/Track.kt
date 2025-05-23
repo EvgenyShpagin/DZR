@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.model
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -21,7 +22,7 @@ data class Track(
     @SerialName("track_position") val trackPosition: Int,
     @SerialName("disk_number") val diskNumber: Int,
     val rank: Int,
-    @SerialName("release_date") val releaseDate: String,
+    @SerialName("release_date") val releaseDate: Instant,
     @SerialName("explicit_lyrics") val explicitLyrics: Boolean,
     @SerialName("explicit_content_lyrics") val explicitContentLyrics: Int,
     @SerialName("explicit_content_cover") val explicitContentCover: Int,
@@ -75,7 +76,7 @@ data class TrackAlbum(
     @SerialName("cover_medium") val coverMedium: String,
     @SerialName("cover_big") val coverBig: String,
     @SerialName("cover_xl") val coverXl: String,
-    @SerialName("release_date") val releaseDate: String,
+    @SerialName("release_date") val releaseDate: Instant,
     val tracklist: String,
     val type: String
 )
