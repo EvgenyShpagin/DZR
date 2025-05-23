@@ -1,6 +1,5 @@
 package com.music.dzr.core.network.model
 
-import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -84,25 +83,8 @@ data class SearchUser(
     val type: String
 )
 
-@Serializable
-data class SearchPlaylist(
-    val id: Int,
-    val title: String,
-    val public: Boolean,
-    @SerialName("nb_tracks") val nbTracks: Int,
-    val link: String,
-    val picture: String,
-    @SerialName("picture_small") val pictureSmall: String,
-    @SerialName("picture_medium") val pictureMedium: String,
-    @SerialName("picture_big") val pictureBig: String,
-    @SerialName("picture_xl") val pictureXl: String,
-    val checksum: String,
-    val tracklist: String,
-    @SerialName("creation_date") val creationDate: Instant,
-    @SerialName("add_date") val addDate: Instant,
-    @SerialName("mod_date") val modDate: Instant,
-    @SerialName("md5_image") val md5Image: String,
-    @SerialName("picture_type") val pictureType: String,
-    val user: PlaylistCreator,
-    val type: String
-)
+/**
+ * Network representation of found playlist.
+ * Has [PlaylistBrief.nbTracks]
+ */
+typealias SearchPlaylist = PlaylistBrief
