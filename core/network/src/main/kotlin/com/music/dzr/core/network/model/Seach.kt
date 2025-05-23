@@ -9,6 +9,10 @@ import kotlinx.serialization.Serializable
  */
 typealias SearchTracks = PaginatedList<SearchTrack>
 
+/**
+ * Represents a track found in search results.
+ * Contains detailed metadata including artist, album, and explicit content flags.
+ */
 @Serializable
 data class SearchTrack(
     val id: Int,
@@ -36,6 +40,10 @@ data class SearchTrack(
  */
 typealias SearchedAlbums = PaginatedList<SearchAlbum>
 
+/**
+ * Represents an album found in search results.
+ * Contains essential album metadata with genre information.
+ */
 @Serializable
 data class SearchAlbum(
     val id: Int,
@@ -68,6 +76,10 @@ typealias SearchRadioList = PaginatedList<RadioBrief>
  */
 typealias SearchUserList = PaginatedList<SearchUser>
 
+/**
+ * Represents a user profile found in search results.
+ * Contains public user information and image URLs.
+ */
 @Serializable
 data class SearchUser(
     val id: Int,
