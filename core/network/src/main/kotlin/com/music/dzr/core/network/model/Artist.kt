@@ -1,8 +1,13 @@
 package com.music.dzr.core.network.model
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Represents basic artist information for reference purposes.
+ * Contains core identifiers and navigation URLs.
+ */
 @Serializable
 data class ArtistBrief(
     val id: Int,
@@ -12,6 +17,10 @@ data class ArtistBrief(
     val type: String
 )
 
+/**
+ * Represents artist brief information with profile images.
+ * Extended version of ArtistBrief with various image size URLs.
+ */
 @Serializable
 data class ArtistBriefWithPicture(
     val id: Int,
@@ -26,8 +35,17 @@ data class ArtistBriefWithPicture(
     val type: String
 )
 
+/**
+ * Represents a list of related artists for a given artist.
+ * Used for displaying artists similar to the current artist.
+ */
 typealias RelatedArtistList = PaginatedList<Artist>
 
+/**
+ * Contains comprehensive artist information.
+ * Includes all available artist metadata including statistics and media.
+ * Related and found artists using search have no [share].
+ */
 @Serializable
 data class Artist(
     val id: Int,
@@ -46,6 +64,16 @@ data class Artist(
     val type: String
 )
 
+/**
+ * Represents a paginated list of an artist's top tracks.
+ * Contains the most popular tracks for a specific artist.
+ */
+typealias ArtistTopTrackList = PaginatedList<ArtistTopTrack>
+
+/**
+ * Represents artist's top track with complete information.
+ * Used to display artist's most popular compositions.
+ */
 @Serializable
 data class ArtistTopTrack(
     val id: Int,
@@ -65,6 +93,16 @@ data class ArtistTopTrack(
     val album: AlbumBrief
 )
 
+/**
+ * Represents a paginated list of albums by an artist.
+ * Used to display all albums released by a specific artist.
+ */
+typealias ArtistAlbums = PaginatedList<ArtistAlbum>
+
+/**
+ * Represents album in artist context.
+ * Contains album information emphasizing connection to specific artist.
+ */
 @Serializable
 data class ArtistAlbum(
     val id: Int,
@@ -85,6 +123,9 @@ data class ArtistAlbum(
     val type: String
 )
 
+/**
+ * Represents simplified album version for radio playlists.
+ */
 @Serializable
 data class ArtistRadioAlbum(
     val id: Int,
@@ -98,6 +139,11 @@ data class ArtistRadioAlbum(
     val type: String
 )
 
+/**
+ * Represents artist radio track collection.
+ * Contains auto-generated playlist based on artist's style.
+ * Has no link to track on Deezer ([TrackBrief.link])
+ */
 typealias ArtistRadio = WholeList<TrackBrief>
 
 /**
