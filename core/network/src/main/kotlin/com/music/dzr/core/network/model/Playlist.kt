@@ -115,3 +115,14 @@ data class PlaylistTrackAlbum(
     val tracklist: String,
     val type: String
 )
+
+/**
+ * Represents the creator of a playlist.
+ */
+@Serializable
+data class PlaylistCreator(
+    @SerialName("id") val userId: Int,
+    @SerialName("name") val username: String,
+    val tracklist: String,
+    val type: String
+)

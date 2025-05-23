@@ -4,6 +4,17 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
+ * Generic response class for Deezer API.
+ * Contains only a list of items.
+ *
+ * @param T The type of items contained in the response.
+ */
+@Serializable
+data class WholeList<T>(
+    val data: List<T>
+)
+
+/**
  * Generic pagination response class for Deezer API.
  * Contains a list of items, total count, and a link to the next page if available.
  *
