@@ -72,8 +72,6 @@ data class SearchAlbum(
  */
 typealias SearchRadioList = PaginatedList<RadioBrief>
 
-typealias SearchRadio = RadioBrief
-
 /**
  * Represents paginated search results for users.
  * Contains user profiles matching search criteria.
