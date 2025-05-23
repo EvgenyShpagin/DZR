@@ -18,6 +18,8 @@ data class Editorial(
     val type: String
 )
 
+typealias EditorialReleases = PaginatedList<EditorialReleasesAlbum>
+
 @Serializable
 data class EditorialReleasesAlbum(
     val id: Int,
@@ -33,6 +35,8 @@ data class EditorialReleasesAlbum(
     val artist: ArtistBrief,
     val type: String
 )
+
+typealias EditorialSelections = WholeList<EditorialSelectionAlbum>
 
 @Serializable
 data class EditorialSelectionAlbum(
