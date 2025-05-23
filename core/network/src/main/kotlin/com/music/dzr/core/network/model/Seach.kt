@@ -46,23 +46,7 @@ data class SearchArtistBrief(
     val type: String
 )
 
-@Serializable
-data class SearchArtist(
-    val id: Int,
-    val name: String,
-    val link: String,
-    val picture: String,
-    @SerialName("picture_small") val pictureSmall: String,
-    @SerialName("picture_medium") val pictureMedium: String,
-    @SerialName("picture_big") val pictureBig: String,
-    @SerialName("picture_xl") val pictureXl: String,
-    @SerialName("nb_album") val nbAlbum: Int,
-    @SerialName("nb_fan") val nbFan: Int,
-    val radio: Boolean,
-    val tracklist: String,
-    val type: String
-)
-
+typealias SearchArtist = Artist
 typealias SearchTrackAlbum = AlbumBrief
 
 @Serializable
