@@ -57,10 +57,7 @@ data class PlaylistBrief(
     val type: String
 )
 
-@Serializable
-data class PlaylistTracks(
-    val data: List<PlaylistTrack>
-)
+typealias PlaylistTracks = PaginatedList<PlaylistTrack>
 
 @Serializable
 data class PlaylistTrack(
