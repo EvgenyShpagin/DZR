@@ -3,6 +3,10 @@ package com.music.dzr.core.network.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Represents contributor/co-author of musical work.
+ * Contains information about artist's role in track/album creation.
+ */
 @Serializable
 data class Contributor(
     val id: Int,
