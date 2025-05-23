@@ -68,5 +68,6 @@ data class RadioTrack(
     val alternative: TrackBrief?,
     @SerialName("md5_image") val md5Image: String,
     val artist: ArtistBriefWithPicture,
-    val album: AlbumBrief
+    val album: AlbumBrief,
+    val type: String
 )
