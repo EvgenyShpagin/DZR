@@ -3,6 +3,10 @@ package com.music.dzr.core.network.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Represents complete album information in the Deezer API.
+ * Contains all album metadata including tracks, artist, covers, and statistics.
+ */
 @Serializable
 data class Album(
     val id: Int,
@@ -36,6 +40,10 @@ data class Album(
     val tracks: PaginatedList<AlbumTrackBrief>
 )
 
+/**
+ * Represents complete track information within an album.
+ * Contains detailed track metadata including position, duration, and preview.
+ */
 @Serializable
 data class AlbumTrack(
     val id: Int,
@@ -59,6 +67,10 @@ data class AlbumTrack(
 )
 
 
+/**
+ * Represents concise album track information for list displays.
+ * Contains essential metadata without excessive detail.
+ */
 @Serializable
 data class AlbumTrackBrief(
     val id: Int,
@@ -79,6 +91,10 @@ data class AlbumTrackBrief(
     val type: String
 )
 
+/**
+ * Represents brief album information for use in lists and references.
+ * Contains basic identifiers and URLs of various cover sizes.
+ */
 @Serializable
 data class AlbumBrief(
     val id: Int,
@@ -93,6 +109,10 @@ data class AlbumBrief(
     val type: String
 )
 
+/**
+ * Provides fallback album information when primary data is unavailable.
+ * Used for handling situations when album is temporarily inaccessible.
+ */
 @Serializable
 data class AlbumFallback(
     val id: Int,
