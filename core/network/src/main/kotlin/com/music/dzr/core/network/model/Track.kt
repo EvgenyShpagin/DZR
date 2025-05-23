@@ -34,6 +34,29 @@ data class Track(
     val type: String
 )
 
+/**
+ * Network short representation of a track, used by many other models.
+ *
+ */
+@Serializable
+data class TrackBrief(
+    val id: Int,
+    val readable: Boolean,
+    val title: String,
+    @SerialName("title_short") val titleShort: String,
+    @SerialName("title_version") val titleVersion: String,
+    val link: String? = null,
+    val duration: Int,
+    val rank: Int,
+    @SerialName("explicit_lyrics") val explicitLyrics: Boolean,
+    @SerialName("explicit_content_lyrics") val explicitContentLyrics: Int,
+    @SerialName("explicit_content_cover") val explicitContentCover: Int,
+    val preview: String,
+    @SerialName("md5_image") val md5Image: String,
+    val artist: ArtistBriefWithPicture,
+    val album: AlbumBrief
+)
+
 @Serializable
 data class TrackAlbum(
     val id: Int,
