@@ -17,6 +17,10 @@ data class Genre(
 
 typealias GenreList = WholeList<Genre>
 
+typealias GenreArtistList = WholeList<GenreArtist>
+
+typealias GenreRadioList = WholeList<RadioBrief>
+
 @Serializable
 data class GenreArtist(
     val id: Int,
