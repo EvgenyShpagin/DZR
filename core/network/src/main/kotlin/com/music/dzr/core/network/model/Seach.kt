@@ -3,6 +3,11 @@ package com.music.dzr.core.network.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Represents paginated search results for tracks.
+ * Used when performing track searches via Deezer API with pagination support.
+ */
+typealias SearchTracks = PaginatedList<SearchTrack>
 
 @Serializable
 data class SearchTrack(
