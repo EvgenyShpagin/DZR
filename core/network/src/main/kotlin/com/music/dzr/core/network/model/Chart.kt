@@ -12,10 +12,7 @@ data class Chart(
     val playlists: ChartPlaylists
 )
 
-@Serializable
-data class ChartTracks(
-    val data: List<ChartTrack>
-)
+typealias ChartTracks = PaginatedList<ChartTrack>
 
 @Serializable
 data class ChartTrack(
@@ -51,11 +48,7 @@ data class ChartTrackAlbum(
     val type: String
 )
 
-
-@Serializable
-data class ChartAlbums(
-    val data: List<ChartAlbum>
-)
+typealias ChartAlbums = PaginatedList<ChartAlbum>
 
 @Serializable
 data class ChartAlbum(
@@ -76,10 +69,7 @@ data class ChartAlbum(
     val type: String
 )
 
-@Serializable
-data class ChartArtists(
-    val data: List<ChartArtist>
-)
+typealias ChartArtists = PaginatedList<ChartArtist>
 
 @Serializable
 data class ChartArtist(
@@ -112,10 +102,7 @@ data class ChartArtistBrief(
     val type: String
 )
 
-@Serializable
-data class ChartPlaylists(
-    val data: List<ChartPlaylist>
-)
+typealias ChartPlaylists = PaginatedList<ChartPlaylist>
 
 @Serializable
 data class ChartPlaylist(
