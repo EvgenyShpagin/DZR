@@ -85,10 +85,4 @@ data class SearchUser(
  * Represents a paginated list of playlists matching search.
  * Contains brief info about each playlist (with [PlaylistBrief.nbTracks]).
  */
-typealias SearchPlaylists = PaginatedList<SearchPlaylist>
-
-/**
- * Network representation of found playlist.
- * Has [PlaylistBrief.nbTracks]
- */
-typealias SearchPlaylist = PlaylistBrief
+typealias SearchPlaylists = PaginatedList<PlaylistBrief>
