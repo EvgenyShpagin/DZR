@@ -121,3 +121,7 @@ data class ArtistPlaylist(
     val user: PlaylistCreator,
     val type: String
 )
+/**
+ * Network representation of artist playlists
+ */
+typealias ArtistPlaylists = PaginatedList<ArtistPlaylist>
