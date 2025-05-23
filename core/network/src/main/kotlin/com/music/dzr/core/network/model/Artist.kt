@@ -98,26 +98,7 @@ data class ArtistRadioAlbum(
     val type: String
 )
 
-
-@Serializable
-data class ArtistRadio(
-    val data: List<ArtistRadioTrack>
-)
-
-@Serializable
-data class ArtistRadioTrack(
-    val id: Int,
-    val readable: Boolean,
-    val title: String,
-    @SerialName("title_short") val titleShort: String,
-    @SerialName("title_version") val titleVersion: String,
-    val duration: Int,
-    val rank: Int,
-    @SerialName("explicit_lyrics") val explicitLyrics: Boolean,
-    val preview: String,
-    val artist: ArtistBriefWithPicture,
-    val album: AlbumBrief
-)
+typealias ArtistRadio = WholeList<TrackBrief>
 
 @Serializable
 data class ArtistPlaylist(
