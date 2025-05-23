@@ -68,7 +68,7 @@ data class RadioTrack(
     val alternative: RadioTrackAlternative?,
     @SerialName("md5_image") val md5Image: String,
     val artist: ArtistBriefWithPicture,
-    val album: RadioTrackAlbum
+    val album: AlbumBrief
 )
 
 @Serializable
@@ -87,19 +87,5 @@ data class RadioTrackAlternative(
     val preview: String,
     @SerialName("md5_image") val md5Image: String,
     val artist: ArtistBriefWithPicture,
-    val album: RadioTrackAlbum
-)
-
-@Serializable
-data class RadioTrackAlbum(
-    val id: Int,
-    val title: String,
-    val cover: String,
-    @SerialName("picture_small") val pictureSmall: String,
-    @SerialName("picture_medium") val pictureMedium: String,
-    @SerialName("picture_big") val pictureBig: String,
-    @SerialName("picture_xl") val pictureXl: String,
-    @SerialName("md5_image") val md5Image: String,
-    val tracklist: String,
-    val type: String
+    val album: AlbumBrief
 )
