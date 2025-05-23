@@ -65,26 +65,7 @@ data class RadioTrack(
     @SerialName("explicit_content_lyrics") val explicitContentLyrics: Int,
     @SerialName("explicit_content_cover") val explicitContentCover: Int,
     val preview: String,
-    val alternative: RadioTrackAlternative?,
-    @SerialName("md5_image") val md5Image: String,
-    val artist: ArtistBriefWithPicture,
-    val album: AlbumBrief
-)
-
-@Serializable
-data class RadioTrackAlternative(
-    val id: Int,
-    val readable: Boolean,
-    val title: String,
-    @SerialName("title_short") val titleShort: String,
-    @SerialName("title_version") val titleVersion: String,
-    val link: String,
-    val duration: Int,
-    val rank: Int,
-    @SerialName("explicit_lyrics") val explicitLyrics: Boolean,
-    @SerialName("explicit_content_lyrics") val explicitContentLyrics: Int,
-    @SerialName("explicit_content_cover") val explicitContentCover: Int,
-    val preview: String,
+    val alternative: TrackBrief?,
     @SerialName("md5_image") val md5Image: String,
     val artist: ArtistBriefWithPicture,
     val album: AlbumBrief
