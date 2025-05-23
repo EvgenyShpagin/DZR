@@ -112,5 +112,12 @@ data class ArtistPlaylist(
     @SerialName("picture_big") val pictureBig: String,
     @SerialName("picture_xl") val pictureXl: String,
     val checksum: String,
-    val user: PlaylistCreator
+    val tracklist: String,
+    @SerialName("creation_date") val creationDate: Instant,
+    @SerialName("add_date") val addDate: Instant,
+    @SerialName("mod_date") val modDate: Instant,
+    @SerialName("md5_image") val md5Image: String,
+    @SerialName("picture_type") val pictureType: String,
+    val user: PlaylistCreator,
+    val type: String
 )
