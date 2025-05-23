@@ -24,27 +24,11 @@ data class SearchTrack(
     @SerialName("explicit_content_cover") val explicitContentCover: Int,
     val preview: String,
     @SerialName("md5_image") val md5Image: String,
-    val artist: SearchArtistBrief,
-    val album: SearchTrackAlbum,
+    val artist: ArtistBriefWithPicture,
+    val album: AlbumBrief,
     val type: String
 )
 
-@Serializable
-data class SearchArtistBrief(
-    val id: Int,
-    val name: String,
-    val link: String,
-    val picture: String,
-    @SerialName("picture_small") val pictureSmall: String,
-    @SerialName("picture_medium") val pictureMedium: String,
-    @SerialName("picture_big") val pictureBig: String,
-    @SerialName("picture_xl") val pictureXl: String,
-    val tracklist: String,
-    val type: String
-)
-
-typealias SearchArtist = Artist
-typealias SearchTrackAlbum = AlbumBrief
 
 /**
  * Represents paginated search results for albums.
@@ -68,7 +52,7 @@ data class SearchAlbum(
     @SerialName("record_type") val recordType: String,
     val tracklist: String,
     @SerialName("explicit_lyrics") val explicitLyrics: Boolean,
-    val artist: SearchArtistBrief,
+    val artist: ArtistBriefWithPicture,
     val type: String
 )
 
