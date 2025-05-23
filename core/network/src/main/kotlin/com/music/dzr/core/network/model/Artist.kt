@@ -100,28 +100,13 @@ data class ArtistRadioAlbum(
 
 typealias ArtistRadio = WholeList<TrackBrief>
 
-@Serializable
-data class ArtistPlaylist(
-    val id: Int,
-    val title: String,
-    val public: Boolean,
-    val link: String,
-    val picture: String,
-    @SerialName("picture_small") val pictureSmall: String,
-    @SerialName("picture_medium") val pictureMedium: String,
-    @SerialName("picture_big") val pictureBig: String,
-    @SerialName("picture_xl") val pictureXl: String,
-    val checksum: String,
-    val tracklist: String,
-    @SerialName("creation_date") val creationDate: Instant,
-    @SerialName("add_date") val addDate: Instant,
-    @SerialName("mod_date") val modDate: Instant,
-    @SerialName("md5_image") val md5Image: String,
-    @SerialName("picture_type") val pictureType: String,
-    val user: PlaylistCreator,
-    val type: String
-)
 /**
  * Network representation of artist playlists
  */
 typealias ArtistPlaylists = PaginatedList<ArtistPlaylist>
+
+/**
+ * Network representation of artist playlist.
+ * Has no [PlaylistBrief.nbTracks]
+ */
+typealias ArtistPlaylist = PlaylistBrief
