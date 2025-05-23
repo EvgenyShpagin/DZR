@@ -15,10 +15,7 @@ data class Genre(
     val type: String
 )
 
-@Serializable
-data class GenreList(
-    val data: List<Genre>
-)
+typealias GenreList = WholeList<Genre>
 
 @Serializable
 data class GenreArtist(
