@@ -3,13 +3,6 @@ package com.music.dzr.core.network.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
-data class SearchResult<T>(
-    val data: List<T>,
-    val total: Int,
-    @SerialName("next") val nextResultsUrl: String? = null,
-    @SerialName("prev") val prevResultsUrl: String? = null
-)
 
 @Serializable
 data class SearchTrack(
