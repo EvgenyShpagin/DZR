@@ -33,10 +33,7 @@ data class RadioBrief(
     val type: String
 )
 
-@Serializable
-data class RadioByGenreList(
-    val data: List<RadioByGenre>
-)
+typealias TitledGenreRadioList = WholeList<TitledGenreRadio>
 
 @Serializable
 data class RadioByGenre(
