@@ -26,12 +26,14 @@ data class ArtistBriefWithPicture(
     val type: String
 )
 
+typealias RelatedArtistList = PaginatedList<Artist>
+
 @Serializable
 data class Artist(
     val id: Int,
     val name: String,
     val link: String,
-    val share: String,
+    val share: String? = null,
     val picture: String,
     @SerialName("picture_small") val pictureSmall: String,
     @SerialName("picture_medium") val pictureMedium: String,
