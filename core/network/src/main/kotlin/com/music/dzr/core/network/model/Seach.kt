@@ -66,6 +66,12 @@ data class SearchAlbum(
     val type: String
 )
 
+/**
+ * Represents paginated search results for radio stations.
+ * Contains brief radio information matching search query.
+ */
+typealias SearchRadioList = PaginatedList<RadioBrief>
+
 typealias SearchRadio = RadioBrief
 
 @Serializable
