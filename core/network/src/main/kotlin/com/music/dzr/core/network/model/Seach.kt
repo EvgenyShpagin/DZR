@@ -33,7 +33,6 @@ data class SearchTrack(
     val type: String
 )
 
-
 /**
  * Represents paginated search results for albums.
  * Contains albums matching search query with pagination support.
