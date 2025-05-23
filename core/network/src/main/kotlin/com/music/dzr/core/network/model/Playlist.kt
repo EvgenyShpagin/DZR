@@ -4,6 +4,10 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Represents a full playlist in Deezer.
+ * Contains detailed metadata about the playlist including tracks, creator, images, and dates.
+ */
 @Serializable
 data class Playlist(
     val id: Int,
@@ -34,6 +38,10 @@ data class Playlist(
     val tracks: PlaylistTracks
 )
 
+/**
+ * Represents brief information about a playlist.
+ * Contains essential metadata used for listing playlists without full track details.
+ */
 @Serializable
 data class PlaylistBrief(
     val id: Int,
@@ -57,8 +65,16 @@ data class PlaylistBrief(
     val type: String
 )
 
+/**
+ * Represents a paginated list of tracks within a playlist.
+ * Used to handle large playlists with pagination support when fetching tracks.
+ */
 typealias PlaylistTracks = PaginatedList<PlaylistTrack>
 
+/**
+ * Represents a single track within a playlist.
+ * Contains detailed metadata about the track including artist and album references.
+ */
 @Serializable
 data class PlaylistTrack(
     val id: Int,
@@ -81,6 +97,10 @@ data class PlaylistTrack(
     val type: String
 )
 
+/**
+ * Represents album information related to a playlist track.
+ * Contains metadata about the album including cover images and tracklist URL.
+ */
 @Serializable
 data class PlaylistTrackAlbum(
     val id: Int,
