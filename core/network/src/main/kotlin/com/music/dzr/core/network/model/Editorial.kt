@@ -4,10 +4,7 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
-data class Editorials(
-    val data: List<Editorial>
-)
+typealias Editorials = PaginatedList<Editorial>
 
 @Serializable
 data class Editorial(
