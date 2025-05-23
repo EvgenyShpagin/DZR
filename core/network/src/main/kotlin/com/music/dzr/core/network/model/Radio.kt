@@ -3,6 +3,10 @@ package com.music.dzr.core.network.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Represents a full radio station in Deezer.
+ * Contains detailed metadata including description, share URL, images, and tracklist.
+ */
 @Serializable
 data class Radio(
     val id: Int,
@@ -19,6 +23,10 @@ data class Radio(
     val type: String
 )
 
+/**
+ * Represents a brief version of a radio station.
+ * Contains essential metadata for listing radios without full description.
+ */
 @Serializable
 data class RadioBrief(
     val id: Int,
@@ -33,8 +41,15 @@ data class RadioBrief(
     val type: String
 )
 
+/**
+ * Represents a list of genre-titled radio collections.
+ * Differs from [GenreRadioList] in that it contains id and title of a genre.
+ */
 typealias TitledGenreRadioList = WholeList<TitledGenreRadio>
 
+/**
+ * Represents a genre group containing multiple radio.
+ */
 @Serializable
 data class RadioByGenre(
     val id: Int,
@@ -47,6 +62,10 @@ data class RadioTopTracks(
     val data: List<RadioTrack>
 )
 
+/**
+ * Represents a track played on a radio.
+ * Contains detailed track metadata including artist, album, and explicit content flags.
+ */
 @Serializable
 data class RadioTrack(
     val id: Int,
