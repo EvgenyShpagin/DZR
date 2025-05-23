@@ -74,6 +74,12 @@ typealias SearchRadioList = PaginatedList<RadioBrief>
 
 typealias SearchRadio = RadioBrief
 
+/**
+ * Represents paginated search results for users.
+ * Contains user profiles matching search criteria.
+ */
+typealias SearchUserList = PaginatedList<SearchUser>
+
 @Serializable
 data class SearchUser(
     val id: Int,
