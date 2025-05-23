@@ -18,8 +18,8 @@ data class Radio(
     @SerialName("picture_medium") val pictureMedium: String,
     @SerialName("picture_big") val pictureBig: String,
     @SerialName("picture_xl") val pictureXl: String,
-    @SerialName("md5_image") val md5Image: String,
     val tracklist: String,
+    @SerialName("md5_image") val md5Image: String,
     val type: String
 )
 
