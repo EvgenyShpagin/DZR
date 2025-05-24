@@ -6,6 +6,11 @@ import com.music.dzr.core.network.model.Artist
 import com.music.dzr.core.network.model.ArtistAlbum
 import com.music.dzr.core.network.model.ArtistPlaylist
 import com.music.dzr.core.network.model.ArtistTopTrack
+import com.music.dzr.core.network.model.Chart
+import com.music.dzr.core.network.model.ChartAlbum
+import com.music.dzr.core.network.model.ChartArtist
+import com.music.dzr.core.network.model.ChartPlaylist
+import com.music.dzr.core.network.model.ChartTrack
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.TrackBrief
 import com.music.dzr.core.network.model.WholeList
@@ -99,6 +104,52 @@ private interface RetrofitDzrNetworkApi {
      */
     @GET("artist/{id}/playlists")
     suspend fun getArtistPlaylists(@Path("id") artistId: Long): PaginatedList<ArtistPlaylist>
+
+    // ========== CHART ENDPOINTS ==========
+
+    /**
+     * Retrieves general charts for a specified genre.
+     *
+     * @return A [Chart] object containing various chart data
+     */
+    @GET("chart")
+    suspend fun getCharts(): Chart
+
+    /**
+     * Retrieves the top tracks from charts.
+     *
+     * @param genreId The genre identifier (default: 0 for all genres)
+     * @return A paginated list of top [ChartTrack] objects
+     */
+    @GET("chart/{genre_id}/tracks")
+    suspend fun getTopTracks(@Path("genre_id") genreId: Int = 0): PaginatedList<ChartTrack>
+
+    /**
+     * Retrieves the top albums from charts.
+     *
+     * @param genreId The genre identifier (default: 0 for all genres)
+     * @return A paginated list of top [ChartAlbum] objects
+     */
+    @GET("chart/{genre_id}/albums")
+    suspend fun getTopAlbums(@Path("genre_id") genreId: Int = 0): PaginatedList<ChartAlbum>
+
+    /**
+     * Retrieves the top artists from charts.
+     *
+     * @param genreId The genre identifier (default: 0 for all genres)
+     * @return A paginated list of top [ChartArtist] objects
+     */
+    @GET("chart/{genre_id}/artists")
+    suspend fun getTopArtists(@Path("genre_id") genreId: Int = 0): PaginatedList<ChartArtist>
+
+    /**
+     * Retrieves the top playlists from charts.
+     *
+     * @param genreId The genre identifier (default: 0 for all genres)
+     * @return A paginated list of top [ChartPlaylist] objects
+     */
+    @GET("chart/{genre_id}/playlists")
+    suspend fun getTopPlaylists(@Path("genre_id") genreId: Int = 0): PaginatedList<ChartPlaylist>
 
 }
 
