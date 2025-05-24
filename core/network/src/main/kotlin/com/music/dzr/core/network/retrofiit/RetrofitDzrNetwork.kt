@@ -26,6 +26,7 @@ import com.music.dzr.core.network.model.RadioTrackBrief
 import com.music.dzr.core.network.model.SearchAlbum
 import com.music.dzr.core.network.model.SearchTrack
 import com.music.dzr.core.network.model.SearchUser
+import com.music.dzr.core.network.model.Track
 import com.music.dzr.core.network.model.TrackBrief
 import com.music.dzr.core.network.model.WholeList
 import retrofit2.http.GET
@@ -418,6 +419,17 @@ private interface RetrofitDzrNetworkApi {
         @Query("strict") strict: String? = null,
         @Query("order") order: String? = null
     ): PaginatedList<SearchUser>
+
+    // ========== TRACK ENDPOINTS ==========
+
+    /**
+     * Retrieves detailed information about a specific track.
+     *
+     * @param trackId The unique identifier of the track
+     * @return A [Track] object containing track details
+     */
+    @GET("track/{id}")
+    suspend fun getTrack(@Path("id") trackId: Long): Track
 
 }
 
