@@ -18,14 +18,19 @@ import com.music.dzr.core.network.model.Genre
 import com.music.dzr.core.network.model.GenreArtist
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.Playlist
+import com.music.dzr.core.network.model.PlaylistBrief
 import com.music.dzr.core.network.model.PlaylistTrack
 import com.music.dzr.core.network.model.Radio
 import com.music.dzr.core.network.model.RadioBrief
 import com.music.dzr.core.network.model.RadioTrackBrief
+import com.music.dzr.core.network.model.SearchAlbum
+import com.music.dzr.core.network.model.SearchTrack
+import com.music.dzr.core.network.model.SearchUser
 import com.music.dzr.core.network.model.TrackBrief
 import com.music.dzr.core.network.model.WholeList
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 /**
@@ -306,6 +311,113 @@ private interface RetrofitDzrNetworkApi {
      */
     @GET("radio/lists")
     suspend fun getRadioLists(): PaginatedList<RadioBrief>
+
+    // ========== SEARCH ENDPOINTS ==========
+
+    /**
+     * Searches for tracks across the Deezer catalog.
+     *
+     * @param query The search query string
+     * @param strict Disable fuzzy search mode (use "on" to enable strict mode)
+     * @param order Sort order for results (see SearchOrder enum)
+     * @return A paginated list of [SearchTrack] objects matching the search
+     */
+    @GET("search")
+    suspend fun searchTracks(
+        @Query("q") query: String,
+        @Query("strict") strict: String? = null,
+        @Query("order") order: String? = null
+    ): PaginatedList<SearchTrack>
+
+    /**
+     * Searches for albums across the Deezer catalog.
+     *
+     * @param query The search query string
+     * @param strict Disable fuzzy search mode (use "on" to enable strict mode)
+     * @param order Sort order for results (see SearchOrder enum)
+     * @return A paginated list of [SearchAlbum] objects matching the search
+     */
+    @GET("search/album")
+    suspend fun searchAlbums(
+        @Query("q") query: String,
+        @Query("strict") strict: String? = null,
+        @Query("order") order: String? = null
+    ): PaginatedList<SearchAlbum>
+
+    /**
+     * Searches for artists across the Deezer catalog.
+     *
+     * @param query The search query string
+     * @param strict Disable fuzzy search mode (use "on" to enable strict mode)
+     * @param order Sort order for results (see SearchOrder enum)
+     * @return A paginated list of [Artist] objects matching the search
+     */
+    @GET("search/artist")
+    suspend fun searchArtists(
+        @Query("q") query: String,
+        @Query("strict") strict: String? = null,
+        @Query("order") order: String? = null
+    ): PaginatedList<Artist>
+
+    /**
+     * Retrieves user's search history.
+     *
+     * @param query The search query string to filter history
+     * @param strict Disable fuzzy search mode (use "on" to enable strict mode)
+     * @param order Sort order for results (see SearchOrder enum)
+     * @return A list of search history as [Radio] object
+     */
+    @GET("search/history")
+    suspend fun getSearchHistory(
+        @Query("q") query: String,
+        @Query("strict") strict: String? = null,
+        @Query("order") order: String? = null
+    ): WholeList<RadioBrief>
+
+    /**
+     * Searches for playlists across the Deezer catalog.
+     *
+     * @param query The search query string
+     * @param strict Disable fuzzy search mode (use "on" to enable strict mode)
+     * @param order Sort order for results (see SearchOrder enum)
+     * @return A list of [PlaylistBrief] objects matching the search
+     */
+    @GET("search/playlist")
+    suspend fun searchPlaylists(
+        @Query("q") query: String,
+        @Query("strict") strict: String? = null,
+        @Query("order") order: String? = null
+    ): PaginatedList<PlaylistBrief>
+
+    /**
+     * Searches for radio stations across the Deezer catalog.
+     *
+     * @param query The search query string
+     * @param strict Disable fuzzy search mode (use "on" to enable strict mode)
+     * @param order Sort order for results (see SearchOrder enum)
+     * @return A list of [RadioBrief] objects matching the search
+     */
+    @GET("search/radio")
+    suspend fun searchRadios(
+        @Query("q") query: String,
+        @Query("strict") strict: String? = null,
+        @Query("order") order: String? = null
+    ): PaginatedList<RadioBrief>
+
+    /**
+     * Searches for users across the Deezer platform.
+     *
+     * @param query The search query string
+     * @param strict Disable fuzzy search mode (use "on" to enable strict mode)
+     * @param order Sort order for results (see SearchOrder enum)
+     * @return A list of [SearchUser] objects matching the search
+     */
+    @GET("search/user")
+    suspend fun searchUsers(
+        @Query("q") query: String,
+        @Query("strict") strict: String? = null,
+        @Query("order") order: String? = null
+    ): PaginatedList<SearchUser>
 
 }
 
