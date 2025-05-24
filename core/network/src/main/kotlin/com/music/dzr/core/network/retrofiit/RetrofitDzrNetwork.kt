@@ -14,7 +14,10 @@ import com.music.dzr.core.network.model.ChartTrack
 import com.music.dzr.core.network.model.Editorial
 import com.music.dzr.core.network.model.EditorialReleasesAlbum
 import com.music.dzr.core.network.model.EditorialSelectionAlbum
+import com.music.dzr.core.network.model.Genre
+import com.music.dzr.core.network.model.GenreArtist
 import com.music.dzr.core.network.model.PaginatedList
+import com.music.dzr.core.network.model.RadioBrief
 import com.music.dzr.core.network.model.TrackBrief
 import com.music.dzr.core.network.model.WholeList
 import retrofit2.http.GET
@@ -190,6 +193,43 @@ private interface RetrofitDzrNetworkApi {
      */
     @GET("editorial/{id}/releases")
     suspend fun getEditorialReleases(@Path("id") editorialId: Int): PaginatedList<EditorialReleasesAlbum>
+
+    // ========== GENRE ENDPOINTS ==========
+
+    /**
+     * Retrieves all available music genres.
+     *
+     * @return A list of [Genre] objects
+     */
+    @GET("genre")
+    suspend fun getGenres(): WholeList<Genre>
+
+    /**
+     * Retrieves detailed information about a specific genre.
+     *
+     * @param genreId The unique identifier of the genre
+     * @return A [Genre] object containing genre details
+     */
+    @GET("genre/{id}")
+    suspend fun getGenre(@Path("id") genreId: Int): Genre
+
+    /**
+     * Retrieves all artists associated with a specific genre.
+     *
+     * @param genreId The unique identifier of the genre
+     * @return A list of [GenreArtist] objects from the specified genre
+     */
+    @GET("genre/{id}/artists")
+    suspend fun getGenreArtists(@Path("id") genreId: Int): WholeList<GenreArtist>
+
+    /**
+     * Retrieves all radios associated with a specific genre.
+     *
+     * @param genreId The unique identifier of the genre
+     * @return A list of [RadioBrief] objects from the specified genre
+     */
+    @GET("genre/{id}/radios")
+    suspend fun getGenreRadios(@Path("id") genreId: Int): WholeList<RadioBrief>
 
 }
 
