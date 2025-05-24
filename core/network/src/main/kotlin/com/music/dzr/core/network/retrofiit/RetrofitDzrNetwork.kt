@@ -11,6 +11,9 @@ import com.music.dzr.core.network.model.ChartAlbum
 import com.music.dzr.core.network.model.ChartArtist
 import com.music.dzr.core.network.model.ChartPlaylist
 import com.music.dzr.core.network.model.ChartTrack
+import com.music.dzr.core.network.model.Editorial
+import com.music.dzr.core.network.model.EditorialReleasesAlbum
+import com.music.dzr.core.network.model.EditorialSelectionAlbum
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.TrackBrief
 import com.music.dzr.core.network.model.WholeList
@@ -150,6 +153,43 @@ private interface RetrofitDzrNetworkApi {
      */
     @GET("chart/{genre_id}/playlists")
     suspend fun getTopPlaylists(@Path("genre_id") genreId: Int = 0): PaginatedList<ChartPlaylist>
+
+    // ========== EDITORIAL ENDPOINTS ==========
+
+    /**
+     * Retrieves all available editorial objects.
+     *
+     * @return A paginated list of [Editorial] objects
+     */
+    @GET("editorial")
+    suspend fun getEditorials(): PaginatedList<Editorial>
+
+    /**
+     * Retrieves detailed information about a specific editorial.
+     *
+     * @param editorialId The unique identifier of the editorial (same as genre id)
+     * @return A [Editorial] object containing editorial details
+     */
+    @GET("editorial/{id}")
+    suspend fun getEditorial(@Path("id") editorialId: Int): Editorial
+
+    /**
+     * Retrieves albums selected weekly by the Deezer Team.
+     *
+     * @param editorialId The unique identifier of the editorial (same as genre id)
+     * @return A list of [EditorialSelectionAlbum] objects representing the weekly selection
+     */
+    @GET("editorial/{id}/selection")
+    suspend fun getEditorialSelection(@Path("id") editorialId: Int): WholeList<EditorialSelectionAlbum>
+
+    /**
+     * Retrieves new releases per genre for the current country.
+     *
+     * @param editorialId The unique identifier of the editorial (same as genre id)
+     * @return A paginated list of [EditorialReleasesAlbum] objects representing new releases
+     */
+    @GET("editorial/{id}/releases")
+    suspend fun getEditorialReleases(@Path("id") editorialId: Int): PaginatedList<EditorialReleasesAlbum>
 
 }
 
