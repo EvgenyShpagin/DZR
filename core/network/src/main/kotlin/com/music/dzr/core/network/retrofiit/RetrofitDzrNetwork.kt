@@ -19,7 +19,9 @@ import com.music.dzr.core.network.model.GenreArtist
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.Playlist
 import com.music.dzr.core.network.model.PlaylistTrack
+import com.music.dzr.core.network.model.Radio
 import com.music.dzr.core.network.model.RadioBrief
+import com.music.dzr.core.network.model.RadioTrackBrief
 import com.music.dzr.core.network.model.TrackBrief
 import com.music.dzr.core.network.model.WholeList
 import retrofit2.http.GET
@@ -252,6 +254,58 @@ private interface RetrofitDzrNetworkApi {
      */
     @GET("playlist/{id}/tracks")
     suspend fun getPlaylistTracks(@Path("id") playlistId: Long): PaginatedList<PlaylistTrack>
+
+    // ========== RADIO ENDPOINTS ==========
+
+    /**
+     * Retrieves all available radio stations.
+     *
+     * @return A paginated list of [RadioBrief] objects
+     */
+    @GET("radio")
+    suspend fun getRadios(): PaginatedList<RadioBrief>
+
+    /**
+     * Retrieves detailed information about a specific radio station.
+     *
+     * @param radioId The unique identifier of the radio station
+     * @return A [Radio] object containing radio details
+     */
+    @GET("radio/{id}")
+    suspend fun getRadio(@Path("id") radioId: Int): Radio
+
+    /**
+     * Retrieves radio stations organized by genre.
+     *
+     * @return A paginated list of [RadioBrief] objects grouped by genre
+     */
+    @GET("radio/genres")
+    suspend fun getRadioGenres(): PaginatedList<RadioBrief>
+
+    /**
+     * Retrieves the top radio stations (default: 25 radios).
+     *
+     * @return A list of top [RadioBrief] objects
+     */
+    @GET("radio/top")
+    suspend fun getTopRadios(): PaginatedList<RadioBrief>
+
+    /**
+     * Retrieves the first 40 tracks from a specific radio station.
+     *
+     * @param radioId The unique identifier of the radio station
+     * @return A paginated list of [RadioTrackBrief] objects from the radio
+     */
+    @GET("radio/{id}/tracks")
+    suspend fun getRadioTracks(@Path("id") radioId: Int): PaginatedList<RadioTrackBrief>
+
+    /**
+     * Retrieves personal radio lists organized by genre (similar to MIX on website).
+     *
+     * @return A paginated list of personalized [RadioBrief] objects
+     */
+    @GET("radio/lists")
+    suspend fun getRadioLists(): PaginatedList<RadioBrief>
 
 }
 
