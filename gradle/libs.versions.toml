@@ -14,6 +14,7 @@ coil = "3.2.0"
 mockkAndroid = "1.13.13"
 serialization = "1.6.3"
 kotlinxDatetime = "0.6.1"
+retrofit = "2.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,6 +41,7 @@ androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockkAndroid" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
+retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
