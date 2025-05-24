@@ -90,7 +90,8 @@ data class ArtistTopTrack(
     val preview: String,
     val contributors: List<Contributor>,
     val artist: ArtistBrief,
-    val album: AlbumBrief
+    val album: AlbumBrief,
+    val type: String
 )
 
 /**
