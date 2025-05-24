@@ -17,6 +17,8 @@ import com.music.dzr.core.network.model.EditorialSelectionAlbum
 import com.music.dzr.core.network.model.Genre
 import com.music.dzr.core.network.model.GenreArtist
 import com.music.dzr.core.network.model.PaginatedList
+import com.music.dzr.core.network.model.Playlist
+import com.music.dzr.core.network.model.PlaylistTrack
 import com.music.dzr.core.network.model.RadioBrief
 import com.music.dzr.core.network.model.TrackBrief
 import com.music.dzr.core.network.model.WholeList
@@ -230,6 +232,26 @@ private interface RetrofitDzrNetworkApi {
      */
     @GET("genre/{id}/radios")
     suspend fun getGenreRadios(@Path("id") genreId: Int): WholeList<RadioBrief>
+
+    // ========== PLAYLIST ENDPOINTS ==========
+
+    /**
+     * Retrieves detailed information about a specific playlist.
+     *
+     * @param playlistId The unique identifier of the playlist
+     * @return A [Playlist] object containing playlist details
+     */
+    @GET("playlist/{id}")
+    suspend fun getPlaylist(@Path("id") playlistId: Long): Playlist
+
+    /**
+     * Retrieves all tracks from a specific playlist.
+     *
+     * @param playlistId The unique identifier of the playlist
+     * @return A paginated list of [PlaylistTrack] objects representing the playlist's tracks
+     */
+    @GET("playlist/{id}/tracks")
+    suspend fun getPlaylistTracks(@Path("id") playlistId: Long): PaginatedList<PlaylistTrack>
 
 }
 
