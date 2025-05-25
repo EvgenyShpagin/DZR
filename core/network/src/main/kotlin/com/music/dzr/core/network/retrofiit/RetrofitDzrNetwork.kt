@@ -1,9 +1,12 @@
 package com.music.dzr.core.network.retrofiit
 
 import com.music.dzr.core.network.model.Album
+import com.music.dzr.core.network.model.AlbumBrief
 import com.music.dzr.core.network.model.AlbumTrack
 import com.music.dzr.core.network.model.Artist
 import com.music.dzr.core.network.model.ArtistAlbum
+import com.music.dzr.core.network.model.ArtistBrief
+import com.music.dzr.core.network.model.ArtistBriefWithPicture
 import com.music.dzr.core.network.model.ArtistPlaylist
 import com.music.dzr.core.network.model.ArtistTopTrack
 import com.music.dzr.core.network.model.Chart
@@ -14,12 +17,15 @@ import com.music.dzr.core.network.model.ChartTrack
 import com.music.dzr.core.network.model.Editorial
 import com.music.dzr.core.network.model.EditorialReleasesAlbum
 import com.music.dzr.core.network.model.EditorialSelectionAlbum
+import com.music.dzr.core.network.model.FullUser
 import com.music.dzr.core.network.model.Genre
 import com.music.dzr.core.network.model.GenreArtist
 import com.music.dzr.core.network.model.PaginatedList
+import com.music.dzr.core.network.model.Permission
 import com.music.dzr.core.network.model.Playlist
 import com.music.dzr.core.network.model.PlaylistBrief
 import com.music.dzr.core.network.model.PlaylistTrack
+import com.music.dzr.core.network.model.PublicUser
 import com.music.dzr.core.network.model.Radio
 import com.music.dzr.core.network.model.RadioBrief
 import com.music.dzr.core.network.model.RadioTrackBrief
@@ -430,6 +436,160 @@ private interface RetrofitDzrNetworkApi {
      */
     @GET("track/{id}")
     suspend fun getTrack(@Path("id") trackId: Long): Track
+
+    // ========== USER ENDPOINTS ==========
+    /* API doesn't support authentication at the moment, so the implementation
+    of user-related methods is imprecise and always returns OAuthException */
+
+    /**
+     * Retrieves information about the current authenticated user.
+     */
+    @GET("user/me")
+    suspend fun getCurrentUser(): FullUser
+
+    /**
+     * Retrieves the current user's favorite albums.
+     */
+    @GET("user/me/albums")
+    suspend fun getUserFavoriteAlbums(): PaginatedList<AlbumBrief>
+
+    /**
+     * Retrieves the current user's favorite artists.
+     *
+     * @return A paginated list of [ArtistBriefWithPicture] objects from user's favorites
+     */
+    @GET("user/me/artists")
+    suspend fun getUserFavoriteArtists(): PaginatedList<ArtistBriefWithPicture>
+
+    /**
+     * Retrieves the current user's top 25 tracks.
+     *
+     * @return A paginated list of user's most played [TrackBrief] objects
+     */
+    @GET("user/me/charts/tracks")
+    suspend fun getUserTopTracks(): PaginatedList<TrackBrief>
+
+    /**
+     * Retrieves the current user's top albums.
+     *
+     * @return A list of user's most played [AlbumBrief] objects
+     */
+    @GET("user/me/charts/albums")
+    suspend fun getUserTopAlbums(): WholeList<AlbumBrief>
+
+    /**
+     * Retrieves the current user's top playlists.
+     *
+     * @return A list of user's most played [PlaylistBrief] objects
+     */
+    @GET("user/me/charts/playlists")
+    suspend fun getUserTopPlaylists(): WholeList<PlaylistBrief>
+
+    /**
+     * Retrieves the current user's top artists.
+     *
+     * @return A list of user's most played [ArtistBriefWithPicture] objects
+     */
+    @GET("user/me/charts/artists")
+    suspend fun getUserTopArtists(): WholeList<ArtistBriefWithPicture>
+
+    /**
+     * Retrieves the current user's flow tracks (personalized recommendations).
+     *
+     * @return A list of personalized [TrackBrief] objects
+     */
+    @GET("user/me/flow")
+    suspend fun getUserFlowTracks(): WholeList<TrackBrief>
+
+    /**
+     * Retrieves the list of users that the current user is following.
+     *
+     * @return A list of [PublicUser] objects representing following users
+     */
+    @GET("user/me/followings")
+    suspend fun getUserFollowings(): WholeList<PublicUser>
+
+    /**
+     * Retrieves the list of users that follows current user.
+     *
+     * @return A list of [PublicUser] objects representing followed users
+     */
+    @GET("user/me/followers")
+    suspend fun getUserFollowers(): WholeList<PublicUser>
+
+    /**
+     * Retrieves user's search history.
+     *
+     * @return A list of search history as [Radio] object
+     */
+    @GET("user/me/history")
+    suspend fun getUserHistory(): WholeList<RadioBrief>
+
+    /**
+     * Provides information about what permissions the user has granted to the application.
+     */
+    @GET("user/me/permissions")
+    suspend fun getUserPermissions(): WholeList<Permission>
+
+    /**
+     * Returns tracks that the user has uploaded or added as personal content.
+     */
+    @GET("user/me/personal_songs")
+    suspend fun getUserPersonalSongs(): WholeList<TrackBrief>
+
+    /**
+     * Retrieves all playlists created by the user. Requires appropriate permissions for private playlists.
+     */
+    @GET("user/me/playlists")
+    suspend fun getUserPlaylists(): WholeList<PlaylistBrief>
+
+    /**
+     * Returns radio stations that the user has marked as favorites.
+     */
+    @GET("user/me/radios")
+    suspend fun getUserFavoriteRadios(): WholeList<RadioBrief>
+
+    /**
+     * Provides album recommendations tailored to the user's listening preferences.
+     */
+    @GET("user/me/recommendations/albums")
+    suspend fun getUserRecommendedAlbums(): WholeList<AlbumBrief>
+
+    /**
+     * Returns newly released albums recommended specifically for the user.
+     */
+    @GET("user/me/recommendations/releases")
+    suspend fun getUserRecommendedReleases(): WholeList<AlbumBrief>
+
+    /**
+     * Provides artist recommendations based on the user's listening history.
+     */
+    @GET("user/me/recommendations/artists")
+    suspend fun getUserRecommendedArtists(): WholeList<ArtistBrief>
+
+    /**
+     * Returns playlist recommendations personalized for the user.
+     */
+    @GET("user/me/recommendations/playlists")
+    suspend fun getUserRecommendedPlaylists(): WholeList<PlaylistBrief>
+
+    /**
+     * Provides track recommendations based on user preferences and listening patterns.
+     */
+    @GET("user/me/recommendations/tracks")
+    suspend fun getUserRecommendedTracks(): WholeList<TrackBrief>
+
+    /**
+     * Returns radio station recommendations tailored to the user's taste.
+     */
+    @GET("user/me/recommendations/radios")
+    suspend fun getUserRecommendedRadios(): WholeList<RadioBrief>
+
+    /**
+     * Retrieves all tracks that the user has marked as favorites.
+     */
+    @GET("user/me/tracks")
+    suspend fun getUserFavoriteTracks(): WholeList<TrackBrief>
 
 }
 
