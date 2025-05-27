@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.model
 
-import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -22,12 +22,12 @@ data class Album(
     @SerialName("cover_xl") val coverXl: String,
     @SerialName("md5_image") val md5Image: String,
     @SerialName("genre_id") val genreId: Int,
-    @SerialName("genres") val genres: GenreList,
+    @SerialName("genres") val genres: WholeList<AlbumGenre>,
     val label: String,
     @SerialName("nb_tracks") val nbTracks: Int,
     val duration: Int,
     val fans: Int,
-    @SerialName("release_date") val releaseDate: Instant,
+    @SerialName("release_date") val releaseDate: LocalDate,
     @SerialName("record_type") val recordType: String,
     val available: Boolean,
     val alternative: Album? = null,
@@ -36,7 +36,7 @@ data class Album(
     @SerialName("explicit_content_lyrics") val explicitContentLyrics: Int,
     @SerialName("explicit_content_cover") val explicitContentCover: Int,
     val contributors: List<Contributor>,
-    val fallback: AlbumFallback,
+    val fallback: AlbumFallback? = null,
     val artist: ArtistBriefWithPicture,
     val tracks: PaginatedList<AlbumTrackBrief>
 )
@@ -118,4 +118,15 @@ data class AlbumBrief(
 data class AlbumFallback(
     val id: Int,
     val status: String
+)
+
+/**
+ * Represents genre information within an album.
+ */
+@Serializable
+data class AlbumGenre(
+    val id: Int,
+    val name: String,
+    val picture: String,
+    val type: String
 )
