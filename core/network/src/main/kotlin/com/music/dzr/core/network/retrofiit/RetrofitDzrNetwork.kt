@@ -35,7 +35,11 @@ import com.music.dzr.core.network.model.SearchUser
 import com.music.dzr.core.network.model.Track
 import com.music.dzr.core.network.model.TrackBrief
 import com.music.dzr.core.network.model.WholeList
+import retrofit2.http.DELETE
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -591,6 +595,224 @@ private interface RetrofitDzrNetworkApi {
     @GET("user/me/tracks")
     suspend fun getUserFavoriteTracks(): WholeList<TrackBrief>
 
+    /**
+     * Modifies playlist information such as title and description.
+     */
+    @POST("playlist/{playlist_id}")
+    @FormUrlEncoded
+    suspend fun updatePlaylist(
+        @Path("playlist_id") playlistId: Long,
+        @Field("title") title: String? = null,
+        @Field("description") description: String? = null
+    )
+
+    /**
+     * Marks a playlist as viewed by the user.
+     * Requires "basic_access" permissions.
+     */
+    @POST("playlist/{playlist_id}/seen")
+    suspend fun markPlaylistAsSeen(@Path("playlist_id") playlistId: Long)
+
+    /**
+     * Adds one or more tracks to a specified playlist.
+     * Requires "manage_library" permissions.
+     */
+    @POST("playlist/{playlist_id}/tracks")
+    @FormUrlEncoded
+    suspend fun addTracksToPlaylist(
+        @Path("playlist_id") playlistId: Long,
+        @Field("songs") trackIds: String
+    )
+
+    /**
+     * Changes the order of tracks within a playlist.
+     * Requires "manage_library" permissions.
+     */
+    @POST("playlist/{playlist_id}/tracks")
+    @FormUrlEncoded
+    suspend fun reorderPlaylistTracks(
+        @Path("playlist_id") playlistId: Long,
+        @Field("order") trackIds: String
+    )
+
+
+    /**
+     * Modifies information for a user's personal track.
+     * Requires "manage_library" permissions.
+     */
+    @POST("track/{track_id}")
+    @FormUrlEncoded
+    suspend fun updatePersonalTrack(
+        @Path("track_id") trackId: Long,
+        @Field("title") title: String? = null,
+        @Field("artist") artist: String? = null
+    )
+
+    /**
+     * Adds albums to the user's personal library.
+     * Requires "manage_library" permissions.
+     */
+    @POST("user/{user_id}/albums")
+    @FormUrlEncoded
+    suspend fun addAlbumsToLibrary(
+        @Path("user_id") userId: Long,
+        @Field("album_id") albumId: Long
+    )
+
+    /**
+     * Adds artists to the user's favorites list.
+     * Requires "manage_library" permissions.
+     */
+    @POST("user/{user_id}/artists")
+    @FormUrlEncoded
+    suspend fun addArtistsToFavorites(
+        @Path("user_id") userId: Long,
+        @Field("artist_id") artistId: Long
+    )
+
+    /**
+     * Follows another user on the platform.
+     * Requires "manage_community" permissions.
+     */
+    @POST("user/{user_id}/followings")
+    @FormUrlEncoded
+    suspend fun followUser(
+        @Path("user_id") userId: Long,
+        @Field("user_id") targetUserId: Long
+    )
+
+    /**
+     * Adds a notification to the user's activity feed.
+     */
+    @POST("user/{user_id}/notifications")
+    @FormUrlEncoded
+    suspend fun addNotification(
+        @Path("user_id") userId: Long,
+        @Field("message") message: String
+    )
+
+    /**
+     * Creates a new playlist with the specified title.
+     * Requires "manage_library" permissions.
+     */
+    @POST("user/{user_id}/playlists")
+    @FormUrlEncoded
+    suspend fun createPlaylist(
+        @Path("user_id") userId: Long,
+        @Field("title") title: String
+    )
+
+    /**
+     * Adds playlists to the user's favorites.
+     * Requires "manage_library" permissions.
+     */
+    @POST("user/{user_id}/playlists")
+    @FormUrlEncoded
+    suspend fun addPlaylistsToFavorites(
+        @Path("user_id") userId: Long,
+        @Field("playlist_id") playlistId: Long
+    )
+
+    /**
+     * Adds a radio station to the user's favorites.
+     * Requires "manage_library" permissions.
+     */
+    @POST("user/{user_id}/radios")
+    @FormUrlEncoded
+    suspend fun addRadioToFavorites(
+        @Path("user_id") userId: Long,
+        @Field("radio_id") radioId: Int
+    )
+
+    /**
+     * Adds tracks to the user's favorites collection.
+     * Requires "manage_library" permission.
+     */
+    @POST("user/{user_id}/tracks")
+    @FormUrlEncoded
+    suspend fun addTracksToFavorites(
+        @Path("user_id") userId: Long,
+        @Field("track_id") trackId: Long
+    )
+
+    /**
+     * Deletes specified playlist.
+     * Requires "delete_library" permission.
+     */
+    @DELETE("playlist/{playlist_id}")
+    suspend fun deletePlaylist(
+        @Path("playlist_id") playlistId: Long,
+    )
+
+    /**
+     * Removes specified tracks from a playlist.
+     * Requires "delete_library" permission.
+     */
+    @DELETE("playlist/{playlist_id}/tracks")
+    suspend fun removeTracksFromPlaylist(
+        @Path("playlist_id") playlistId: Long,
+        @Query("songs") trackIds: String
+    )
+
+    /**
+     * Removes albums from the user's personal library.
+     * Requires "manage_library" and "delete_library" permissions.
+     */
+    @DELETE("user/{user_id}/albums")
+    suspend fun removeAlbumsFromLibrary(
+        @Path("user_id") userId: Long,
+        @Query("album_id") albumId: Long
+    )
+
+    /**
+     * Removes artists from the user's favorites list.
+     * Requires "manage_library" and "delete_library" permissions.
+     */
+    @DELETE("user/{user_id}/artists")
+    suspend fun removeArtistsFromFavorites(
+        @Path("user_id") userId: Long,
+        @Query("artist_id") artistId: Long
+    )
+
+    /**
+     * Stops following a specific user on the platform.
+     * Requires "manage_library" permission.
+     */
+    @DELETE("user/{user_id}/followings")
+    suspend fun unfollowUser(
+        @Path("user_id") userId: Long,
+        @Query("user_id") targetUserId: Long
+    )
+
+    /**
+     * Removes playlists from the user's favorites collection.
+     * Requires "manage_library" and "delete_library" permissions.
+     */
+    @DELETE("user/{user_id}/playlists")
+    suspend fun removePlaylistsFromFavorites(
+        @Path("user_id") userId: Long,
+        @Query("playlist_id") playlistId: Long
+    )
+
+    /**
+     * Removes a radio station from the user's favorites.
+     * Requires "manage_library" and "delete_library" permissions.
+     */
+    @DELETE("user/{user_id}/radios")
+    suspend fun removeRadioFromFavorites(
+        @Path("user_id") userId: Long,
+        @Query("radio_id") radioId: Int
+    )
+
+    /**
+     * Removes tracks from the user's favorites collection.
+     * Requires delete and manage library permissions.
+     */
+    @DELETE("user/{user_id}/tracks")
+    suspend fun removeTracksFromFavorites(
+        @Path("user_id") userId: Long,
+        @Query("track_id") trackId: Long
+    )
 }
 
 private const val DZR_BASE_URL = "https://api.deezer.com/"
