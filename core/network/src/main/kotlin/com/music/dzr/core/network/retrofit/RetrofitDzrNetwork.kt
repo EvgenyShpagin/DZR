@@ -119,25 +119,25 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves the top tracks from charts.
      */
     @GET("chart/{genre_id}/tracks")
-    suspend fun getTopTracks(@Path("genre_id") genreId: Int = 0): PaginatedList<ChartTrack>
+    suspend fun getTopTracks(@Path("genre_id") genreId: Long = 0): PaginatedList<ChartTrack>
 
     /**
      * Retrieves the top albums from charts.
      */
     @GET("chart/{genre_id}/albums")
-    suspend fun getTopAlbums(@Path("genre_id") genreId: Int = 0): PaginatedList<ChartAlbum>
+    suspend fun getTopAlbums(@Path("genre_id") genreId: Long = 0): PaginatedList<ChartAlbum>
 
     /**
      * Retrieves the top artists from charts.
      */
     @GET("chart/{genre_id}/artists")
-    suspend fun getTopArtists(@Path("genre_id") genreId: Int = 0): PaginatedList<ChartArtist>
+    suspend fun getTopArtists(@Path("genre_id") genreId: Long = 0): PaginatedList<ChartArtist>
 
     /**
      * Retrieves the top playlists from charts.
      */
     @GET("chart/{genre_id}/playlists")
-    suspend fun getTopPlaylists(@Path("genre_id") genreId: Int = 0): PaginatedList<ChartPlaylist>
+    suspend fun getTopPlaylists(@Path("genre_id") genreId: Long = 0): PaginatedList<ChartPlaylist>
 
     // ========== EDITORIAL ENDPOINTS ==========
 
@@ -151,19 +151,19 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves detailed information about a specific editorial.
      */
     @GET("editorial/{id}")
-    suspend fun getEditorial(@Path("id") editorialId: Int): Editorial
+    suspend fun getEditorial(@Path("id") editorialId: Long): Editorial
 
     /**
      * Retrieves albums selected weekly by the Deezer Team.
      */
     @GET("editorial/{id}/selection")
-    suspend fun getEditorialSelection(@Path("id") editorialId: Int): WholeList<EditorialSelectionAlbum>
+    suspend fun getEditorialSelection(@Path("id") editorialId: Long): WholeList<EditorialSelectionAlbum>
 
     /**
      * Retrieves new releases per genre for the current country.
      */
     @GET("editorial/{id}/releases")
-    suspend fun getEditorialReleases(@Path("id") editorialId: Int): PaginatedList<EditorialReleasesAlbum>
+    suspend fun getEditorialReleases(@Path("id") editorialId: Long): PaginatedList<EditorialReleasesAlbum>
 
     // ========== GENRE ENDPOINTS ==========
 
@@ -177,19 +177,19 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves detailed information about a specific genre.
      */
     @GET("genre/{id}")
-    suspend fun getGenre(@Path("id") genreId: Int): Genre
+    suspend fun getGenre(@Path("id") genreId: Long): Genre
 
     /**
      * Retrieves all artists associated with a specific genre.
      */
     @GET("genre/{id}/artists")
-    suspend fun getGenreArtists(@Path("id") genreId: Int): WholeList<GenreArtist>
+    suspend fun getGenreArtists(@Path("id") genreId: Long): WholeList<GenreArtist>
 
     /**
      * Retrieves all radios associated with a specific genre.
      */
     @GET("genre/{id}/radios")
-    suspend fun getGenreRadios(@Path("id") genreId: Int): WholeList<RadioBrief>
+    suspend fun getGenreRadios(@Path("id") genreId: Long): WholeList<RadioBrief>
 
     // ========== PLAYLIST ENDPOINTS ==========
 
@@ -217,7 +217,7 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves detailed information about a specific radio station.
      */
     @GET("radio/{id}")
-    suspend fun getRadio(@Path("id") radioId: Int): Radio
+    suspend fun getRadio(@Path("id") radioId: Long): Radio
 
     /**
      * Retrieves radio stations organized by genre.
@@ -235,7 +235,7 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves the first 40 tracks from a specific radio station.
      */
     @GET("radio/{id}/tracks")
-    suspend fun getRadioTracks(@Path("id") radioId: Int): PaginatedList<RadioTrackBrief>
+    suspend fun getRadioTracks(@Path("id") radioId: Long): PaginatedList<RadioTrackBrief>
 
     /**
      * Retrieves personal radio lists organized by genre (similar to MIX on website).
@@ -613,7 +613,7 @@ private interface RetrofitDzrNetworkApi {
     @FormUrlEncoded
     suspend fun addRadioToFavorites(
         @Path("user_id") userId: Long,
-        @Field("radio_id") radioId: Int
+        @Field("radio_id") radioId: Long
     )
 
     /**
@@ -693,7 +693,7 @@ private interface RetrofitDzrNetworkApi {
     @DELETE("user/{user_id}/radios")
     suspend fun removeRadioFromFavorites(
         @Path("user_id") userId: Long,
-        @Query("radio_id") radioId: Int
+        @Query("radio_id") radioId: Long
     )
 
     /**
