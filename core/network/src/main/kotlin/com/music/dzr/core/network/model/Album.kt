@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Album(
-    val id: Int,
+    val id: Long,
     val title: String,
     val upc: String,
     val link: String,
@@ -47,7 +47,7 @@ data class Album(
  */
 @Serializable
 data class AlbumTrack(
-    val id: Int,
+    val id: Long,
     val readable: Boolean,
     val title: String,
     @SerialName("title_short") val titleShort: String,
@@ -74,7 +74,7 @@ data class AlbumTrack(
  */
 @Serializable
 data class AlbumTrackBrief(
-    val id: Int,
+    val id: Long,
     val readable: Boolean,
     val title: String,
     @SerialName("title_short") val titleShort: String,
@@ -98,7 +98,7 @@ data class AlbumTrackBrief(
  */
 @Serializable
 data class AlbumBrief(
-    val id: Int,
+    val id: Long,
     val title: String,
     val cover: String,
     @SerialName("cover_small") val coverSmall: String,
@@ -116,7 +116,7 @@ data class AlbumBrief(
  */
 @Serializable
 data class AlbumFallback(
-    val id: Int,
+    val id: Long,
     val status: String
 )
 
@@ -125,7 +125,7 @@ data class AlbumFallback(
  */
 @Serializable
 data class AlbumGenre(
-    val id: Int,
+    val id: Long,
     val name: String,
     val picture: String,
     val type: String

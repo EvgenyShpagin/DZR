@@ -28,7 +28,7 @@ typealias ChartTracks = PaginatedList<ChartTrack>
  */
 @Serializable
 data class ChartTrack(
-    val id: Int,
+    val id: Long,
     val title: String,
     @SerialName("title_short") val titleShort: String,
     @SerialName("title_version") val titleVersion: String,
@@ -52,7 +52,7 @@ data class ChartTrack(
  */
 @Serializable
 data class ChartTrackAlbum(
-    val id: Int,
+    val id: Long,
     val title: String,
     val cover: String,
     @SerialName("cover_small") val coverSmall: String,
@@ -76,7 +76,7 @@ typealias ChartAlbums = PaginatedList<ChartAlbum>
  */
 @Serializable
 data class ChartAlbum(
-    val id: Int,
+    val id: Long,
     val title: String,
     val link: String,
     val cover: String? = null,
@@ -105,7 +105,7 @@ typealias ChartArtists = PaginatedList<ChartArtist>
  */
 @Serializable
 data class ChartArtist(
-    val id: Int,
+    val id: Long,
     val name: String,
     val link: String,
     val picture: String,
@@ -125,7 +125,7 @@ data class ChartArtist(
  */
 @Serializable
 data class ChartArtistBrief(
-    val id: Int,
+    val id: Long,
     val name: String,
     val link: String,
     val picture: String,
@@ -150,7 +150,7 @@ typealias ChartPlaylists = PaginatedList<ChartPlaylist>
  */
 @Serializable
 data class ChartPlaylist(
-    val id: Int,
+    val id: Long,
     val title: String,
     val public: Boolean,
     @SerialName("nb_tracks") val nbTracks: Int,

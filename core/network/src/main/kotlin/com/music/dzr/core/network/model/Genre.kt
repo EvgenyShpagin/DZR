@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Genre(
-    val id: Int,
+    val id: Long,
     val name: String,
     val picture: String,
     @SerialName("picture_small") val pictureSmall: String,
@@ -42,7 +42,7 @@ typealias GenreRadioList = WholeList<RadioBrief>
  */
 @Serializable
 data class GenreArtist(
-    val id: Int,
+    val id: Long,
     val name: String,
     val picture: String,
     @SerialName("picture_small") val pictureSmall: String,

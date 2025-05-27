@@ -16,7 +16,7 @@ typealias Editorials = PaginatedList<Editorial>
  */
 @Serializable
 data class Editorial(
-    val id: Int,
+    val id: Long,
     val name: String,
     val picture: String,
     @SerialName("picture_small") val pictureSmall: String,
@@ -38,7 +38,7 @@ typealias EditorialReleases = PaginatedList<EditorialReleasesAlbum>
  */
 @Serializable
 data class EditorialReleasesAlbum(
-    val id: Int,
+    val id: Long,
     val title: String,
     val cover: String,
     @SerialName("cover_small") val coverSmall: String,
@@ -64,7 +64,7 @@ typealias EditorialSelections = WholeList<EditorialSelectionAlbum>
  */
 @Serializable
 data class EditorialSelectionAlbum(
-    val id: Int,
+    val id: Long,
     val title: String,
     val cover: String,
     @SerialName("cover_small") val coverSmall: String,

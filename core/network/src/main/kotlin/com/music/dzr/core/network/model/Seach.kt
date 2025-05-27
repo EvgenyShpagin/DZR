@@ -15,7 +15,7 @@ typealias SearchTracks = PaginatedList<SearchTrack>
  */
 @Serializable
 data class SearchTrack(
-    val id: Int,
+    val id: Long,
     val readable: Boolean,
     val title: String,
     @SerialName("title_short") val titleShort: String,
@@ -45,7 +45,7 @@ typealias SearchedAlbums = PaginatedList<SearchAlbum>
  */
 @Serializable
 data class SearchAlbum(
-    val id: Int,
+    val id: Long,
     val title: String,
     val link: String,
     val cover: String,
@@ -81,7 +81,7 @@ typealias SearchUserList = PaginatedList<SearchUser>
  */
 @Serializable
 data class SearchUser(
-    val id: Int,
+    val id: Long,
     val name: String,
     val picture: String,
     @SerialName("picture_small") val pictureSmall: String,

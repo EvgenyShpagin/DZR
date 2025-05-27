@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Radio(
-    val id: Int,
+    val id: Long,
     val title: String,
     val description: String,
     val share: String,
@@ -30,7 +30,7 @@ data class Radio(
  */
 @Serializable
 data class RadioBrief(
-    val id: Int,
+    val id: Long,
     val title: String,
     val picture: String,
     @SerialName("picture_small") val pictureSmall: String,
@@ -53,7 +53,7 @@ typealias TitledGenreRadioList = WholeList<TitledGenreRadio>
  */
 @Serializable
 data class TitledGenreRadio(
-    val id: Int,
+    val id: Long,
     val title: String,
     val radios: List<RadioBrief>
 )
@@ -76,7 +76,7 @@ typealias RadioList = PaginatedList<RadioBrief>
  */
 @Serializable
 data class RadioTrackBrief(
-    val id: Int,
+    val id: Long,
     val title: String,
     val picture: String,
     @SerialName("picture_small") val pictureSmall: String,
@@ -94,7 +94,7 @@ data class RadioTrackBrief(
  */
 @Serializable
 data class RadioTrack(
-    val id: Int,
+    val id: Long,
     val readable: Boolean,
     val title: String,
     @SerialName("title_short") val titleShort: String,

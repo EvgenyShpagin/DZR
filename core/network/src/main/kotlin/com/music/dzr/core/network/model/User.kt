@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class FullUser(
-    val id: Int,
+    val id: Long,
     val name: String,
     val lastname: String,
     val firstname: String,
@@ -47,7 +47,7 @@ data class FullUser(
  */
 @Serializable
 data class PublicUser(
-    val id: Int,
+    val id: Long,
     val name: String,
     val link: String,
     val picture: String,
@@ -68,7 +68,7 @@ data class PublicUser(
  */
 @Serializable
 data class PrivateUser(
-    val id: Int,
+    val id: Long,
     val name: String,
     val link: String,
     val picture: String,

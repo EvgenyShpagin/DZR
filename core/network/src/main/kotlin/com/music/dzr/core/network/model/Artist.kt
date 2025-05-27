@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ArtistBrief(
-    val id: Int,
+    val id: Long,
     val name: String,
     val link: String? = null,
     val tracklist: String,
@@ -23,7 +23,7 @@ data class ArtistBrief(
  */
 @Serializable
 data class ArtistBriefWithPicture(
-    val id: Int,
+    val id: Long,
     val name: String,
     val link: String? = null,
     val picture: String,
@@ -48,7 +48,7 @@ typealias RelatedArtistList = PaginatedList<Artist>
  */
 @Serializable
 data class Artist(
-    val id: Int,
+    val id: Long,
     val name: String,
     val link: String,
     val share: String? = null,
@@ -76,7 +76,7 @@ typealias ArtistTopTrackList = PaginatedList<ArtistTopTrack>
  */
 @Serializable
 data class ArtistTopTrack(
-    val id: Int,
+    val id: Long,
     val readable: Boolean,
     val title: String,
     @SerialName("title_short") val titleShort: String,
@@ -106,7 +106,7 @@ typealias ArtistAlbums = PaginatedList<ArtistAlbum>
  */
 @Serializable
 data class ArtistAlbum(
-    val id: Int,
+    val id: Long,
     val title: String,
     val link: String,
     val cover: String,
@@ -129,7 +129,7 @@ data class ArtistAlbum(
  */
 @Serializable
 data class ArtistRadioAlbum(
-    val id: Int,
+    val id: Long,
     val title: String,
     val cover: String,
     @SerialName("cover_small") val coverSmall: String,
@@ -164,7 +164,7 @@ typealias ArtistPlaylist = PlaylistBrief
  */
 @Serializable
 data class Contributor(
-    val id: Int,
+    val id: Long,
     val name: String,
     val link: String,
     val share: String,

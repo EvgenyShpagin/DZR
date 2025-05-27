@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Track(
-    val id: Int,
+    val id: Long,
     val readable: Boolean,
     val title: String,
     @SerialName("title_short") val titleShort: String,
@@ -45,7 +45,7 @@ data class Track(
  */
 @Serializable
 data class TrackBrief(
-    val id: Int,
+    val id: Long,
     val readable: Boolean,
     val title: String,
     @SerialName("title_short") val titleShort: String,
@@ -68,7 +68,7 @@ data class TrackBrief(
  */
 @Serializable
 data class TrackAlbum(
-    val id: Int,
+    val id: Long,
     val title: String,
     val link: String,
     val cover: String,

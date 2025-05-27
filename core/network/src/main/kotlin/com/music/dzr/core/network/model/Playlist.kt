@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Playlist(
-    val id: Int,
+    val id: Long,
     val title: String,
     val description: String,
     val duration: Int,
@@ -44,7 +44,7 @@ data class Playlist(
  */
 @Serializable
 data class PlaylistBrief(
-    val id: Int,
+    val id: Long,
     val title: String,
     val public: Boolean,
     @SerialName("nb_tracks") val nbTracks: Int? = null,
@@ -77,7 +77,7 @@ typealias PlaylistTracks = PaginatedList<PlaylistTrack>
  */
 @Serializable
 data class PlaylistTrack(
-    val id: Int,
+    val id: Long,
     val readable: Boolean,
     val title: String,
     @SerialName("title_short") val titleShort: String,
@@ -103,7 +103,7 @@ data class PlaylistTrack(
  */
 @Serializable
 data class PlaylistTrackAlbum(
-    val id: Int,
+    val id: Long,
     val title: String,
     val upc: String,
     val cover: String,
@@ -121,7 +121,7 @@ data class PlaylistTrackAlbum(
  */
 @Serializable
 data class PlaylistCreator(
-    @SerialName("id") val userId: Int,
+    @SerialName("id") val userId: Long,
     @SerialName("name") val username: String,
     val tracklist: String,
     val type: String
