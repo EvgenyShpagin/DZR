@@ -37,3 +37,12 @@ data class ApiError(
     val message: String,
     val code: Int
 )
+
+/**
+ * A universal wrapper for all API responses.
+ */
+@Serializable
+data class ApiResponse<T>(
+    val data: T? = null,
+    val error: ApiError? = null
+)

@@ -735,12 +735,3 @@ private interface RetrofitDzrNetworkApi {
 }
 
 private const val DZR_BASE_URL = "https://api.deezer.com/"
-
-/**
- * A universal wrapper for all API responses.
- */
-@Serializable
-data class ApiResponse<T>(
-    val data: T? = null,
-    val error: ApiError? = null
-)
