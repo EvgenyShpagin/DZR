@@ -27,3 +27,13 @@ data class PaginatedList<T>(
     @SerialName("next") val nextResultsUrl: String? = null,
     @SerialName("prev") val prevResultsUrl: String? = null
 )
+
+/**
+ * Represents an error returned by the API.
+ */
+@Serializable
+data class ApiError(
+    val type: String,
+    val message: String,
+    val code: Int
+)
