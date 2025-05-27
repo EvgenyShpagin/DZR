@@ -14,10 +14,10 @@ import com.music.dzr.core.network.model.ChartAlbum
 import com.music.dzr.core.network.model.ChartArtist
 import com.music.dzr.core.network.model.ChartPlaylist
 import com.music.dzr.core.network.model.ChartTrack
+import com.music.dzr.core.network.model.CurrentUser
 import com.music.dzr.core.network.model.Editorial
 import com.music.dzr.core.network.model.EditorialReleasesAlbum
 import com.music.dzr.core.network.model.EditorialSelectionAlbum
-import com.music.dzr.core.network.model.CurrentUser
 import com.music.dzr.core.network.model.Genre
 import com.music.dzr.core.network.model.GenreArtist
 import com.music.dzr.core.network.model.PaginatedList
@@ -25,7 +25,6 @@ import com.music.dzr.core.network.model.Permission
 import com.music.dzr.core.network.model.Playlist
 import com.music.dzr.core.network.model.PlaylistBrief
 import com.music.dzr.core.network.model.PlaylistTrack
-import com.music.dzr.core.network.model.User
 import com.music.dzr.core.network.model.Radio
 import com.music.dzr.core.network.model.RadioBrief
 import com.music.dzr.core.network.model.RadioTrackBrief
@@ -34,6 +33,7 @@ import com.music.dzr.core.network.model.SearchTrack
 import com.music.dzr.core.network.model.SearchUser
 import com.music.dzr.core.network.model.Track
 import com.music.dzr.core.network.model.TrackBrief
+import com.music.dzr.core.network.model.User
 import com.music.dzr.core.network.model.WholeList
 import retrofit2.http.DELETE
 import retrofit2.http.Field
