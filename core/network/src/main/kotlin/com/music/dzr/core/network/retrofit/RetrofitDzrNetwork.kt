@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.retrofiit
+package com.music.dzr.core.network.retrofit
 
 import com.music.dzr.core.network.model.Album
 import com.music.dzr.core.network.model.AlbumBrief
