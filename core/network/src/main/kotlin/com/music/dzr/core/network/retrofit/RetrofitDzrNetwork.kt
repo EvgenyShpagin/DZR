@@ -25,7 +25,7 @@ import com.music.dzr.core.network.model.Permission
 import com.music.dzr.core.network.model.Playlist
 import com.music.dzr.core.network.model.PlaylistBrief
 import com.music.dzr.core.network.model.PlaylistTrack
-import com.music.dzr.core.network.model.PublicUser
+import com.music.dzr.core.network.model.User
 import com.music.dzr.core.network.model.Radio
 import com.music.dzr.core.network.model.RadioBrief
 import com.music.dzr.core.network.model.RadioTrackBrief
@@ -407,13 +407,13 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves the list of users that the current user is following.
      */
     @GET("user/me/followings")
-    suspend fun getUserFollowings(): WholeList<PublicUser>
+    suspend fun getUserFollowings(): WholeList<User>
 
     /**
      * Retrieves the list of users that follows current user.
      */
     @GET("user/me/followers")
-    suspend fun getUserFollowers(): WholeList<PublicUser>
+    suspend fun getUserFollowers(): WholeList<User>
 
     /**
      * Retrieves user's search history.

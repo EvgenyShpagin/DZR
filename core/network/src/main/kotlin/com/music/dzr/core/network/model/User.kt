@@ -39,38 +39,28 @@ data class CurrentUser(
     val explicitContentLevel: String,
     @SerialName("explicit_content_levels_available")
     val explicitContentLevelsAvailable: List<String>,
-    val tracklist: String
+    val tracklist: String,
+    val type: String
 )
 
 /**
  * Contains part of Deezer user profile data.
  */
 @Serializable
-data class PublicUser(
+data class User(
     val id: Long,
     val name: String,
     val link: String,
     val picture: String,
     @SerialName("picture_small")
-    val pictureSmall: String,
+    val pictureSmall: String? = null,
     @SerialName("picture_medium")
-    val pictureMedium: String,
+    val pictureMedium: String? = null,
     @SerialName("picture_big")
-    val pictureBig: String,
+    val pictureBig: String? = null,
     @SerialName("picture_xl")
-    val pictureXl: String,
-    val country: String,
-    val tracklist: String
-)
-
-/**
- * Contains minimum Deezer user profile data.
- */
-@Serializable
-data class PrivateUser(
-    val id: Long,
-    val name: String,
-    val link: String,
-    val picture: String,
-    val tracklist: String
+    val pictureXl: String? = null,
+    val country: String? = null,
+    val tracklist: String,
+    val type: String
 )
