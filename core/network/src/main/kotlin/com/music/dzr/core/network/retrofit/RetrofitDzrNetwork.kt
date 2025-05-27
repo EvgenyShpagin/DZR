@@ -3,6 +3,7 @@ package com.music.dzr.core.network.retrofit
 import com.music.dzr.core.network.model.Album
 import com.music.dzr.core.network.model.AlbumBrief
 import com.music.dzr.core.network.model.AlbumTrack
+import com.music.dzr.core.network.model.ApiError
 import com.music.dzr.core.network.model.Artist
 import com.music.dzr.core.network.model.ArtistAlbum
 import com.music.dzr.core.network.model.ArtistBrief
@@ -35,6 +36,7 @@ import com.music.dzr.core.network.model.Track
 import com.music.dzr.core.network.model.TrackBrief
 import com.music.dzr.core.network.model.User
 import com.music.dzr.core.network.model.WholeList
+import kotlinx.serialization.Serializable
 import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -61,13 +63,13 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves detailed information about a specific album.
      */
     @GET("album/{id}")
-    suspend fun getAlbum(@Path("id") albumId: Long): Album
+    suspend fun getAlbum(@Path("id") albumId: Long): ApiResponse<Album>
 
     /**
      * Retrieves all tracks from a specific album.
      */
     @GET("album/{id}/tracks")
-    suspend fun getAlbumTracks(@Path("id") albumId: Long): PaginatedList<AlbumTrack>
+    suspend fun getAlbumTracks(@Path("id") albumId: Long): ApiResponse<PaginatedList<AlbumTrack>>
 
     // ========== ARTIST ENDPOINTS ========== //
 
@@ -75,37 +77,47 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves detailed information about a specific artist.
      */
     @GET("artist/{id}")
-    suspend fun getArtist(@Path("id") artistId: Long): Artist
+    suspend fun getArtist(@Path("id") artistId: Long): ApiResponse<Artist>
 
     /**
      * Retrieves the top 5 tracks of an artist.
      */
     @GET("artist/{id}/top")
-    suspend fun getArtistTopTracks(@Path("id") artistId: Long): PaginatedList<ArtistTopTrack>
+    suspend fun getArtistTopTracks(
+        @Path("id") artistId: Long
+    ): ApiResponse<PaginatedList<ArtistTopTrack>>
 
     /**
      * Retrieves all albums by a specific artist.
      */
     @GET("artist/{id}/albums")
-    suspend fun getArtistAlbums(@Path("id") artistId: Long): PaginatedList<ArtistAlbum>
+    suspend fun getArtistAlbums(
+        @Path("id") artistId: Long
+    ): ApiResponse<PaginatedList<ArtistAlbum>>
 
     /**
      * Retrieves artists related to the specified artist.
      */
     @GET("artist/{id}/related")
-    suspend fun getRelatedArtists(@Path("id") artistId: Long): PaginatedList<Artist>
+    suspend fun getRelatedArtists(
+        @Path("id") artistId: Long
+    ): ApiResponse<PaginatedList<Artist>>
 
     /**
      * Retrieves radio tracks based on an artist's style.
      */
     @GET("artist/{id}/radio")
-    suspend fun getArtistRadioTracks(@Path("id") artistId: Long): WholeList<TrackBrief>
+    suspend fun getArtistRadioTracks(
+        @Path("id") artistId: Long
+    ): ApiResponse<WholeList<TrackBrief>>
 
     /**
      * Retrieves playlists created by or featuring the artist.
      */
     @GET("artist/{id}/playlists")
-    suspend fun getArtistPlaylists(@Path("id") artistId: Long): PaginatedList<ArtistPlaylist>
+    suspend fun getArtistPlaylists(
+        @Path("id") artistId: Long
+    ): ApiResponse<PaginatedList<ArtistPlaylist>>
 
     // ========== CHART ENDPOINTS ==========
 
@@ -113,31 +125,39 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves general charts for a specified genre.
      */
     @GET("chart")
-    suspend fun getCharts(): Chart
+    suspend fun getCharts(): ApiResponse<Chart>
 
     /**
      * Retrieves the top tracks from charts.
      */
     @GET("chart/{genre_id}/tracks")
-    suspend fun getTopTracks(@Path("genre_id") genreId: Long = 0): PaginatedList<ChartTrack>
+    suspend fun getTopTracks(
+        @Path("genre_id") genreId: Long = 0
+    ): ApiResponse<PaginatedList<ChartTrack>>
 
     /**
      * Retrieves the top albums from charts.
      */
     @GET("chart/{genre_id}/albums")
-    suspend fun getTopAlbums(@Path("genre_id") genreId: Long = 0): PaginatedList<ChartAlbum>
+    suspend fun getTopAlbums(
+        @Path("genre_id") genreId: Long = 0
+    ): ApiResponse<PaginatedList<ChartAlbum>>
 
     /**
      * Retrieves the top artists from charts.
      */
     @GET("chart/{genre_id}/artists")
-    suspend fun getTopArtists(@Path("genre_id") genreId: Long = 0): PaginatedList<ChartArtist>
+    suspend fun getTopArtists(
+        @Path("genre_id") genreId: Long = 0
+    ): ApiResponse<PaginatedList<ChartArtist>>
 
     /**
      * Retrieves the top playlists from charts.
      */
     @GET("chart/{genre_id}/playlists")
-    suspend fun getTopPlaylists(@Path("genre_id") genreId: Long = 0): PaginatedList<ChartPlaylist>
+    suspend fun getTopPlaylists(
+        @Path("genre_id") genreId: Long = 0
+    ): ApiResponse<PaginatedList<ChartPlaylist>>
 
     // ========== EDITORIAL ENDPOINTS ==========
 
@@ -145,25 +165,29 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves all available editorial objects.
      */
     @GET("editorial")
-    suspend fun getEditorials(): PaginatedList<Editorial>
+    suspend fun getEditorials(): ApiResponse<PaginatedList<Editorial>>
 
     /**
      * Retrieves detailed information about a specific editorial.
      */
     @GET("editorial/{id}")
-    suspend fun getEditorial(@Path("id") editorialId: Long): Editorial
+    suspend fun getEditorial(@Path("id") editorialId: Long): ApiResponse<Editorial>
 
     /**
      * Retrieves albums selected weekly by the Deezer Team.
      */
     @GET("editorial/{id}/selection")
-    suspend fun getEditorialSelection(@Path("id") editorialId: Long): WholeList<EditorialSelectionAlbum>
+    suspend fun getEditorialSelection(
+        @Path("id") editorialId: Long
+    ): ApiResponse<WholeList<EditorialSelectionAlbum>>
 
     /**
      * Retrieves new releases per genre for the current country.
      */
     @GET("editorial/{id}/releases")
-    suspend fun getEditorialReleases(@Path("id") editorialId: Long): PaginatedList<EditorialReleasesAlbum>
+    suspend fun getEditorialReleases(
+        @Path("id") editorialId: Long
+    ): ApiResponse<PaginatedList<EditorialReleasesAlbum>>
 
     // ========== GENRE ENDPOINTS ==========
 
@@ -171,25 +195,25 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves all available music genres.
      */
     @GET("genre")
-    suspend fun getGenres(): WholeList<Genre>
+    suspend fun getGenres(): ApiResponse<WholeList<Genre>>
 
     /**
      * Retrieves detailed information about a specific genre.
      */
     @GET("genre/{id}")
-    suspend fun getGenre(@Path("id") genreId: Long): Genre
+    suspend fun getGenre(@Path("id") genreId: Long): ApiResponse<Genre>
 
     /**
      * Retrieves all artists associated with a specific genre.
      */
     @GET("genre/{id}/artists")
-    suspend fun getGenreArtists(@Path("id") genreId: Long): WholeList<GenreArtist>
+    suspend fun getGenreArtists(@Path("id") genreId: Long): ApiResponse<WholeList<GenreArtist>>
 
     /**
      * Retrieves all radios associated with a specific genre.
      */
     @GET("genre/{id}/radios")
-    suspend fun getGenreRadios(@Path("id") genreId: Long): WholeList<RadioBrief>
+    suspend fun getGenreRadios(@Path("id") genreId: Long): ApiResponse<WholeList<RadioBrief>>
 
     // ========== PLAYLIST ENDPOINTS ==========
 
@@ -197,13 +221,15 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves detailed information about a specific playlist.
      */
     @GET("playlist/{id}")
-    suspend fun getPlaylist(@Path("id") playlistId: Long): Playlist
+    suspend fun getPlaylist(@Path("id") playlistId: Long): ApiResponse<Playlist>
 
     /**
      * Retrieves all tracks from a specific playlist.
      */
     @GET("playlist/{id}/tracks")
-    suspend fun getPlaylistTracks(@Path("id") playlistId: Long): PaginatedList<PlaylistTrack>
+    suspend fun getPlaylistTracks(
+        @Path("id") playlistId: Long
+    ): ApiResponse<PaginatedList<PlaylistTrack>>
 
     // ========== RADIO ENDPOINTS ==========
 
@@ -211,37 +237,39 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves all available radio stations.
      */
     @GET("radio")
-    suspend fun getRadios(): PaginatedList<RadioBrief>
+    suspend fun getRadios(): ApiResponse<PaginatedList<RadioBrief>>
 
     /**
      * Retrieves detailed information about a specific radio station.
      */
     @GET("radio/{id}")
-    suspend fun getRadio(@Path("id") radioId: Long): Radio
+    suspend fun getRadio(@Path("id") radioId: Long): ApiResponse<Radio>
 
     /**
      * Retrieves radio stations organized by genre.
      */
     @GET("radio/genres")
-    suspend fun getRadioGenres(): PaginatedList<RadioBrief>
+    suspend fun getRadioGenres(): ApiResponse<PaginatedList<RadioBrief>>
 
     /**
      * Retrieves the top radio stations (default: 25 radios).
      */
     @GET("radio/top")
-    suspend fun getTopRadios(): PaginatedList<RadioBrief>
+    suspend fun getTopRadios(): ApiResponse<PaginatedList<RadioBrief>>
 
     /**
      * Retrieves the first 40 tracks from a specific radio station.
      */
     @GET("radio/{id}/tracks")
-    suspend fun getRadioTracks(@Path("id") radioId: Long): PaginatedList<RadioTrackBrief>
+    suspend fun getRadioTracks(
+        @Path("id") radioId: Long
+    ): ApiResponse<PaginatedList<RadioTrackBrief>>
 
     /**
      * Retrieves personal radio lists organized by genre (similar to MIX on website).
      */
     @GET("radio/lists")
-    suspend fun getRadioLists(): PaginatedList<RadioBrief>
+    suspend fun getRadioLists(): ApiResponse<PaginatedList<RadioBrief>>
 
     // ========== SEARCH ENDPOINTS ==========
 
@@ -257,7 +285,7 @@ private interface RetrofitDzrNetworkApi {
         @Query("q") query: String,
         @Query("strict") strict: String? = null,
         @Query("order") order: String? = null
-    ): PaginatedList<SearchTrack>
+    ): ApiResponse<PaginatedList<SearchTrack>>
 
     /**
      * Searches for albums across the Deezer catalog.
@@ -271,7 +299,7 @@ private interface RetrofitDzrNetworkApi {
         @Query("q") query: String,
         @Query("strict") strict: String? = null,
         @Query("order") order: String? = null
-    ): PaginatedList<SearchAlbum>
+    ): ApiResponse<PaginatedList<SearchAlbum>>
 
     /**
      * Searches for artists across the Deezer catalog.
@@ -285,7 +313,7 @@ private interface RetrofitDzrNetworkApi {
         @Query("q") query: String,
         @Query("strict") strict: String? = null,
         @Query("order") order: String? = null
-    ): PaginatedList<Artist>
+    ): ApiResponse<PaginatedList<Artist>>
 
     /**
      * Retrieves user's search history.
@@ -299,7 +327,7 @@ private interface RetrofitDzrNetworkApi {
         @Query("q") query: String,
         @Query("strict") strict: String? = null,
         @Query("order") order: String? = null
-    ): WholeList<RadioBrief>
+    ): ApiResponse<WholeList<RadioBrief>>
 
     /**
      * Searches for playlists across the Deezer catalog.
@@ -313,7 +341,7 @@ private interface RetrofitDzrNetworkApi {
         @Query("q") query: String,
         @Query("strict") strict: String? = null,
         @Query("order") order: String? = null
-    ): PaginatedList<PlaylistBrief>
+    ): ApiResponse<PaginatedList<PlaylistBrief>>
 
     /**
      * Searches for radio stations across the Deezer catalog.
@@ -327,7 +355,7 @@ private interface RetrofitDzrNetworkApi {
         @Query("q") query: String,
         @Query("strict") strict: String? = null,
         @Query("order") order: String? = null
-    ): PaginatedList<RadioBrief>
+    ): ApiResponse<PaginatedList<RadioBrief>>
 
     /**
      * Searches for users across the Deezer platform.
@@ -349,7 +377,7 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves detailed information about a specific track.
      */
     @GET("track/{id}")
-    suspend fun getTrack(@Path("id") trackId: Long): Track
+    suspend fun getTrack(@Path("id") trackId: Long): ApiResponse<Track>
 
     // ========== USER ENDPOINTS ==========
     /* API doesn't support authentication at the moment, so the implementation
@@ -359,133 +387,133 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves information about the current authenticated user.
      */
     @GET("user/me")
-    suspend fun getCurrentUser(): CurrentUser
+    suspend fun getCurrentUser(): ApiResponse<CurrentUser>
 
     /**
      * Retrieves the current user's favorite albums.
      */
     @GET("user/me/albums")
-    suspend fun getUserFavoriteAlbums(): PaginatedList<AlbumBrief>
+    suspend fun getUserFavoriteAlbums(): ApiResponse<PaginatedList<AlbumBrief>>
 
     /**
      * Retrieves the current user's favorite artists.
      */
     @GET("user/me/artists")
-    suspend fun getUserFavoriteArtists(): PaginatedList<ArtistBriefWithPicture>
+    suspend fun getUserFavoriteArtists(): ApiResponse<PaginatedList<ArtistBriefWithPicture>>
 
     /**
      * Retrieves the current user's top 25 tracks.
      */
     @GET("user/me/charts/tracks")
-    suspend fun getUserTopTracks(): PaginatedList<TrackBrief>
+    suspend fun getUserTopTracks(): ApiResponse<PaginatedList<TrackBrief>>
 
     /**
      * Retrieves the current user's top albums.
      */
     @GET("user/me/charts/albums")
-    suspend fun getUserTopAlbums(): WholeList<AlbumBrief>
+    suspend fun getUserTopAlbums(): ApiResponse<WholeList<AlbumBrief>>
 
     /**
      * Retrieves the current user's top playlists.
      */
     @GET("user/me/charts/playlists")
-    suspend fun getUserTopPlaylists(): WholeList<PlaylistBrief>
+    suspend fun getUserTopPlaylists(): ApiResponse<WholeList<PlaylistBrief>>
 
     /**
      * Retrieves the current user's top artists.
      */
     @GET("user/me/charts/artists")
-    suspend fun getUserTopArtists(): WholeList<ArtistBriefWithPicture>
+    suspend fun getUserTopArtists(): ApiResponse<WholeList<ArtistBriefWithPicture>>
 
     /**
      * Retrieves the current user's flow tracks (personalized recommendations).
      */
     @GET("user/me/flow")
-    suspend fun getUserFlowTracks(): WholeList<TrackBrief>
+    suspend fun getUserFlowTracks(): ApiResponse<WholeList<TrackBrief>>
 
     /**
      * Retrieves the list of users that the current user is following.
      */
     @GET("user/me/followings")
-    suspend fun getUserFollowings(): WholeList<User>
+    suspend fun getUserFollowings(): ApiResponse<WholeList<User>>
 
     /**
      * Retrieves the list of users that follows current user.
      */
     @GET("user/me/followers")
-    suspend fun getUserFollowers(): WholeList<User>
+    suspend fun getUserFollowers(): ApiResponse<WholeList<User>>
 
     /**
      * Retrieves user's search history.
      */
     @GET("user/me/history")
-    suspend fun getUserHistory(): WholeList<RadioBrief>
+    suspend fun getUserHistory(): ApiResponse<WholeList<RadioBrief>>
 
     /**
      * Provides information about what permissions the user has granted to the application.
      */
     @GET("user/me/permissions")
-    suspend fun getUserPermissions(): WholeList<Permission>
+    suspend fun getUserPermissions(): ApiResponse<WholeList<Permission>>
 
     /**
      * Returns tracks that the user has uploaded or added as personal content.
      */
     @GET("user/me/personal_songs")
-    suspend fun getUserPersonalSongs(): WholeList<TrackBrief>
+    suspend fun getUserPersonalSongs(): ApiResponse<WholeList<TrackBrief>>
 
     /**
      * Retrieves all playlists created by the user. Requires appropriate permissions for private playlists.
      */
     @GET("user/me/playlists")
-    suspend fun getUserPlaylists(): WholeList<PlaylistBrief>
+    suspend fun getUserPlaylists(): ApiResponse<WholeList<PlaylistBrief>>
 
     /**
      * Returns radio stations that the user has marked as favorites.
      */
     @GET("user/me/radios")
-    suspend fun getUserFavoriteRadios(): WholeList<RadioBrief>
+    suspend fun getUserFavoriteRadios(): ApiResponse<WholeList<RadioBrief>>
 
     /**
      * Provides album recommendations tailored to the user's listening preferences.
      */
     @GET("user/me/recommendations/albums")
-    suspend fun getUserRecommendedAlbums(): WholeList<AlbumBrief>
+    suspend fun getUserRecommendedAlbums(): ApiResponse<WholeList<AlbumBrief>>
 
     /**
      * Returns newly released albums recommended specifically for the user.
      */
     @GET("user/me/recommendations/releases")
-    suspend fun getUserRecommendedReleases(): WholeList<AlbumBrief>
+    suspend fun getUserRecommendedReleases(): ApiResponse<WholeList<AlbumBrief>>
 
     /**
      * Provides artist recommendations based on the user's listening history.
      */
     @GET("user/me/recommendations/artists")
-    suspend fun getUserRecommendedArtists(): WholeList<ArtistBrief>
+    suspend fun getUserRecommendedArtists(): ApiResponse<WholeList<ArtistBrief>>
 
     /**
      * Returns playlist recommendations personalized for the user.
      */
     @GET("user/me/recommendations/playlists")
-    suspend fun getUserRecommendedPlaylists(): WholeList<PlaylistBrief>
+    suspend fun getUserRecommendedPlaylists(): ApiResponse<WholeList<PlaylistBrief>>
 
     /**
      * Provides track recommendations based on user preferences and listening patterns.
      */
     @GET("user/me/recommendations/tracks")
-    suspend fun getUserRecommendedTracks(): WholeList<TrackBrief>
+    suspend fun getUserRecommendedTracks(): ApiResponse<WholeList<TrackBrief>>
 
     /**
      * Returns radio station recommendations tailored to the user's taste.
      */
     @GET("user/me/recommendations/radios")
-    suspend fun getUserRecommendedRadios(): WholeList<RadioBrief>
+    suspend fun getUserRecommendedRadios(): ApiResponse<WholeList<RadioBrief>>
 
     /**
      * Retrieves all tracks that the user has marked as favorites.
      */
     @GET("user/me/tracks")
-    suspend fun getUserFavoriteTracks(): WholeList<TrackBrief>
+    suspend fun getUserFavoriteTracks(): ApiResponse<WholeList<TrackBrief>>
 
     /**
      * Modifies playlist information such as title and description.
@@ -496,14 +524,14 @@ private interface RetrofitDzrNetworkApi {
         @Path("playlist_id") playlistId: Long,
         @Field("title") title: String? = null,
         @Field("description") description: String? = null
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Marks a playlist as viewed by the user.
      * Requires "basic_access" permissions.
      */
     @POST("playlist/{playlist_id}/seen")
-    suspend fun markPlaylistAsSeen(@Path("playlist_id") playlistId: Long)
+    suspend fun markPlaylistAsSeen(@Path("playlist_id") playlistId: Long): ApiResponse<Unit>
 
     /**
      * Adds one or more tracks to a specified playlist.
@@ -514,7 +542,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun addTracksToPlaylist(
         @Path("playlist_id") playlistId: Long,
         @Field("songs") trackIds: String
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Changes the order of tracks within a playlist.
@@ -525,8 +553,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun reorderPlaylistTracks(
         @Path("playlist_id") playlistId: Long,
         @Field("order") trackIds: String
-    )
-
+    ): ApiResponse<Unit>
 
     /**
      * Modifies information for a user's personal track.
@@ -538,7 +565,7 @@ private interface RetrofitDzrNetworkApi {
         @Path("track_id") trackId: Long,
         @Field("title") title: String? = null,
         @Field("artist") artist: String? = null
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Adds albums to the user's personal library.
@@ -549,7 +576,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun addAlbumsToLibrary(
         @Path("user_id") userId: Long,
         @Field("album_id") albumId: Long
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Adds artists to the user's favorites list.
@@ -560,7 +587,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun addArtistsToFavorites(
         @Path("user_id") userId: Long,
         @Field("artist_id") artistId: Long
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Follows another user on the platform.
@@ -571,7 +598,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun followUser(
         @Path("user_id") userId: Long,
         @Field("user_id") targetUserId: Long
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Adds a notification to the user's activity feed.
@@ -581,7 +608,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun addNotification(
         @Path("user_id") userId: Long,
         @Field("message") message: String
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Creates a new playlist with the specified title.
@@ -592,7 +619,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun createPlaylist(
         @Path("user_id") userId: Long,
         @Field("title") title: String
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Adds playlists to the user's favorites.
@@ -603,7 +630,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun addPlaylistsToFavorites(
         @Path("user_id") userId: Long,
         @Field("playlist_id") playlistId: Long
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Adds a radio station to the user's favorites.
@@ -614,7 +641,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun addRadioToFavorites(
         @Path("user_id") userId: Long,
         @Field("radio_id") radioId: Long
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Adds tracks to the user's favorites collection.
@@ -625,7 +652,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun addTracksToFavorites(
         @Path("user_id") userId: Long,
         @Field("track_id") trackId: Long
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Deletes specified playlist.
@@ -634,7 +661,7 @@ private interface RetrofitDzrNetworkApi {
     @DELETE("playlist/{playlist_id}")
     suspend fun deletePlaylist(
         @Path("playlist_id") playlistId: Long,
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Removes specified tracks from a playlist.
@@ -644,7 +671,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun removeTracksFromPlaylist(
         @Path("playlist_id") playlistId: Long,
         @Query("songs") trackIds: String
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Removes albums from the user's personal library.
@@ -654,7 +681,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun removeAlbumsFromLibrary(
         @Path("user_id") userId: Long,
         @Query("album_id") albumId: Long
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Removes artists from the user's favorites list.
@@ -664,7 +691,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun removeArtistsFromFavorites(
         @Path("user_id") userId: Long,
         @Query("artist_id") artistId: Long
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Stops following a specific user on the platform.
@@ -674,7 +701,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun unfollowUser(
         @Path("user_id") userId: Long,
         @Query("user_id") targetUserId: Long
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Removes playlists from the user's favorites collection.
@@ -684,7 +711,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun removePlaylistsFromFavorites(
         @Path("user_id") userId: Long,
         @Query("playlist_id") playlistId: Long
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Removes a radio station from the user's favorites.
@@ -694,7 +721,7 @@ private interface RetrofitDzrNetworkApi {
     suspend fun removeRadioFromFavorites(
         @Path("user_id") userId: Long,
         @Query("radio_id") radioId: Long
-    )
+    ): ApiResponse<Unit>
 
     /**
      * Removes tracks from the user's favorites collection.
@@ -704,7 +731,16 @@ private interface RetrofitDzrNetworkApi {
     suspend fun removeTracksFromFavorites(
         @Path("user_id") userId: Long,
         @Query("track_id") trackId: Long
-    )
+    ): ApiResponse<Unit>
 }
 
 private const val DZR_BASE_URL = "https://api.deezer.com/"
+
+/**
+ * A universal wrapper for all API responses.
+ */
+@Serializable
+data class ApiResponse<T>(
+    val data: T? = null,
+    val error: ApiError? = null
+)
