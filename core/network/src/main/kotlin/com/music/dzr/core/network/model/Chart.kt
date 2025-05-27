@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.model
 
-import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -162,9 +162,9 @@ data class ChartPlaylist(
     @SerialName("picture_xl") val pictureXl: String,
     val checksum: String,
     val tracklist: String,
-    @SerialName("creation_date") val creationDate: Instant,
-    @SerialName("add_date") val addDate: Instant,
-    @SerialName("mod_date") val modDate: Instant,
+    @SerialName("creation_date") val creationDate: LocalDate,
+    @SerialName("add_date") val addDate: LocalDate,
+    @SerialName("mod_date") val modDate: LocalDate,
     @SerialName("md5_image") val md5Image: String,
     @SerialName("picture_type") val pictureType: String,
     val position: Int,

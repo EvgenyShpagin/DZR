@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.model
 
-import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -117,7 +117,7 @@ data class ArtistAlbum(
     @SerialName("md5_image") val md5Image: String,
     @SerialName("genre_id") val genreId: Int,
     val fans: Int,
-    @SerialName("release_date") val releaseDate: Instant,
+    @SerialName("release_date") val releaseDate: LocalDate,
     @SerialName("record_type") val recordType: String,
     @SerialName("explicit_lyrics") val explicitLyrics: Boolean,
     val tracklist: String,

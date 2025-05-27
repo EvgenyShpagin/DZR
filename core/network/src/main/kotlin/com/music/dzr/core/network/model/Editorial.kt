@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.model
 
-import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -46,7 +46,7 @@ data class EditorialReleasesAlbum(
     @SerialName("cover_big") val coverBig: String,
     @SerialName("cover_xl") val coverXl: String,
     @SerialName("md5_image") val md5Image: String,
-    @SerialName("release_date") val releaseDate: Instant,
+    @SerialName("release_date") val releaseDate: LocalDate,
     val tracklist: String,
     val artist: ArtistBrief,
     val type: String

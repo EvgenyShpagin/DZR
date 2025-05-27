@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.model
 
-import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -16,9 +16,9 @@ data class FullUser(
     val firstname: String,
     val email: String,
     val status: Int,
-    val birthday: Instant,
+    val birthday: LocalDate,
     @SerialName("inscription_date")
-    val inscriptionDate: Instant,
+    val inscriptionDate: LocalDate,
     val gender: String,
     val link: String,
     val picture: String,
