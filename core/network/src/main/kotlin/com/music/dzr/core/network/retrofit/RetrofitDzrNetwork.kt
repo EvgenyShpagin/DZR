@@ -17,7 +17,7 @@ import com.music.dzr.core.network.model.ChartTrack
 import com.music.dzr.core.network.model.Editorial
 import com.music.dzr.core.network.model.EditorialReleasesAlbum
 import com.music.dzr.core.network.model.EditorialSelectionAlbum
-import com.music.dzr.core.network.model.FullUser
+import com.music.dzr.core.network.model.CurrentUser
 import com.music.dzr.core.network.model.Genre
 import com.music.dzr.core.network.model.GenreArtist
 import com.music.dzr.core.network.model.PaginatedList
@@ -359,7 +359,7 @@ private interface RetrofitDzrNetworkApi {
      * Retrieves information about the current authenticated user.
      */
     @GET("user/me")
-    suspend fun getCurrentUser(): FullUser
+    suspend fun getCurrentUser(): CurrentUser
 
     /**
      * Retrieves the current user's favorite albums.

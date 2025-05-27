@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  * Includes both private and public user profile information.
  */
 @Serializable
-data class FullUser(
+data class CurrentUser(
     val id: Long,
     val name: String,
     val lastname: String,
