@@ -19,7 +19,7 @@ import javax.net.ssl.SSLException
  *
  * @property json The [Json] instance used to deserialize error response bodies.
  */
-internal class NetworkErrorResponseConverter(private val json: Json) {
+internal class NetworkErrorResponseParser(private val json: Json) {
 
     /**
      * Parses the HTTP response body into a [NetworkError].

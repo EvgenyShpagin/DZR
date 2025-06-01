@@ -14,10 +14,10 @@ import java.lang.reflect.Type
 
 /**
  * A Retrofit [CallAdapter.Factory] that transforms a Retrofit [Response] into a [NetworkResponse].
- * It uses [NetworkErrorResponseConverter] to parse errors into a consistent [NetworkError] model.
+ * It uses [NetworkErrorResponseParser] to parse errors into a consistent [NetworkError] model.
  */
 internal class NetworkResponseCallAdapterFactory(
-    private val errorParser: NetworkErrorResponseConverter
+    private val errorParser: NetworkErrorResponseParser
 ) : CallAdapter.Factory() {
 
     override fun get(
@@ -44,7 +44,7 @@ internal class NetworkResponseCallAdapterFactory(
  * It ensures that the success and error cases are wrapped in a sealed [NetworkResponse] class.
  */
 private class NetworkResponseCallAdapter<T>(
-    private val errorParser: NetworkErrorResponseConverter,
+    private val errorParser: NetworkErrorResponseParser,
     private val responseType: Type
 ) : CallAdapter<T, Call<NetworkResponse<T>>> {
 
@@ -57,7 +57,7 @@ private class NetworkResponseCallAdapter<T>(
  * and wraps them into [NetworkResponse], using [errorParser] to extract API errors.
  */
 private class NetworkResponseCall<T>(
-    private val errorParser: NetworkErrorResponseConverter,
+    private val errorParser: NetworkErrorResponseParser,
     private val delegate: Call<T>
 ) : Call<NetworkResponse<T>> {
 

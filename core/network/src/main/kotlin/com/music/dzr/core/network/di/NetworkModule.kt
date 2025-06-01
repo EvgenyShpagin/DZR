@@ -10,7 +10,7 @@ import com.music.dzr.core.network.api.RadioApi
 import com.music.dzr.core.network.api.SearchApi
 import com.music.dzr.core.network.api.TrackApi
 import com.music.dzr.core.network.api.UserApi
-import com.music.dzr.core.network.retrofit.NetworkErrorResponseConverter
+import com.music.dzr.core.network.retrofit.NetworkErrorResponseParser
 import com.music.dzr.core.network.retrofit.NetworkResponseCallAdapterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -27,7 +27,7 @@ val networkModule = module {
     }
 
     single {
-        NetworkErrorResponseConverter(get())
+        NetworkErrorResponseParser(get())
     }
 
     single {
