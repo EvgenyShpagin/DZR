@@ -26,6 +26,12 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    testOptions {
+        unitTests {
+            // Enable to use assets with jsons
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
