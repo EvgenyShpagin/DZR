@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.ApiResponse
+import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.Artist
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.PlaylistBrief
@@ -31,7 +31,7 @@ internal interface SearchApi {
         @Query("q") query: String,
         @Query("strict") strict: String? = null,
         @Query("order") order: String? = null
-    ): ApiResponse<PaginatedList<SearchTrack>>
+    ): NetworkResponse<PaginatedList<SearchTrack>>
 
     /**
      * Searches for albums across the Deezer catalog.
@@ -45,7 +45,7 @@ internal interface SearchApi {
         @Query("q") query: String,
         @Query("strict") strict: String? = null,
         @Query("order") order: String? = null
-    ): ApiResponse<PaginatedList<SearchAlbum>>
+    ): NetworkResponse<PaginatedList<SearchAlbum>>
 
     /**
      * Searches for artists across the Deezer catalog.
@@ -59,7 +59,7 @@ internal interface SearchApi {
         @Query("q") query: String,
         @Query("strict") strict: String? = null,
         @Query("order") order: String? = null
-    ): ApiResponse<PaginatedList<Artist>>
+    ): NetworkResponse<PaginatedList<Artist>>
 
     /**
      * Retrieves user's search history.
@@ -73,7 +73,7 @@ internal interface SearchApi {
         @Query("q") query: String,
         @Query("strict") strict: String? = null,
         @Query("order") order: String? = null
-    ): ApiResponse<WholeList<RadioBrief>>
+    ): NetworkResponse<WholeList<RadioBrief>>
 
     /**
      * Searches for playlists across the Deezer catalog.
@@ -87,7 +87,7 @@ internal interface SearchApi {
         @Query("q") query: String,
         @Query("strict") strict: String? = null,
         @Query("order") order: String? = null
-    ): ApiResponse<PaginatedList<PlaylistBrief>>
+    ): NetworkResponse<PaginatedList<PlaylistBrief>>
 
     /**
      * Searches for radio stations across the Deezer catalog.
@@ -101,7 +101,7 @@ internal interface SearchApi {
         @Query("q") query: String,
         @Query("strict") strict: String? = null,
         @Query("order") order: String? = null
-    ): ApiResponse<PaginatedList<RadioBrief>>
+    ): NetworkResponse<PaginatedList<RadioBrief>>
 
     /**
      * Searches for users across the Deezer platform.

@@ -1,7 +1,7 @@
 package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.AlbumBrief
-import com.music.dzr.core.network.model.ApiResponse
+import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.ArtistBrief
 import com.music.dzr.core.network.model.ArtistBriefWithPicture
 import com.music.dzr.core.network.model.CurrentUser
@@ -33,133 +33,133 @@ internal interface UserApi {
      * Retrieves information about the current authenticated user.
      */
     @GET("user/me")
-    suspend fun getCurrentUser(): ApiResponse<CurrentUser>
+    suspend fun getCurrentUser(): NetworkResponse<CurrentUser>
 
     /**
      * Retrieves the current user's favorite albums.
      */
     @GET("user/me/albums")
-    suspend fun getUserFavoriteAlbums(): ApiResponse<PaginatedList<AlbumBrief>>
+    suspend fun getUserFavoriteAlbums(): NetworkResponse<PaginatedList<AlbumBrief>>
 
     /**
      * Retrieves the current user's favorite artists.
      */
     @GET("user/me/artists")
-    suspend fun getUserFavoriteArtists(): ApiResponse<PaginatedList<ArtistBriefWithPicture>>
+    suspend fun getUserFavoriteArtists(): NetworkResponse<PaginatedList<ArtistBriefWithPicture>>
 
     /**
      * Retrieves the current user's top 25 tracks.
      */
     @GET("user/me/charts/tracks")
-    suspend fun getUserTopTracks(): ApiResponse<PaginatedList<TrackBrief>>
+    suspend fun getUserTopTracks(): NetworkResponse<PaginatedList<TrackBrief>>
 
     /**
      * Retrieves the current user's top albums.
      */
     @GET("user/me/charts/albums")
-    suspend fun getUserTopAlbums(): ApiResponse<WholeList<AlbumBrief>>
+    suspend fun getUserTopAlbums(): NetworkResponse<WholeList<AlbumBrief>>
 
     /**
      * Retrieves the current user's top playlists.
      */
     @GET("user/me/charts/playlists")
-    suspend fun getUserTopPlaylists(): ApiResponse<WholeList<PlaylistBrief>>
+    suspend fun getUserTopPlaylists(): NetworkResponse<WholeList<PlaylistBrief>>
 
     /**
      * Retrieves the current user's top artists.
      */
     @GET("user/me/charts/artists")
-    suspend fun getUserTopArtists(): ApiResponse<WholeList<ArtistBriefWithPicture>>
+    suspend fun getUserTopArtists(): NetworkResponse<WholeList<ArtistBriefWithPicture>>
 
     /**
      * Retrieves the current user's flow tracks (personalized recommendations).
      */
     @GET("user/me/flow")
-    suspend fun getUserFlowTracks(): ApiResponse<WholeList<TrackBrief>>
+    suspend fun getUserFlowTracks(): NetworkResponse<WholeList<TrackBrief>>
 
     /**
      * Retrieves the list of users that the current user is following.
      */
     @GET("user/me/followings")
-    suspend fun getUserFollowings(): ApiResponse<WholeList<User>>
+    suspend fun getUserFollowings(): NetworkResponse<WholeList<User>>
 
     /**
      * Retrieves the list of users that follows current user.
      */
     @GET("user/me/followers")
-    suspend fun getUserFollowers(): ApiResponse<WholeList<User>>
+    suspend fun getUserFollowers(): NetworkResponse<WholeList<User>>
 
     /**
      * Retrieves user's search history.
      */
     @GET("user/me/history")
-    suspend fun getUserHistory(): ApiResponse<WholeList<RadioBrief>>
+    suspend fun getUserHistory(): NetworkResponse<WholeList<RadioBrief>>
 
     /**
      * Provides information about what permissions the user has granted to the application.
      */
     @GET("user/me/permissions")
-    suspend fun getUserPermissions(): ApiResponse<WholeList<Permission>>
+    suspend fun getUserPermissions(): NetworkResponse<WholeList<Permission>>
 
     /**
      * Returns tracks that the user has uploaded or added as personal content.
      */
     @GET("user/me/personal_songs")
-    suspend fun getUserPersonalSongs(): ApiResponse<WholeList<TrackBrief>>
+    suspend fun getUserPersonalSongs(): NetworkResponse<WholeList<TrackBrief>>
 
     /**
      * Retrieves all playlists created by the user. Requires appropriate permissions for private playlists.
      */
     @GET("user/me/playlists")
-    suspend fun getUserPlaylists(): ApiResponse<WholeList<PlaylistBrief>>
+    suspend fun getUserPlaylists(): NetworkResponse<WholeList<PlaylistBrief>>
 
     /**
      * Returns radio stations that the user has marked as favorites.
      */
     @GET("user/me/radios")
-    suspend fun getUserFavoriteRadios(): ApiResponse<WholeList<RadioBrief>>
+    suspend fun getUserFavoriteRadios(): NetworkResponse<WholeList<RadioBrief>>
 
     /**
      * Provides album recommendations tailored to the user's listening preferences.
      */
     @GET("user/me/recommendations/albums")
-    suspend fun getUserRecommendedAlbums(): ApiResponse<WholeList<AlbumBrief>>
+    suspend fun getUserRecommendedAlbums(): NetworkResponse<WholeList<AlbumBrief>>
 
     /**
      * Returns newly released albums recommended specifically for the user.
      */
     @GET("user/me/recommendations/releases")
-    suspend fun getUserRecommendedReleases(): ApiResponse<WholeList<AlbumBrief>>
+    suspend fun getUserRecommendedReleases(): NetworkResponse<WholeList<AlbumBrief>>
 
     /**
      * Provides artist recommendations based on the user's listening history.
      */
     @GET("user/me/recommendations/artists")
-    suspend fun getUserRecommendedArtists(): ApiResponse<WholeList<ArtistBrief>>
+    suspend fun getUserRecommendedArtists(): NetworkResponse<WholeList<ArtistBrief>>
 
     /**
      * Returns playlist recommendations personalized for the user.
      */
     @GET("user/me/recommendations/playlists")
-    suspend fun getUserRecommendedPlaylists(): ApiResponse<WholeList<PlaylistBrief>>
+    suspend fun getUserRecommendedPlaylists(): NetworkResponse<WholeList<PlaylistBrief>>
 
     /**
      * Provides track recommendations based on user preferences and listening patterns.
      */
     @GET("user/me/recommendations/tracks")
-    suspend fun getUserRecommendedTracks(): ApiResponse<WholeList<TrackBrief>>
+    suspend fun getUserRecommendedTracks(): NetworkResponse<WholeList<TrackBrief>>
 
     /**
      * Returns radio station recommendations tailored to the user's taste.
      */
     @GET("user/me/recommendations/radios")
-    suspend fun getUserRecommendedRadios(): ApiResponse<WholeList<RadioBrief>>
+    suspend fun getUserRecommendedRadios(): NetworkResponse<WholeList<RadioBrief>>
 
     /**
      * Retrieves all tracks that the user has marked as favorites.
      */
     @GET("user/me/tracks")
-    suspend fun getUserFavoriteTracks(): ApiResponse<WholeList<TrackBrief>>
+    suspend fun getUserFavoriteTracks(): NetworkResponse<WholeList<TrackBrief>>
 
     /**
      * Modifies playlist information such as title and description.
@@ -170,14 +170,14 @@ internal interface UserApi {
         @Path("playlist_id") playlistId: Long,
         @Field("title") title: String? = null,
         @Field("description") description: String? = null
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Marks a playlist as viewed by the user.
      * Requires "basic_access" permissions.
      */
     @POST("playlist/{playlist_id}/seen")
-    suspend fun markPlaylistAsSeen(@Path("playlist_id") playlistId: Long): ApiResponse<Unit>
+    suspend fun markPlaylistAsSeen(@Path("playlist_id") playlistId: Long): NetworkResponse<Unit>
 
     /**
      * Adds one or more tracks to a specified playlist.
@@ -188,7 +188,7 @@ internal interface UserApi {
     suspend fun addTracksToPlaylist(
         @Path("playlist_id") playlistId: Long,
         @Field("songs") trackIds: String
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Changes the order of tracks within a playlist.
@@ -199,7 +199,7 @@ internal interface UserApi {
     suspend fun reorderPlaylistTracks(
         @Path("playlist_id") playlistId: Long,
         @Field("order") trackIds: String
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Modifies information for a user's personal track.
@@ -211,7 +211,7 @@ internal interface UserApi {
         @Path("track_id") trackId: Long,
         @Field("title") title: String? = null,
         @Field("artist") artist: String? = null
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Adds albums to the user's personal library.
@@ -222,7 +222,7 @@ internal interface UserApi {
     suspend fun addAlbumsToLibrary(
         @Path("user_id") userId: Long,
         @Field("album_id") albumId: Long
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Adds artists to the user's favorites list.
@@ -233,7 +233,7 @@ internal interface UserApi {
     suspend fun addArtistsToFavorites(
         @Path("user_id") userId: Long,
         @Field("artist_id") artistId: Long
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Follows another user on the platform.
@@ -244,7 +244,7 @@ internal interface UserApi {
     suspend fun followUser(
         @Path("user_id") userId: Long,
         @Field("user_id") targetUserId: Long
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Adds a notification to the user's activity feed.
@@ -254,7 +254,7 @@ internal interface UserApi {
     suspend fun addNotification(
         @Path("user_id") userId: Long,
         @Field("message") message: String
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Creates a new playlist with the specified title.
@@ -265,7 +265,7 @@ internal interface UserApi {
     suspend fun createPlaylist(
         @Path("user_id") userId: Long,
         @Field("title") title: String
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Adds playlists to the user's favorites.
@@ -276,7 +276,7 @@ internal interface UserApi {
     suspend fun addPlaylistsToFavorites(
         @Path("user_id") userId: Long,
         @Field("playlist_id") playlistId: Long
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Adds a radio station to the user's favorites.
@@ -287,7 +287,7 @@ internal interface UserApi {
     suspend fun addRadioToFavorites(
         @Path("user_id") userId: Long,
         @Field("radio_id") radioId: Long
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Adds tracks to the user's favorites collection.
@@ -298,7 +298,7 @@ internal interface UserApi {
     suspend fun addTracksToFavorites(
         @Path("user_id") userId: Long,
         @Field("track_id") trackId: Long
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Deletes specified playlist.
@@ -307,7 +307,7 @@ internal interface UserApi {
     @DELETE("playlist/{playlist_id}")
     suspend fun deletePlaylist(
         @Path("playlist_id") playlistId: Long,
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Removes specified tracks from a playlist.
@@ -317,7 +317,7 @@ internal interface UserApi {
     suspend fun removeTracksFromPlaylist(
         @Path("playlist_id") playlistId: Long,
         @Query("songs") trackIds: String
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Removes albums from the user's personal library.
@@ -327,7 +327,7 @@ internal interface UserApi {
     suspend fun removeAlbumsFromLibrary(
         @Path("user_id") userId: Long,
         @Query("album_id") albumId: Long
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Removes artists from the user's favorites list.
@@ -337,7 +337,7 @@ internal interface UserApi {
     suspend fun removeArtistsFromFavorites(
         @Path("user_id") userId: Long,
         @Query("artist_id") artistId: Long
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Stops following a specific user on the platform.
@@ -347,7 +347,7 @@ internal interface UserApi {
     suspend fun unfollowUser(
         @Path("user_id") userId: Long,
         @Query("user_id") targetUserId: Long
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Removes playlists from the user's favorites collection.
@@ -357,7 +357,7 @@ internal interface UserApi {
     suspend fun removePlaylistsFromFavorites(
         @Path("user_id") userId: Long,
         @Query("playlist_id") playlistId: Long
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Removes a radio station from the user's favorites.
@@ -367,7 +367,7 @@ internal interface UserApi {
     suspend fun removeRadioFromFavorites(
         @Path("user_id") userId: Long,
         @Query("radio_id") radioId: Long
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 
     /**
      * Removes tracks from the user's favorites collection.
@@ -377,5 +377,5 @@ internal interface UserApi {
     suspend fun removeTracksFromFavorites(
         @Path("user_id") userId: Long,
         @Query("track_id") trackId: Long
-    ): ApiResponse<Unit>
+    ): NetworkResponse<Unit>
 }

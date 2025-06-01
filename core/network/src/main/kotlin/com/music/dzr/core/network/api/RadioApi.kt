@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.ApiResponse
+import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.Radio
 import com.music.dzr.core.network.model.RadioBrief
@@ -19,25 +19,25 @@ internal interface RadioApi {
      * Retrieves all available radio stations.
      */
     @GET("radio")
-    suspend fun getRadios(): ApiResponse<PaginatedList<RadioBrief>>
+    suspend fun getRadios(): NetworkResponse<PaginatedList<RadioBrief>>
 
     /**
      * Retrieves detailed information about a specific radio station.
      */
     @GET("radio/{id}")
-    suspend fun getRadio(@Path("id") radioId: Long): ApiResponse<Radio>
+    suspend fun getRadio(@Path("id") radioId: Long): NetworkResponse<Radio>
 
     /**
      * Retrieves radio stations organized by genre.
      */
     @GET("radio/genres")
-    suspend fun getRadioGenres(): ApiResponse<PaginatedList<RadioBrief>>
+    suspend fun getRadioGenres(): NetworkResponse<PaginatedList<RadioBrief>>
 
     /**
      * Retrieves the top radio stations (default: 25 radios).
      */
     @GET("radio/top")
-    suspend fun getTopRadios(): ApiResponse<PaginatedList<RadioBrief>>
+    suspend fun getTopRadios(): NetworkResponse<PaginatedList<RadioBrief>>
 
     /**
      * Retrieves the first 40 tracks from a specific radio station.
@@ -45,12 +45,12 @@ internal interface RadioApi {
     @GET("radio/{id}/tracks")
     suspend fun getRadioTracks(
         @Path("id") radioId: Long
-    ): ApiResponse<PaginatedList<RadioTrackBrief>>
+    ): NetworkResponse<PaginatedList<RadioTrackBrief>>
 
     /**
      * Retrieves personal radio lists organized by genre (similar to MIX on website).
      */
     @GET("radio/lists")
-    suspend fun getRadioLists(): ApiResponse<PaginatedList<RadioBrief>>
+    suspend fun getRadioLists(): NetworkResponse<PaginatedList<RadioBrief>>
 
 }

@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.ApiResponse
+import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.Artist
 import com.music.dzr.core.network.model.ArtistAlbum
 import com.music.dzr.core.network.model.ArtistPlaylist
@@ -22,7 +22,7 @@ internal interface ArtistApi {
      * Retrieves detailed information about a specific artist.
      */
     @GET("artist/{id}")
-    suspend fun getArtist(@Path("id") artistId: Long): ApiResponse<Artist>
+    suspend fun getArtist(@Path("id") artistId: Long): NetworkResponse<Artist>
 
     /**
      * Retrieves the top 5 tracks of an artist.
@@ -30,7 +30,7 @@ internal interface ArtistApi {
     @GET("artist/{id}/top")
     suspend fun getArtistTopTracks(
         @Path("id") artistId: Long
-    ): ApiResponse<PaginatedList<ArtistTopTrack>>
+    ): NetworkResponse<PaginatedList<ArtistTopTrack>>
 
     /**
      * Retrieves all albums by a specific artist.
@@ -38,7 +38,7 @@ internal interface ArtistApi {
     @GET("artist/{id}/albums")
     suspend fun getArtistAlbums(
         @Path("id") artistId: Long
-    ): ApiResponse<PaginatedList<ArtistAlbum>>
+    ): NetworkResponse<PaginatedList<ArtistAlbum>>
 
     /**
      * Retrieves artists related to the specified artist.
@@ -46,7 +46,7 @@ internal interface ArtistApi {
     @GET("artist/{id}/related")
     suspend fun getRelatedArtists(
         @Path("id") artistId: Long
-    ): ApiResponse<PaginatedList<Artist>>
+    ): NetworkResponse<PaginatedList<Artist>>
 
     /**
      * Retrieves radio tracks based on an artist's style.
@@ -54,7 +54,7 @@ internal interface ArtistApi {
     @GET("artist/{id}/radio")
     suspend fun getArtistRadioTracks(
         @Path("id") artistId: Long
-    ): ApiResponse<WholeList<TrackBrief>>
+    ): NetworkResponse<WholeList<TrackBrief>>
 
     /**
      * Retrieves playlists created by or featuring the artist.
@@ -62,5 +62,5 @@ internal interface ArtistApi {
     @GET("artist/{id}/playlists")
     suspend fun getArtistPlaylists(
         @Path("id") artistId: Long
-    ): ApiResponse<PaginatedList<ArtistPlaylist>>
+    ): NetworkResponse<PaginatedList<ArtistPlaylist>>
 }

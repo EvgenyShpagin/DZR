@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.ApiResponse
+import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.Editorial
 import com.music.dzr.core.network.model.EditorialReleasesAlbum
 import com.music.dzr.core.network.model.EditorialSelectionAlbum
@@ -20,13 +20,13 @@ internal interface EditorialApi {
      * Retrieves all available editorial objects.
      */
     @GET("editorial")
-    suspend fun getEditorials(): ApiResponse<PaginatedList<Editorial>>
+    suspend fun getEditorials(): NetworkResponse<PaginatedList<Editorial>>
 
     /**
      * Retrieves detailed information about a specific editorial.
      */
     @GET("editorial/{id}")
-    suspend fun getEditorial(@Path("id") editorialId: Long): ApiResponse<Editorial>
+    suspend fun getEditorial(@Path("id") editorialId: Long): NetworkResponse<Editorial>
 
     /**
      * Retrieves albums selected weekly by the Deezer Team.
@@ -34,7 +34,7 @@ internal interface EditorialApi {
     @GET("editorial/{id}/selection")
     suspend fun getEditorialSelection(
         @Path("id") editorialId: Long
-    ): ApiResponse<WholeList<EditorialSelectionAlbum>>
+    ): NetworkResponse<WholeList<EditorialSelectionAlbum>>
 
     /**
      * Retrieves new releases per genre for the current country.
@@ -42,5 +42,5 @@ internal interface EditorialApi {
     @GET("editorial/{id}/releases")
     suspend fun getEditorialReleases(
         @Path("id") editorialId: Long
-    ): ApiResponse<PaginatedList<EditorialReleasesAlbum>>
+    ): NetworkResponse<PaginatedList<EditorialReleasesAlbum>>
 }

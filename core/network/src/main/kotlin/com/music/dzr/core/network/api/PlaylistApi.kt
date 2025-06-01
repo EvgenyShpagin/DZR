@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.ApiResponse
+import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.Playlist
 import com.music.dzr.core.network.model.PlaylistTrack
@@ -18,7 +18,7 @@ internal interface PlaylistApi {
      * Retrieves detailed information about a specific playlist.
      */
     @GET("playlist/{id}")
-    suspend fun getPlaylist(@Path("id") playlistId: Long): ApiResponse<Playlist>
+    suspend fun getPlaylist(@Path("id") playlistId: Long): NetworkResponse<Playlist>
 
     /**
      * Retrieves all tracks from a specific playlist.
@@ -26,6 +26,6 @@ internal interface PlaylistApi {
     @GET("playlist/{id}/tracks")
     suspend fun getPlaylistTracks(
         @Path("id") playlistId: Long
-    ): ApiResponse<PaginatedList<PlaylistTrack>>
+    ): NetworkResponse<PaginatedList<PlaylistTrack>>
 
 }

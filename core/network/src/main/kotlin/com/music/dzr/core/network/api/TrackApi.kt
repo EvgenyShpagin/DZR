@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.ApiResponse
+import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.Track
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,5 +16,5 @@ internal interface TrackApi {
      * Retrieves detailed information about a specific track.
      */
     @GET("track/{id}")
-    suspend fun getTrack(@Path("id") trackId: Long): ApiResponse<Track>
+    suspend fun getTrack(@Path("id") trackId: Long): NetworkResponse<Track>
 }
