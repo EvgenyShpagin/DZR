@@ -36,4 +36,8 @@ dependencies {
     implementation(libs.okhttp)
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.core)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockwebserver)
 }
