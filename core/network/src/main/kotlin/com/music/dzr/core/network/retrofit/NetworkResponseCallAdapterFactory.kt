@@ -30,7 +30,7 @@ internal class NetworkResponseCallAdapterFactory(
         // Extract T of Call<T>
         val callType = getParameterUpperBound(0, returnType as ParameterizedType)
 
-        if (getRawType(callType) != Response::class.java) return null
+        if (getRawType(callType) != NetworkResponse::class.java) return null
 
         // Extract T of ApiResponse<T>
         val responseType = getParameterUpperBound(0, callType as ParameterizedType)
