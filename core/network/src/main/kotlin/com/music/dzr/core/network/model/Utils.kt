@@ -32,7 +32,7 @@ data class PaginatedList<T>(
  * Represents an error returned by the API.
  */
 @Serializable
-data class ApiError(
+data class NetworkError(
     val type: NetworkErrorType,
     val message: String,
     val code: Int
@@ -97,5 +97,5 @@ enum class NetworkErrorType {
 @Serializable
 data class ApiResponse<T>(
     val data: T? = null,
-    val error: ApiError? = null
+    val error: NetworkError? = null
 )
