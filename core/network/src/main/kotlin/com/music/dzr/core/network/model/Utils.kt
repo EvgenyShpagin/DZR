@@ -28,6 +28,16 @@ data class PaginatedList<T>(
     @SerialName("prev") val prevResultsUrl: String? = null
 )
 
+
+/**
+ * A universal wrapper for all API responses.
+ */
+@Serializable
+data class ApiResponse<T>(
+    val data: T? = null,
+    val error: NetworkError? = null
+)
+
 /**
  * Represents an error returned by the API.
  */
@@ -90,12 +100,3 @@ enum class NetworkErrorType {
     /** Catch-all for any other unforeseen network or runtime errors */
     Unknown
 }
-
-/**
- * A universal wrapper for all API responses.
- */
-@Serializable
-data class ApiResponse<T>(
-    val data: T? = null,
-    val error: NetworkError? = null
-)
