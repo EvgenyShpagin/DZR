@@ -1,8 +1,13 @@
+@file:UseSerializers(LocalDateTimeWithSpaceSerializer::class)
+
 package com.music.dzr.core.network.model
 
+
+import com.music.dzr.core.network.util.LocalDateTimeWithSpaceSerializer
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.UseSerializers
 
 /**
  * Represents a full playlist in Deezer.
