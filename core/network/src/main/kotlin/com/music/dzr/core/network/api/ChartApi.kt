@@ -1,11 +1,11 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.Chart
 import com.music.dzr.core.network.model.ChartAlbum
 import com.music.dzr.core.network.model.ChartArtist
-import com.music.dzr.core.network.model.ChartPlaylist
+import com.music.dzr.core.network.model.ChartPlaylists
 import com.music.dzr.core.network.model.ChartTrack
+import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -52,5 +52,5 @@ internal interface ChartApi {
     @GET("chart/{genre_id}/playlists")
     suspend fun getTopPlaylists(
         @Path("genre_id") genreId: Long = 0
-    ): NetworkResponse<PaginatedList<ChartPlaylist>>
+    ): NetworkResponse<ChartPlaylists>
 }

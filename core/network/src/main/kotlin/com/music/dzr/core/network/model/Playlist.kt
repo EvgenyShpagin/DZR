@@ -1,9 +1,11 @@
 @file:UseSerializers(
     SpaceSeparatedLocalDateTimeSerializer::class,
+    ApiLenientLocalDateTimeSerializer::class
 )
 
 package com.music.dzr.core.network.model
 
+import com.music.dzr.core.network.util.ApiLenientLocalDateTimeSerializer
 import com.music.dzr.core.network.util.SpaceSeparatedLocalDateTimeSerializer
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
@@ -47,6 +49,7 @@ data class Playlist(
 /**
  * Represents brief information about a playlist.
  * Contains essential metadata used for listing playlists without full track details.
+ * (Doesn't have [addDate] and [modDate] in [ChartPlaylists])
  */
 @Serializable
 data class PlaylistBrief(
@@ -63,8 +66,8 @@ data class PlaylistBrief(
     val checksum: String,
     val tracklist: String,
     @SerialName("creation_date") val creationDate: LocalDateTime,
-    @SerialName("add_date") val addDate: LocalDateTime,
-    @SerialName("mod_date") val modDate: LocalDateTime,
+    @SerialName("add_date") val addDate: LocalDateTime?,
+    @SerialName("mod_date") val modDate: LocalDateTime?,
     @SerialName("md5_image") val md5Image: String,
     @SerialName("picture_type") val pictureType: String,
     val user: PlaylistCreator,

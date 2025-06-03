@@ -1,6 +1,5 @@
 package com.music.dzr.core.network.model
 
-import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -141,33 +140,6 @@ data class ChartArtistBrief(
 /**
  * Represents a collection of playlists from the chart.
  * Contains a list of the most popular user playlists.
+ * (Doesn't have [PlaylistBrief.addDate] and [PlaylistBrief.modDate])
  */
-typealias ChartPlaylists = PaginatedList<ChartPlaylist>
-
-/**
- * Represents a chart playlist with position information.
- * Includes the chart position and playlist metadata.
- */
-@Serializable
-data class ChartPlaylist(
-    val id: Long,
-    val title: String,
-    val public: Boolean,
-    @SerialName("nb_tracks") val nbTracks: Int,
-    val link: String,
-    val picture: String,
-    @SerialName("picture_small") val pictureSmall: String,
-    @SerialName("picture_medium") val pictureMedium: String,
-    @SerialName("picture_big") val pictureBig: String,
-    @SerialName("picture_xl") val pictureXl: String,
-    val checksum: String,
-    val tracklist: String,
-    @SerialName("creation_date") val creationDate: LocalDate,
-    @SerialName("add_date") val addDate: LocalDate,
-    @SerialName("mod_date") val modDate: LocalDate,
-    @SerialName("md5_image") val md5Image: String,
-    @SerialName("picture_type") val pictureType: String,
-    val position: Int,
-    val user: PlaylistCreator,
-    val type: String
-)
+typealias ChartPlaylists = PaginatedList<PlaylistBrief>
