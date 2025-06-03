@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.retrofit
+package com.music.dzr.core.network
 
 import java.io.File
 import java.io.InputStream
