@@ -1,0 +1,224 @@
+{
+  "data": [
+    {
+      "id": "719219161",
+      "title": "Origins Of Aggression",
+      "cover": "https://api.deezer.com/album/719219161/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/9893049c9e0cc3e7cd656f867136ae09/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/9893049c9e0cc3e7cd656f867136ae09/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/9893049c9e0cc3e7cd656f867136ae09/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/9893049c9e0cc3e7cd656f867136ae09/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "9893049c9e0cc3e7cd656f867136ae09",
+      "genre_id": 464,
+      "record_type": "album",
+      "tracklist": "https://api.deezer.com/album/719219161/tracks",
+      "explicit_lyrics": true,
+      "artist": {
+        "id": "399558",
+        "name": "Onslaught",
+        "link": "https://www.deezer.com/artist/399558",
+        "tracklist": "https://api.deezer.com/artist/399558/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    },
+    {
+      "id": "127069202",
+      "title": "One Struggle One Fight",
+      "cover": "https://api.deezer.com/album/127069202/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/5982da575bb87830a265c13acd82ec8a/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/5982da575bb87830a265c13acd82ec8a/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/5982da575bb87830a265c13acd82ec8a/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/5982da575bb87830a265c13acd82ec8a/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "5982da575bb87830a265c13acd82ec8a",
+      "genre_id": 85,
+      "record_type": "album",
+      "tracklist": "https://api.deezer.com/album/127069202/tracks",
+      "explicit_lyrics": false,
+      "artist": {
+        "id": "16678",
+        "name": "The Varukers",
+        "link": "https://www.deezer.com/artist/16678",
+        "tracklist": "https://api.deezer.com/artist/16678/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    },
+    {
+      "id": "737557961",
+      "title": "Chet Baker Re:imagined",
+      "cover": "https://api.deezer.com/album/737557961/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/af9da0c152942b1cfdb13b2d950a42f4/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/af9da0c152942b1cfdb13b2d950a42f4/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/af9da0c152942b1cfdb13b2d950a42f4/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/af9da0c152942b1cfdb13b2d950a42f4/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "af9da0c152942b1cfdb13b2d950a42f4",
+      "genre_id": 129,
+      "record_type": "album",
+      "tracklist": "https://api.deezer.com/album/737557961/tracks",
+      "explicit_lyrics": false,
+      "artist": {
+        "id": "5080",
+        "name": "Various Artists",
+        "link": "https://www.deezer.com/artist/5080",
+        "tracklist": "https://api.deezer.com/artist/5080/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    },
+    {
+      "id": "377010177",
+      "title": "O Mio Babbino Caro (Hudson Mohawke Remix)",
+      "cover": "https://api.deezer.com/album/377010177/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/cb3c37f8900466ab4c9d1518b65c04e4/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/cb3c37f8900466ab4c9d1518b65c04e4/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/cb3c37f8900466ab4c9d1518b65c04e4/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/cb3c37f8900466ab4c9d1518b65c04e4/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "cb3c37f8900466ab4c9d1518b65c04e4",
+      "genre_id": 173,
+      "record_type": "single",
+      "tracklist": "https://api.deezer.com/album/377010177/tracks",
+      "explicit_lyrics": false,
+      "artist": {
+        "id": "5137333",
+        "name": "Grand Theft Auto III",
+        "link": "https://www.deezer.com/artist/5137333",
+        "tracklist": "https://api.deezer.com/artist/5137333/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    },
+    {
+      "id": "108440162",
+      "title": "Mental",
+      "cover": "https://api.deezer.com/album/108440162/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/ba1140375fa2c377325cff4629e64082/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/ba1140375fa2c377325cff4629e64082/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/ba1140375fa2c377325cff4629e64082/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/ba1140375fa2c377325cff4629e64082/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "ba1140375fa2c377325cff4629e64082",
+      "genre_id": 116,
+      "record_type": "album",
+      "tracklist": "https://api.deezer.com/album/108440162/tracks",
+      "explicit_lyrics": true,
+      "artist": {
+        "id": "1479842",
+        "name": "PLK",
+        "link": "https://www.deezer.com/artist/1479842",
+        "tracklist": "https://api.deezer.com/artist/1479842/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    },
+    {
+      "id": "326313467",
+      "title": "3000°",
+      "cover": "https://api.deezer.com/album/326313467/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/c0d95c6c3f12861ac911ca6ffe14126c/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/c0d95c6c3f12861ac911ca6ffe14126c/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/c0d95c6c3f12861ac911ca6ffe14126c/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/c0d95c6c3f12861ac911ca6ffe14126c/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "c0d95c6c3f12861ac911ca6ffe14126c",
+      "genre_id": 165,
+      "record_type": "album",
+      "tracklist": "https://api.deezer.com/album/326313467/tracks",
+      "explicit_lyrics": false,
+      "artist": {
+        "id": "73924892",
+        "name": "Ambré",
+        "link": "https://www.deezer.com/artist/73924892",
+        "tracklist": "https://api.deezer.com/artist/73924892/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    },
+    {
+      "id": "663601011",
+      "title": "Luminescent Creatures",
+      "cover": "https://api.deezer.com/album/663601011/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/f998dc159c5a6e3913500c752b780b25/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/f998dc159c5a6e3913500c752b780b25/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/f998dc159c5a6e3913500c752b780b25/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/f998dc159c5a6e3913500c752b780b25/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "f998dc159c5a6e3913500c752b780b25",
+      "genre_id": 85,
+      "record_type": "album",
+      "tracklist": "https://api.deezer.com/album/663601011/tracks",
+      "explicit_lyrics": false,
+      "artist": {
+        "id": "5333041",
+        "name": "Ichiko Aoba",
+        "link": "https://www.deezer.com/artist/5333041",
+        "tracklist": "https://api.deezer.com/artist/5333041/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    },
+    {
+      "id": "670376221",
+      "title": "Small Changes",
+      "cover": "https://api.deezer.com/album/670376221/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/5156224fe5a5d5a4d146555da266565d/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/5156224fe5a5d5a4d146555da266565d/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/5156224fe5a5d5a4d146555da266565d/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/5156224fe5a5d5a4d146555da266565d/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "5156224fe5a5d5a4d146555da266565d",
+      "genre_id": 85,
+      "record_type": "album",
+      "tracklist": "https://api.deezer.com/album/670376221/tracks",
+      "explicit_lyrics": false,
+      "artist": {
+        "id": "459578",
+        "name": "Michael Kiwanuka",
+        "link": "https://www.deezer.com/artist/459578",
+        "tracklist": "https://api.deezer.com/artist/459578/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    },
+    {
+      "id": "617280391",
+      "title": "Cinema 3000",
+      "cover": "https://api.deezer.com/album/617280391/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/88eaadd48c9abe7ad9d28048a0e438b6/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/88eaadd48c9abe7ad9d28048a0e438b6/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/88eaadd48c9abe7ad9d28048a0e438b6/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/88eaadd48c9abe7ad9d28048a0e438b6/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "88eaadd48c9abe7ad9d28048a0e438b6",
+      "genre_id": 165,
+      "record_type": "album",
+      "tracklist": "https://api.deezer.com/album/617280391/tracks",
+      "explicit_lyrics": false,
+      "artist": {
+        "id": "96725112",
+        "name": "Common Saints",
+        "link": "https://www.deezer.com/artist/96725112",
+        "tracklist": "https://api.deezer.com/artist/96725112/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    },
+    {
+      "id": "655139101",
+      "title": "Seek Your Truth (A Vitória)",
+      "cover": "https://api.deezer.com/album/655139101/image",
+      "cover_small": "https://cdn-images.dzcdn.net/images/cover/1e926ec67601a7321328f09f07ad8d36/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://cdn-images.dzcdn.net/images/cover/1e926ec67601a7321328f09f07ad8d36/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://cdn-images.dzcdn.net/images/cover/1e926ec67601a7321328f09f07ad8d36/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://cdn-images.dzcdn.net/images/cover/1e926ec67601a7321328f09f07ad8d36/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "1e926ec67601a7321328f09f07ad8d36",
+      "genre_id": 106,
+      "record_type": "single",
+      "tracklist": "https://api.deezer.com/album/655139101/tracks",
+      "explicit_lyrics": false,
+      "artist": {
+        "id": "1403694",
+        "name": "MEDUZA",
+        "link": "https://www.deezer.com/artist/1403694",
+        "tracklist": "https://api.deezer.com/artist/1403694/top?limit=50",
+        "type": "artist"
+      },
+      "type": "album"
+    }
+  ]
+}
