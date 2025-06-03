@@ -1,9 +1,10 @@
-@file:UseSerializers(LocalDateTimeWithSpaceSerializer::class)
+@file:UseSerializers(
+    SpaceSeparatedLocalDateTimeSerializer::class,
+)
 
 package com.music.dzr.core.network.model
 
-
-import com.music.dzr.core.network.util.LocalDateTimeWithSpaceSerializer
+import com.music.dzr.core.network.util.SpaceSeparatedLocalDateTimeSerializer
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
