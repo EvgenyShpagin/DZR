@@ -13,9 +13,9 @@ import kotlinx.serialization.encoding.Encoder
  * A custom serializer for [LocalDateTime] that catches the format with a space between
  * the date and time and converts it to an ISO string with a "T".
  */
-object LocalDateTimeWithSpaceSerializer : KSerializer<LocalDateTime> {
+object SpaceSeparatedLocalDateTimeSerializer : KSerializer<LocalDateTime> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
-        "LocalDateTimeWithSpaceSerializer",
+        "SpaceSeparatedLocalDateTimeSerializer",
         PrimitiveKind.STRING
     )
 
