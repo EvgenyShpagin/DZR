@@ -90,7 +90,7 @@ data class PlaylistTrack(
     val readable: Boolean,
     val title: String,
     @SerialName("title_short") val titleShort: String,
-    @SerialName("title_version") val titleVersion: String,
+    @SerialName("title_version") val titleVersion: String? = null,
     val isrc: String,
     val link: String,
     val duration: Int,
