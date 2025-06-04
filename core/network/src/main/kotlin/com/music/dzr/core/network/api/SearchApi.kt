@@ -22,7 +22,7 @@ internal interface SearchApi {
     /**
      * Searches for tracks across the Deezer catalog.
      */
-    @GET("search")
+    @GET("search/track")
     suspend fun searchTracks(
         @Query("q") query: String
     ): NetworkResponse<PaginatedList<SearchTrack>>
