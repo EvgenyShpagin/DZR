@@ -49,7 +49,7 @@ data class TrackBrief(
     val readable: Boolean,
     val title: String,
     @SerialName("title_short") val titleShort: String,
-    @SerialName("title_version") val titleVersion: String,
+    @SerialName("title_version") val titleVersion: String? = null,
     val link: String? = null,
     val duration: Int,
     val rank: Int,

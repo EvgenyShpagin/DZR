@@ -4,7 +4,9 @@ import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.Radio
 import com.music.dzr.core.network.model.RadioBrief
-import com.music.dzr.core.network.model.RadioTrackBrief
+import com.music.dzr.core.network.model.RadioTrack
+import com.music.dzr.core.network.model.TitledGenreRadioList
+import com.music.dzr.core.network.model.WholeList
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -19,7 +21,7 @@ internal interface RadioApi {
      * Retrieves all available radio stations.
      */
     @GET("radio")
-    suspend fun getRadios(): NetworkResponse<PaginatedList<RadioBrief>>
+    suspend fun getRadios(): NetworkResponse<WholeList<RadioBrief>>
 
     /**
      * Retrieves detailed information about a specific radio station.
@@ -31,7 +33,7 @@ internal interface RadioApi {
      * Retrieves radio stations organized by genre.
      */
     @GET("radio/genres")
-    suspend fun getRadioGenres(): NetworkResponse<PaginatedList<RadioBrief>>
+    suspend fun getRadioGenres(): NetworkResponse<TitledGenreRadioList>
 
     /**
      * Retrieves the top radio stations (default: 25 radios).
@@ -40,12 +42,12 @@ internal interface RadioApi {
     suspend fun getTopRadios(): NetworkResponse<PaginatedList<RadioBrief>>
 
     /**
-     * Retrieves the first 40 tracks from a specific radio station.
+     * Retrieves the first 25 tracks from a specific radio station.
      */
     @GET("radio/{id}/tracks")
     suspend fun getRadioTracks(
         @Path("id") radioId: Long
-    ): NetworkResponse<PaginatedList<RadioTrackBrief>>
+    ): NetworkResponse<WholeList<RadioTrack>>
 
     /**
      * Retrieves personal radio lists organized by genre (similar to MIX on website).

@@ -1,6 +1,5 @@
 package com.music.dzr.core.network.model
 
-import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -98,16 +97,15 @@ data class RadioTrack(
     val readable: Boolean,
     val title: String,
     @SerialName("title_short") val titleShort: String,
-    @SerialName("title_version") val titleVersion: String,
+    @SerialName("title_version") val titleVersion: String? = null,
     val link: String,
     val duration: Int,
     val rank: Int,
-    @SerialName("release_date") val releaseDate: LocalDate,
     @SerialName("explicit_lyrics") val explicitLyrics: Boolean,
     @SerialName("explicit_content_lyrics") val explicitContentLyrics: Int,
     @SerialName("explicit_content_cover") val explicitContentCover: Int,
     val preview: String,
-    val alternative: TrackBrief?,
+    val alternative: TrackBrief? = null,
     @SerialName("md5_image") val md5Image: String,
     val artist: ArtistBriefWithPicture,
     val album: AlbumBrief,
