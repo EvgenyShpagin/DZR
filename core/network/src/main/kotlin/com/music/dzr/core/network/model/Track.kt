@@ -34,7 +34,7 @@ data class Track(
     val contributors: List<Contributor>,
     @SerialName("md5_image") val md5Image: String,
     @SerialName("track_token") val trackToken: String,
-    val artist: Artist,
+    val artist: TrackArtist,
     val album: TrackAlbum,
     val type: String
 )
@@ -77,6 +77,26 @@ data class TrackAlbum(
     @SerialName("cover_big") val coverBig: String,
     @SerialName("cover_xl") val coverXl: String,
     @SerialName("release_date") val releaseDate: LocalDate,
+    val tracklist: String,
+    val type: String
+)
+
+/**
+ * Contains almost full artist information.
+ * Includes all available artist metadata excluding numbers of fan and album.
+ */
+@Serializable
+data class TrackArtist(
+    val id: Long,
+    val name: String,
+    val link: String,
+    val share: String,
+    val picture: String,
+    @SerialName("picture_small") val pictureSmall: String,
+    @SerialName("picture_medium") val pictureMedium: String,
+    @SerialName("picture_big") val pictureBig: String,
+    @SerialName("picture_xl") val pictureXl: String,
+    val radio: Boolean,
     val tracklist: String,
     val type: String
 )
