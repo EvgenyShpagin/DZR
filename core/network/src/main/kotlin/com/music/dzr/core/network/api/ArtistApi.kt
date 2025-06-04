@@ -1,11 +1,11 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.Artist
 import com.music.dzr.core.network.model.ArtistAlbum
-import com.music.dzr.core.network.model.ArtistPlaylist
 import com.music.dzr.core.network.model.ArtistTopTrack
+import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
+import com.music.dzr.core.network.model.PlaylistBrief
 import com.music.dzr.core.network.model.TrackBrief
 import com.music.dzr.core.network.model.WholeList
 import retrofit2.http.GET
@@ -50,6 +50,7 @@ internal interface ArtistApi {
 
     /**
      * Retrieves radio tracks based on an artist's style.
+     * @return auto-generated track list without [TrackBrief.link]
      */
     @GET("artist/{id}/radio")
     suspend fun getArtistRadioTracks(
@@ -58,9 +59,10 @@ internal interface ArtistApi {
 
     /**
      * Retrieves playlists created by or featuring the artist.
+     * @return playlist without [PlaylistBrief.nbTracks]
      */
     @GET("artist/{id}/playlists")
     suspend fun getArtistPlaylists(
         @Path("id") artistId: Long
-    ): NetworkResponse<PaginatedList<ArtistPlaylist>>
+    ): NetworkResponse<PaginatedList<PlaylistBrief>>
 }

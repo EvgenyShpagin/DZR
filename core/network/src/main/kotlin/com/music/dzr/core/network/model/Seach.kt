@@ -3,11 +3,6 @@ package com.music.dzr.core.network.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-/**
- * Represents paginated search results for tracks.
- * Used when performing track searches via Deezer API with pagination support.
- */
-typealias SearchTracks = PaginatedList<SearchTrack>
 
 /**
  * Represents a track found in search results.
@@ -34,12 +29,6 @@ data class SearchTrack(
 )
 
 /**
- * Represents paginated search results for albums.
- * Contains albums matching search query with pagination support.
- */
-typealias SearchedAlbums = PaginatedList<SearchAlbum>
-
-/**
  * Represents an album found in search results.
  * Contains essential album metadata with genre information.
  */
@@ -64,18 +53,6 @@ data class SearchAlbum(
 )
 
 /**
- * Represents paginated search results for radio stations.
- * Contains brief radio information matching search query.
- */
-typealias SearchRadioList = PaginatedList<RadioBrief>
-
-/**
- * Represents paginated search results for users.
- * Contains user profiles matching search criteria.
- */
-typealias SearchUserList = PaginatedList<SearchUser>
-
-/**
  * Represents a user profile found in search results.
  * Contains public user information and image URLs.
  */
@@ -91,9 +68,3 @@ data class SearchUser(
     val tracklist: String,
     val type: String
 )
-
-/**
- * Represents a paginated list of playlists matching search.
- * Contains brief info about each playlist (with [PlaylistBrief.nbTracks]).
- */
-typealias SearchPlaylists = PaginatedList<PlaylistBrief>

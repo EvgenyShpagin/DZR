@@ -4,11 +4,6 @@ import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-/**
- * Represents a paginated list of Deezer editorial items.
- * Used for retrieving and displaying editorial sections such as country or genre-based selections.
- */
-typealias Editorials = PaginatedList<Editorial>
 
 /**
  * Represents a single Deezer editorial section.
@@ -25,12 +20,6 @@ data class Editorial(
     @SerialName("picture_xl") val pictureXl: String,
     val type: String
 )
-
-/**
- * Represents a paginated list of new releases in a specific editorial section.
- * Used to display newly released albums curated by Deezer editors for a country or genre.
- */
-typealias EditorialReleases = PaginatedList<EditorialReleasesAlbum>
 
 /**
  * Represents a single album from the editorial new releases section.
@@ -51,12 +40,6 @@ data class EditorialReleasesAlbum(
     val artist: ArtistBrief,
     val type: String
 )
-
-/**
- * Represents a non-paginated list of editorial selection albums.
- * Used for displaying a curated set of albums selected by Deezer editors for a section.
- */
-typealias EditorialSelections = WholeList<EditorialSelectionAlbum>
 
 /**
  * Represents a single album from an editorial selection.

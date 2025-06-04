@@ -43,13 +43,12 @@ data class Playlist(
     @SerialName("picture_type") val pictureType: String,
     val creator: PlaylistCreator,
     val type: String,
-    val tracks: PlaylistTracks
+    val tracks: PaginatedList<PlaylistTrack>
 )
 
 /**
  * Represents brief information about a playlist.
  * Contains essential metadata used for listing playlists without full track details.
- * (Doesn't have [addDate] and [modDate] in [ChartPlaylists])
  */
 @Serializable
 data class PlaylistBrief(
@@ -73,12 +72,6 @@ data class PlaylistBrief(
     val user: PlaylistCreator,
     val type: String
 )
-
-/**
- * Represents a paginated list of tracks within a playlist.
- * Used to handle large playlists with pagination support when fetching tracks.
- */
-typealias PlaylistTracks = PaginatedList<PlaylistTrack>
 
 /**
  * Represents a single track within a playlist.

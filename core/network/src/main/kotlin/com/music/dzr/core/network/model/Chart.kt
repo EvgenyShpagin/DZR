@@ -6,20 +6,18 @@ import kotlinx.serialization.Serializable
 /**
  * Represents Deezer's complete music chart structure.
  * Contains rankings for tracks, albums, artists, and playlists.
+ * @param tracks the most popular compositions with positions in the rating
+ * @param albums the most popular albums with rating positions.
+ * @param artists the most popular artists with ranking positions.
+ * @param playlists the most popular playlists (doesn't have [PlaylistBrief.addDate] and [PlaylistBrief.modDate])
  */
 @Serializable
 data class Chart(
-    val tracks: ChartTracks,
-    val albums: ChartAlbums,
-    val artists: ChartArtists,
-    val playlists: ChartPlaylists
+    val tracks: PaginatedList<ChartTrack>,
+    val albums: PaginatedList<ChartAlbum>,
+    val artists: PaginatedList<ChartArtist>,
+    val playlists: PaginatedList<PlaylistBrief>
 )
-
-/**
- * Represents a collection of tracks from the chart.
- * Contains a list of the most popular compositions with positions in the rating
- */
-typealias ChartTracks = PaginatedList<ChartTrack>
 
 /**
  * Contains chart track collection with ranking positions.
@@ -64,12 +62,6 @@ data class ChartTrackAlbum(
 )
 
 /**
- * Represents a collection of albums from the chart.
- * Contains a list of the most popular albums with rating positions.
- */
-typealias ChartAlbums = PaginatedList<ChartAlbum>
-
-/**
  * Represents a charted album with position information.
  * Includes the chart position and basic metadata for the album.
  */
@@ -91,12 +83,6 @@ data class ChartAlbum(
     val artist: ChartArtistBrief,
     val type: String
 )
-
-/**
- * Presents a collection of artists from the chart.
- * Contains a list of the most popular artists with ranking positions.
- */
-typealias ChartArtists = PaginatedList<ChartArtist>
 
 /**
  * Represents a chart artist with position information.
@@ -136,10 +122,3 @@ data class ChartArtistBrief(
     val tracklist: String,
     val type: String
 )
-
-/**
- * Represents a collection of playlists from the chart.
- * Contains a list of the most popular user playlists.
- * (Doesn't have [PlaylistBrief.addDate] and [PlaylistBrief.modDate])
- */
-typealias ChartPlaylists = PaginatedList<PlaylistBrief>

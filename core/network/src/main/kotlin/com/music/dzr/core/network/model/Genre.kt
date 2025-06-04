@@ -20,24 +20,6 @@ data class Genre(
 )
 
 /**
- * Represents a non-paginated list of musical genres.
- * Used to retrieve the full list of available genres in Deezer.
- */
-typealias GenreList = WholeList<Genre>
-
-/**
- * Represents a non-paginated list of artists associated with a specific genre.
- * Used to fetch all artists categorized under a given genre.
- */
-typealias GenreArtistList = WholeList<GenreArtist>
-
-/**
- * Represents a non-paginated list of radios related to a specific genre.
- * Used to obtain radio stations that broadcast music of the specified genre.
- */
-typealias GenreRadioList = WholeList<RadioBrief>
-
-/**
  * Represents an artist associated with a musical genre in Deezer.
  */
 @Serializable

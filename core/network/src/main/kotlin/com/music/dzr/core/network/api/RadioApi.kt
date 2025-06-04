@@ -5,7 +5,7 @@ import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.Radio
 import com.music.dzr.core.network.model.RadioBrief
 import com.music.dzr.core.network.model.RadioTrack
-import com.music.dzr.core.network.model.TitledGenreRadioList
+import com.music.dzr.core.network.model.TitledGenreRadio
 import com.music.dzr.core.network.model.WholeList
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -33,7 +33,7 @@ internal interface RadioApi {
      * Retrieves radio stations organized by genre.
      */
     @GET("radio/genres")
-    suspend fun getRadioGenres(): NetworkResponse<TitledGenreRadioList>
+    suspend fun getRadioGenres(): NetworkResponse<WholeList<TitledGenreRadio>>
 
     /**
      * Retrieves the top radio stations (default: 25 radios).

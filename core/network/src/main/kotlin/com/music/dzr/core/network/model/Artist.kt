@@ -36,12 +36,6 @@ data class ArtistBriefWithPicture(
 )
 
 /**
- * Represents a list of related artists for a given artist.
- * Used for displaying artists similar to the current artist.
- */
-typealias RelatedArtistList = PaginatedList<Artist>
-
-/**
  * Contains comprehensive artist information.
  * Includes all available artist metadata including statistics and media.
  * Related and found artists using search have no [share].
@@ -63,12 +57,6 @@ data class Artist(
     val tracklist: String,
     val type: String
 )
-
-/**
- * Represents a paginated list of an artist's top tracks.
- * Contains the most popular tracks for a specific artist.
- */
-typealias ArtistTopTrackList = PaginatedList<ArtistTopTrack>
 
 /**
  * Represents artist's top track with complete information.
@@ -95,12 +83,6 @@ data class ArtistTopTrack(
 )
 
 /**
- * Represents a paginated list of albums by an artist.
- * Used to display all albums released by a specific artist.
- */
-typealias ArtistAlbums = PaginatedList<ArtistAlbum>
-
-/**
  * Represents album in artist context.
  * Contains album information emphasizing connection to specific artist.
  */
@@ -123,40 +105,6 @@ data class ArtistAlbum(
     val tracklist: String,
     val type: String
 )
-
-/**
- * Represents simplified album version for radio playlists.
- */
-@Serializable
-data class ArtistRadioAlbum(
-    val id: Long,
-    val title: String,
-    val cover: String,
-    @SerialName("cover_small") val coverSmall: String,
-    @SerialName("cover_medium") val coverMedium: String,
-    @SerialName("cover_big") val coverBig: String,
-    @SerialName("cover_xl") val coverXl: String,
-    val tracklist: String,
-    val type: String
-)
-
-/**
- * Represents artist radio track collection.
- * Contains auto-generated playlist based on artist's style.
- * Has no link to track on Deezer ([TrackBrief.link])
- */
-typealias ArtistRadio = WholeList<TrackBrief>
-
-/**
- * Network representation of artist playlists
- */
-typealias ArtistPlaylists = PaginatedList<ArtistPlaylist>
-
-/**
- * Network representation of artist playlist.
- * Has no [PlaylistBrief.nbTracks]
- */
-typealias ArtistPlaylist = PlaylistBrief
 
 /**
  * Represents contributor/co-author of musical work.
