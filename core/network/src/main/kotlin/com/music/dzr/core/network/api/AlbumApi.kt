@@ -1,12 +1,12 @@
 package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.NetworkResponse
-import com.music.dzr.core.network.spotifymodel.Album
-import com.music.dzr.core.network.spotifymodel.MultipleAlbumsResponse
-import com.music.dzr.core.network.spotifymodel.NewReleasesResponse
-import com.music.dzr.core.network.spotifymodel.PaginatedList
-import com.music.dzr.core.network.spotifymodel.SavedAlbum
-import com.music.dzr.core.network.spotifymodel.SimplifiedTrack
+import com.music.dzr.core.network.model.Album
+import com.music.dzr.core.network.model.MultipleAlbumsResponse
+import com.music.dzr.core.network.model.NewReleasesResponse
+import com.music.dzr.core.network.model.PaginatedList
+import com.music.dzr.core.network.model.SavedAlbum
+import com.music.dzr.core.network.model.SimplifiedTrack
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET

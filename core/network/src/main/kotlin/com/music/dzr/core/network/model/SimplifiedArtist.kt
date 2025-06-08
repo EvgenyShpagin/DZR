@@ -1,16 +1,17 @@
-package com.music.dzr.core.network.spotifymodel
+package com.music.dzr.core.network.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Represents the "linked_from" object when a track has been replaced by another.
+ * A simplified artist object used in album and track contexts.
  */
 @Serializable
-data class LinkedFrom(
+data class SimplifiedArtist(
     @SerialName("external_urls") val externalUrls: ExternalUrls,
     val href: String,
     val id: String,
+    val name: String,
     val type: String,
     val uri: String
 )

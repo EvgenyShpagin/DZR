@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.spotifymodel
+package com.music.dzr.core.network.model
 
 import com.music.dzr.core.network.util.ReleaseDatePrecisionSerializer
 import com.music.dzr.core.network.util.ReleaseDateSerializer

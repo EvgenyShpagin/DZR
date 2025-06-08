@@ -1,5 +1,6 @@
-package com.music.dzr.core.network.spotifymodel
+package com.music.dzr.core.network.model
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -22,7 +23,7 @@ data class Album(
     val type: String,
     val uri: String,
     val artists: List<SimplifiedArtist>,
-    val tracks: PaginatedList<SimplifiedTrack>? = null,
+    val tracks: PaginatedList<SimplifiedTrack>,
     val copyrights: List<Copyright>? = null,
     @SerialName("external_ids") val externalIds: ExternalIds? = null,
     val genres: List<String>? = null,
@@ -35,7 +36,7 @@ data class Album(
  */
 @Serializable
 data class SavedAlbum(
-    @SerialName("added_at") val addedAt: String,
+    @SerialName("added_at") val addedAt: Instant,
     val album: Album
 )
 
