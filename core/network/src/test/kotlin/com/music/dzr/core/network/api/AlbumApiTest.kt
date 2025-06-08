@@ -240,6 +240,7 @@ class AlbumApiTest {
     fun removeAlbumsForUser_usesCorrectBodyAndMethod_onRequestWithQuery() = runBlocking {
         // Arrange
         server.enqueueEmptyResponse()
+
         // Act
         api.removeAlbumsForUser(commaSeparatedIds)
 
@@ -252,11 +253,7 @@ class AlbumApiTest {
     @Test
     fun removeAlbumsForUser_returnsData_on200CodeResponseWithBody() = runBlocking {
         // Arrange
-        server.enqueue(
-            MockResponse()
-                .setResponseCode(200)
-                .setBody("")
-        )
+        server.enqueueEmptyResponse()
 
         // Act
         val response = api.removeAlbumsForUser(idList)
