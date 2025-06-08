@@ -4,6 +4,9 @@ import com.music.dzr.core.network.util.AlbumGroupSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Represents a Spotify artist with full profile information
+ */
 @Serializable
 data class Artist(
     @SerialName("external_urls") val externalUrls: ExternalUrls,
@@ -18,11 +21,17 @@ data class Artist(
     val uri: String
 )
 
+/**
+ * Response wrapper for getting multiple artists
+ */
 @Serializable
 data class ArtistContainer(
     val artists: List<Artist>
 )
 
+/**
+ * Represents a simplified album version for artist collection
+ */
 @Serializable
 data class ArtistAlbum(
     @SerialName("album_type") val albumType: AlbumType,
@@ -42,6 +51,9 @@ data class ArtistAlbum(
     @SerialName("album_group") val albumGroup: String
 )
 
+/**
+ * This describes the relationship between the artist and the album.
+ */
 @Serializable(with = AlbumGroupSerializer::class)
 enum class AlbumGroup {
     Album,

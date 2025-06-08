@@ -3,6 +3,9 @@ package com.music.dzr.core.network.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Represents a full track information
+ */
 @Serializable
 data class Track(
     val album: Album,
@@ -26,6 +29,9 @@ data class Track(
     @SerialName("is_local") val isLocal: Boolean
 )
 
+/**
+ * Wrapper for getting track collection
+ */
 @Serializable
 data class TracksContainer(
     val tracks: List<Track>
