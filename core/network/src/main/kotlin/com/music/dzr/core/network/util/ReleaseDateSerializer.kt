@@ -12,8 +12,8 @@ import kotlinx.serialization.encoding.Encoder
 
 /**
  * A custom serializer for [ReleaseDate] that catches the following date formats:
- * - yyyy-mm-dd
- * - yyyy-mm
+ * - yyyy-MM-dd
+ * - yyyy-MM
  * - yyyy
  */
 object ReleaseDateSerializer : KSerializer<ReleaseDate> {
