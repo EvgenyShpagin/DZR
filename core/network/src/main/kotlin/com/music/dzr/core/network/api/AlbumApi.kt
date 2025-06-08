@@ -2,8 +2,8 @@ package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.Album
-import com.music.dzr.core.network.model.MultipleAlbumsResponse
-import com.music.dzr.core.network.model.NewReleasesResponse
+import com.music.dzr.core.network.model.MultipleAlbumsContainer
+import com.music.dzr.core.network.model.NewReleasesContainer
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.SavedAlbum
 import com.music.dzr.core.network.model.SimplifiedTrack
@@ -39,7 +39,7 @@ interface AlbumApi {
     suspend fun getMultipleAlbums(
         @Query("ids") ids: String,
         @Query("market") market: String? = null
-    ): NetworkResponse<MultipleAlbumsResponse>
+    ): NetworkResponse<MultipleAlbumsContainer>
 
     /**
      * Retrieves a paginated list of tracks for a given album.
@@ -132,5 +132,5 @@ interface AlbumApi {
     suspend fun getNewReleases(
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null
-    ): NetworkResponse<NewReleasesResponse>
+    ): NetworkResponse<NewReleasesContainer>
 }

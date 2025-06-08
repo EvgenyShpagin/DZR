@@ -66,7 +66,7 @@ data class SimplifiedAlbum(
  * Paging object for new releases.
  */
 @Serializable
-data class NewReleasesResponse(
+data class NewReleasesContainer(
     val albums: PaginatedList<SimplifiedAlbum>
 )
 
@@ -74,7 +74,7 @@ data class NewReleasesResponse(
  * Response wrapper for getting multiple albums.
  */
 @Serializable
-data class MultipleAlbumsResponse(
+data class MultipleAlbumsContainer(
     val albums: List<Album>
 )
 
