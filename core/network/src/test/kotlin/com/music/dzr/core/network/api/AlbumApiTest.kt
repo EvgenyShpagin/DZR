@@ -1,7 +1,6 @@
-package com.music.dzr.core.network.spotifyapi
+package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.api.createApi
-import com.music.dzr.core.network.api.getJsonBodyAsset
+import com.music.dzr.core.network.spotifyapi.AlbumApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Instant
 import okhttp3.mockwebserver.MockResponse
