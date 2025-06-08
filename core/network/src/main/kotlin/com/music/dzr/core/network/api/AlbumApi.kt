@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.spotifyapi
+package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.spotifymodel.Album
@@ -10,6 +10,7 @@ import com.music.dzr.core.network.spotifymodel.SimplifiedTrack
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -106,7 +107,7 @@ interface AlbumApi {
      * @param ids Id list of albums (comma-separated IDs, max 20)
      * @param ids List of ids in format (max 50)
      */
-    @DELETE("me/albums")
+    @HTTP(method = "DELETE", path = "me/albums", hasBody = true)
     suspend fun removeAlbumsForUser(
         @Body ids: List<String>
     ): NetworkResponse<Unit>
