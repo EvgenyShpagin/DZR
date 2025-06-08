@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Album(
-    @SerialName("album_type") val albumType: String,
+    @SerialName("album_type") val albumType: AlbumType,
     @SerialName("total_tracks") val totalTracks: Int,
     @SerialName("available_markets") val availableMarkets: List<String>,
     @SerialName("external_urls") val externalUrls: ExternalUrls,
@@ -45,7 +45,7 @@ data class SavedAlbum(
  */
 @Serializable
 data class SimplifiedAlbum(
-    @SerialName("album_type") val albumType: String,
+    @SerialName("album_type") val albumType: AlbumType,
     @SerialName("total_tracks") val totalTracks: Int,
     @SerialName("available_markets") val availableMarkets: List<String>,
     @SerialName("external_urls") val externalUrls: ExternalUrls,
@@ -76,3 +76,9 @@ data class NewReleasesResponse(
 data class MultipleAlbumsResponse(
     val albums: List<Album>
 )
+
+enum class AlbumType {
+    Album,
+    Single,
+    Compilation
+}
