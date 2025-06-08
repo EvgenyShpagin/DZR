@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.model
 
+import com.music.dzr.core.network.util.AlbumTypeSerializer
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -77,6 +78,7 @@ data class MultipleAlbumsResponse(
     val albums: List<Album>
 )
 
+@Serializable(with = AlbumTypeSerializer::class)
 enum class AlbumType {
     Album,
     Single,
