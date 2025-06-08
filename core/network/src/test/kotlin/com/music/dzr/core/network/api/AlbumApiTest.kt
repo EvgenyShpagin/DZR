@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.api
 
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Instant
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -35,7 +35,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun getAlbum_returnsData_whenServerRespondsWith200() = runBlocking {
+    fun getAlbum_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange: enqueue a 200 response with a sample album JSON
         server.enqueueResponseFromAssets("album_response.json")
 
@@ -53,7 +53,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun getAlbum_usesCorrectPathAndMethod_onRequestWithMarket() = runBlocking {
+    fun getAlbum_usesCorrectPathAndMethod_onRequestWithMarket() = runTest {
         // Arrange: enqueue a 200 response with a sample album JSON
         server.enqueueResponseFromAssets("album_response.json")
 
@@ -67,7 +67,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun getMultipleAlbums_returnsData_whenServerRespondsWith200() = runBlocking {
+    fun getMultipleAlbums_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("multiple_albums_response.json")
 
@@ -84,7 +84,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun getMultipleAlbums_usesCorrectPathAndMethod_onRequestWithMarket() = runBlocking {
+    fun getMultipleAlbums_usesCorrectPathAndMethod_onRequestWithMarket() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("multiple_albums_response.json")
 
@@ -98,7 +98,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun getAlbumTracks_returnsData_whenServerRespondsWith200() = runBlocking {
+    fun getAlbumTracks_returnsData_whenServerRespondsWith200() = runTest {
         // mockResponse
         server.enqueueResponseFromAssets("album_tracks_response.json")
 
@@ -118,7 +118,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun getAlbumTracks_usesCorrectPathAndMethod_onResponseWithParams() = runBlocking {
+    fun getAlbumTracks_usesCorrectPathAndMethod_onResponseWithParams() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("album_tracks_response.json")
 
@@ -135,7 +135,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun getUsersSavedAlbums_returnsData_on200CodeResponse() = runBlocking {
+    fun getUsersSavedAlbums_returnsData_on200CodeResponse() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("user_saved_albums_response.json")
 
@@ -155,7 +155,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun getUsersSavedAlbums_usesCorrectPathAndMethod_onResponseWithParams() = runBlocking {
+    fun getUsersSavedAlbums_usesCorrectPathAndMethod_onResponseWithParams() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("user_saved_albums_response.json")
 
@@ -169,7 +169,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun saveAlbumsForUser_returnsData_on200CodeResponseWithQuery() = runBlocking {
+    fun saveAlbumsForUser_returnsData_on200CodeResponseWithQuery() = runTest {
         // Arrange: server returns 200 OK with empty body
         server.enqueueEmptyResponse()
 
@@ -182,7 +182,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun saveAlbumsForUser_usesCorrectPathAndMethod_onRequestWithQuery() = runBlocking {
+    fun saveAlbumsForUser_usesCorrectPathAndMethod_onRequestWithQuery() = runTest {
         // Arrange: server returns 200 OK with empty body
         server.enqueueEmptyResponse()
 
@@ -196,7 +196,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun saveAlbumsForUser_returnsData_on200CodeResponseWithBody() = runBlocking {
+    fun saveAlbumsForUser_returnsData_on200CodeResponseWithBody() = runTest {
         // Arrange: server returns 200 OK with empty body
         server.enqueueEmptyResponse()
 
@@ -209,7 +209,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun saveAlbumsForUser_usesCorrectBodyAndMethod_onRequestWithBody() = runBlocking {
+    fun saveAlbumsForUser_usesCorrectBodyAndMethod_onRequestWithBody() = runTest {
         // Arrange
         server.enqueueEmptyResponse()
 
@@ -224,7 +224,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun removeAlbumsForUser_returnsData_on200CodeResponseWithQuery() = runBlocking {
+    fun removeAlbumsForUser_returnsData_on200CodeResponseWithQuery() = runTest {
         // Arrange
         server.enqueueEmptyResponse()
 
@@ -237,7 +237,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun removeAlbumsForUser_usesCorrectBodyAndMethod_onRequestWithQuery() = runBlocking {
+    fun removeAlbumsForUser_usesCorrectBodyAndMethod_onRequestWithQuery() = runTest {
         // Arrange
         server.enqueueEmptyResponse()
 
@@ -251,7 +251,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun removeAlbumsForUser_returnsData_on200CodeResponseWithBody() = runBlocking {
+    fun removeAlbumsForUser_returnsData_on200CodeResponseWithBody() = runTest {
         // Arrange
         server.enqueueEmptyResponse()
 
@@ -264,7 +264,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun removeAlbumsForUser_usesCorrectBodyAndMethod_onRequestWithBody() = runBlocking {
+    fun removeAlbumsForUser_usesCorrectBodyAndMethod_onRequestWithBody() = runTest {
         // Arrange
         server.enqueueEmptyResponse()
 
@@ -280,7 +280,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun checkUsersSavedAlbums_returnsData_on200CodeResponse() = runBlocking {
+    fun checkUsersSavedAlbums_returnsData_on200CodeResponse() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("check_user_saved_albums.json")
 
@@ -297,7 +297,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun checkUsersSavedAlbums_usesCorrectPathAndMethod_onRequest() = runBlocking {
+    fun checkUsersSavedAlbums_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("check_user_saved_albums.json")
 
@@ -310,7 +310,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun getNewReleases_returnsData_on200CodeResponse() = runBlocking {
+    fun getNewReleases_returnsData_on200CodeResponse() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("new_releases_response.json")
 
@@ -328,7 +328,7 @@ class AlbumApiTest {
     }
 
     @Test
-    fun getNewReleases_usesCorrectPathAndMethod_onRequestWithParams() = runBlocking {
+    fun getNewReleases_usesCorrectPathAndMethod_onRequestWithParams() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("new_releases_response.json")
 
