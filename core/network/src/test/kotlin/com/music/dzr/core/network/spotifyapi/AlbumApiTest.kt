@@ -1,0 +1,377 @@
+package com.music.dzr.core.network.spotifyapi
+
+import com.music.dzr.core.network.api.createApi
+import com.music.dzr.core.network.api.getJsonBodyAsset
+import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.Instant
+import okhttp3.mockwebserver.MockResponse
+import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
+import org.junit.Before
+import org.junit.Test
+
+class AlbumApiTest {
+
+    private lateinit var server: MockWebServer
+    private lateinit var api: AlbumApi
+
+    // Dummy parameters (ignored by MockWebServer)
+    private val id = "1"
+    private val idList = listOf("1", "2", "3")
+    private val commaSeparatedIds = "1,2,3"
+    private val encodedCommaSeparatedIds = "1%2C2%2C3"
+
+    @Before
+    fun setUp() {
+        server = MockWebServer()
+        server.start()
+        api = createApi(server.url("/"))
+    }
+
+    @After
+    fun tearDown() {
+        server.shutdown()
+    }
+
+    @Test
+    fun getAlbum_returnsData_whenServerRespondsWith200() = runBlocking {
+        // Arrange: enqueue a 200 response with a sample album JSON
+        server.enqueueResponseFromAssets("album_response.json")
+
+        // Act: call the API (no market parameter)
+        val response = api.getAlbum(id)
+
+        // Assert: correct data is fetched
+        assertNull(response.error)
+        assertNotNull(response.data)
+        with(response.data!!) {
+            assertEquals(3, images.count())
+            assertEquals(18, tracks.total)
+            assertEquals("Global Warming", name)
+        }
+    }
+
+    @Test
+    fun getAlbum_usesCorrectPathAndMethod_onRequestWithMarket() = runBlocking {
+        // Arrange: enqueue a 200 response with a sample album JSON
+        server.enqueueResponseFromAssets("album_response.json")
+
+        // Act: call the API (has market parameter)
+        api.getAlbum(id, market = "US")
+
+        // Assert: request path and response wrapper
+        val recordedRequest = server.takeRequest()
+        assertEquals("/albums/$id?market=US", recordedRequest.path)
+        assertEquals("GET", recordedRequest.method)
+    }
+
+    @Test
+    fun getMultipleAlbums_returnsData_whenServerRespondsWith200() = runBlocking {
+        // Arrange
+        server.enqueueResponseFromAssets("multiple_albums_response.json")
+
+        // Act
+        val response = api.getMultipleAlbums(commaSeparatedIds)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+        with(response.data!!) {
+            assertEquals(3, albums.count())
+            assertEquals("TRON: Legacy Reconfigured", albums.first().name)
+        }
+    }
+
+    @Test
+    fun getMultipleAlbums_usesCorrectPathAndMethod_onRequestWithMarket() = runBlocking {
+        // Arrange
+        server.enqueueResponseFromAssets("multiple_albums_response.json")
+
+        // Act
+        api.getMultipleAlbums(commaSeparatedIds, market = "GB")
+
+        // Assert
+        val recordedRequest = server.takeRequest()
+        assertEquals("/albums?ids=$encodedCommaSeparatedIds&market=GB", recordedRequest.path)
+        assertEquals("GET", recordedRequest.method)
+    }
+
+    @Test
+    fun getAlbumTracks_returnsData_whenServerRespondsWith200() = runBlocking {
+        // mockResponse
+        server.enqueueResponseFromAssets("album_tracks_response.json")
+
+        // Act
+        val response = api.getAlbumTracks(id)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+        with(response.data!!) {
+            assertEquals(18, items.count())
+            with(items.first()) {
+                assertEquals("Global Warming (feat. Sensato)", name)
+                assertEquals(true, explicit)
+            }
+        }
+    }
+
+    @Test
+    fun getAlbumTracks_usesCorrectPathAndMethod_onResponseWithParams() = runBlocking {
+        // Arrange
+        server.enqueueResponseFromAssets("album_tracks_response.json")
+
+        // Act
+        api.getAlbumTracks(id, market = "CA", limit = 5, offset = 10)
+
+        // Assert
+        val recordedRequest = server.takeRequest()
+        assertEquals(
+            "/albums/$id/tracks?market=CA&limit=5&offset=10",
+            recordedRequest.path
+        )
+        assertEquals("GET", recordedRequest.method)
+    }
+
+    @Test
+    fun getUsersSavedAlbums_returnsData_on200CodeResponse() = runBlocking {
+        // Arrange
+        server.enqueueResponseFromAssets("user_saved_albums_response.json")
+
+        // Act
+        val response = api.getUsersSavedAlbums()
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+        with(response.data!!) {
+            assertEquals(2, items.count())
+            with(items.first()) {
+                assertEquals("TRON: Legacy Reconfigured", album.name)
+                assertEquals(Instant.parse("2025-06-07T12:34:56Z"), addedAt)
+            }
+        }
+    }
+
+    @Test
+    fun getUsersSavedAlbums_usesCorrectPathAndMethod_onResponseWithParams() = runBlocking {
+        // Arrange
+        server.enqueueResponseFromAssets("user_saved_albums_response.json")
+
+        // Act
+        api.getUsersSavedAlbums(limit = 20, offset = 0, market = "FR")
+
+        // Assert
+        val recordedRequest = server.takeRequest()
+        assertEquals("/me/albums?limit=20&offset=0&market=FR", recordedRequest.path)
+        assertEquals("GET", recordedRequest.method)
+    }
+
+    @Test
+    fun saveAlbumsForUser_returnsData_on200CodeResponseWithQuery() = runBlocking {
+        // Arrange: server returns 200 OK with empty body
+        server.enqueueEmptyResponse()
+
+        // Act
+        val response = api.saveAlbumsForUser(commaSeparatedIds)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+    }
+
+    @Test
+    fun saveAlbumsForUser_usesCorrectPathAndMethod_onRequestWithQuery() = runBlocking {
+        // Arrange: server returns 200 OK with empty body
+        server.enqueueEmptyResponse()
+
+        // Act
+        api.saveAlbumsForUser(commaSeparatedIds)
+
+        // Assert
+        val recordedRequest = server.takeRequest()
+        assertEquals("/me/albums?ids=$encodedCommaSeparatedIds", recordedRequest.path)
+        assertEquals("PUT", recordedRequest.method)
+    }
+
+    @Test
+    fun saveAlbumsForUser_returnsData_on200CodeResponseWithBody() = runBlocking {
+        // Arrange: server returns 200 OK with empty body
+        server.enqueueEmptyResponse()
+
+        // Act
+        val response = api.saveAlbumsForUser(idList)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+    }
+
+    @Test
+    fun saveAlbumsForUser_usesCorrectBodyAndMethod_onRequestWithBody() = runBlocking {
+        // Arrange
+        server.enqueueEmptyResponse()
+
+        // Act
+        api.saveAlbumsForUser(idList)
+
+        // Verify that the request body contains JSON array of IDs
+        val recordedRequest = server.takeRequest()
+        val sentBody = recordedRequest.body.readUtf8()
+        assertEquals(idList.toJsonArray(), sentBody)
+        assertEquals("PUT", recordedRequest.method)
+    }
+
+    @Test
+    fun removeAlbumsForUser_returnsData_on200CodeResponseWithQuery() = runBlocking {
+        // Arrange
+        server.enqueueEmptyResponse()
+
+        // Act
+        val response = api.removeAlbumsForUser(commaSeparatedIds)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+    }
+
+    @Test
+    fun removeAlbumsForUser_usesCorrectBodyAndMethod_onRequestWithQuery() = runBlocking {
+        // Arrange
+        server.enqueueEmptyResponse()
+        // Act
+        api.removeAlbumsForUser(commaSeparatedIds)
+
+        // Assert
+        val recordedRequest = server.takeRequest()
+        assertEquals("/me/albums?ids=$encodedCommaSeparatedIds", recordedRequest.path)
+        assertEquals("DELETE", recordedRequest.method)
+    }
+
+    @Test
+    fun removeAlbumsForUser_returnsData_on200CodeResponseWithBody() = runBlocking {
+        // Arrange
+        server.enqueue(
+            MockResponse()
+                .setResponseCode(200)
+                .setBody("")
+        )
+
+        // Act
+        val response = api.removeAlbumsForUser(idList)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+    }
+
+    @Test
+    fun removeAlbumsForUser_usesCorrectBodyAndMethod_onRequestWithBody() = runBlocking {
+        // Arrange
+        server.enqueueEmptyResponse()
+
+        // Act
+        api.removeAlbumsForUser(idList)
+
+        // Assert
+        val recordedRequest = server.takeRequest()
+        assertEquals("/me/albums", recordedRequest.path)
+        assertEquals("DELETE", recordedRequest.method)
+        val sentBody = recordedRequest.body.readUtf8()
+        assertEquals(idList.toJsonArray(), sentBody)
+    }
+
+    @Test
+    fun checkUsersSavedAlbums_returnsData_on200CodeResponse() = runBlocking {
+        // Arrange
+        server.enqueueResponseFromAssets("check_user_saved_albums.json")
+
+        // Act
+        val response = api.checkUsersSavedAlbums(commaSeparatedIds)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+        with(response.data!!) {
+            assertEquals(2, size)
+            assertEquals(false, first())
+        }
+    }
+
+    @Test
+    fun checkUsersSavedAlbums_usesCorrectPathAndMethod_onRequest() = runBlocking {
+        // Arrange
+        server.enqueueResponseFromAssets("check_user_saved_albums.json")
+
+        // Act
+        api.checkUsersSavedAlbums(commaSeparatedIds)
+
+        // Assert
+        val recordedRequest = server.takeRequest()
+        assertEquals("/me/albums/contains?ids=$encodedCommaSeparatedIds", recordedRequest.path)
+    }
+
+    @Test
+    fun getNewReleases_returnsData_on200CodeResponse() = runBlocking {
+        // Arrange
+        server.enqueueResponseFromAssets("new_releases_response.json")
+
+        // Act
+        val response = api.getNewReleases()
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+        with(response.data!!) {
+            assertEquals(20, albums.items.count())
+            assertEquals(20, albums.limit)
+            assertEquals(100, albums.total)
+        }
+    }
+
+    @Test
+    fun getNewReleases_usesCorrectPathAndMethod_onRequestWithParams() = runBlocking {
+        // Arrange
+        server.enqueueResponseFromAssets("new_releases_response.json")
+
+        // Act
+        api.getNewReleases(limit = 10, offset = 5)
+
+        // Assert
+        val recordedRequest = server.takeRequest()
+        assertEquals("/browse/new-releases?limit=10&offset=5", recordedRequest.path)
+    }
+
+    private fun MockWebServer.enqueueResponseFromAssets(assetFilename: String, code: Int = 200) {
+        val responseBody = getJsonBodyAsset(assetFilename)
+        enqueue(
+            MockResponse()
+                .setResponseCode(code)
+                .setBody(responseBody)
+        )
+    }
+
+    private fun MockWebServer.enqueueEmptyResponse(code: Int = 200) {
+        enqueue(
+            MockResponse()
+                .setResponseCode(code)
+                .setBody("")
+        )
+    }
+
+    private fun List<String>.toJsonArray(): String {
+        val builder = StringBuilder()
+        builder.append('[')
+        forEach {
+            builder.append("\"$it\"")
+            if (it != last()) {
+                builder.append(",")
+            }
+        }
+        builder.append(']')
+        return builder.toString()
+    }
+}
