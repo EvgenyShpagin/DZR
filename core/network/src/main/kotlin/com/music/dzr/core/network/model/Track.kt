@@ -20,7 +20,6 @@ data class Track(
     val restrictions: Restrictions? = null,
     val name: String,
     val popularity: Int,
-    @SerialName("preview_url") val previewUrl: String?,
     @SerialName("track_number") val trackNumber: Int,
     val type: String,
     val uri: String,
