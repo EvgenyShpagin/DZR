@@ -78,6 +78,9 @@ data class MultipleAlbumsContainer(
     val albums: List<Album>
 )
 
+/**
+ * Represents the Spotify type of the album
+ */
 @Serializable(with = AlbumTypeSerializer::class)
 enum class AlbumType {
     Album,
