@@ -1,0 +1,12 @@
+{
+  "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAt0tbjZptfcdMSKl3",
+  "id": "0JQ5DAt0tbjZptfcdMSKl3",
+  "icons": [
+    {
+      "height": 274,
+      "url": "https://t.scdn.co/images/728ed47fc1674feb95f7ac20236eb6d7.jpeg",
+      "width": 274
+    }
+  ],
+  "name": "Made For You"
+}
