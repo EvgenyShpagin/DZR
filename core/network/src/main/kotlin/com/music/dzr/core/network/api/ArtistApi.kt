@@ -1,8 +1,8 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.Album
 import com.music.dzr.core.network.model.AlbumGroup
 import com.music.dzr.core.network.model.Artist
+import com.music.dzr.core.network.model.ArtistAlbum
 import com.music.dzr.core.network.model.ArtistContainer
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
@@ -49,7 +49,7 @@ interface ArtistApi {
         @Query("market") market: String? = null,
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null
-    ): NetworkResponse<PaginatedList<Album>>
+    ): NetworkResponse<PaginatedList<ArtistAlbum>>
 
     /**
      * Get Spotify catalog information about an artist's top tracks by country.
