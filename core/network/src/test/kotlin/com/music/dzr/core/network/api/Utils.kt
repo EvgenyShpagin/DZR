@@ -6,9 +6,51 @@ import com.music.dzr.core.network.retrofit.NetworkResponseCallAdapterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.mockwebserver.MockResponse
+import okhttp3.mockwebserver.MockWebServer
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.create
+
+/**
+ * Enqueues a response from a JSON file in the assets folder.
+ */
+internal fun MockWebServer.enqueueResponseFromAssets(assetFilename: String, code: Int = 200) {
+    val responseBody = getJsonBodyAsset(assetFilename)
+    enqueue(
+        MockResponse()
+            .setResponseCode(code)
+            .setBody(responseBody)
+    )
+}
+
+/**
+ * Enqueues an empty response with a given HTTP status code.
+ */
+internal fun MockWebServer.enqueueEmptyResponse(code: Int = 200) {
+    enqueue(
+        MockResponse()
+            .setResponseCode(code)
+            .setBody("")
+    )
+}
+
+/**
+ * Converts a list of strings into a JSON array formatted string.
+ * For example, `listOf("a", "b")` will be converted to `["a","b"]`.
+ */
+internal fun List<String>.toJsonArray(): String {
+    val builder = StringBuilder()
+    builder.append('[')
+    forEach {
+        builder.append("\"$it\"")
+        if (it != last()) {
+            builder.append(",")
+        }
+    }
+    builder.append(']')
+    return builder.toString()
+}
 
 /**
  * Helper function to get response json body from assets file

@@ -2,7 +2,6 @@ package com.music.dzr.core.network.api
 
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Instant
-import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -338,35 +337,5 @@ class AlbumApiTest {
         // Assert
         val recordedRequest = server.takeRequest()
         assertEquals("/browse/new-releases?limit=10&offset=5", recordedRequest.path)
-    }
-
-    private fun MockWebServer.enqueueResponseFromAssets(assetFilename: String, code: Int = 200) {
-        val responseBody = getJsonBodyAsset(assetFilename)
-        enqueue(
-            MockResponse()
-                .setResponseCode(code)
-                .setBody(responseBody)
-        )
-    }
-
-    private fun MockWebServer.enqueueEmptyResponse(code: Int = 200) {
-        enqueue(
-            MockResponse()
-                .setResponseCode(code)
-                .setBody("")
-        )
-    }
-
-    private fun List<String>.toJsonArray(): String {
-        val builder = StringBuilder()
-        builder.append('[')
-        forEach {
-            builder.append("\"$it\"")
-            if (it != last()) {
-                builder.append(",")
-            }
-        }
-        builder.append(']')
-        return builder.toString()
     }
 }
