@@ -59,7 +59,7 @@ class AlbumApiTest {
         // Act: call the API (has market parameter)
         api.getAlbum(id, market = "US")
 
-        // Assert: request path and response wrapper
+        // Assert: request path and method
         val recordedRequest = server.takeRequest()
         assertEquals("/albums/$id?market=US", recordedRequest.path)
         assertEquals("GET", recordedRequest.method)
