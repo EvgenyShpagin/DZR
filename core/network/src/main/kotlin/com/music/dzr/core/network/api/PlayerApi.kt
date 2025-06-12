@@ -17,6 +17,7 @@ import retrofit2.http.Query
 
 /**
  * A service for interacting with the Spotify Player API.
+ * @see <a href="https://developer.spotify.com/documentation/web-api/">Spotify API</a>
  */
 interface PlayerApi {
 
