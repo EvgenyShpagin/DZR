@@ -5,6 +5,7 @@ import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PermissionScope
 import com.music.dzr.core.network.model.PlaybackOptions
 import com.music.dzr.core.network.model.PlaybackState
+import com.music.dzr.core.network.model.RepeatMode
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -124,6 +125,20 @@ interface PlayerApi {
     @PUT("me/player/seek")
     suspend fun seekToPosition(
         @Query("position_ms") positionMs: Int,
+        @Query("device_id") deviceId: String? = null
+    ): NetworkResponse<Unit>
+
+    /**
+     * Set the repeat mode for the user's playback.
+     *
+     * Requires [PermissionScope.UserModifyPlaybackState]
+     *
+     * @param state The repeat mode.
+     * @param deviceId The id of the device this command is targeting.
+     */
+    @PUT("me/player/repeat")
+    suspend fun setRepeatMode(
+        @Query("state") state: RepeatMode,
         @Query("device_id") deviceId: String? = null
     ): NetworkResponse<Unit>
 
