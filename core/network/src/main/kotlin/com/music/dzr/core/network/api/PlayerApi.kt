@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.api
 
+import com.music.dzr.core.network.model.DevicesContainer
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PermissionScope
 import com.music.dzr.core.network.model.PlaybackState
@@ -39,5 +40,13 @@ interface PlayerApi {
         @Body deviceIds: Map<String, List<String>>,
         @Query("play") play: Boolean = false
     ): NetworkResponse<Unit>
+
+    /**
+     * Get information about a user's available devices.
+     *
+     * Requires [PermissionScope.UserReadPlaybackState]
+     */
+    @GET("me/player/devices")
+    suspend fun getAvailableDevices(): NetworkResponse<DevicesContainer>
 
 } 
