@@ -142,4 +142,18 @@ interface PlayerApi {
         @Query("device_id") deviceId: String? = null
     ): NetworkResponse<Unit>
 
+    /**
+     * Set the volume for the user's playback.
+     *
+     * Requires [PermissionScope.UserModifyPlaybackState]
+     *
+     * @param volumePercent The volume to set. Must be a value from 0 to 100.
+     * @param deviceId The id of the device this command is targeting.
+     */
+    @PUT("me/player/volume")
+    suspend fun setPlaybackVolume(
+        @Query("volume_percent") volumePercent: Int,
+        @Query("device_id") deviceId: String? = null
+    ): NetworkResponse<Unit>
+
 } 
