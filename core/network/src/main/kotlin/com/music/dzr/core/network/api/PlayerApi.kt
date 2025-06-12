@@ -7,6 +7,7 @@ import com.music.dzr.core.network.model.PlaybackOptions
 import com.music.dzr.core.network.model.PlaybackState
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Query
 
@@ -85,6 +86,18 @@ interface PlayerApi {
      */
     @PUT("me/player/pause")
     suspend fun pausePlayback(
+        @Query("device_id") deviceId: String? = null
+    ): NetworkResponse<Unit>
+
+    /**
+     * Skips to next track in the user's queue.
+     *
+     * Requires [PermissionScope.UserModifyPlaybackState]
+     *
+     * @param deviceId The id of the device this command is targeting.
+     */
+    @POST("me/player/next")
+    suspend fun skipToNext(
         @Query("device_id") deviceId: String? = null
     ): NetworkResponse<Unit>
 
