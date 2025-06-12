@@ -101,4 +101,16 @@ interface PlayerApi {
         @Query("device_id") deviceId: String? = null
     ): NetworkResponse<Unit>
 
+    /**
+     * Skips to previous track in the user's queue.
+     *
+     * Requires [PermissionScope.UserModifyPlaybackState]
+     *
+     * @param deviceId The id of the device this command is targeting.
+     */
+    @POST("me/player/previous")
+    suspend fun skipToPrevious(
+        @Query("device_id") deviceId: String? = null
+    ): NetworkResponse<Unit>
+
 } 
