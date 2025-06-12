@@ -5,6 +5,7 @@ import com.music.dzr.core.network.model.Album
 import com.music.dzr.core.network.model.MultipleAlbumsContainer
 import com.music.dzr.core.network.model.NewReleasesContainer
 import com.music.dzr.core.network.model.PaginatedList
+import com.music.dzr.core.network.model.PermissionScope
 import com.music.dzr.core.network.model.SavedAlbum
 import com.music.dzr.core.network.model.SimplifiedTrack
 import retrofit2.http.Body
@@ -15,6 +16,10 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+/**
+ * A service for interacting with the Spotify Album API.
+ * @see <a href="https://developer.spotify.com/documentation/web-api/">Spotify API</a>
+ */
 interface AlbumApi {
 
     /**
@@ -60,6 +65,8 @@ interface AlbumApi {
     /**
      * Retrieves a paginated list of albums saved in the current user’s library.
      *
+     * Requires [PermissionScope.UserLibraryRead]
+     *
      * @param limit  The maximum number of items to return (default and maximum value as defined by Spotify).
      * @param offset The index of the first item to return (used for pagination).
      * @param market An ISO 3166-1 alpha-2 country code to filter album availability.
@@ -74,6 +81,8 @@ interface AlbumApi {
     /**
      * Save one or more albums to the current user’s library.
      *
+     * Requires [PermissionScope.UserLibraryModify]
+     *
      * @param ids Required query param: ids (comma-separated IDs, max 20)
      */
     @PUT("me/albums")
@@ -83,6 +92,8 @@ interface AlbumApi {
 
     /**
      * Save one or more albums to the current user’s library.
+     *
+     * Requires [PermissionScope.UserLibraryModify]
      *
      * @param ids List of ids (max 50)
      */
@@ -94,6 +105,8 @@ interface AlbumApi {
     /**
      * Remove one or more albums from the current user’s library.
      *
+     * Requires [PermissionScope.UserLibraryModify]
+     *
      * @param ids An id list of albums (comma-separated IDs, max 20)
      */
     @DELETE("me/albums")
@@ -103,6 +116,8 @@ interface AlbumApi {
 
     /**
      * Removes one or more albums from the current user’s library.
+     *
+     * Requires [PermissionScope.UserLibraryModify]
      *
      * @param ids Id list of albums (comma-separated IDs, max 20)
      * @param ids List of ids in format (max 50)
@@ -114,6 +129,8 @@ interface AlbumApi {
 
     /**
      * Check if one or more albums are already saved in the current user’s library.
+     *
+     * Requires [PermissionScope.UserLibraryRead]
      *
      * @param ids An id list of albums (comma-separated IDs, max 20)
      */
