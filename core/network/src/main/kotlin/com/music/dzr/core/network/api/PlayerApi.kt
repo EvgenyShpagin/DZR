@@ -7,6 +7,7 @@ import com.music.dzr.core.network.model.PermissionScope
 import com.music.dzr.core.network.model.PlayHistory
 import com.music.dzr.core.network.model.PlaybackOptions
 import com.music.dzr.core.network.model.PlaybackState
+import com.music.dzr.core.network.model.Queue
 import com.music.dzr.core.network.model.RepeatMode
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -187,5 +188,15 @@ interface PlayerApi {
         @Query("after") after: Long? = null,
         @Query("before") before: Long? = null
     ): NetworkResponse<CursorPaginatedList<PlayHistory>>
+
+    /**
+     * Get the list of objects that make up the user's queue.
+     *
+     * Requires:
+     * - [PermissionScope.UserReadCurrentlyPlaying]
+     * - [PermissionScope.UserReadPlaybackState]
+     */
+    @GET("me/player/queue")
+    suspend fun getUserQueue(): NetworkResponse<Queue>
 
 } 
