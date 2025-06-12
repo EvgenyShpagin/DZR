@@ -76,4 +76,16 @@ interface PlayerApi {
         @Body body: PlaybackOptions? = null
     ): NetworkResponse<Unit>
 
+    /**
+     * Pause playback on the user's account.
+     *
+     * Requires [PermissionScope.UserModifyPlaybackState]
+     *
+     * @param deviceId The id of the device this command is targeting.
+     */
+    @PUT("me/player/pause")
+    suspend fun pausePlayback(
+        @Query("device_id") deviceId: String? = null
+    ): NetworkResponse<Unit>
+
 } 
