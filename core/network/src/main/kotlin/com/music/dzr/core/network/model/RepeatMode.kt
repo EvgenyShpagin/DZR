@@ -12,17 +12,17 @@ enum class RepeatMode {
      * Repeat the current track.
      */
     @SerialName("track")
-    TRACK,
+    Track,
 
     /**
      * Repeat the current context (e.g. album, playlist).
      */
     @SerialName("context")
-    CONTEXT,
+    Context,
 
     /**
      * Will turn repeat off.
      */
     @SerialName("off")
-    OFF
-} 
+    Off
+}
