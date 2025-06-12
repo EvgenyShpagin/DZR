@@ -113,4 +113,18 @@ interface PlayerApi {
         @Query("device_id") deviceId: String? = null
     ): NetworkResponse<Unit>
 
+    /**
+     * Seeks to the given position in the user's currently playing track.
+     *
+     * Requires [PermissionScope.UserModifyPlaybackState]
+     *
+     * @param positionMs The position in milliseconds to seek to.
+     * @param deviceId The id of the device this command is targeting.
+     */
+    @PUT("me/player/seek")
+    suspend fun seekToPosition(
+        @Query("position_ms") positionMs: Int,
+        @Query("device_id") deviceId: String? = null
+    ): NetworkResponse<Unit>
+
 } 
