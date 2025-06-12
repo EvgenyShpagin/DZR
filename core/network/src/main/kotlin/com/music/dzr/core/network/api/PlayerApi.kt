@@ -199,4 +199,17 @@ interface PlayerApi {
     @GET("me/player/queue")
     suspend fun getUserQueue(): NetworkResponse<Queue>
 
+    /**
+     * Add an item to the end of the user's current playback queue.
+     *
+     * Requires [PermissionScope.UserModifyPlaybackState]
+     *
+     * @param uri The uri of the item to add to the queue.
+     * @param deviceId The id of the device this command is targeting.
+     */
+    @POST("me/player/queue")
+    suspend fun addToQueue(
+        @Query("uri") uri: String,
+        @Query("device_id") deviceId: String? = null
+    ): NetworkResponse<Unit>
 } 
