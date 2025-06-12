@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.api
 
+import com.music.dzr.core.network.model.CurrentlyPlayingContext
 import com.music.dzr.core.network.model.CursorPaginatedList
 import com.music.dzr.core.network.model.DevicesContainer
 import com.music.dzr.core.network.model.NetworkResponse
@@ -66,7 +67,7 @@ interface PlayerApi {
     @GET("me/player/currently-playing")
     suspend fun getCurrentlyPlayingTrack(
         @Query("market") market: String? = null,
-    ): NetworkResponse<PlaybackState>
+    ): NetworkResponse<CurrentlyPlayingContext>
 
     /**
      * Start a new context or resume current playback on the user's active device.
