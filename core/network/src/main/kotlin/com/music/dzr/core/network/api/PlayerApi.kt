@@ -1,8 +1,10 @@
 package com.music.dzr.core.network.api
 
+import com.music.dzr.core.network.model.CursorPaginatedList
 import com.music.dzr.core.network.model.DevicesContainer
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PermissionScope
+import com.music.dzr.core.network.model.PlayHistory
 import com.music.dzr.core.network.model.PlaybackOptions
 import com.music.dzr.core.network.model.PlaybackState
 import com.music.dzr.core.network.model.RepeatMode
@@ -169,5 +171,21 @@ interface PlayerApi {
         @Query("state") state: Boolean,
         @Query("device_id") deviceId: String? = null
     ): NetworkResponse<Unit>
+
+    /**
+     * Get tracks from the current user's recently played tracks.
+     *
+     * Requires [PermissionScope.UserReadRecentlyPlayed]
+     *
+     * @param limit The maximum number of items to return.
+     * @param after A Unix timestamp in milliseconds. Returns items after this time.
+     * @param before A Unix timestamp in milliseconds. Returns items before this time.
+     */
+    @GET("me/player/recently-played")
+    suspend fun getRecentlyPlayed(
+        @Query("limit") limit: Int? = null,
+        @Query("after") after: Long? = null,
+        @Query("before") before: Long? = null
+    ): NetworkResponse<CursorPaginatedList<PlayHistory>>
 
 } 
