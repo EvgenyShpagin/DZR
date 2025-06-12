@@ -75,7 +75,7 @@ interface PlayerApi {
      * Requires [PermissionScope.UserModifyPlaybackState]
      *
      * @param deviceId The id of the device this command is targeting.
-     * @param body A JSON object with playback options.
+     * @param body The playback options.
      */
     @PUT("me/player/play")
     suspend fun startOrResumePlayback(
