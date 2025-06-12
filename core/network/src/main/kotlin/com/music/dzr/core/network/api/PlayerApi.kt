@@ -3,6 +3,7 @@ package com.music.dzr.core.network.api
 import com.music.dzr.core.network.model.DevicesContainer
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PermissionScope
+import com.music.dzr.core.network.model.PlaybackOptions
 import com.music.dzr.core.network.model.PlaybackState
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -60,5 +61,19 @@ interface PlayerApi {
     suspend fun getCurrentlyPlayingTrack(
         @Query("market") market: String? = null,
     ): NetworkResponse<PlaybackState>
+
+    /**
+     * Start a new context or resume current playback on the user's active device.
+     *
+     * Requires [PermissionScope.UserModifyPlaybackState]
+     *
+     * @param deviceId The id of the device this command is targeting.
+     * @param body A JSON object with playback options.
+     */
+    @PUT("me/player/play")
+    suspend fun startOrResumePlayback(
+        @Query("device_id") deviceId: String? = null,
+        @Body body: PlaybackOptions? = null
+    ): NetworkResponse<Unit>
 
 } 
