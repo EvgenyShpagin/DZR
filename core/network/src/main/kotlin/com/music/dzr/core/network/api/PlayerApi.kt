@@ -49,4 +49,16 @@ interface PlayerApi {
     @GET("me/player/devices")
     suspend fun getAvailableDevices(): NetworkResponse<DevicesContainer>
 
+    /**
+     * Get the object for the user's currently playing track.
+     *
+     * Requires [PermissionScope.UserReadCurrentlyPlaying]
+     *
+     * @param market An ISO 3166-1 alpha-2 country code.
+     */
+    @GET("me/player/currently-playing")
+    suspend fun getCurrentlyPlayingTrack(
+        @Query("market") market: String? = null,
+    ): NetworkResponse<PlaybackState>
+
 } 
