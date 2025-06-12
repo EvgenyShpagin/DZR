@@ -156,4 +156,18 @@ interface PlayerApi {
         @Query("device_id") deviceId: String? = null
     ): NetworkResponse<Unit>
 
+    /**
+     * Toggle shuffle on or off for user's playback.
+     *
+     * Requires [PermissionScope.UserModifyPlaybackState]
+     *
+     * @param state `true` : Turn shuffle on. `false` : Turn shuffle off.
+     * @param deviceId The id of the device this command is targeting.
+     */
+    @PUT("me/player/shuffle")
+    suspend fun toggleShuffle(
+        @Query("state") state: Boolean,
+        @Query("device_id") deviceId: String? = null
+    ): NetworkResponse<Unit>
+
 } 
