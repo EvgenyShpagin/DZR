@@ -45,7 +45,7 @@ interface PlayerApi {
      */
     @PUT("me/player")
     suspend fun transferPlayback(
-        @Body deviceIds: Map<String, List<String>>,
+        @Body deviceIds: Map<String, @JvmSuppressWildcards List<String>>,
         @Query("play") play: Boolean = false
     ): NetworkResponse<Unit>
 
