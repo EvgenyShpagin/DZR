@@ -1,6 +1,5 @@
 package com.music.dzr.core.network.model
 
-import com.music.dzr.core.network.util.AlbumGroupSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -54,10 +53,17 @@ data class ArtistAlbum(
 /**
  * This describes the relationship between the artist and the album.
  */
-@Serializable(with = AlbumGroupSerializer::class)
+@Serializable
 enum class AlbumGroup {
+    @SerialName("album")
     Album,
+
+    @SerialName("single")
     Single,
+
+    @SerialName("compilation")
     Compilation,
+
+    @SerialName("appears_on")
     AppearsOn
 }
