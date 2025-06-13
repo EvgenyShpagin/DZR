@@ -81,9 +81,15 @@ data class MultipleAlbumsContainer(
 /**
  * Represents the Spotify type of the album
  */
-@Serializable(with = AlbumTypeSerializer::class)
+@Serializable
 enum class AlbumType {
+
+    @SerialName("album")
     Album,
+
+    @SerialName("single")
     Single,
+
+    @SerialName("compilation")
     Compilation
 }
