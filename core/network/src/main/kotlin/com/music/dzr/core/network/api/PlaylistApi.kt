@@ -5,6 +5,8 @@ import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.Playlist
 import com.music.dzr.core.network.model.PlaylistTrack
+import com.music.dzr.core.network.model.SnapshotId
+import com.music.dzr.core.network.model.UpdatePlaylistItemsRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PUT
@@ -62,5 +64,18 @@ interface PlaylistApi {
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null
     ): NetworkResponse<PaginatedList<PlaylistTrack>>
+
+    /**
+     * Either reorder or replace items in a playlist.
+     *
+     * @param playlistId The Spotify ID of the playlist.
+     * @param body The request body.
+     * @return A [SnapshotId] object.
+     */
+    @PUT("playlists/{playlist_id}/tracks")
+    suspend fun updatePlaylistItems(
+        @Path("playlist_id") playlistId: String,
+        @Body body: UpdatePlaylistItemsRequest
+    ): NetworkResponse<SnapshotId>
 
 } 
