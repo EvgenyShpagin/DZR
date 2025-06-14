@@ -11,9 +11,11 @@ import com.music.dzr.core.network.model.PlaylistTrack
 import com.music.dzr.core.network.model.RemovePlaylistTracksRequest
 import com.music.dzr.core.network.model.SnapshotId
 import com.music.dzr.core.network.model.UpdatePlaylistItemsRequest
+import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HTTP
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -162,4 +164,16 @@ interface PlaylistApi {
         @Path("playlist_id") playlistId: String
     ): NetworkResponse<List<Image>>
 
+    /**
+     * Replace the image used to represent a specific playlist.
+     *
+     * @param playlistId The Spotify ID of the playlist.
+     * @param encodedImageData The image data, base64-encoded.
+     */
+    @PUT("playlists/{playlist_id}/images")
+    @Headers("Content-Type: image/jpeg")
+    suspend fun uploadCustomPlaylistCover(
+        @Path("playlist_id") playlistId: String,
+        @Body encodedImageData: RequestBody
+    ): NetworkResponse<Unit>
 }
