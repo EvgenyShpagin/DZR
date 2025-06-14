@@ -3,6 +3,7 @@ package com.music.dzr.core.network.api
 import com.music.dzr.core.network.model.AddTracksToPlaylistRequest
 import com.music.dzr.core.network.model.ChangePlaylistDetailsRequest
 import com.music.dzr.core.network.model.CreatePlaylistRequest
+import com.music.dzr.core.network.model.Image
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.Playlist
@@ -150,4 +151,15 @@ interface PlaylistApi {
         @Body body: CreatePlaylistRequest
     ): NetworkResponse<Playlist>
 
-} 
+    /**
+     * Get the current cover image for a playlist.
+     *
+     * @param playlistId The Spotify ID of the playlist.
+     * @return A list of [Image] objects.
+     */
+    @GET("playlists/{playlist_id}/images")
+    suspend fun getPlaylistCoverImage(
+        @Path("playlist_id") playlistId: String
+    ): NetworkResponse<List<Image>>
+
+}
