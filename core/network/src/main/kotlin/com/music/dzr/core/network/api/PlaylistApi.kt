@@ -2,6 +2,7 @@ package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.AddTracksToPlaylistRequest
 import com.music.dzr.core.network.model.ChangePlaylistDetailsRequest
+import com.music.dzr.core.network.model.CreatePlaylistRequest
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.Playlist
@@ -135,5 +136,18 @@ interface PlaylistApi {
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null
     ): NetworkResponse<PaginatedList<Playlist>>
+
+    /**
+     * Create a playlist for a Spotify user. (The playlist will be empty until you add tracks.)
+     *
+     * @param userId The user's Spotify user ID.
+     * @param body The request body.
+     * @return The created [Playlist] object.
+     */
+    @POST("users/{user_id}/playlists")
+    suspend fun createPlaylist(
+        @Path("user_id") userId: String,
+        @Body body: CreatePlaylistRequest
+    ): NetworkResponse<Playlist>
 
 } 
