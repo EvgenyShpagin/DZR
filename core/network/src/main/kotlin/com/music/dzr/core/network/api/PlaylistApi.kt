@@ -2,7 +2,9 @@ package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.ChangePlaylistDetailsRequest
 import com.music.dzr.core.network.model.NetworkResponse
+import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.Playlist
+import com.music.dzr.core.network.model.PlaylistTrack
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PUT
@@ -42,5 +44,23 @@ interface PlaylistApi {
         @Path("playlist_id") playlistId: String,
         @Body body: ChangePlaylistDetailsRequest
     ): NetworkResponse<Unit>
+
+    /**
+     * Get full details of the items of a playlist owned by a Spotify user.
+     *
+     * @param playlistId The [Spotify ID] of the playlist.
+     * @param market An [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code.
+     * @param fields Filters for the query.
+     * @param limit The maximum number of items to return.
+     * @param offset The index of the first item to return.
+     */
+    @GET("playlists/{playlist_id}/tracks")
+    suspend fun getPlaylistTracks(
+        @Path("playlist_id") playlistId: String,
+        @Query("market") market: String? = null,
+        @Query("fields") fields: String? = null,
+        @Query("limit") limit: Int? = null,
+        @Query("offset") offset: Int? = null
+    ): NetworkResponse<PaginatedList<PlaylistTrack>>
 
 } 
