@@ -1,6 +1,5 @@
 package com.music.dzr.core.network.model
 
-import com.music.dzr.core.network.util.AlbumTypeSerializer
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
