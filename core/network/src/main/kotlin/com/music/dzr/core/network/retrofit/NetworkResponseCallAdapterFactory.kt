@@ -87,9 +87,11 @@ private class NetworkResponseCall<T>(
         return Response.success(networkResponse)
     }
 
-    private fun <T> Response<T>.toNetworkResponse(): NetworkResponse<T> {
+    private fun Response<T>.toNetworkResponse(): NetworkResponse<T> {
         return if (isSuccessful) {
-            NetworkResponse(data = body())
+            // Return Unit on 'No Content' response instead of null
+            @Suppress("UNCHECKED_CAST")
+            NetworkResponse(data = if (code() == 204) Unit as? T else body())
         } else {
             NetworkResponse(error = errorParser.parse(errorBody()!!))
         }
