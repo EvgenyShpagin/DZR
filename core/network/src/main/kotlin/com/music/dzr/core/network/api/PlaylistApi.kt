@@ -108,4 +108,17 @@ interface PlaylistApi {
         @Body body: RemovePlaylistTracksRequest
     ): NetworkResponse<SnapshotId>
 
+    /**
+     * Get a list of the playlists owned or followed by the current Spotify user.
+     *
+     * @param limit The maximum number of items to return.
+     * @param offset The index of the first item to return.
+     * @return A [PaginatedList] of [Playlist] objects.
+     */
+    @GET("me/playlists")
+    suspend fun getCurrentUserPlaylists(
+        @Query("limit") limit: Int? = null,
+        @Query("offset") offset: Int? = null
+    ): NetworkResponse<PaginatedList<Playlist>>
+
 } 
