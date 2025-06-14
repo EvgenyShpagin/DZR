@@ -121,4 +121,19 @@ interface PlaylistApi {
         @Query("offset") offset: Int? = null
     ): NetworkResponse<PaginatedList<Playlist>>
 
+    /**
+     * Get a list of the playlists owned or followed by a Spotify user.
+     *
+     * @param userId The user's Spotify ID.
+     * @param limit The maximum number of items to return.
+     * @param offset The index of the first item to return.
+     * @return A [PaginatedList] of [Playlist] objects.
+     */
+    @GET("users/{user_id}/playlists")
+    suspend fun getUserPlaylists(
+        @Path("user_id") userId: String,
+        @Query("limit") limit: Int? = null,
+        @Query("offset") offset: Int? = null
+    ): NetworkResponse<PaginatedList<Playlist>>
+
 } 
