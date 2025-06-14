@@ -6,10 +6,12 @@ import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.Playlist
 import com.music.dzr.core.network.model.PlaylistTrack
+import com.music.dzr.core.network.model.RemovePlaylistTracksRequest
 import com.music.dzr.core.network.model.SnapshotId
 import com.music.dzr.core.network.model.UpdatePlaylistItemsRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -91,6 +93,19 @@ interface PlaylistApi {
     suspend fun addTracksToPlaylist(
         @Path("playlist_id") playlistId: String,
         @Body body: AddTracksToPlaylistRequest
+    ): NetworkResponse<SnapshotId>
+
+    /**
+     * Remove one or more items from a user's playlist.
+     *
+     * @param playlistId The Spotify ID of the playlist.
+     * @param body The request body.
+     * @return A [SnapshotId] object.
+     */
+    @HTTP(method = "DELETE", path = "playlists/{playlist_id}/tracks", hasBody = true)
+    suspend fun removePlaylistTracks(
+        @Path("playlist_id") playlistId: String,
+        @Body body: RemovePlaylistTracksRequest
     ): NetworkResponse<SnapshotId>
 
 } 
