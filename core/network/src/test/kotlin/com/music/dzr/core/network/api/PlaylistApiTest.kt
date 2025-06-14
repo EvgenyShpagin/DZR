@@ -1,7 +1,10 @@
 package com.music.dzr.core.network.api
 
+import com.music.dzr.core.network.model.ChangePlaylistDetailsRequest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -15,6 +18,7 @@ class PlaylistApiTest {
 
     private lateinit var server: MockWebServer
     private lateinit var api: PlaylistApi
+    private val json = Json
 
     // Dummy parameters
     private val playlistId = "dummy_id"
@@ -63,6 +67,41 @@ class PlaylistApiTest {
         val request = server.takeRequest()
         assertEquals("/playlists/$playlistId?market=US&fields=name%2Cdescription", request.path)
         assertEquals("GET", request.method)
+    }
+
+    @Test
+    fun changePlaylistDetails_isSuccessful_on204Response() = runTest {
+        // Arrange
+        server.enqueueEmptyResponse(204)
+
+        // Act
+        val changeDetails = ChangePlaylistDetailsRequest(name = "New Name")
+        val response = api.changePlaylistDetails(playlistId, changeDetails)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+    }
+
+    @Test
+    fun changePlaylistDetails_usesCorrectPathMethodAndBody_onRequest() = runTest {
+        // Arrange
+        server.enqueueEmptyResponse(204)
+        val requestBody = ChangePlaylistDetailsRequest(
+            name = "New Playlist Name",
+            public = true,
+            collaborative = false,
+            description = "New description"
+        )
+
+        // Act
+        api.changePlaylistDetails(playlistId, requestBody)
+
+        // Assert
+        val request = server.takeRequest()
+        assertEquals("/playlists/$playlistId", request.path)
+        assertEquals("PUT", request.method)
+        assertEquals(json.encodeToString(requestBody), request.body.readUtf8())
     }
 
 } 
