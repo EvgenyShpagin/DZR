@@ -2,6 +2,8 @@ package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.AddTracksToPlaylistRequest
 import com.music.dzr.core.network.model.ChangePlaylistDetailsRequest
+import com.music.dzr.core.network.model.RemovePlaylistTracksRequest
+import com.music.dzr.core.network.model.TrackToRemove
 import com.music.dzr.core.network.model.UpdatePlaylistItemsRequest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -25,6 +27,7 @@ class PlaylistApiTest {
     // Dummy parameters
     private val playlistId = "3cEYpjA9oz9GiPac4AsH4n"
     private val trackUris = listOf("spotify:track:4iV5W9uYEdYUVa79Axb7Rh")
+    private val trackUri = trackUris.first()
 
     @Before
     fun setUp() {
@@ -207,6 +210,40 @@ class PlaylistApiTest {
         assertEquals("/playlists/$playlistId/tracks", request.path)
         assertEquals("POST", request.method)
         assertEquals(json.encodeToString(requestBody), request.body.readUtf8())
+    }
+
+    @Test
+    fun removePlaylistTracks_returnsData_on200CodeResponse() = runTest {
+        // Arrange
+        server.enqueueResponseFromAssets("playlist-responses/snapshot-id.json")
+        val requestBody = RemovePlaylistTracksRequest(tracks = listOf(TrackToRemove(trackUri)))
+
+        // Act
+        val response = api.removePlaylistTracks(playlistId, requestBody)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", response.data!!.snapshotId)
+    }
+
+    @Test
+    fun removePlaylistTracks_usesCorrectPathMethodAndBody_onRequest() = runTest {
+        // Arrange
+        server.enqueueResponseFromAssets("playlist-responses/snapshot-id.json")
+        val requestBody = RemovePlaylistTracksRequest(tracks = listOf(TrackToRemove(trackUri)))
+
+        // Act
+        api.removePlaylistTracks(playlistId, requestBody)
+
+        // Assert
+        val recordedRequest = server.takeRequest()
+        assertEquals("DELETE", recordedRequest.method)
+        assertEquals("/playlists/$playlistId/tracks", recordedRequest.path)
+
+        val expectedBody = json.encodeToString(requestBody)
+        val actualBody = recordedRequest.body.readUtf8()
+        assertEquals(json.parseToJsonElement(expectedBody), json.parseToJsonElement(actualBody))
     }
 
 } 
