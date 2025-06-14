@@ -1,8 +1,11 @@
 package com.music.dzr.core.network.api
 
+import com.music.dzr.core.network.model.ChangePlaylistDetailsRequest
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.Playlist
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -27,5 +30,17 @@ interface PlaylistApi {
         @Query("market") market: String? = null,
         @Query("fields") fields: String? = null
     ): NetworkResponse<Playlist>
+
+    /**
+     * Change a playlist's name and public/private state. (The user must, of course, own the playlist.)
+     *
+     * @param playlistId The Spotify ID of the playlist.
+     * @param body The request body.
+     */
+    @PUT("playlists/{playlist_id}")
+    suspend fun changePlaylistDetails(
+        @Path("playlist_id") playlistId: String,
+        @Body body: ChangePlaylistDetailsRequest
+    ): NetworkResponse<Unit>
 
 } 
