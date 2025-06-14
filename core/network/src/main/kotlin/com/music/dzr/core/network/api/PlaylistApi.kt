@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.api
 
+import com.music.dzr.core.network.model.AddTracksToPlaylistRequest
 import com.music.dzr.core.network.model.ChangePlaylistDetailsRequest
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
@@ -9,6 +10,7 @@ import com.music.dzr.core.network.model.SnapshotId
 import com.music.dzr.core.network.model.UpdatePlaylistItemsRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -76,6 +78,19 @@ interface PlaylistApi {
     suspend fun updatePlaylistItems(
         @Path("playlist_id") playlistId: String,
         @Body body: UpdatePlaylistItemsRequest
+    ): NetworkResponse<SnapshotId>
+
+    /**
+     * Add one or more items to a user's playlist.
+     *
+     * @param playlistId The Spotify ID of the playlist.
+     * @param body The request body.
+     * @return A [SnapshotId] object.
+     */
+    @POST("playlists/{playlist_id}/tracks")
+    suspend fun addTracksToPlaylist(
+        @Path("playlist_id") playlistId: String,
+        @Body body: AddTracksToPlaylistRequest
     ): NetworkResponse<SnapshotId>
 
 } 
