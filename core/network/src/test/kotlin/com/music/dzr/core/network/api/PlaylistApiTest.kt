@@ -104,4 +104,37 @@ class PlaylistApiTest {
         assertEquals(json.encodeToString(requestBody), request.body.readUtf8())
     }
 
+    @Test
+    fun getPlaylistTracks_returnsData_on200CodeResponse() = runTest {
+        // Arrange
+        server.enqueueResponseFromAssets("playlist-responses/playlist-tracks.json")
+
+        // Act
+        val response = api.getPlaylistTracks(playlistId)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+        with(response.data!!) {
+            assertEquals(5, total)
+            with(items) {
+                assertEquals("Api", first().track.name)
+            }
+        }
+    }
+
+    @Test
+    fun getPlaylistTracks_usesCorrectPathAndMethod_onRequestWithParams() = runTest {
+        // Arrange
+        server.enqueueResponseFromAssets("playlist-responses/playlist-tracks.json")
+
+        // Act
+        api.getPlaylistTracks(playlistId, market = "ES", limit = 10, offset = 5)
+
+        // Assert
+        val request = server.takeRequest()
+        assertEquals("/playlists/$playlistId/tracks?market=ES&limit=10&offset=5", request.path)
+        assertEquals("GET", request.method)
+    }
+
 } 
