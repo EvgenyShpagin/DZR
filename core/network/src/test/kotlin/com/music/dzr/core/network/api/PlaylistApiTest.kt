@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.api
 
+import com.music.dzr.core.network.model.AddTracksToPlaylistRequest
 import com.music.dzr.core.network.model.ChangePlaylistDetailsRequest
 import com.music.dzr.core.network.model.UpdatePlaylistItemsRequest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,6 +24,7 @@ class PlaylistApiTest {
 
     // Dummy parameters
     private val playlistId = "3cEYpjA9oz9GiPac4AsH4n"
+    private val trackUris = listOf("spotify:track:4iV5W9uYEdYUVa79Axb7Rh")
 
     @Before
     fun setUp() {
@@ -174,6 +176,37 @@ class PlaylistApiTest {
         val expectedBody = json.encodeToString(requestBody)
         val actualBody = recordedRequest.body.readUtf8()
         assertEquals(json.parseToJsonElement(expectedBody), json.parseToJsonElement(actualBody))
+    }
+
+    @Test
+    fun addTracksToPlaylist_returnsData_on201CodeResponse() = runTest {
+        // Arrange
+        server.enqueueResponseFromAssets("playlist-responses/snapshot-id.json", 201)
+        val requestBody = AddTracksToPlaylistRequest(uris = trackUris, position = 0)
+
+        // Act
+        val response = api.addTracksToPlaylist(playlistId, requestBody)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", response.data!!.snapshotId)
+    }
+
+    @Test
+    fun addTracksToPlaylist_usesCorrectPathMethodAndBody_onRequest() = runTest {
+        // Arrange
+        server.enqueueResponseFromAssets("playlist-responses/snapshot-id.json", 201)
+        val requestBody = AddTracksToPlaylistRequest(uris = trackUris, position = 0)
+
+        // Act
+        api.addTracksToPlaylist(playlistId, requestBody)
+
+        // Assert
+        val request = server.takeRequest()
+        assertEquals("/playlists/$playlistId/tracks", request.path)
+        assertEquals("POST", request.method)
+        assertEquals(json.encodeToString(requestBody), request.body.readUtf8())
     }
 
 } 
