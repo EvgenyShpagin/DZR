@@ -1,6 +1,7 @@
 package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.ChangePlaylistDetailsRequest
+import com.music.dzr.core.network.model.UpdatePlaylistItemsRequest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.encodeToString
@@ -21,7 +22,7 @@ class PlaylistApiTest {
     private val json = Json
 
     // Dummy parameters
-    private val playlistId = "dummy_id"
+    private val playlistId = "3cEYpjA9oz9GiPac4AsH4n"
 
     @Before
     fun setUp() {
@@ -135,6 +136,44 @@ class PlaylistApiTest {
         val request = server.takeRequest()
         assertEquals("/playlists/$playlistId/tracks?market=ES&limit=10&offset=5", request.path)
         assertEquals("GET", request.method)
+    }
+
+    @Test
+    fun updatePlaylistItems_returnsData_on200CodeResponse() = runTest {
+        // Arrange
+        server.enqueueResponseFromAssets("playlist-responses/snapshot-id.json")
+        val requestBody = UpdatePlaylistItemsRequest(rangeStart = 0, insertBefore = 2)
+
+        // Act
+        val response = api.updatePlaylistItems(playlistId, requestBody)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", response.data!!.snapshotId)
+    }
+
+    @Test
+    fun updatePlaylistItems_usesCorrectPathMethodAndBody_onRequest() = runTest {
+        // Arrange
+        server.enqueueResponseFromAssets("playlist-responses/snapshot-id.json")
+        val requestBody = UpdatePlaylistItemsRequest(
+            rangeStart = 0,
+            insertBefore = 2,
+            uris = listOf("spotify:track:4iV5W9uYEdYUVa79Axb7Rh")
+        )
+
+        // Act
+        api.updatePlaylistItems(playlistId, requestBody)
+
+        // Assert
+        val recordedRequest = server.takeRequest()
+        assertEquals("PUT", recordedRequest.method)
+        assertEquals("/playlists/$playlistId/tracks", recordedRequest.path)
+
+        val expectedBody = json.encodeToString(requestBody)
+        val actualBody = recordedRequest.body.readUtf8()
+        assertEquals(json.parseToJsonElement(expectedBody), json.parseToJsonElement(actualBody))
     }
 
 } 
