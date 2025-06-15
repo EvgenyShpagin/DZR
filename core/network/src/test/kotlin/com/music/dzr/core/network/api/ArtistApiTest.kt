@@ -32,7 +32,7 @@ class ArtistApiTest {
     @Test
     fun getArtist_returnsData_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/artist_response.json")
+        server.enqueueResponseFromAssets("responses/artist/artist.json")
 
         // Act
         val response = api.getArtist(id)
@@ -50,7 +50,7 @@ class ArtistApiTest {
     @Test
     fun getArtist_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/artist_response.json")
+        server.enqueueResponseFromAssets("responses/artist/artist.json")
 
         // Act
         api.getArtist(id)
@@ -64,7 +64,7 @@ class ArtistApiTest {
     @Test
     fun getMultipleArtists_returnsData_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/multiple_artists_response.json")
+        server.enqueueResponseFromAssets("responses/artist/multiple-artists.json")
 
         // Act
         val response = api.getMultipleArtists(commaSeparatedIds)
@@ -84,7 +84,7 @@ class ArtistApiTest {
     @Test
     fun getMultipleArtists_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/multiple_artists_response.json")
+        server.enqueueResponseFromAssets("responses/artist/multiple-artists.json")
 
         // Act
         api.getMultipleArtists(commaSeparatedIds)
@@ -98,7 +98,7 @@ class ArtistApiTest {
     @Test
     fun getArtistAlbums_returnsData_onRequestWithAllParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/artist_albums_response.json")
+        server.enqueueResponseFromAssets("responses/artist/artist-albums.json")
 
         // Act
         val response = api.getArtistAlbums(id)
@@ -118,7 +118,7 @@ class ArtistApiTest {
     @Test
     fun getArtistAlbums_usesCorrectPathAndMethod_onRequestWithAllParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/artist_albums_response.json")
+        server.enqueueResponseFromAssets("responses/artist/artist-albums.json")
         val includeGroups = "album,single"
         val encodedIncludeGroups = "album%2Csingle"
         val market = "US"
@@ -145,7 +145,7 @@ class ArtistApiTest {
     @Test
     fun getArtistTopTracks_returnsData_onRequestWithMarket() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/artist_top_tracks_response.json")
+        server.enqueueResponseFromAssets("responses/artist/artist-top-tracks.json")
         val market = "CA"
 
         // Act
@@ -166,7 +166,7 @@ class ArtistApiTest {
     @Test
     fun getArtistTopTracks_usesCorrectPathAndMethod_onRequestWithMarket() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/artist_top_tracks_response.json")
+        server.enqueueResponseFromAssets("responses/artist/artist-top-tracks.json")
         val market = "CA"
 
         // Act
