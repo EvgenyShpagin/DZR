@@ -333,4 +333,33 @@ class PlaylistApiTest {
         assertEquals(json.encodeToString(requestBody), request.body.readUtf8())
     }
 
+    @Test
+    fun getPlaylistCoverImage_returnsData_on200CodeResponse() = runTest {
+        // Arrange
+        server.enqueueResponseFromAssets("playlist-responses/playlist-cover-images.json")
+
+        // Act
+        val response = api.getPlaylistCoverImage(playlistId)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+        assertEquals(3, response.data!!.count())
+        assertEquals(640, response.data!!.first().height)
+    }
+
+    @Test
+    fun getPlaylistCoverImage_usesCorrectPathAndMethod_onRequest() = runTest {
+        // Arrange
+        server.enqueueEmptyResponse()
+
+        // Act
+        api.getPlaylistCoverImage(playlistId)
+
+        // Assert
+        val request = server.takeRequest()
+        assertEquals("/playlists/$playlistId/images", request.path)
+        assertEquals("GET", request.method)
+    }
+
 }
