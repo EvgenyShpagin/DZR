@@ -26,6 +26,7 @@ class PlaylistApiTest {
 
     // Dummy parameters
     private val playlistId = "3cEYpjA9oz9GiPac4AsH4n"
+    private val userId = "dummy_id"
     private val trackUris = listOf("spotify:track:4iV5W9uYEdYUVa79Axb7Rh")
     private val trackUri = trackUris.first()
 
@@ -274,6 +275,24 @@ class PlaylistApiTest {
         // Assert
         val request = server.takeRequest()
         assertEquals("/me/playlists", request.path)
+        assertEquals("GET", request.method)
+    }
+
+    @Test // As they act the same way
+    fun getUserPlaylists_returnsData_on200CodeResponse() =
+        getCurrentUserPlaylists_returnsData_on200CodeResponse()
+
+    @Test
+    fun getUserPlaylists_usesCorrectPathAndMethod_onRequestWithParams() = runTest {
+        // Arrange
+        server.enqueueEmptyResponse()
+
+        // Act
+        api.getUserPlaylists(userId, limit = 3, offset = 2)
+
+        // Assert
+        val request = server.takeRequest()
+        assertEquals("/users/$userId/playlists?limit=3&offset=2", request.path)
         assertEquals("GET", request.method)
     }
 
