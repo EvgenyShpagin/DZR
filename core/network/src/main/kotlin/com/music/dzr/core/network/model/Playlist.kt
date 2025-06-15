@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  * @property collaborative Returns `true` if context is not search and the owner allows other users to modify the playlist. Otherwise returns `false`.
  * @property description The playlist description. *Only returned for modified, public playlists, otherwise `null`.*
  * @property externalUrls Known external URLs for this playlist.
- * @property followers Information about the followers of the playlist.
+ * @property followers Information about the followers of the playlist. `null` if it's user playlist
  * @property href A link to the Web API endpoint providing full details of the playlist.
  * @property id The Spotify ID for the playlist.
  * @property images Images for the playlist. The array may be empty or contain up to three images. The images are returned by size in descending order. *Note: If the playlist does not have a custom image, one will be generated automatically based on the playlist's tracks.*
@@ -27,7 +27,7 @@ data class Playlist(
     val description: String?,
     @SerialName("external_urls")
     val externalUrls: ExternalUrls,
-    val followers: Followers,
+    val followers: Followers? = null,
     val href: String,
     val id: String,
     val images: List<Image>,
