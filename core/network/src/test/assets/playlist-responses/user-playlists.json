@@ -1,0 +1,394 @@
+{
+  "href": "https://api.spotify.com/v1/users/sancotmdyspqyhjsc2d5qz1du/playlists?offset=0&limit=50",
+  "limit": 50,
+  "next": null,
+  "offset": 0,
+  "previous": null,
+  "total": 9,
+  "items": [
+    {
+      "collaborative": false,
+      "description": "",
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/5ItR922EbSt6A2aJKZOfRu"
+      },
+      "href": "https://api.spotify.com/v1/playlists/5ItR922EbSt6A2aJKZOfRu",
+      "id": "5ItR922EbSt6A2aJKZOfRu",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://mosaic.scdn.co/640/ab67616d00001e0207bc7d2a745636c356b4d0aaab67616d00001e022df0d98a423025032d0db1f7ab67616d00001e024a31b146c7cf07705d912efeab67616d00001e029ff2067c9c754519a3cacd50",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://mosaic.scdn.co/300/ab67616d00001e0207bc7d2a745636c356b4d0aaab67616d00001e022df0d98a423025032d0db1f7ab67616d00001e024a31b146c7cf07705d912efeab67616d00001e029ff2067c9c754519a3cacd50",
+          "width": 300
+        },
+        {
+          "height": 60,
+          "url": "https://mosaic.scdn.co/60/ab67616d00001e0207bc7d2a745636c356b4d0aaab67616d00001e022df0d98a423025032d0db1f7ab67616d00001e024a31b146c7cf07705d912efeab67616d00001e029ff2067c9c754519a3cacd50",
+          "width": 60
+        }
+      ],
+      "name": "Rock",
+      "owner": {
+        "display_name": "Eugene",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/sancotmdyspqyhjsc2d5qz1du"
+        },
+        "href": "https://api.spotify.com/v1/users/sancotmdyspqyhjsc2d5qz1du",
+        "id": "sancotmdyspqyhjsc2d5qz1du",
+        "type": "user",
+        "uri": "spotify:user:sancotmdyspqyhjsc2d5qz1du"
+      },
+      "primary_color": null,
+      "public": true,
+      "snapshot_id": "AAAAEIibR4giuqRWfnJ4bQ2TXmRJ1eGg",
+      "tracks": {
+        "href": "https://api.spotify.com/v1/playlists/5ItR922EbSt6A2aJKZOfRu/tracks",
+        "total": 15
+      },
+      "type": "playlist",
+      "uri": "spotify:playlist:5ItR922EbSt6A2aJKZOfRu"
+    },
+    {
+      "collaborative": false,
+      "description": "",
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/4lnIomvtMlmBZyQpvLsTWA"
+      },
+      "href": "https://api.spotify.com/v1/playlists/4lnIomvtMlmBZyQpvLsTWA",
+      "id": "4lnIomvtMlmBZyQpvLsTWA",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://mosaic.scdn.co/640/ab67616d00001e025ff6c48514feefe62f8502a1ab67616d00001e0281b29d239828b1dd6973ec4dab67616d00001e029bff2e22af79eb21e0a1775bab67616d00001e02f8fb7754aee33604b1011ca3",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://mosaic.scdn.co/300/ab67616d00001e025ff6c48514feefe62f8502a1ab67616d00001e0281b29d239828b1dd6973ec4dab67616d00001e029bff2e22af79eb21e0a1775bab67616d00001e02f8fb7754aee33604b1011ca3",
+          "width": 300
+        },
+        {
+          "height": 60,
+          "url": "https://mosaic.scdn.co/60/ab67616d00001e025ff6c48514feefe62f8502a1ab67616d00001e0281b29d239828b1dd6973ec4dab67616d00001e029bff2e22af79eb21e0a1775bab67616d00001e02f8fb7754aee33604b1011ca3",
+          "width": 60
+        }
+      ],
+      "name": "North Memphis",
+      "owner": {
+        "display_name": "Eugene",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/sancotmdyspqyhjsc2d5qz1du"
+        },
+        "href": "https://api.spotify.com/v1/users/sancotmdyspqyhjsc2d5qz1du",
+        "id": "sancotmdyspqyhjsc2d5qz1du",
+        "type": "user",
+        "uri": "spotify:user:sancotmdyspqyhjsc2d5qz1du"
+      },
+      "primary_color": null,
+      "public": true,
+      "snapshot_id": "AAAAETneUZajwRL2PyjOKsy2sy8lXTNf",
+      "tracks": {
+        "href": "https://api.spotify.com/v1/playlists/4lnIomvtMlmBZyQpvLsTWA/tracks",
+        "total": 16
+      },
+      "type": "playlist",
+      "uri": "spotify:playlist:4lnIomvtMlmBZyQpvLsTWA"
+    },
+    {
+      "collaborative": false,
+      "description": "",
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/64RqyBFmPWakhrXKHZrQeq"
+      },
+      "href": "https://api.spotify.com/v1/playlists/64RqyBFmPWakhrXKHZrQeq",
+      "id": "64RqyBFmPWakhrXKHZrQeq",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84136b5fbd0797029452c29402",
+          "width": null
+        }
+      ],
+      "name": "Workout",
+      "owner": {
+        "display_name": "Eugene",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/sancotmdyspqyhjsc2d5qz1du"
+        },
+        "href": "https://api.spotify.com/v1/users/sancotmdyspqyhjsc2d5qz1du",
+        "id": "sancotmdyspqyhjsc2d5qz1du",
+        "type": "user",
+        "uri": "spotify:user:sancotmdyspqyhjsc2d5qz1du"
+      },
+      "primary_color": null,
+      "public": true,
+      "snapshot_id": "AAAAMEulu3xxX8aBsF8TGT4cyC7U70jW",
+      "tracks": {
+        "href": "https://api.spotify.com/v1/playlists/64RqyBFmPWakhrXKHZrQeq/tracks",
+        "total": 40
+      },
+      "type": "playlist",
+      "uri": "spotify:playlist:64RqyBFmPWakhrXKHZrQeq"
+    },
+    {
+      "collaborative": false,
+      "description": "",
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/5GhDwwejyCobEwhR6bcr18"
+      },
+      "href": "https://api.spotify.com/v1/playlists/5GhDwwejyCobEwhR6bcr18",
+      "id": "5GhDwwejyCobEwhR6bcr18",
+      "images": [
+        {
+          "height": null,
+          "url": "https://i.scdn.co/image/ab67616d00001e02fba1ea5e54bf0f0492c36d0b",
+          "width": null
+        }
+      ],
+      "name": "sad...",
+      "owner": {
+        "display_name": "Eugene",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/sancotmdyspqyhjsc2d5qz1du"
+        },
+        "href": "https://api.spotify.com/v1/users/sancotmdyspqyhjsc2d5qz1du",
+        "id": "sancotmdyspqyhjsc2d5qz1du",
+        "type": "user",
+        "uri": "spotify:user:sancotmdyspqyhjsc2d5qz1du"
+      },
+      "primary_color": null,
+      "public": true,
+      "snapshot_id": "AAAABV8sJ1QRpWzVai4S1F8rzSkeiFDU",
+      "tracks": {
+        "href": "https://api.spotify.com/v1/playlists/5GhDwwejyCobEwhR6bcr18/tracks",
+        "total": 2
+      },
+      "type": "playlist",
+      "uri": "spotify:playlist:5GhDwwejyCobEwhR6bcr18"
+    },
+    {
+      "collaborative": false,
+      "description": "",
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/24O15FTYKzeIUx2yAzE61p"
+      },
+      "href": "https://api.spotify.com/v1/playlists/24O15FTYKzeIUx2yAzE61p",
+      "id": "24O15FTYKzeIUx2yAzE61p",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://mosaic.scdn.co/640/ab67616d00001e0203c55aa9d1c967525b345544ab67616d00001e022c4fdb0be1c6c431f5e4243dab67616d00001e02926c973ac595447e9e23069aab67616d00001e02e0411706937b154259b9e90d",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://mosaic.scdn.co/300/ab67616d00001e0203c55aa9d1c967525b345544ab67616d00001e022c4fdb0be1c6c431f5e4243dab67616d00001e02926c973ac595447e9e23069aab67616d00001e02e0411706937b154259b9e90d",
+          "width": 300
+        },
+        {
+          "height": 60,
+          "url": "https://mosaic.scdn.co/60/ab67616d00001e0203c55aa9d1c967525b345544ab67616d00001e022c4fdb0be1c6c431f5e4243dab67616d00001e02926c973ac595447e9e23069aab67616d00001e02e0411706937b154259b9e90d",
+          "width": 60
+        }
+      ],
+      "name": "relaxxx",
+      "owner": {
+        "display_name": "Eugene",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/sancotmdyspqyhjsc2d5qz1du"
+        },
+        "href": "https://api.spotify.com/v1/users/sancotmdyspqyhjsc2d5qz1du",
+        "id": "sancotmdyspqyhjsc2d5qz1du",
+        "type": "user",
+        "uri": "spotify:user:sancotmdyspqyhjsc2d5qz1du"
+      },
+      "primary_color": null,
+      "public": true,
+      "snapshot_id": "AAAAN9U+f24truuRO+HRwkTrCPfGeE65",
+      "tracks": {
+        "href": "https://api.spotify.com/v1/playlists/24O15FTYKzeIUx2yAzE61p/tracks",
+        "total": 49
+      },
+      "type": "playlist",
+      "uri": "spotify:playlist:24O15FTYKzeIUx2yAzE61p"
+    },
+    {
+      "collaborative": false,
+      "description": "",
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/4yEmizQFy83auKuaBls0EN"
+      },
+      "href": "https://api.spotify.com/v1/playlists/4yEmizQFy83auKuaBls0EN",
+      "id": "4yEmizQFy83auKuaBls0EN",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://mosaic.scdn.co/640/ab67616d00001e02767b91ec811c54a834951e7cab67616d00001e029d6be72b2795839bd88cfd2eab67616d00001e02b2452a1b0eda54e7253c8d04ab67616d00001e02da79fd254f4099c84f034a3f",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://mosaic.scdn.co/300/ab67616d00001e02767b91ec811c54a834951e7cab67616d00001e029d6be72b2795839bd88cfd2eab67616d00001e02b2452a1b0eda54e7253c8d04ab67616d00001e02da79fd254f4099c84f034a3f",
+          "width": 300
+        },
+        {
+          "height": 60,
+          "url": "https://mosaic.scdn.co/60/ab67616d00001e02767b91ec811c54a834951e7cab67616d00001e029d6be72b2795839bd88cfd2eab67616d00001e02b2452a1b0eda54e7253c8d04ab67616d00001e02da79fd254f4099c84f034a3f",
+          "width": 60
+        }
+      ],
+      "name": "Something driving",
+      "owner": {
+        "display_name": "Eugene",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/sancotmdyspqyhjsc2d5qz1du"
+        },
+        "href": "https://api.spotify.com/v1/users/sancotmdyspqyhjsc2d5qz1du",
+        "id": "sancotmdyspqyhjsc2d5qz1du",
+        "type": "user",
+        "uri": "spotify:user:sancotmdyspqyhjsc2d5qz1du"
+      },
+      "primary_color": null,
+      "public": true,
+      "snapshot_id": "AAAAV6D2RmGDFryz/zuGKcNdJu+CvZKJ",
+      "tracks": {
+        "href": "https://api.spotify.com/v1/playlists/4yEmizQFy83auKuaBls0EN/tracks",
+        "total": 74
+      },
+      "type": "playlist",
+      "uri": "spotify:playlist:4yEmizQFy83auKuaBls0EN"
+    },
+    {
+      "collaborative": false,
+      "description": "ммм",
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/6DXuclPghjSxBIL1PsrxRa"
+      },
+      "href": "https://api.spotify.com/v1/playlists/6DXuclPghjSxBIL1PsrxRa",
+      "id": "6DXuclPghjSxBIL1PsrxRa",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84f68c59221ad8f2595bde630a",
+          "width": null
+        }
+      ],
+      "name": "Not bad",
+      "owner": {
+        "display_name": "Eugene",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/sancotmdyspqyhjsc2d5qz1du"
+        },
+        "href": "https://api.spotify.com/v1/users/sancotmdyspqyhjsc2d5qz1du",
+        "id": "sancotmdyspqyhjsc2d5qz1du",
+        "type": "user",
+        "uri": "spotify:user:sancotmdyspqyhjsc2d5qz1du"
+      },
+      "primary_color": null,
+      "public": true,
+      "snapshot_id": "AAABggQQvKvTe1LbFF42nomRs9SlwsY+",
+      "tracks": {
+        "href": "https://api.spotify.com/v1/playlists/6DXuclPghjSxBIL1PsrxRa/tracks",
+        "total": 339
+      },
+      "type": "playlist",
+      "uri": "spotify:playlist:6DXuclPghjSxBIL1PsrxRa"
+    },
+    {
+      "collaborative": false,
+      "description": "Тупа дабстеп, хардкор",
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/2Ue3J84V8QRM9v5L3LHiuW"
+      },
+      "href": "https://api.spotify.com/v1/playlists/2Ue3J84V8QRM9v5L3LHiuW",
+      "id": "2Ue3J84V8QRM9v5L3LHiuW",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://mosaic.scdn.co/640/ab67616d00001e0282ca13fb402816e0937f93d6ab67616d00001e02857177150b4d2a88e0188a8cab67616d00001e029c55ad96fd12a74f05cb3695ab67616d00001e02a57b5577ffa03ebdead77122",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://mosaic.scdn.co/300/ab67616d00001e0282ca13fb402816e0937f93d6ab67616d00001e02857177150b4d2a88e0188a8cab67616d00001e029c55ad96fd12a74f05cb3695ab67616d00001e02a57b5577ffa03ebdead77122",
+          "width": 300
+        },
+        {
+          "height": 60,
+          "url": "https://mosaic.scdn.co/60/ab67616d00001e0282ca13fb402816e0937f93d6ab67616d00001e02857177150b4d2a88e0188a8cab67616d00001e029c55ad96fd12a74f05cb3695ab67616d00001e02a57b5577ffa03ebdead77122",
+          "width": 60
+        }
+      ],
+      "name": "DUBSTEP",
+      "owner": {
+        "display_name": "Eugene",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/sancotmdyspqyhjsc2d5qz1du"
+        },
+        "href": "https://api.spotify.com/v1/users/sancotmdyspqyhjsc2d5qz1du",
+        "id": "sancotmdyspqyhjsc2d5qz1du",
+        "type": "user",
+        "uri": "spotify:user:sancotmdyspqyhjsc2d5qz1du"
+      },
+      "primary_color": null,
+      "public": true,
+      "snapshot_id": "AAAAOoBrNb9pzBJT4yQt1/WoVIBNci/e",
+      "tracks": {
+        "href": "https://api.spotify.com/v1/playlists/2Ue3J84V8QRM9v5L3LHiuW/tracks",
+        "total": 50
+      },
+      "type": "playlist",
+      "uri": "spotify:playlist:2Ue3J84V8QRM9v5L3LHiuW"
+    },
+    {
+      "collaborative": false,
+      "description": "Что-то мощное, быстрое, сочное",
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/3OmKrexMposwRtSonYR80T"
+      },
+      "href": "https://api.spotify.com/v1/playlists/3OmKrexMposwRtSonYR80T",
+      "id": "3OmKrexMposwRtSonYR80T",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://mosaic.scdn.co/640/ab67616d00001e020c4d41a83e9571974b491397ab67616d00001e021f295150dd989bf0caa216a1ab67616d00001e02617ee1af6cc286d6c18f52bbab67616d00001e0282e6657bb78479d353fb5fac",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://mosaic.scdn.co/300/ab67616d00001e020c4d41a83e9571974b491397ab67616d00001e021f295150dd989bf0caa216a1ab67616d00001e02617ee1af6cc286d6c18f52bbab67616d00001e0282e6657bb78479d353fb5fac",
+          "width": 300
+        },
+        {
+          "height": 60,
+          "url": "https://mosaic.scdn.co/60/ab67616d00001e020c4d41a83e9571974b491397ab67616d00001e021f295150dd989bf0caa216a1ab67616d00001e02617ee1af6cc286d6c18f52bbab67616d00001e0282e6657bb78479d353fb5fac",
+          "width": 60
+        }
+      ],
+      "name": "Boost",
+      "owner": {
+        "display_name": "Eugene",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/sancotmdyspqyhjsc2d5qz1du"
+        },
+        "href": "https://api.spotify.com/v1/users/sancotmdyspqyhjsc2d5qz1du",
+        "id": "sancotmdyspqyhjsc2d5qz1du",
+        "type": "user",
+        "uri": "spotify:user:sancotmdyspqyhjsc2d5qz1du"
+      },
+      "primary_color": null,
+      "public": true,
+      "snapshot_id": "AAAAHJdRJWCDjOKGbblWVi6yAA/ywU4B",
+      "tracks": {
+        "href": "https://api.spotify.com/v1/playlists/3OmKrexMposwRtSonYR80T/tracks",
+        "total": 20
+      },
+      "type": "playlist",
+      "uri": "spotify:playlist:3OmKrexMposwRtSonYR80T"
+    }
+  ]
+}

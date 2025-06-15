@@ -246,4 +246,35 @@ class PlaylistApiTest {
         assertEquals(json.parseToJsonElement(expectedBody), json.parseToJsonElement(actualBody))
     }
 
-} 
+    @Test
+    fun getCurrentUserPlaylists_returnsData_on200CodeResponse() = runTest {
+        // Arrange
+        server.enqueueResponseFromAssets("playlist-responses/user-playlists.json")
+
+        // Act
+        val response = api.getCurrentUserPlaylists()
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+        with(response.data!!) {
+            assertEquals(9, total)
+            assertEquals("Rock", items.first().name)
+        }
+    }
+
+    @Test
+    fun getCurrentUserPlaylists_usesCorrectPathAndMethod_onRequest() = runTest {
+        // Arrange
+        server.enqueueEmptyResponse()
+
+        // Act
+        api.getCurrentUserPlaylists()
+
+        // Assert
+        val request = server.takeRequest()
+        assertEquals("/me/playlists", request.path)
+        assertEquals("GET", request.method)
+    }
+
+}
