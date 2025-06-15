@@ -10,6 +10,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -362,4 +364,33 @@ class PlaylistApiTest {
         assertEquals("GET", request.method)
     }
 
+    @Test
+    fun uploadCustomPlaylistCover_isSuccessful_on202Response() = runTest {
+        // Arrange
+        server.enqueueEmptyResponse(202)
+        val imageBody = "jpeg_image_data".toRequestBody("image/jpeg".toMediaType())
+
+        // Act
+        val response = api.uploadCustomPlaylistCover(playlistId, imageBody)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+    }
+
+    @Test
+    fun uploadCustomPlaylistCover_usesCorrectPathMethodAndBody_onRequest() = runTest {
+        // Arrange
+        server.enqueueEmptyResponse(202)
+        val imageBody = "jpeg_image_data".toRequestBody("image/jpeg".toMediaType())
+
+        // Act
+        api.uploadCustomPlaylistCover(playlistId, imageBody)
+
+        // Assert
+        val request = server.takeRequest()
+        assertEquals("/playlists/$playlistId/images", request.path)
+        assertEquals("PUT", request.method)
+        assertEquals("jpeg_image_data", request.body.readUtf8())
+    }
 }
