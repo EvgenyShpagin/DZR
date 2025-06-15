@@ -28,7 +28,7 @@ class BrowseCategoryApiTest {
     @Test
     fun getMultipleBrowseCategories_returnsData_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("browse_categories_response.json")
+        server.enqueueResponseFromAssets("responses/browse-category/browse_categories_response.json")
 
         // Act
         val response = api.getMultipleBrowseCategories()
@@ -46,7 +46,7 @@ class BrowseCategoryApiTest {
     @Test
     fun getMultipleBrowseCategories_usesCorrectPathAndMethod_onRequestWithAllParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("browse_categories_response.json")
+        server.enqueueResponseFromAssets("responses/browse-category/browse_categories_response.json")
         val locale = "es_MX"
         val limit = 10
         val offset = 5
@@ -64,7 +64,7 @@ class BrowseCategoryApiTest {
     @Test
     fun getSingleBrowseCategory_returnsData_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("browse_single_category_response.json")
+        server.enqueueResponseFromAssets("responses/browse-category/browse_single_category_response.json")
 
         // Act
         val response = api.getSingleBrowseCategory("dummy id")
@@ -80,7 +80,7 @@ class BrowseCategoryApiTest {
     @Test
     fun getSingleBrowseCategory_usesCorrectPathAndMethod_onRequestWithLocale() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("browse_single_category_response.json")
+        server.enqueueResponseFromAssets("responses/browse-category/browse_single_category_response.json")
         val categoryId = "pop"
         val locale = "fr_FR"
 
