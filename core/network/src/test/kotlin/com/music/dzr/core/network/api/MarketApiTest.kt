@@ -29,7 +29,7 @@ class MarketApiTest {
     @Test
     fun getMarkets_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange: enqueue a 200 response with a sample album JSON
-        server.enqueueResponseFromAssets("available_markets_response.json")
+        server.enqueueResponseFromAssets("responses/market/available_markets_response.json")
 
         // Act: call the API
         val response = api.getAvailableMarkets()
@@ -47,7 +47,7 @@ class MarketApiTest {
     @Test
     fun getMarkets_usesCorrectPathAndMethod_onRequestWithMarket() = runTest {
         // Arrange: enqueue a 200 response with a sample album JSON
-        server.enqueueResponseFromAssets("available_markets_response.json")
+        server.enqueueResponseFromAssets("responses/market/available_markets_response.json")
 
         // Act: call the API
         api.getAvailableMarkets()
