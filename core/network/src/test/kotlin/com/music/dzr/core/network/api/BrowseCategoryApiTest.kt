@@ -9,7 +9,7 @@ import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 
-class BrowseBrowseCategoryApiTest {
+class BrowseCategoryApiTest {
 
     private lateinit var server: MockWebServer
     private lateinit var api: BrowseCategoryApi
