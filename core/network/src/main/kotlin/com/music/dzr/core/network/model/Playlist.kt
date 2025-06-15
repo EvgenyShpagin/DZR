@@ -42,6 +42,18 @@ data class Playlist(
 )
 
 /**
+ * Represents a reference to a list of tracks in a playlist, without the track items themselves.
+ *
+ * @property href A link to the Web API endpoint providing full details of the tracks.
+ * @property total The total number of tracks in the playlist.
+ */
+@Serializable
+data class PlaylistTracksInfo(
+    val href: String,
+    val total: Int,
+)
+
+/**
  * Represents a track in a playlist.
  *
  * @property addedAt The date and time the track was added.
