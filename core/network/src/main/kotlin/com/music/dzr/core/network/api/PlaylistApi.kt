@@ -8,6 +8,9 @@ import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.Playlist
 import com.music.dzr.core.network.model.PlaylistTrack
+import com.music.dzr.core.network.model.PlaylistWithPaginatedTracks
+import com.music.dzr.core.network.model.PlaylistWithTracks
+import com.music.dzr.core.network.model.PlaylistWithTracksInfo
 import com.music.dzr.core.network.model.RemovePlaylistTracksRequest
 import com.music.dzr.core.network.model.SnapshotId
 import com.music.dzr.core.network.model.UpdatePlaylistItemsRequest
@@ -41,7 +44,7 @@ interface PlaylistApi {
         @Path("playlist_id") playlistId: String,
         @Query("market") market: String? = null,
         @Query("fields") fields: String? = null
-    ): NetworkResponse<Playlist>
+    ): NetworkResponse<PlaylistWithPaginatedTracks>
 
     /**
      * Change a playlist's name and public/private state. (The user must, of course, own the playlist.)
@@ -123,7 +126,7 @@ interface PlaylistApi {
     suspend fun getCurrentUserPlaylists(
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null
-    ): NetworkResponse<PaginatedList<Playlist>>
+    ): NetworkResponse<PaginatedList<PlaylistWithTracksInfo>>
 
     /**
      * Get a list of the playlists owned or followed by a Spotify user.
@@ -138,7 +141,7 @@ interface PlaylistApi {
         @Path("user_id") userId: String,
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null
-    ): NetworkResponse<PaginatedList<Playlist>>
+    ): NetworkResponse<PaginatedList<PlaylistWithTracks>>
 
     /**
      * Create a playlist for a Spotify user. (The playlist will be empty until you add tracks.)
@@ -151,7 +154,7 @@ interface PlaylistApi {
     suspend fun createPlaylist(
         @Path("user_id") userId: String,
         @Body body: CreatePlaylistRequest
-    ): NetworkResponse<Playlist>
+    ): NetworkResponse<PlaylistWithPaginatedTracks>
 
     /**
      * Get the current cover image for a playlist.

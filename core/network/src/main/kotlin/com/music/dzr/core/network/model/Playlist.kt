@@ -6,6 +6,8 @@ import kotlinx.serialization.Serializable
 /**
  * Represents a playlist on Spotify.
  *
+ * @param T The tracks representation.
+ *
  * @property collaborative Returns `true` if context is not search and the owner allows other users to modify the playlist. Otherwise returns `false`.
  * @property description The playlist description. *Only returned for modified, public playlists, otherwise `null`.*
  * @property externalUrls Known external URLs for this playlist.
@@ -22,7 +24,7 @@ import kotlinx.serialization.Serializable
  * @property uri The Spotify URI for the playlist.
  */
 @Serializable
-data class Playlist(
+data class Playlist<T>(
     val collaborative: Boolean,
     val description: String?,
     @SerialName("external_urls")
@@ -36,10 +38,14 @@ data class Playlist(
     val public: Boolean?,
     @SerialName("snapshot_id")
     val snapshotId: String,
-    val tracks: PaginatedList<PlaylistTrack>,
+    val tracks: T,
     val type: String,
     val uri: String,
 )
+
+typealias PlaylistWithTracksInfo = Playlist<PlaylistTracksInfo>
+typealias PlaylistWithTracks = Playlist<List<PlaylistTrack>>
+typealias PlaylistWithPaginatedTracks = Playlist<PaginatedList<PlaylistTrack>>
 
 /**
  * Represents a reference to a list of tracks in a playlist, without the track items themselves.
