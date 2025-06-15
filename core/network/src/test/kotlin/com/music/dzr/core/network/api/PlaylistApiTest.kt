@@ -48,7 +48,7 @@ class PlaylistApiTest {
     @Test
     fun getPlaylist_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playlist-responses/playlist.json")
+        server.enqueueResponseFromAssets("responses/playlist/playlist.json")
 
         // Act
         val response = api.getPlaylist(playlistId)
@@ -68,7 +68,7 @@ class PlaylistApiTest {
     @Test
     fun getPlaylist_usesCorrectPathAndMethod_onRequestWithParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playlist-responses/playlist.json")
+        server.enqueueResponseFromAssets("responses/playlist/playlist.json")
 
         // Act
         api.getPlaylist(playlistId, market = "US", fields = "name,description")
@@ -117,7 +117,7 @@ class PlaylistApiTest {
     @Test
     fun getPlaylistTracks_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playlist-responses/playlist-tracks.json")
+        server.enqueueResponseFromAssets("responses/playlist/playlist-tracks.json")
 
         // Act
         val response = api.getPlaylistTracks(playlistId)
@@ -136,7 +136,7 @@ class PlaylistApiTest {
     @Test
     fun getPlaylistTracks_usesCorrectPathAndMethod_onRequestWithParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playlist-responses/playlist-tracks.json")
+        server.enqueueResponseFromAssets("responses/playlist/playlist-tracks.json")
 
         // Act
         api.getPlaylistTracks(playlistId, market = "ES", limit = 10, offset = 5)
@@ -150,7 +150,7 @@ class PlaylistApiTest {
     @Test
     fun updatePlaylistItems_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playlist-responses/snapshot-id.json")
+        server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json")
         val requestBody = UpdatePlaylistItemsRequest(rangeStart = 0, insertBefore = 2)
 
         // Act
@@ -165,7 +165,7 @@ class PlaylistApiTest {
     @Test
     fun updatePlaylistItems_usesCorrectPathMethodAndBody_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playlist-responses/snapshot-id.json")
+        server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json")
         val requestBody = UpdatePlaylistItemsRequest(
             rangeStart = 0,
             insertBefore = 2,
@@ -188,7 +188,7 @@ class PlaylistApiTest {
     @Test
     fun addTracksToPlaylist_returnsData_on201CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playlist-responses/snapshot-id.json", 201)
+        server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json", 201)
         val requestBody = AddTracksToPlaylistRequest(uris = trackUris, position = 0)
 
         // Act
@@ -203,7 +203,7 @@ class PlaylistApiTest {
     @Test
     fun addTracksToPlaylist_usesCorrectPathMethodAndBody_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playlist-responses/snapshot-id.json", 201)
+        server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json", 201)
         val requestBody = AddTracksToPlaylistRequest(uris = trackUris, position = 0)
 
         // Act
@@ -219,7 +219,7 @@ class PlaylistApiTest {
     @Test
     fun removePlaylistTracks_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playlist-responses/snapshot-id.json")
+        server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json")
         val requestBody = RemovePlaylistTracksRequest(tracks = listOf(TrackToRemove(trackUri)))
 
         // Act
@@ -234,7 +234,7 @@ class PlaylistApiTest {
     @Test
     fun removePlaylistTracks_usesCorrectPathMethodAndBody_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playlist-responses/snapshot-id.json")
+        server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json")
         val requestBody = RemovePlaylistTracksRequest(tracks = listOf(TrackToRemove(trackUri)))
 
         // Act
@@ -253,7 +253,7 @@ class PlaylistApiTest {
     @Test
     fun getCurrentUserPlaylists_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playlist-responses/user-playlists.json")
+        server.enqueueResponseFromAssets("responses/playlist/user-playlists.json")
 
         // Act
         val response = api.getCurrentUserPlaylists()
@@ -302,7 +302,7 @@ class PlaylistApiTest {
     @Test
     fun createPlaylist_returnsData_on201CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playlist-responses/playlist.json", 201)
+        server.enqueueResponseFromAssets("responses/playlist/playlist.json", 201)
         val requestBody = CreatePlaylistRequest(name = "Spotify Web API Testing playlist")
 
         // Act
@@ -338,7 +338,7 @@ class PlaylistApiTest {
     @Test
     fun getPlaylistCoverImage_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playlist-responses/playlist-cover-images.json")
+        server.enqueueResponseFromAssets("responses/playlist/playlist-cover-images.json")
 
         // Act
         val response = api.getPlaylistCoverImage(playlistId)
