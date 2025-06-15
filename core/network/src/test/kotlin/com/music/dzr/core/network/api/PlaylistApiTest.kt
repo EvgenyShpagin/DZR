@@ -2,6 +2,7 @@ package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.AddTracksToPlaylistRequest
 import com.music.dzr.core.network.model.ChangePlaylistDetailsRequest
+import com.music.dzr.core.network.model.CreatePlaylistRequest
 import com.music.dzr.core.network.model.RemovePlaylistTracksRequest
 import com.music.dzr.core.network.model.TrackToRemove
 import com.music.dzr.core.network.model.UpdatePlaylistItemsRequest
@@ -294,6 +295,42 @@ class PlaylistApiTest {
         val request = server.takeRequest()
         assertEquals("/users/$userId/playlists?limit=3&offset=2", request.path)
         assertEquals("GET", request.method)
+    }
+
+    @Test
+    fun createPlaylist_returnsData_on201CodeResponse() = runTest {
+        // Arrange
+        server.enqueueResponseFromAssets("playlist-responses/playlist.json", 201)
+        val requestBody = CreatePlaylistRequest(name = "Spotify Web API Testing playlist")
+
+        // Act
+        val response = api.createPlaylist(userId, requestBody)
+
+        // Assert
+        assertNull(response.error)
+        assertNotNull(response.data)
+        assertEquals("3cEYpjA9oz9GiPac4AsH4n", response.data!!.id)
+    }
+
+    @Test
+    fun createPlaylist_usesCorrectPathMethodAndBody_onRequest() = runTest {
+        // Arrange
+        server.enqueueEmptyResponse(201)
+        val requestBody = CreatePlaylistRequest(
+            name = "Spotify Web API Testing playlist",
+            public = false,
+            collaborative = true,
+            description = "Test description"
+        )
+
+        // Act
+        api.createPlaylist(userId, requestBody)
+
+        // Assert
+        val request = server.takeRequest()
+        assertEquals("/users/$userId/playlists", request.path)
+        assertEquals("POST", request.method)
+        assertEquals(json.encodeToString(requestBody), request.body.readUtf8())
     }
 
 }
