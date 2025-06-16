@@ -5,8 +5,10 @@ import com.music.dzr.core.network.model.CurrentUser
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.PermissionScope
+import com.music.dzr.core.network.model.PublicUser
 import com.music.dzr.core.network.model.Track
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -61,5 +63,14 @@ interface UserApi {
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null,
     ): NetworkResponse<PaginatedList<Track>>
+
+    /**
+     * Get public profile information about a Spotify user.
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/get-users-profile">Get User's Profile</a>
+     *
+     * @param userId The user's Spotify user ID.
+     */
+    @GET("users/{user_id}")
+    suspend fun getUserProfile(@Path("user_id") userId: String): NetworkResponse<PublicUser>
 
 }
