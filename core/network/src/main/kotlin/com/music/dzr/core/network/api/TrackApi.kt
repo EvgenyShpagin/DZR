@@ -119,4 +119,17 @@ interface TrackApi {
         @Body ids: List<String>
     ): NetworkResponse<Unit>
 
+    /**
+     * Check if one or more tracks is already saved in the current Spotify user's 'Your Music' library.
+     *
+     * Requires [PermissionScope.UserLibraryRead].
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/check-users-saved-tracks">Check User's Saved Tracks</a>
+     *
+     * @param ids A comma-separated list of the Spotify IDs for the tracks. Maximum: 50.
+     */
+    @GET("me/tracks/contains")
+    suspend fun checkUsersSavedTracks(
+        @Query("ids") ids: String
+    ): NetworkResponse<List<Boolean>>
 } 
