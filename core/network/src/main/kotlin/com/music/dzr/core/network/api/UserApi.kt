@@ -2,12 +2,15 @@ package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.Artist
 import com.music.dzr.core.network.model.CurrentUser
+import com.music.dzr.core.network.model.FollowPlaylistRequest
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.PermissionScope
 import com.music.dzr.core.network.model.PublicUser
 import com.music.dzr.core.network.model.Track
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -72,5 +75,23 @@ interface UserApi {
      */
     @GET("users/{user_id}")
     suspend fun getUserProfile(@Path("user_id") userId: String): NetworkResponse<PublicUser>
+
+    /**
+     * Add the current user as a follower of a playlist.
+     *
+     * Requires:
+     * - [PermissionScope.PlaylistModifyPublic],
+     * - [PermissionScope.PlaylistModifyPrivate].
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/follow-playlist">Follow Playlist</a>
+     *
+     * @param playlistId The Spotify ID of the playlist.
+     * @param requestBody The request body.
+     */
+    @PUT("playlists/{playlist_id}/followers")
+    suspend fun followPlaylist(
+        @Path("playlist_id") playlistId: String,
+        @Body requestBody: FollowPlaylistRequest,
+    ): NetworkResponse<Unit>
 
 }
