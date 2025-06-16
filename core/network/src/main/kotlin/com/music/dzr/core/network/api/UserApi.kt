@@ -126,4 +126,16 @@ interface UserApi {
         @Query("after") after: String? = null,
     ): NetworkResponse<FollowedArtistsContainer>
 
+    /**
+     * Add the current user as a follower of one or more artists.
+     *
+     * Requires [PermissionScope.UserFollowModify].
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/follow-artists-users">Follow Artists or Users</a>
+     *
+     * @param ids A comma-separated list of the artist IDs to follow. Maximum 50.
+     */
+    @PUT("me/following?type=artist")
+    suspend fun followArtists(@Query("ids") ids: String): NetworkResponse<Unit>
+
 }
