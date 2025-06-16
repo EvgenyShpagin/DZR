@@ -2,6 +2,7 @@ package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.Track
+import com.music.dzr.core.network.model.TracksContainer
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -23,5 +24,18 @@ interface TrackApi {
         @Path("id") id: String,
         @Query("market") market: String? = null
     ): NetworkResponse<Track>
+
+    /**
+     * Get Spotify catalog information for multiple tracks based on their Spotify IDs.
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/get-several-tracks">Get Several Tracks</a>
+     *
+     * @param ids A comma-separated list of the Spotify IDs for the tracks. Maximum: 50.
+     * @param market An ISO 3166-1 alpha-2 country code.
+     */
+    @GET("tracks")
+    suspend fun getMultipleTracks(
+        @Query("ids") ids: String,
+        @Query("market") market: String? = null
+    ): NetworkResponse<TracksContainer>
 
 } 
