@@ -3,6 +3,7 @@ package com.music.dzr.core.network.api
 import com.music.dzr.core.network.model.Artist
 import com.music.dzr.core.network.model.CurrentUser
 import com.music.dzr.core.network.model.FollowPlaylistRequest
+import com.music.dzr.core.network.model.FollowedArtistsContainer
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.PermissionScope
@@ -108,5 +109,21 @@ interface UserApi {
      */
     @DELETE("playlists/{playlist_id}/followers")
     suspend fun unfollowPlaylist(@Path("playlist_id") playlistId: String): NetworkResponse<Unit>
+
+    /**
+     * Get the current user's followed artists.
+     *
+     * Requires [PermissionScope.UserFollowRead].
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/get-followed">Get Followed Artists</a>
+     *
+     * @param limit The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+     * @param after The last artist ID retrieved from the previous request.
+     */
+    @GET("me/following?type=artist")
+    suspend fun getFollowedArtists(
+        @Query("limit") limit: Int? = null,
+        @Query("after") after: String? = null,
+    ): NetworkResponse<FollowedArtistsContainer>
 
 }
