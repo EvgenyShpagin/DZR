@@ -7,7 +7,9 @@ import com.music.dzr.core.network.model.SavedTrack
 import com.music.dzr.core.network.model.Track
 import com.music.dzr.core.network.model.TracksContainer
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -86,6 +88,34 @@ interface TrackApi {
      */
     @PUT("me/tracks")
     suspend fun saveTracksForUser(
+        @Body ids: List<String>
+    ): NetworkResponse<Unit>
+
+    /**
+     * Remove one or more tracks from the current user's 'Your Music' library.
+     *
+     * Requires [PermissionScope.UserLibraryModify].
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/remove-tracks-user">Remove User's Saved Tracks</a>
+     *
+     * @param ids A comma-separated list of the Spotify IDs. Maximum: 50.
+     */
+    @DELETE("me/tracks")
+    suspend fun removeTracksForUser(
+        @Query("ids") ids: String
+    ): NetworkResponse<Unit>
+
+    /**
+     * Remove one or more tracks from the current user's 'Your Music' library.
+     *
+     * Requires [PermissionScope.UserLibraryModify].
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/remove-tracks-user">Remove User's Saved Tracks</a>
+     *
+     * @param ids A list of the Spotify IDs. Maximum: 50.
+     */
+    @HTTP(method = "DELETE", path = "me/tracks", hasBody = true)
+    suspend fun removeTracksForUser(
         @Body ids: List<String>
     ): NetworkResponse<Unit>
 
