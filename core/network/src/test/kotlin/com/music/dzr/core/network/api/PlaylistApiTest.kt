@@ -148,13 +148,13 @@ class PlaylistApiTest {
     }
 
     @Test
-    fun updatePlaylistItems_returnsData_on200CodeResponse() = runTest {
+    fun updatePlaylistTracks_returnsData_on200CodeResponse() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json")
         val requestBody = UpdatePlaylistItemsRequest(rangeStart = 0, insertBefore = 2)
 
         // Act
-        val response = api.updatePlaylistItems(playlistId, requestBody)
+        val response = api.updatePlaylistTracks(playlistId, requestBody)
 
         // Assert
         assertNull(response.error)
@@ -163,7 +163,7 @@ class PlaylistApiTest {
     }
 
     @Test
-    fun updatePlaylistItems_usesCorrectPathMethodAndBody_onRequest() = runTest {
+    fun updatePlaylistTracks_usesCorrectPathMethodAndBody_onRequest() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json")
         val requestBody = UpdatePlaylistItemsRequest(
@@ -173,7 +173,7 @@ class PlaylistApiTest {
         )
 
         // Act
-        api.updatePlaylistItems(playlistId, requestBody)
+        api.updatePlaylistTracks(playlistId, requestBody)
 
         // Assert
         val recordedRequest = server.takeRequest()

@@ -84,7 +84,7 @@ interface PlaylistApi {
      * @return A [SnapshotId] object.
      */
     @PUT("playlists/{playlist_id}/tracks")
-    suspend fun updatePlaylistItems(
+    suspend fun updatePlaylistTracks(
         @Path("playlist_id") playlistId: String,
         @Body body: UpdatePlaylistItemsRequest
     ): NetworkResponse<SnapshotId>
