@@ -150,4 +150,16 @@ interface UserApi {
     @PUT("me/following?type=user")
     suspend fun followUsers(@Query("ids") ids: String): NetworkResponse<Unit>
 
+    /**
+     * Remove the current user as a follower of one or more artists.
+     *
+     * Requires [PermissionScope.UserFollowModify].
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/unfollow-artists-users">Unfollow Artists or Users</a>
+     *
+     * @param ids A comma-separated list of the artist IDs to unfollow. Maximum 50.
+     */
+    @DELETE("me/following?type=artist")
+    suspend fun unfollowArtists(@Query("ids") ids: String): NetworkResponse<Unit>
+
 }
