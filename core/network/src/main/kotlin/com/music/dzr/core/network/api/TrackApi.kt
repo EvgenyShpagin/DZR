@@ -1,6 +1,9 @@
 package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.NetworkResponse
+import com.music.dzr.core.network.model.PaginatedList
+import com.music.dzr.core.network.model.PermissionScope
+import com.music.dzr.core.network.model.SavedTrack
 import com.music.dzr.core.network.model.Track
 import com.music.dzr.core.network.model.TracksContainer
 import retrofit2.http.GET
@@ -37,5 +40,23 @@ interface TrackApi {
         @Query("ids") ids: String,
         @Query("market") market: String? = null
     ): NetworkResponse<TracksContainer>
+
+    /**
+     * Get a list of the songs saved in the current Spotify user's 'Your Music' library.
+     *
+     * Requires [PermissionScope.UserLibraryRead].
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/get-users-saved-tracks">Get User's Saved Tracks</a>
+     *
+     * @param limit The maximum number of objects to return. Default: 20. Minimum: 1. Maximum: 50.
+     * @param offset The index of the first object to return.
+     * @param market An ISO 3166-1 alpha-2 country code.
+     */
+    @GET("me/tracks")
+    suspend fun getUsersSavedTracks(
+        @Query("limit") limit: Int? = null,
+        @Query("offset") offset: Int? = null,
+        @Query("market") market: String? = null
+    ): NetworkResponse<PaginatedList<SavedTrack>>
 
 } 
