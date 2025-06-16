@@ -27,7 +27,7 @@ private fun DzrButton_FontScale_1_5_Preview() {
 @PreviewTest
 @PreviewLightDark
 @Composable
-private fun DzrButton_Icon_MultipleThemes_Preview() {
+private fun DzrButton_Icon_Preview() {
     DzrTheme {
         DzrButton(
             onClick = {},
@@ -45,7 +45,7 @@ private fun DzrButton_Icon_MultipleThemes_Preview() {
 @PreviewTest
 @PreviewLightDark
 @Composable
-private fun DzrOutlineButton_Icon_MultipleThemes_Preview() {
+private fun DzrOutlineButton_Icon_Preview() {
     DzrTheme {
         DzrOutlinedButton(
             onClick = {},
