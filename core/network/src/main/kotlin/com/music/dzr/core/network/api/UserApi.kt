@@ -198,4 +198,17 @@ interface UserApi {
     @GET("me/following/contains?type=user")
     suspend fun checkIfUserFollowsUsers(@Query("ids") ids: String): NetworkResponse<List<Boolean>>
 
+    /**
+     * Check to see if one or more Spotify users are following a specified playlist.
+     *
+     * Requires [PermissionScope.PlaylistReadPrivate].
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/check-if-user-follows-playlist">Check if Users Follow Playlist</a>
+     *
+     * @param playlistId The Spotify ID of the playlist.
+     */
+    @GET("playlists/{playlist_id}/followers/contains")
+    suspend fun checkIfUsersFollowPlaylist(
+        @Path("playlist_id") playlistId: String
+    ): NetworkResponse<List<Boolean>>
 }
