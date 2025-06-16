@@ -9,6 +9,7 @@ import com.music.dzr.core.network.model.PermissionScope
 import com.music.dzr.core.network.model.PublicUser
 import com.music.dzr.core.network.model.Track
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -93,5 +94,19 @@ interface UserApi {
         @Path("playlist_id") playlistId: String,
         @Body requestBody: FollowPlaylistRequest,
     ): NetworkResponse<Unit>
+
+    /**
+     * Remove the current user as a follower of a playlist.
+     *
+     * Requires:
+     * - [PermissionScope.PlaylistModifyPublic],
+     * - [PermissionScope.PlaylistModifyPrivate].
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/unfollow-playlist">Unfollow Playlist</a>
+     *
+     * @param playlistId The Spotify ID of the playlist.
+     */
+    @DELETE("playlists/{playlist_id}/followers")
+    suspend fun unfollowPlaylist(@Path("playlist_id") playlistId: String): NetworkResponse<Unit>
 
 }
