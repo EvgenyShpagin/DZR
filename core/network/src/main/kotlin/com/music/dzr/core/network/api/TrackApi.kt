@@ -6,7 +6,9 @@ import com.music.dzr.core.network.model.PermissionScope
 import com.music.dzr.core.network.model.SavedTrack
 import com.music.dzr.core.network.model.Track
 import com.music.dzr.core.network.model.TracksContainer
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -58,5 +60,33 @@ interface TrackApi {
         @Query("offset") offset: Int? = null,
         @Query("market") market: String? = null
     ): NetworkResponse<PaginatedList<SavedTrack>>
+
+    /**
+     * Save one or more tracks to the current user's 'Your Music' library.
+     *
+     * Requires [PermissionScope.UserLibraryModify].
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/save-tracks-user">Save Tracks for Current User</a>
+     *
+     * @param ids A comma-separated list of the Spotify IDs. Maximum: 50.
+     */
+    @PUT("me/tracks")
+    suspend fun saveTracksForUser(
+        @Query("ids") ids: String
+    ): NetworkResponse<Unit>
+
+    /**
+     * Save one or more tracks to the current user's 'Your Music' library.
+     *
+     * Requires [PermissionScope.UserLibraryModify].
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/save-tracks-user">Save Tracks for Current User</a>
+     *
+     * @param ids A list of the Spotify IDs. Maximum: 50.
+     */
+    @PUT("me/tracks")
+    suspend fun saveTracksForUser(
+        @Body ids: List<String>
+    ): NetworkResponse<Unit>
 
 } 
