@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.model
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -70,7 +71,7 @@ data class PlaylistTracksInfo(
 @Serializable
 data class PlaylistTrack(
     @SerialName("added_at")
-    val addedAt: String,
+    val addedAt: Instant,
     @SerialName("added_by")
     val addedBy: PublicUser,
     @SerialName("is_local")
