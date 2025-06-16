@@ -174,4 +174,28 @@ interface UserApi {
     @DELETE("me/following?type=user")
     suspend fun unfollowUsers(@Query("ids") ids: String): NetworkResponse<Unit>
 
+    /**
+     * Check to see if the current user is following one or more artists.
+     *
+     * Requires [PermissionScope.UserFollowRead].
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/check-current-user-follows">Check If User Follows Artists or Users</a>
+     *
+     * @param ids A comma-separated list of the artist IDs to check. Maximum 50.
+     */
+    @GET("me/following/contains?type=artist")
+    suspend fun checkIfUserFollowsArtists(@Query("ids") ids: String): NetworkResponse<List<Boolean>>
+
+    /**
+     * Check to see if the current user is following one or more users.
+     *
+     * Requires [PermissionScope.UserFollowRead].
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/check-current-user-follows">Check If User Follows Artists or Users</a>
+     *
+     * @param ids A comma-separated list of the user IDs to check. Maximum 50.
+     */
+    @GET("me/following/contains?type=user")
+    suspend fun checkIfUserFollowsUsers(@Query("ids") ids: String): NetworkResponse<List<Boolean>>
+
 }
