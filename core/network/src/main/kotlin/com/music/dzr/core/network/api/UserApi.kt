@@ -8,6 +8,7 @@ import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.PermissionScope
 import com.music.dzr.core.network.model.PublicUser
+import com.music.dzr.core.network.model.TimeRange
 import com.music.dzr.core.network.model.Track
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -40,13 +41,13 @@ interface UserApi {
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks">Get User's Top Items</a>
      *
-     * @param timeRange Over what time frame the affinities are computed. Default: medium_term.
+     * @param timeRange Over what time frame the affinities are computed. Default: [TimeRange.MediumTerm].
      * @param limit The number of entities to return. Default: 20. Minimum: 1. Maximum: 50.
      * @param offset The index of the first entity to return.
      */
     @GET("me/top/artists")
     suspend fun getUsersTopArtists(
-        @Query("time_range") timeRange: String? = null,
+        @Query("time_range") timeRange: TimeRange? = null,
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null,
     ): NetworkResponse<PaginatedList<Artist>>
@@ -58,15 +59,15 @@ interface UserApi {
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks">Get User's Top Items</a>
      *
-     * @param timeRange Over what time frame the affinities are computed. Default: medium_term.
+     * @param timeRange Over what time frame the affinities are computed. Default: [TimeRange.MediumTerm]
      * @param limit The number of entities to return. Default: 20. Minimum: 1. Maximum: 50.
-     * @param offset The index of the first entity to return.
+     * @param offset The index of the first entity to return. Default: 0
      */
     @GET("me/top/tracks")
     suspend fun getUsersTopTracks(
-        @Query("time_range") timeRange: String? = null,
+        @Query("time_range") timeRange: TimeRange? = null,
         @Query("limit") limit: Int? = null,
-        @Query("offset") offset: Int? = null,
+        @Query("offset") offset: Int? = null
     ): NetworkResponse<PaginatedList<Track>>
 
     /**
