@@ -1,5 +1,7 @@
 package com.music.dzr.core.network.model
 
+import com.music.dzr.core.network.retrofit.UrlParameter
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -7,7 +9,7 @@ import kotlinx.serialization.Serializable
  * Represents the repeat mode for the user's playback.
  */
 @Serializable
-enum class RepeatMode {
+enum class RepeatMode : UrlParameter {
     /**
      * Repeat the current track.
      */
@@ -24,5 +26,9 @@ enum class RepeatMode {
      * Will turn repeat off.
      */
     @SerialName("off")
-    Off
+    Off;
+
+    override val urlValue: String
+        @OptIn(ExperimentalSerializationApi::class)
+        get() = serializer().descriptor.getElementName(ordinal)
 }
