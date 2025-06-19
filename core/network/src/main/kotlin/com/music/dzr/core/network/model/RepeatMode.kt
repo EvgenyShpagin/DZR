@@ -1,7 +1,7 @@
 package com.music.dzr.core.network.model
 
 import com.music.dzr.core.network.retrofit.UrlParameter
-import kotlinx.serialization.ExperimentalSerializationApi
+import com.music.dzr.core.network.util.getSerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -28,7 +28,5 @@ enum class RepeatMode : UrlParameter {
     @SerialName("off")
     Off;
 
-    override val urlValue: String
-        @OptIn(ExperimentalSerializationApi::class)
-        get() = serializer().descriptor.getElementName(ordinal)
+    override val urlValue get() = getSerializedName()
 }
