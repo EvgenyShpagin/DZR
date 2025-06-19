@@ -3,6 +3,7 @@ package com.music.dzr.core.network.api
 import com.music.dzr.core.network.AssetManager
 import com.music.dzr.core.network.retrofit.NetworkErrorResponseParser
 import com.music.dzr.core.network.retrofit.NetworkResponseCallAdapterFactory
+import com.music.dzr.core.network.retrofit.UrlParameterConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl
 import okhttp3.MediaType.Companion.toMediaType
@@ -78,6 +79,9 @@ private fun createRetrofit(
     errorResponseParser: NetworkErrorResponseParser
 ) = Retrofit.Builder()
     .baseUrl(httpUrl)
+    .addConverterFactory(
+        UrlParameterConverterFactory()
+    )
     .addConverterFactory(
         json.asConverterFactory("application/json".toMediaType())
     )

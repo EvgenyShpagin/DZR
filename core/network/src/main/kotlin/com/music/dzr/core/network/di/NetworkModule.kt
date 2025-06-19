@@ -2,6 +2,7 @@ package com.music.dzr.core.network.di
 
 import com.music.dzr.core.network.retrofit.NetworkErrorResponseParser
 import com.music.dzr.core.network.retrofit.NetworkResponseCallAdapterFactory
+import com.music.dzr.core.network.retrofit.UrlParameterConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import org.koin.dsl.module
@@ -23,6 +24,7 @@ val networkModule = module {
     single {
         Retrofit.Builder()
             .baseUrl(DZR_BASE_URL)
+            .addConverterFactory(UrlParameterConverterFactory())
             .addConverterFactory(
                 get<Json>().asConverterFactory("application/json".toMediaType())
             )
