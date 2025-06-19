@@ -11,40 +11,40 @@ class RepeatModeSerializationTest {
     private val json = Json { ignoreUnknownKeys = true }
 
     @Test
-    fun repeatModeSerializer_deserializes_whenGotTrack() {
+    fun deserializes_track() {
         val input = "\"track\""
         val result = json.decodeFromString<RepeatMode>(input)
         assertEquals(RepeatMode.Track, result)
     }
 
     @Test
-    fun repeatModeSerializer_deserializes_whenGotContext() {
+    fun deserializes_context() {
         val input = "\"context\""
         val result = json.decodeFromString<RepeatMode>(input)
         assertEquals(RepeatMode.Context, result)
     }
 
     @Test
-    fun repeatModeSerializer_deserializes_whenGotOff() {
+    fun deserializes_off() {
         val input = "\"off\""
         val result = json.decodeFromString<RepeatMode>(input)
         assertEquals(RepeatMode.Off, result)
     }
 
     @Test
-    fun repeatModeSerializer_serializes_whenTrack() {
+    fun serializes_track() {
         val output = json.encodeToString(RepeatMode.Track)
         assertEquals("\"track\"", output)
     }
 
     @Test
-    fun repeatModeSerializer_serializes_whenContext() {
+    fun serializes_context() {
         val output = json.encodeToString(RepeatMode.Context)
         assertEquals("\"context\"", output)
     }
 
     @Test
-    fun repeatModeSerializer_serializes_whenOff() {
+    fun serializes_off() {
         val output = json.encodeToString(RepeatMode.Off)
         assertEquals("\"off\"", output)
     }
