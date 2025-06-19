@@ -15,7 +15,7 @@ object OffsetSerializer : JsonContentPolymorphicSerializer<Offset>(Offset::class
         return when {
             "position" in jsonObject -> Offset.ByPosition.serializer()
             "uri" in jsonObject -> Offset.ByUri.serializer()
-            else -> throw IllegalStateException("Invalid Offset object: $jsonObject")
+            else -> throwDeserializationException(jsonObject.toString())
         }
     }
 }
