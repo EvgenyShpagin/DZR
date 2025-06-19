@@ -2,6 +2,7 @@ package com.music.dzr.core.network.util
 
 import com.music.dzr.core.network.model.ReleaseDate
 import com.music.dzr.core.network.model.ReleaseDatePrecision
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -71,39 +72,39 @@ class ReleaseDateSerializersTest {
     @Test
     fun deserializes_dayPrecision() {
         val input = "\"day\""
-        val result = json.decodeFromString(ReleaseDatePrecisionSerializer, input)
+        val result = json.decodeFromString<ReleaseDatePrecision>(input)
         assertEquals(ReleaseDatePrecision.DAY, result)
     }
 
     @Test
     fun deserializes_monthPrecision() {
         val input = "\"month\""
-        val result = json.decodeFromString(ReleaseDatePrecisionSerializer, input)
+        val result = json.decodeFromString<ReleaseDatePrecision>(input)
         assertEquals(ReleaseDatePrecision.MONTH, result)
     }
 
     @Test
     fun deserializes_yearPrecision() {
         val input = "\"year\""
-        val result = json.decodeFromString(ReleaseDatePrecisionSerializer, input)
+        val result = json.decodeFromString<ReleaseDatePrecision>(input)
         assertEquals(ReleaseDatePrecision.YEAR, result)
     }
 
     @Test
     fun serializes_dayPrecision() {
-        val output = json.encodeToString(ReleaseDatePrecisionSerializer, ReleaseDatePrecision.DAY)
+        val output = json.encodeToString<ReleaseDatePrecision>(ReleaseDatePrecision.DAY)
         assertEquals("\"day\"", output)
     }
 
     @Test
     fun serializes_monthPrecision() {
-        val output = json.encodeToString(ReleaseDatePrecisionSerializer, ReleaseDatePrecision.MONTH)
+        val output = json.encodeToString(ReleaseDatePrecision.MONTH)
         assertEquals("\"month\"", output)
     }
 
     @Test
     fun serializes_yearPrecision() {
-        val output = json.encodeToString(ReleaseDatePrecisionSerializer, ReleaseDatePrecision.YEAR)
+        val output = json.encodeToString(ReleaseDatePrecision.YEAR)
         assertEquals("\"year\"", output)
     }
 }
