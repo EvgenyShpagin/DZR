@@ -6,7 +6,7 @@ import kotlinx.serialization.json.Json
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class CurrentlyPlayingTypeSerializerTest {
+class CurrentlyPlayingTypeSerializationTest {
     private val json = Json
 
     @Test
