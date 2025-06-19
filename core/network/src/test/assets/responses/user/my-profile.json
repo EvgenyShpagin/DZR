@@ -1,0 +1,22 @@
+{
+  "country": "DE",
+  "display_name": "Eugene",
+  "email": "shpagin.j@gmail.com",
+  "explicit_content": {
+    "filter_enabled": false,
+    "filter_locked": false
+  },
+  "external_urls": {
+    "spotify": "https://open.spotify.com/user/sancotmdyspqyhjsc2d5qz1du"
+  },
+  "followers": {
+    "href": null,
+    "total": 0
+  },
+  "href": "https://api.spotify.com/v1/users/sancotmdyspqyhjsc2d5qz1du",
+  "id": "sancotmdyspqyhjsc2d5qz1du",
+  "images": [],
+  "product": "free",
+  "type": "user",
+  "uri": "spotify:user:sancotmdyspqyhjsc2d5qz1du"
+}
