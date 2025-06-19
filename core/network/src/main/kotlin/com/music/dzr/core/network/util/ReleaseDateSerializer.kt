@@ -24,7 +24,9 @@ object ReleaseDateSerializer : KSerializer<ReleaseDate> {
     override fun deserialize(decoder: Decoder): ReleaseDate {
         val raw = decoder.decodeString()
         val splitValues = raw.split('-')
-        val splitNumbers = splitValues.map { it.toInt() }
+        val splitNumbers = splitValues.map {
+            it.toIntOrNull() ?: throwDeserializationException(raw)
+        }
         return ReleaseDate(
             year = splitNumbers[0],
             month = splitNumbers.getOrNull(1),
