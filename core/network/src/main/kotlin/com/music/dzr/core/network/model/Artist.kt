@@ -1,5 +1,7 @@
 package com.music.dzr.core.network.model
 
+import com.music.dzr.core.network.retrofit.UrlParameter
+import com.music.dzr.core.network.util.getSerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -54,7 +56,7 @@ data class ArtistAlbum(
  * This describes the relationship between the artist and the album.
  */
 @Serializable
-enum class AlbumGroup {
+enum class AlbumGroup : UrlParameter {
     @SerialName("album")
     Album,
 
@@ -65,5 +67,7 @@ enum class AlbumGroup {
     Compilation,
 
     @SerialName("appears_on")
-    AppearsOn
+    AppearsOn;
+
+    override val urlValue get() = getSerializedName()
 }
