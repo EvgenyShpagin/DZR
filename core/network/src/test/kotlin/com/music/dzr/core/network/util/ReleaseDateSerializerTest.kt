@@ -15,7 +15,7 @@ class ReleaseDateSerializersTest {
     }
 
     @Test
-    fun releaseDateSerializer_deserializes_whenGotYearMonthAndDay() {
+    fun deserializes_yearMonthAndDay() {
         val input = "\"1981-12-05\""
         val result = json.decodeFromString(ReleaseDateSerializer, input)
         assertEquals(1981, result.year)
@@ -24,7 +24,7 @@ class ReleaseDateSerializersTest {
     }
 
     @Test
-    fun releaseDateSerializer_deserializes_whenGotYearAndMonth() {
+    fun deserializes_yearAndMonth() {
         val input = "\"2000-07\""
         val result = json.decodeFromString(ReleaseDateSerializer, input)
         assertEquals(2000, result.year)
@@ -33,7 +33,7 @@ class ReleaseDateSerializersTest {
     }
 
     @Test
-    fun releaseDateSerializer_deserializes_whenGotOnlyYear() {
+    fun deserializes_year() {
         val input = "\"1999\""
         val result = json.decodeFromString(ReleaseDateSerializer, input)
         assertEquals(1999, result.year)
@@ -42,67 +42,67 @@ class ReleaseDateSerializersTest {
     }
 
     @Test
-    fun releaseDateSerializer_serializes_whenGotYearMonthAndDay() {
+    fun serializes_yearMonthAndDay() {
         val value = ReleaseDate(year = 2021, month = 4, day = 9)
         val output = json.encodeToString(ReleaseDateSerializer, value)
         assertEquals("\"2021-4-9\"", output)
     }
 
     @Test
-    fun releaseDateSerializer_serializes_whenGotYearAndMonth() {
+    fun serializes_yearAndMonth() {
         val value = ReleaseDate(year = 2021, month = 11, day = null)
         val output = json.encodeToString(ReleaseDateSerializer, value)
         assertEquals("\"2021-11\"", output)
     }
 
     @Test
-    fun releaseDateSerializer_serializes_whenGotOnlyYear() {
+    fun serializes_year() {
         val value = ReleaseDate(year = 2021, month = null, day = null)
         val output = json.encodeToString(ReleaseDateSerializer, value)
         assertEquals("\"2021\"", output)
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun releaseDateSerializer_throwsException_whenInvalidFormatGot() {
+    fun throwsException_onInvalidFormat() {
         val input = "\"20A1-13-99\""
         json.decodeFromString(ReleaseDateSerializer, input)
     }
 
     @Test
-    fun releaseDatePrecisionSerializer_deserializes_whenGotDay() {
+    fun deserializes_dayPrecision() {
         val input = "\"day\""
         val result = json.decodeFromString(ReleaseDatePrecisionSerializer, input)
         assertEquals(ReleaseDatePrecision.DAY, result)
     }
 
     @Test
-    fun releaseDatePrecisionSerializer_deserializes_whenGotMonth() {
+    fun deserializes_monthPrecision() {
         val input = "\"month\""
         val result = json.decodeFromString(ReleaseDatePrecisionSerializer, input)
         assertEquals(ReleaseDatePrecision.MONTH, result)
     }
 
     @Test
-    fun releaseDatePrecisionSerializer_deserializes_whenGotYear() {
+    fun deserializes_yearPrecision() {
         val input = "\"year\""
         val result = json.decodeFromString(ReleaseDatePrecisionSerializer, input)
         assertEquals(ReleaseDatePrecision.YEAR, result)
     }
 
     @Test
-    fun releaseDatePrecisionSerializer_serializes_whenGotDay() {
+    fun serializes_dayPrecision() {
         val output = json.encodeToString(ReleaseDatePrecisionSerializer, ReleaseDatePrecision.DAY)
         assertEquals("\"day\"", output)
     }
 
     @Test
-    fun releaseDatePrecisionSerializer_serializes_whenGotMonth() {
+    fun serializes_monthPrecision() {
         val output = json.encodeToString(ReleaseDatePrecisionSerializer, ReleaseDatePrecision.MONTH)
         assertEquals("\"month\"", output)
     }
 
     @Test
-    fun releaseDatePrecisionSerializer_serializes_whenGotYear() {
+    fun serializes_yearPrecision() {
         val output = json.encodeToString(ReleaseDatePrecisionSerializer, ReleaseDatePrecision.YEAR)
         assertEquals("\"year\"", output)
     }
