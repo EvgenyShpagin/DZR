@@ -9,7 +9,8 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
 /**
- * A custom serializer for [DeviceType].
+ * A custom serializer for [DeviceType] that gracefully handles unknown values.
+ * If an unknown device type string is received from the API, it defaults to [DeviceType.Unknown].
  */
 object DeviceTypeSerializer : KSerializer<DeviceType> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
@@ -17,40 +18,29 @@ object DeviceTypeSerializer : KSerializer<DeviceType> {
         PrimitiveKind.STRING
     )
 
+    private val stringToEnumMap = mapOf(
+        "computer" to DeviceType.Computer,
+        "tablet" to DeviceType.Tablet,
+        "smartphone" to DeviceType.Smartphone,
+        "speaker" to DeviceType.Speaker,
+        "tv" to DeviceType.Tv,
+        "avr" to DeviceType.Avr,
+        "stb" to DeviceType.Stb,
+        "audio_dongle" to DeviceType.AudioDongle,
+        "game_console" to DeviceType.GameConsole,
+        "cast_video" to DeviceType.CastVideo,
+        "cast_audio" to DeviceType.CastAudio,
+        "automobile" to DeviceType.Automobile,
+        "unknown" to DeviceType.Unknown
+    )
+    private val enumToStringMap = stringToEnumMap.entries.associate { (k, v) -> v to k }
+
     override fun deserialize(decoder: Decoder): DeviceType {
-        return when (decoder.decodeString()) {
-            "computer" -> DeviceType.Computer
-            "tablet" -> DeviceType.Tablet
-            "smartphone" -> DeviceType.Smartphone
-            "speaker" -> DeviceType.Speaker
-            "tv" -> DeviceType.Tv
-            "avr" -> DeviceType.Avr
-            "stb" -> DeviceType.Stb
-            "audio_dongle" -> DeviceType.AudioDongle
-            "game_console" -> DeviceType.GameConsole
-            "cast_video" -> DeviceType.CastVideo
-            "cast_audio" -> DeviceType.CastAudio
-            "automobile" -> DeviceType.Automobile
-            else -> DeviceType.Unknown
-        }
+        val value = decoder.decodeString()
+        return stringToEnumMap[value] ?: DeviceType.Unknown
     }
 
     override fun serialize(encoder: Encoder, value: DeviceType) {
-        val valueAsString = when (value) {
-            DeviceType.Computer -> "computer"
-            DeviceType.Tablet -> "tablet"
-            DeviceType.Smartphone -> "smartphone"
-            DeviceType.Speaker -> "speaker"
-            DeviceType.Tv -> "tv"
-            DeviceType.Avr -> "avr"
-            DeviceType.Stb -> "stb"
-            DeviceType.AudioDongle -> "audio_dongle"
-            DeviceType.GameConsole -> "game_console"
-            DeviceType.CastVideo -> "cast_video"
-            DeviceType.CastAudio -> "cast_audio"
-            DeviceType.Automobile -> "automobile"
-            DeviceType.Unknown -> "unknown"
-        }
-        return encoder.encodeString(valueAsString)
+        encoder.encodeString(enumToStringMap.getValue(value))
     }
-} 
+}
