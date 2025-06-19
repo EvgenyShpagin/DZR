@@ -1,6 +1,7 @@
 package com.music.dzr.core.network.util
 
 import com.music.dzr.core.network.model.Offset
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.junit.Assert.assertEquals
@@ -24,7 +25,7 @@ class OffsetSerializerTest {
         assertEquals(offset, decodedOffset)
     }
 
-    @Test(expected = IllegalStateException::class)
+    @Test(expected = SerializationException::class)
     fun throwsException_onInvalidJson() {
         val invalidJson = """{"invalid_key":"invalid_value"}"""
         Json.decodeFromString<Offset>(invalidJson)
