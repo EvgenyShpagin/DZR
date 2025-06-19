@@ -1,7 +1,7 @@
 package com.music.dzr.core.network.model
 
-import com.music.dzr.core.network.util.ReleaseDatePrecisionSerializer
 import com.music.dzr.core.network.util.ReleaseDateSerializer
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -17,9 +17,14 @@ data class ReleaseDate(
 /**
  * The precision with which [ReleaseDate] value is known.
  */
-@Serializable(with = ReleaseDatePrecisionSerializer::class)
+@Serializable
 enum class ReleaseDatePrecision {
+    @SerialName("year")
     YEAR,
+
+    @SerialName("month")
     MONTH,
+
+    @SerialName("day")
     DAY
 }

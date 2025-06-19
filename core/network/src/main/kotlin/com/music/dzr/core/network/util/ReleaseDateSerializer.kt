@@ -1,7 +1,6 @@
 package com.music.dzr.core.network.util
 
 import com.music.dzr.core.network.model.ReleaseDate
-import com.music.dzr.core.network.model.ReleaseDatePrecision
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
@@ -40,33 +39,5 @@ object ReleaseDateSerializer : KSerializer<ReleaseDate> {
             else -> "${value.year}-${value.month}-${value.day}"
         }
         encoder.encodeString(dateString)
-    }
-}
-
-/**
- * A custom serializer for [ReleaseDatePrecision]
- */
-object ReleaseDatePrecisionSerializer : KSerializer<ReleaseDatePrecision> {
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
-        "ReleaseDatePrecisionSerializer",
-        PrimitiveKind.STRING
-    )
-
-    override fun deserialize(decoder: Decoder): ReleaseDatePrecision {
-        val raw = decoder.decodeString()
-        return when (raw) {
-            "day" -> ReleaseDatePrecision.DAY
-            "month" -> ReleaseDatePrecision.MONTH
-            else -> ReleaseDatePrecision.YEAR
-        }
-    }
-
-    override fun serialize(encoder: Encoder, value: ReleaseDatePrecision) {
-        val raw = when (value) {
-            ReleaseDatePrecision.YEAR -> "year"
-            ReleaseDatePrecision.MONTH -> "month"
-            ReleaseDatePrecision.DAY -> "day"
-        }
-        encoder.encodeString(raw)
     }
 }
