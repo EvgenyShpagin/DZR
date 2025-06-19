@@ -228,7 +228,7 @@ class PlayerApiTest {
 
         // Assert
         val recorded = server.takeRequest()
-        assertEquals("/me/player/repeat?state=$state&device_id=$deviceId", recorded.path)
+        assertEquals("/me/player/repeat?state=${state.urlValue}&device_id=$deviceId", recorded.path)
         assertEquals("PUT", recorded.method)
     }
 
