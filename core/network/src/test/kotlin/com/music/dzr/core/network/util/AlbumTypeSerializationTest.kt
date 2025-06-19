@@ -11,40 +11,40 @@ class AlbumTypeSerializationTest {
     private val json = Json { ignoreUnknownKeys = true }
 
     @Test
-    fun albumTypeSerializer_deserializes_whenGotAlbum() {
+    fun deserializes_album() {
         val input = "\"album\""
         val result = json.decodeFromString<AlbumType>(input)
         assertEquals(AlbumType.Album, result)
     }
 
     @Test
-    fun albumTypeSerializer_deserializes_whenGotSingle() {
+    fun deserializes_single() {
         val input = "\"single\""
         val result = json.decodeFromString<AlbumType>(input)
         assertEquals(AlbumType.Single, result)
     }
 
     @Test
-    fun albumTypeSerializer_deserializes_whenGotCompilation() {
+    fun deserializes_compilation() {
         val input = "\"compilation\""
         val result = json.decodeFromString<AlbumType>(input)
         assertEquals(AlbumType.Compilation, result)
     }
 
     @Test
-    fun albumTypeSerializer_serializes_whenAlbum() {
+    fun serializes_album() {
         val output = json.encodeToString(AlbumType.Album)
         assertEquals("\"album\"", output)
     }
 
     @Test
-    fun albumTypeSerializer_serializes_whenSingle() {
+    fun serializes_single() {
         val output = json.encodeToString(AlbumType.Single)
         assertEquals("\"single\"", output)
     }
 
     @Test
-    fun albumTypeSerializer_serializes_whenCompilation() {
+    fun serializes_compilation() {
         val output = json.encodeToString(AlbumType.Compilation)
         assertEquals("\"compilation\"", output)
     }
