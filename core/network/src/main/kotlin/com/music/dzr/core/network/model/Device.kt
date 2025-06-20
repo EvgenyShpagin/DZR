@@ -35,20 +35,6 @@ data class Device(
 
 /**
  * The type of device.
- *
- * @property Computer Computer
- * @property Tablet Tablet
- * @property Smartphone Smartphone
- * @property Speaker Speaker
- * @property Tv TV
- * @property Avr Audio/Visual Receiver
- * @property Stb Set-Top Box
- * @property AudioDongle Audio Dongle
- * @property GameConsole Game Console
- * @property CastVideo Cast Video
- * @property CastAudio Cast Audio
- * @property Automobile Automobile
- * @property Unknown Unknown
  */
 @Serializable(with = DeviceTypeSerializer::class)
 enum class DeviceType {
