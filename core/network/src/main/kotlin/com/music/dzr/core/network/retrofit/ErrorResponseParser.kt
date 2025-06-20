@@ -4,10 +4,13 @@ import com.music.dzr.core.network.model.NetworkError
 import com.music.dzr.core.network.model.NetworkErrorType
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.int
 import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.serializer
+import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.ResponseBody
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
@@ -22,19 +25,36 @@ import javax.net.ssl.SSLException
 internal class NetworkErrorResponseParser(private val json: Json) {
 
     /**
-     * Parses the HTTP response body into a [NetworkError].
+     * Parses an unsuccessful Retrofit [Response] into a structured [NetworkError].
      *
-     * The response body is expected to be a JSON object with a top-level "error" field.
-     * This method reads the entire body as a string, converts it to a JSON element,
-     * then decodes the "error" field into the [NetworkError] data class using the provided [json] instance.
+     * It first attempts to parse the response body for a standard API error format.
+     * If parsing fails, it falls back to using the raw HTTP status code and message.
+     * The error type is always set to [NetworkErrorType.HttpException].
      */
     fun parse(errorBody: ResponseBody): NetworkError {
         val text = errorBody.string()
-        val root = json.parseToJsonElement(text).jsonObject
-        root["error"]!!.let { errorElement ->
-            val errorSerializer: KSerializer<NetworkError> = json.serializersModule.serializer()
-            val apiError = json.decodeFromJsonElement(errorSerializer, errorElement)
-            return apiError
+        return try {
+            val errorJson = json.parseToJsonElement(text).jsonObject["error"]!!.jsonObject
+
+            NetworkError(
+                type = NetworkErrorType.HttpException,
+                message = errorJson["message"]!!.jsonPrimitive.content,
+                code = errorJson["status"]!!.jsonPrimitive.int,
+                reason = errorJson["reason"]?.jsonPrimitive?.contentOrNull
+            )
+        } catch (e: SerializationException) {
+            NetworkError(
+                type = NetworkErrorType.SerializationError,
+                message = e.localizedMessage
+                    ?: "Couldn't deserialize '$text' to ${NetworkError::class.simpleName}",
+                code = NetworkErrorType.SerializationError.ordinal
+            )
+        } catch (e: Exception) {
+            NetworkError(
+                type = NetworkErrorType.Unknown,
+                message = e.localizedMessage ?: "Unknown error",
+                code = NetworkErrorType.Unknown.ordinal
+            )
         }
     }
 
