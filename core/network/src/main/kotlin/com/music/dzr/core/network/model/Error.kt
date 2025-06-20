@@ -39,6 +39,9 @@ enum class NetworkErrorType {
     /** Error when a connection or request read/write times out */
     Timeout,
 
+    /** Error occurs when it is not possible to convert json objects to kotlin objects or vice versa */
+    SerializationError,
+
     /** Catch-all for any other unforeseen network or runtime errors */
     Unknown
 }
