@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.core)
+    implementation(libs.androidx.core.ktx)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
