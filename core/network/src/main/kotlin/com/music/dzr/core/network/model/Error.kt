@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.model
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
@@ -10,7 +11,8 @@ import kotlinx.serialization.Serializable
 data class NetworkError(
     val type: NetworkErrorType,
     val message: String,
-    val code: Int
+    @SerialName("status") val code: Int,
+    val reason: String? = null
 )
 
 /**
