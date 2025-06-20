@@ -26,6 +26,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        buildConfig = true
+    }
     testOptions {
         unitTests {
             // Enable to use assets with jsons
