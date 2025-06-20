@@ -2,7 +2,7 @@ package com.music.dzr.core.network.retrofit
 
 import com.music.dzr.core.network.model.NetworkError
 import com.music.dzr.core.network.model.NetworkErrorType
-import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.serializer
@@ -50,6 +50,7 @@ internal class NetworkErrorResponseParser(private val json: Json) {
      *  - [SocketTimeoutException]: Connection or read/write timed out.
      *  - [SSLException]: Any SSL/TLS handshake or certificate issue.
      *  - [IOException]: General I/O failure (no network, stream error).
+     *  - [SerializationException]: Deserialization issue with some object.
      *  - Any other [Throwable] is treated as an unknown error.
      */
     fun parse(throwable: Throwable): NetworkError {
@@ -90,9 +91,16 @@ internal class NetworkErrorResponseParser(private val json: Json) {
                 code = NetworkErrorType.SomeConnectionError.ordinal
             )
 
+            is SerializationException -> NetworkError(
+                type = NetworkErrorType.SerializationError,
+                message = throwable.localizedMessage
+                    ?: "Couldn't deserialize to ${NetworkError::class.simpleName}",
+                code = NetworkErrorType.SerializationError.ordinal
+            )
+
             else -> NetworkError(
                 type = NetworkErrorType.Unknown,
-                message = throwable.localizedMessage ?: "Unknown exception",
+                message = throwable.localizedMessage ?: "Unknown error",
                 code = NetworkErrorType.Unknown.ordinal
             )
         }
