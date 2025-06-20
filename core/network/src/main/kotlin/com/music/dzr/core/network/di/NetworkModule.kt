@@ -19,7 +19,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.create
 
-private const val DZR_BASE_URL = "https://api.deezer.com/"
+private const val SPOTIFY_API_URL = "https://api.spotify.com/v1/"
 
 val networkModule = module {
 
@@ -31,17 +31,16 @@ val networkModule = module {
         NetworkErrorResponseParser(get())
     }
 
-    single {
+    single<Retrofit> {
         Retrofit.Builder()
-            .baseUrl(DZR_BASE_URL)
+            .baseUrl(SPOTIFY_API_URL)
             .addConverterFactory(UrlParameterConverterFactory())
-            .addConverterFactory(
-                get<Json>().asConverterFactory("application/json".toMediaType())
-            )
+            .addConverterFactory(get<Json>().asConverterFactory("application/json".toMediaType()))
             .addCallAdapterFactory(NetworkResponseCallAdapterFactory(get()))
             .build()
     }
 
+    // API Implementations
     single { get<Retrofit>().create<AlbumApi>() }
     single { get<Retrofit>().create<ArtistApi>() }
     single { get<Retrofit>().create<BrowseCategoryApi>() }
