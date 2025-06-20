@@ -39,7 +39,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
-    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.core)
 
