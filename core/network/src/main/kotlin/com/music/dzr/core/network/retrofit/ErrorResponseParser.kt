@@ -18,7 +18,7 @@ import java.net.UnknownHostException
 import javax.net.ssl.SSLException
 
 /**
- * Converts Deezer API error responses and connection exceptions into a unified [NetworkError] model.
+ * Converts Spotify API error responses and connection exceptions into a unified [NetworkError] model.
  *
  * @property json The [Json] instance used to deserialize error response bodies.
  */
