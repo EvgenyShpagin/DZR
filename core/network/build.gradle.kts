@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.secrets.gradle)
 }
 
 android {
@@ -35,6 +36,10 @@ android {
             isIncludeAndroidResources = true
         }
     }
+}
+
+secrets {
+    propertiesFileName = "core/network/secrets.properties"
 }
 
 dependencies {
