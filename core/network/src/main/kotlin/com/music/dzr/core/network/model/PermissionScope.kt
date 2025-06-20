@@ -68,11 +68,6 @@ enum class PermissionScope {
     UserFollowRead,
 
     /**
-     * Read access to a user's playback position in a content.
-     */
-    UserReadPlaybackPosition,
-
-    /**
      * Read access to a user's top artists and tracks.
      */
     UserTopRead,
@@ -100,30 +95,5 @@ enum class PermissionScope {
     /**
      * Read access to user's subscription details (type of user account).
      */
-    UserReadPrivate,
-
-    /**
-     * Link a partner user account to a Spotify user account
-     */
-    UserSoaLink,
-
-    /**
-     * Unlink a partner user account from a Spotify account
-     */
-    UserSoaUnlink,
-
-    /**
-     * Modify entitlements for linked users
-     */
-    SoaManageEntitlements,
-
-    /**
-     * Update partner information
-     */
-    SoaManagePartner,
-
-    /**
-     * Create new partners, platform partners only
-     */
-    SoaCreatePartner
-} 
+    UserReadPrivate
+}
