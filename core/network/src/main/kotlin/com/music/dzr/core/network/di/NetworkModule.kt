@@ -22,13 +22,9 @@ import retrofit2.create
 
 val networkModule = module {
 
-    single {
-        Json { ignoreUnknownKeys = true }
-    }
+    single { Json { ignoreUnknownKeys = true } }
 
-    single {
-        NetworkErrorResponseParser(get())
-    }
+    single { NetworkErrorResponseParser(get()) }
 
     single<Retrofit> {
         Retrofit.Builder()
