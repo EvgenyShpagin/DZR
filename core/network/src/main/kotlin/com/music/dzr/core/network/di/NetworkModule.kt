@@ -78,13 +78,13 @@ val networkModule = module {
     }
 
     // API Implementations
-    single { get<Retrofit>().create<AlbumApi>() }
-    single { get<Retrofit>().create<ArtistApi>() }
-    single { get<Retrofit>().create<BrowseCategoryApi>() }
-    single { get<Retrofit>().create<MarketApi>() }
-    single { get<Retrofit>().create<PlayerApi>() }
-    single { get<Retrofit>().create<PlaylistApi>() }
-    single { get<Retrofit>().create<SearchApi>() }
-    single { get<Retrofit>().create<TrackApi>() }
-    single { get<Retrofit>().create<UserApi>() }
+    single { get<Retrofit>(named(API_RETROFIT)).create<AlbumApi>() }
+    single { get<Retrofit>(named(API_RETROFIT)).create<ArtistApi>() }
+    single { get<Retrofit>(named(API_RETROFIT)).create<BrowseCategoryApi>() }
+    single { get<Retrofit>(named(API_RETROFIT)).create<MarketApi>() }
+    single { get<Retrofit>(named(API_RETROFIT)).create<PlayerApi>() }
+    single { get<Retrofit>(named(API_RETROFIT)).create<PlaylistApi>() }
+    single { get<Retrofit>(named(API_RETROFIT)).create<SearchApi>() }
+    single { get<Retrofit>(named(API_RETROFIT)).create<TrackApi>() }
+    single { get<Retrofit>(named(API_RETROFIT)).create<UserApi>() }
 }
