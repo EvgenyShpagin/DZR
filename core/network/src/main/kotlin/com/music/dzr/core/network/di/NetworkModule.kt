@@ -11,6 +11,7 @@ import com.music.dzr.core.network.api.PlaylistApi
 import com.music.dzr.core.network.api.SearchApi
 import com.music.dzr.core.network.api.TrackApi
 import com.music.dzr.core.network.api.UserApi
+import com.music.dzr.core.network.authenticator.TokenAuthenticator
 import com.music.dzr.core.network.retrofit.NetworkErrorResponseParser
 import com.music.dzr.core.network.retrofit.NetworkResponseCallAdapterFactory
 import com.music.dzr.core.network.retrofit.UrlParameterConverterFactory
@@ -74,6 +75,14 @@ val networkModule = module {
     // This AuthApi is special, it doesn't use the AuthInterceptor to avoid a dependency cycle.
     single<AuthApi> {
         get<Retrofit>(named(AUTH_RETROFIT)).create<AuthApi>()
+    }
+
+    single {
+        TokenAuthenticator(
+            tokenRepository = get(),
+            clientId = BuildConfig.SPOTIFY_CLIENT_ID,
+            authApi = get()
+        )
     }
 
     single(named(API_RETROFIT)) {
