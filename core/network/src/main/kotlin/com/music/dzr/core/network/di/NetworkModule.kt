@@ -36,6 +36,14 @@ val networkModule = module {
 
     single { Json { ignoreUnknownKeys = true } }
 
+    single {
+        HttpLoggingInterceptor().apply {
+            if (BuildConfig.DEBUG) {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+        }
+    }
+
     single { NetworkErrorResponseParser(get()) }
 
     single(named(JSON_CONVERTER_FACTORY)) {
