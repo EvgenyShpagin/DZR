@@ -3,6 +3,7 @@ package com.music.dzr.core.network.di
 import com.music.dzr.core.network.BuildConfig
 import com.music.dzr.core.network.api.AlbumApi
 import com.music.dzr.core.network.api.ArtistApi
+import com.music.dzr.core.network.api.AuthApi
 import com.music.dzr.core.network.api.BrowseCategoryApi
 import com.music.dzr.core.network.api.MarketApi
 import com.music.dzr.core.network.api.PlayerApi
@@ -15,13 +16,18 @@ import com.music.dzr.core.network.retrofit.NetworkResponseCallAdapterFactory
 import com.music.dzr.core.network.retrofit.UrlParameterConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.create
 
+private const val AUTH_CLIENT = "AuthOkHttpClient"
+
 private const val API_RETROFIT = "ApiRetrofit"
+private const val AUTH_RETROFIT = "AuthRetrofit"
 
 private const val JSON_CONVERTER_FACTORY = "JsonConverterFactory"
 private const val URL_PARAM_CONVERTER_FACTORY = "UrlParamConverterFactory"
@@ -41,6 +47,26 @@ val networkModule = module {
     }
 
     single { NetworkResponseCallAdapterFactory(get()) }
+
+    single(named(AUTH_CLIENT)) {
+        OkHttpClient.Builder()
+            .addInterceptor(get<HttpLoggingInterceptor>())
+            .build()
+    }
+
+    single(named(AUTH_RETROFIT)) {
+        Retrofit.Builder()
+            .baseUrl(BuildConfig.SPOTIFY_ACCOUNTS_URL)
+            .client(get(named(AUTH_CLIENT)))
+            .addConverterFactory(get(named(JSON_CONVERTER_FACTORY)))
+            .addCallAdapterFactory(get<NetworkResponseCallAdapterFactory>())
+            .build()
+    }
+
+    // This AuthApi is special, it doesn't use the AuthInterceptor to avoid a dependency cycle.
+    single<AuthApi> {
+        get<Retrofit>(named(AUTH_RETROFIT)).create<AuthApi>()
+    }
 
     single(named(API_RETROFIT)) {
         Retrofit.Builder()
