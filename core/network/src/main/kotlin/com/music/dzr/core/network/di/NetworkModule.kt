@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.di
 
+import com.music.dzr.core.network.BuildConfig
 import com.music.dzr.core.network.api.AlbumApi
 import com.music.dzr.core.network.api.ArtistApi
 import com.music.dzr.core.network.api.BrowseCategoryApi
@@ -19,8 +20,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.create
 
-private const val SPOTIFY_API_URL = "https://api.spotify.com/v1/"
-
 val networkModule = module {
 
     single {
@@ -33,7 +32,7 @@ val networkModule = module {
 
     single<Retrofit> {
         Retrofit.Builder()
-            .baseUrl(SPOTIFY_API_URL)
+            .baseUrl(BuildConfig.SPOTIFY_API_URL)
             .addConverterFactory(UrlParameterConverterFactory())
             .addConverterFactory(get<Json>().asConverterFactory("application/json".toMediaType()))
             .addCallAdapterFactory(NetworkResponseCallAdapterFactory(get()))
