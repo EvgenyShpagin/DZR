@@ -26,6 +26,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.create
 
+private const val API_CLIENT = "ApiOkHttpClient"
 private const val AUTH_CLIENT = "AuthOkHttpClient"
 
 private const val API_RETROFIT = "ApiRetrofit"
@@ -64,6 +65,14 @@ val networkModule = module {
             .build()
     }
 
+    single(named(API_CLIENT)) {
+        OkHttpClient.Builder()
+            .authenticator(get<TokenAuthenticator>())
+            .addInterceptor(get<AuthInterceptor>())
+            .addInterceptor(get<HttpLoggingInterceptor>())
+            .build()
+    }
+
     single(named(AUTH_RETROFIT)) {
         Retrofit.Builder()
             .baseUrl(BuildConfig.SPOTIFY_ACCOUNTS_URL)
@@ -91,6 +100,7 @@ val networkModule = module {
     single(named(API_RETROFIT)) {
         Retrofit.Builder()
             .baseUrl(BuildConfig.SPOTIFY_API_URL)
+            .client(get(named(API_CLIENT)))
             .addConverterFactory(get(named(URL_PARAM_CONVERTER_FACTORY)))
             .addConverterFactory(get(named(JSON_CONVERTER_FACTORY)))
             .addCallAdapterFactory(get<NetworkResponseCallAdapterFactory>())
