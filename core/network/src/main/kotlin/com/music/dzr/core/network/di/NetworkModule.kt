@@ -21,6 +21,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.create
 
+private const val API_RETROFIT = "ApiRetrofit"
+
 private const val JSON_CONVERTER_FACTORY = "JsonConverterFactory"
 private const val URL_PARAM_CONVERTER_FACTORY = "UrlParamConverterFactory"
 
@@ -40,7 +42,7 @@ val networkModule = module {
 
     single { NetworkResponseCallAdapterFactory(get()) }
 
-    single<Retrofit> {
+    single(named(API_RETROFIT)) {
         Retrofit.Builder()
             .baseUrl(BuildConfig.SPOTIFY_API_URL)
             .addConverterFactory(get(named(URL_PARAM_CONVERTER_FACTORY)))
