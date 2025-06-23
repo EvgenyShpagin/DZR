@@ -23,12 +23,12 @@ data class OAuthError(
     @JvmInline
     value class Code private constructor(val value: String) {
         companion object {
-            val InvalidRequest: Code = Code("invalid_request")
-            val InvalidClient: Code = Code("invalid_client")
-            val InvalidGrant: Code = Code("invalid_grant")
-            val UnauthorizedClient: Code = Code("unauthorized_client")
-            val UnsupportedGrantType: Code = Code("unsupported_grant_type")
-            val InvalidScope: Code = Code("invalid_scope")
+            val InvalidRequest = Code("invalid_request")
+            val InvalidClient = Code("invalid_client")
+            val InvalidGrant = Code("invalid_grant")
+            val UnauthorizedClient = Code("unauthorized_client")
+            val UnsupportedGrantType = Code("unsupported_grant_type")
+            val InvalidScope = Code("invalid_scope")
 
             val entries = listOf(
                 InvalidRequest,
