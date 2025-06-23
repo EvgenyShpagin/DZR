@@ -45,6 +45,7 @@ secrets {
 
 dependencies {
     api(libs.kotlinx.datetime)
+    api(project(":core:oauth"))
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
