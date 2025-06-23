@@ -29,6 +29,15 @@ data class OAuthError(
             val UnauthorizedClient: Code = Code("unauthorized_client")
             val UnsupportedGrantType: Code = Code("unsupported_grant_type")
             val InvalidScope: Code = Code("invalid_scope")
+
+            val entries = listOf(
+                InvalidRequest,
+                InvalidClient,
+                InvalidGrant,
+                UnauthorizedClient,
+                UnsupportedGrantType,
+                InvalidScope
+            )
         }
     }
 }
