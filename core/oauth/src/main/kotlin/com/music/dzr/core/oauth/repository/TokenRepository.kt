@@ -18,31 +18,31 @@ interface TokenRepository {
      *
      * @param token The [Token] domain model to save.
      */
-    fun saveToken(token: Token)
+    suspend fun saveToken(token: Token)
 
     /**
      * Retrieves the current access token.
      *
      * @return The access token as a [String], or `null` if no token is available.
      */
-    fun getAccessToken(): String?
+    suspend fun getAccessToken(): String?
 
     /**
      * Retrieves the current token type (e.g., "Bearer").
      *
      * @return The token type as a [String], or `null` if no token is available.
      */
-    fun getTokenType(): String?
+    suspend fun getTokenType(): String?
 
     /**
      * Retrieves the current refresh token.
      *
      * @return The refresh token as a [String], or `null` if no token is available.
      */
-    fun getRefreshToken(): String?
+    suspend fun getRefreshToken(): String?
 
     /**
      * Clears all stored tokens, effectively logging the user out.
      */
-    fun clearTokens()
+    suspend fun clearTokens()
 } 
