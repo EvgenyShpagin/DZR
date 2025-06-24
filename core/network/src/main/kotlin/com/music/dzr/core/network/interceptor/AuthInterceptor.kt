@@ -1,6 +1,7 @@
 package com.music.dzr.core.network.interceptor
 
-import com.music.dzr.core.network.repository.TokenRepository
+import com.music.dzr.core.oauth.repository.TokenRepository
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -21,7 +22,7 @@ internal class AuthInterceptor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
 
-        val accessToken = tokenRepository.getAccessToken()
+        val accessToken = runBlocking { tokenRepository.getAccessToken() }
             ?: return chain.proceed(originalRequest)
 
         val requestWithHeader = originalRequest.newBuilder()
