@@ -196,4 +196,23 @@ class ErrorResponseParserTest {
         // Assert
         assertEquals(expectedError, actualError)
     }
+
+    @Test
+    fun parses_oauthErrorResponse() {
+        // Arrange
+        val errorJson = getJsonBodyAsset("responses/error/oauth-error.json")
+        val errorResponse = Response.error<Any>(400, errorJson.toResponseBody())
+        val expectedError = NetworkError(
+            type = NetworkErrorType.HttpException,
+            message = "Invalid refresh token",
+            reason = "invalid_grant",
+            code = 400
+        )
+
+        // Act
+        val actualError = parser.parse(errorResponse.errorBody()!!)
+
+        // Assert
+        assertEquals(expectedError, actualError)
+    }
 }
