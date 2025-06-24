@@ -2,6 +2,7 @@ package com.music.dzr.core.network.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import com.music.dzr.core.oauth.model.Token as DomainToken
 
 /**
  * Represents the response from the Spotify token endpoint.
@@ -23,4 +24,14 @@ data class Token(
     val scope: String,
     @SerialName("token_type")
     val tokenType: String
-) 
+)
+
+internal fun Token.toDomain(): DomainToken {
+    return DomainToken(
+        accessToken = accessToken,
+        tokenType = tokenType,
+        expiresInSeconds = expiresIn,
+        refreshToken = refreshToken,
+        scope = scope
+    )
+}
