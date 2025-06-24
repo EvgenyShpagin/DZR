@@ -9,7 +9,7 @@ import retrofit2.http.POST
 /**
  * The API for handling authorization with the Spotify accounts service using PKCE.
  */
-interface AuthApi {
+internal interface AuthApi {
 
     /**
      * Exchanges an authorization code for an access token.
