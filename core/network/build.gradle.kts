@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.androidx.core.ktx)
 
+    testImplementation(project(":core:testing"))
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockwebserver)
