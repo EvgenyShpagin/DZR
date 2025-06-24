@@ -4,6 +4,8 @@ import com.music.dzr.core.network.model.NetworkError
 import com.music.dzr.core.network.model.NetworkErrorType
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.int
 import kotlinx.serialization.json.jsonObject
@@ -34,14 +36,27 @@ internal class NetworkErrorResponseParser(private val json: Json) {
     fun parse(errorBody: ResponseBody): NetworkError {
         val text = errorBody.string()
         return try {
-            val errorJson = json.parseToJsonElement(text).jsonObject["error"]!!.jsonObject
+            val root = json.parseToJsonElement(text).jsonObject
+            when (val errorElement = root["error"]) {
+                // Parse default API error
+                is JsonObject -> NetworkError(
+                    type = NetworkErrorType.HttpException,
+                    message = errorElement["message"]!!.jsonPrimitive.content,
+                    code = errorElement["status"]!!.jsonPrimitive.int,
+                    reason = errorElement["reason"]?.jsonPrimitive?.contentOrNull,
+                )
 
-            NetworkError(
-                type = NetworkErrorType.HttpException,
-                message = errorJson["message"]!!.jsonPrimitive.content,
-                code = errorJson["status"]!!.jsonPrimitive.int,
-                reason = errorJson["reason"]?.jsonPrimitive?.contentOrNull
-            )
+                // Parse OAuth 2.0 error
+                is JsonPrimitive -> NetworkError(
+                    type = NetworkErrorType.HttpException,
+                    message = root["error_description"]?.jsonPrimitive?.contentOrNull
+                        ?: errorElement.content,
+                    code = 400,
+                    reason = errorElement.content,
+                )
+
+                else -> throw SerializationException("Unknown error format in '$text'")
+            }
         } catch (e: SerializationException) {
             NetworkError(
                 type = NetworkErrorType.SerializationError,
