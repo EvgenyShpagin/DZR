@@ -6,94 +6,115 @@ package com.music.dzr.core.network.model
  *
  * @see <a href="https://developer.spotify.com/documentation/web-api/concepts/scopes">Spotify Scopes</a>
  */
-enum class PermissionScope {
-    /**
-     * Write access to user-provided images.
-     */
-    UgcImageUpload,
+@JvmInline
+value class PermissionScope private constructor(val value: String) {
+    companion object {
+        /**
+         * Write access to user-provided images.
+         */
+        val UgcImageUpload = PermissionScope("ugc-image-upload")
 
-    /**
-     * Read access to a user’s player state.
-     */
-    UserReadPlaybackState,
 
-    /**
-     * Write access to a user’s playback state
-     */
-    UserModifyPlaybackState,
+        /**
+         * Read access to a user's player state.
+         */
+        val UserReadPlaybackState = PermissionScope("user-read-playback-state")
 
-    /**
-     * Read access to a user’s currently playing content.
-     */
-    UserReadCurrentlyPlaying,
 
-    /**
-     * 	Remote control playback of Spotify.
-     */
-    AppRemoteControl,
+        /**
+         * Write access to a user's playback state
+         */
+        val UserModifyPlaybackState = PermissionScope("user-modify-playback-state")
 
-    /**
-     * 	Control playback of a Spotify track. The user must have a Spotify Premium account.
-     */
-    Streaming,
 
-    /**
-     * Read access to user's private playlists.
-     */
-    PlaylistReadPrivate,
+        /**
+         * Read access to a user's currently playing content.
+         */
+        val UserReadCurrentlyPlaying = PermissionScope("user-read-currently-playing")
 
-    /**
-     * Include collaborative playlists when requesting a user's playlists.
-     */
-    PlaylistReadCollaborative,
 
-    /**
-     * Write access to a user's private playlists.
-     */
-    PlaylistModifyPrivate,
+        /**
+         * 	Remote control playback of Spotify.
+         */
+        val AppRemoteControl = PermissionScope("app-remote-control")
 
-    /**
-     * Write access to a user's public playlists.
-     */
-    PlaylistModifyPublic,
 
-    /**
-     * Write/delete access to the list of artists and other users that the user follows.
-     */
-    UserFollowModify,
+        /**
+         * 	Control playback of a Spotify track. The user must have a Spotify Premium account.
+         */
+        val Streaming = PermissionScope("streaming")
 
-    /**
-     * Read access to the list of artists and other users that the user follows.
-     */
-    UserFollowRead,
 
-    /**
-     * Read access to a user's top artists and tracks.
-     */
-    UserTopRead,
+        /**
+         * Read access to user's private playlists.
+         */
+        val PlaylistReadPrivate = PermissionScope("playlist-read-private")
 
-    /**
-     * Read access to a user's recently played tracks.
-     */
-    UserReadRecentlyPlayed,
 
-    /**
-     * Write/delete access to a user's "Your Music" library.
-     */
-    UserLibraryModify,
+        /**
+         * Include collaborative playlists when requesting a user's playlists.
+         */
+        val PlaylistReadCollaborative = PermissionScope("playlist-read-collaborative")
 
-    /**
-     * Read access to a user's library.
-     */
-    UserLibraryRead,
 
-    /**
-     * Read access to user's email address.
-     */
-    UserReadEmail,
+        /**
+         * Write access to a user's private playlists.
+         */
+        val PlaylistModifyPrivate = PermissionScope("playlist-modify-private")
 
-    /**
-     * Read access to user's subscription details (type of user account).
-     */
-    UserReadPrivate
+
+        /**
+         * Write access to a user's public playlists.
+         */
+        val PlaylistModifyPublic = PermissionScope("playlist-modify-public")
+
+
+        /**
+         * Write/delete access to the list of artists and other users that the user follows.
+         */
+        val UserFollowModify = PermissionScope("user-follow-modify")
+
+
+        /**
+         * Read access to the list of artists and other users that the user follows.
+         */
+        val UserFollowRead = PermissionScope("user-follow-read")
+
+
+        /**
+         * Read access to a user's top artists and tracks.
+         */
+        val UserTopRead = PermissionScope("user-top-read")
+
+
+        /**
+         * Read access to a user's recently played tracks.
+         */
+        val UserReadRecentlyPlayed = PermissionScope("user-read-recently-played")
+
+
+        /**
+         * Write/delete access to a user's "Your Music" library.
+         */
+        val UserLibraryModify = PermissionScope("user-library-modify")
+
+
+        /**
+         * Read access to a user's library.
+         */
+        val UserLibraryRead = PermissionScope("user-library-read")
+
+
+        /**
+         * Read access to user's email address.
+         */
+        val UserReadEmail = PermissionScope("user-read-email")
+
+
+        /**
+         * Read access to user's subscription details (type of user account).
+         */
+        val UserReadPrivate = PermissionScope("user-read-private")
+
+    }
 }
