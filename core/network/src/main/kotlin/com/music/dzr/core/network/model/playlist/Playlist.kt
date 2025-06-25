@@ -1,6 +1,10 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.model.playlist
 
-import kotlinx.datetime.Instant
+import com.music.dzr.core.network.model.shared.ExternalUrls
+import com.music.dzr.core.network.model.shared.Followers
+import com.music.dzr.core.network.model.shared.Image
+import com.music.dzr.core.network.model.shared.PaginatedList
+import com.music.dzr.core.network.model.user.PublicUser
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -47,34 +51,3 @@ data class Playlist<T>(
 typealias PlaylistWithTracksInfo = Playlist<PlaylistTracksInfo>
 typealias PlaylistWithTracks = Playlist<List<PlaylistTrack>>
 typealias PlaylistWithPaginatedTracks = Playlist<PaginatedList<PlaylistTrack>>
-
-/**
- * Represents a reference to a list of tracks in a playlist, without the track items themselves.
- *
- * @property href A link to the Web API endpoint providing full details of the tracks.
- * @property total The total number of tracks in the playlist.
- */
-@Serializable
-data class PlaylistTracksInfo(
-    val href: String,
-    val total: Int,
-)
-
-/**
- * Represents a track in a playlist.
- *
- * @property addedAt The date and time the track was added.
- * @property addedBy The Spotify user who added the track.
- * @property isLocal Whether this track is a local file or not.
- * @property track Information about the track.
- */
-@Serializable
-data class PlaylistTrack(
-    @SerialName("added_at")
-    val addedAt: Instant,
-    @SerialName("added_by")
-    val addedBy: PublicUser,
-    @SerialName("is_local")
-    val isLocal: Boolean,
-    val track: Track,
-)
