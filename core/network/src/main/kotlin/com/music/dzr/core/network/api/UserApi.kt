@@ -7,7 +7,7 @@ import com.music.dzr.core.network.model.shared.NetworkResponse
 import com.music.dzr.core.network.model.shared.PaginatedList
 import com.music.dzr.core.network.model.track.Track
 import com.music.dzr.core.network.model.user.CurrentUser
-import com.music.dzr.core.network.model.user.FollowedArtistsContainer
+import com.music.dzr.core.network.model.user.FollowedArtists
 import com.music.dzr.core.network.model.user.PublicUser
 import com.music.dzr.core.network.model.user.TimeRange
 import retrofit2.http.Body
@@ -125,7 +125,7 @@ interface UserApi {
     suspend fun getFollowedArtists(
         @Query("limit") limit: Int? = null,
         @Query("after") after: String? = null,
-    ): NetworkResponse<FollowedArtistsContainer>
+    ): NetworkResponse<FollowedArtists>
 
     /**
      * Add the current user as a follower of one or more artists.
