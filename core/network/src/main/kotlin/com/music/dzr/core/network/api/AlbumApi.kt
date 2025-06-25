@@ -1,7 +1,7 @@
 package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.album.Album
-import com.music.dzr.core.network.model.album.AlbumsContainer
+import com.music.dzr.core.network.model.album.Albums
 import com.music.dzr.core.network.model.album.NewReleasesContainer
 import com.music.dzr.core.network.model.album.SavedAlbum
 import com.music.dzr.core.network.model.auth.PermissionScope
@@ -44,7 +44,7 @@ interface AlbumApi {
     suspend fun getMultipleAlbums(
         @Query("ids") ids: String,
         @Query("market") market: String? = null
-    ): NetworkResponse<AlbumsContainer>
+    ): NetworkResponse<Albums>
 
     /**
      * Retrieves a paginated list of tracks for a given album.
