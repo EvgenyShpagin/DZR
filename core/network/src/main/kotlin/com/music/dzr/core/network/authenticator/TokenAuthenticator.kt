@@ -1,8 +1,8 @@
 package com.music.dzr.core.network.authenticator
 
 import com.music.dzr.core.network.api.AuthApi
-import com.music.dzr.core.network.model.NetworkErrorType
-import com.music.dzr.core.network.model.toDomain
+import com.music.dzr.core.network.model.auth.toDomain
+import com.music.dzr.core.network.model.error.NetworkErrorType
 import com.music.dzr.core.oauth.repository.TokenRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
