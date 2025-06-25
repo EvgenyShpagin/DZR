@@ -1,18 +1,25 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.model.track
 
+import com.music.dzr.core.network.model.artist.SimplifiedArtist
+import com.music.dzr.core.network.model.shared.ExternalIds
+import com.music.dzr.core.network.model.shared.ExternalUrls
+import com.music.dzr.core.network.model.shared.LinkedFrom
+import com.music.dzr.core.network.model.shared.Restrictions
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Represents simplified track information returned inside an album’s track list.
+ * Represents a full track information
  */
 @Serializable
-data class SimplifiedTrack(
+data class Track(
+    val album: TrackAlbum,
     val artists: List<SimplifiedArtist>,
     @SerialName("available_markets") val availableMarkets: List<String>,
     @SerialName("disc_number") val discNumber: Int,
     @SerialName("duration_ms") val durationMs: Int,
     val explicit: Boolean,
+    @SerialName("external_ids") val externalIds: ExternalIds,
     @SerialName("external_urls") val externalUrls: ExternalUrls,
     val href: String,
     val id: String,
@@ -20,7 +27,7 @@ data class SimplifiedTrack(
     @SerialName("linked_from") val linkedFrom: LinkedFrom? = null,
     val restrictions: Restrictions? = null,
     val name: String,
-    @SerialName("preview_url") val previewUrl: String?,
+    val popularity: Int,
     @SerialName("track_number") val trackNumber: Int,
     val type: String,
     val uri: String,

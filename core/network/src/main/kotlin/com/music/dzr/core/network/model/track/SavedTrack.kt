@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.model.track
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
