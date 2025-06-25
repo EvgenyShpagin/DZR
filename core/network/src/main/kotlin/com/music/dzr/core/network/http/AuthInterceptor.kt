@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.interceptor
+package com.music.dzr.core.network.http
 
 import com.music.dzr.core.oauth.repository.TokenRepository
 import kotlinx.coroutines.runBlocking
@@ -11,7 +11,7 @@ import okhttp3.Response
  *
  * This interceptor is responsible for adding the "Authorization: Bearer <token>" header
  * to all outgoing requests.
- * The actual handling of 401 Unauthorized responses is done by [com.music.dzr.core.network.authenticator.TokenAuthenticator].
+ * The actual handling of 401 Unauthorized responses is done by [TokenAuthenticator].
  *
  * @param tokenRepository A repository for getting the access token.
  */
@@ -31,4 +31,4 @@ internal class AuthInterceptor(
 
         return chain.proceed(requestWithHeader)
     }
-}
+} 

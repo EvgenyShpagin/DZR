@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.authenticator
+package com.music.dzr.core.network.http
 
 import com.music.dzr.core.network.api.AuthApi
 import com.music.dzr.core.network.model.auth.Token

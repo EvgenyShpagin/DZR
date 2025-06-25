@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.interceptor
+package com.music.dzr.core.network.http
 
 import com.music.dzr.core.testing.repository.FakeTokenRepository
 import okhttp3.OkHttpClient

@@ -11,8 +11,8 @@ import com.music.dzr.core.network.api.PlaylistApi
 import com.music.dzr.core.network.api.SearchApi
 import com.music.dzr.core.network.api.TrackApi
 import com.music.dzr.core.network.api.UserApi
-import com.music.dzr.core.network.authenticator.TokenAuthenticator
-import com.music.dzr.core.network.interceptor.AuthInterceptor
+import com.music.dzr.core.network.http.TokenAuthenticator
+import com.music.dzr.core.network.http.AuthInterceptor
 import com.music.dzr.core.network.retrofit.NetworkErrorResponseParser
 import com.music.dzr.core.network.retrofit.NetworkResponseCallAdapterFactory
 import com.music.dzr.core.network.retrofit.UrlParameterConverterFactory
