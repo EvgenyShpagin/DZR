@@ -2,7 +2,7 @@ package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.auth.PermissionScope
 import com.music.dzr.core.network.model.player.CurrentlyPlayingContext
-import com.music.dzr.core.network.model.player.DevicesContainer
+import com.music.dzr.core.network.model.player.Devices
 import com.music.dzr.core.network.model.player.PlaybackState
 import com.music.dzr.core.network.model.player.Queue
 import com.music.dzr.core.network.model.player.RepeatMode
@@ -55,7 +55,7 @@ interface PlayerApi {
      * Requires [PermissionScope.UserReadPlaybackState]
      */
     @GET("me/player/devices")
-    suspend fun getAvailableDevices(): NetworkResponse<DevicesContainer>
+    suspend fun getAvailableDevices(): NetworkResponse<Devices>
 
     /**
      * Get the object for the user's currently playing track.
