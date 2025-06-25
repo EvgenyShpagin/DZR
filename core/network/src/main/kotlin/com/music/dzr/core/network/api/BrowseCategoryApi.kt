@@ -1,8 +1,8 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.BrowseCategoriesContainer
-import com.music.dzr.core.network.model.BrowseCategory
-import com.music.dzr.core.network.model.NetworkResponse
+import com.music.dzr.core.network.model.browse.BrowseCategoriesContainer
+import com.music.dzr.core.network.model.browse.BrowseCategory
+import com.music.dzr.core.network.model.shared.NetworkResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
