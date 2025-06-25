@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.util
 
-import com.music.dzr.core.network.model.DeviceType
+import com.music.dzr.core.network.model.player.DeviceType
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor

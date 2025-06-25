@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.util
 
-import com.music.dzr.core.network.model.Offset
+import com.music.dzr.core.network.model.player.Offset
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.json.JsonContentPolymorphicSerializer
 import kotlinx.serialization.json.JsonElement
