@@ -1,7 +1,7 @@
 package com.music.dzr.core.network.retrofit
 
-import com.music.dzr.core.network.model.NetworkError
-import com.music.dzr.core.network.model.NetworkResponse
+import com.music.dzr.core.network.model.error.NetworkError
+import com.music.dzr.core.network.model.shared.NetworkResponse
 import okhttp3.Request
 import okio.Timeout
 import retrofit2.Call
