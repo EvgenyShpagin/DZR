@@ -69,8 +69,8 @@ class TrackApiTest {
         assertNull(response.error)
         assertNotNull(response.data)
         with(response.data!!) {
-            assertEquals(3, tracks.count())
-            assertEquals("Knights of Cydonia", tracks.first().name)
+            assertEquals(3, items.count())
+            assertEquals("Knights of Cydonia", items.first().name)
         }
     }
 

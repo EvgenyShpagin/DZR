@@ -5,7 +5,7 @@ import com.music.dzr.core.network.model.shared.NetworkResponse
 import com.music.dzr.core.network.model.shared.PaginatedList
 import com.music.dzr.core.network.model.track.SavedTrack
 import com.music.dzr.core.network.model.track.Track
-import com.music.dzr.core.network.model.track.TracksContainer
+import com.music.dzr.core.network.model.track.Tracks
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -43,7 +43,7 @@ interface TrackApi {
     suspend fun getMultipleTracks(
         @Query("ids") ids: String,
         @Query("market") market: String? = null
-    ): NetworkResponse<TracksContainer>
+    ): NetworkResponse<Tracks>
 
     /**
      * Get a list of the songs saved in the current Spotify user's 'Your Music' library.

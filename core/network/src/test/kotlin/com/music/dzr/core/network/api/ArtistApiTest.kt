@@ -155,8 +155,8 @@ class ArtistApiTest {
         assertNull(response.error)
         assertNotNull(response.data)
         with(response.data!!) {
-            assertEquals(10, tracks.count())
-            with(tracks.first()) {
+            assertEquals(10, items.count())
+            with(items.first()) {
                 assertEquals("Give Me Everything (feat. Nayer)", name)
                 assertEquals("spotify:track:4QNpBfC0zvjKqPJcyqBy9W", uri)
             }

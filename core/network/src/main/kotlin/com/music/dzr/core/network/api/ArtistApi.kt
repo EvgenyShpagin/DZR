@@ -6,7 +6,7 @@ import com.music.dzr.core.network.model.artist.Artist
 import com.music.dzr.core.network.model.artist.Artists
 import com.music.dzr.core.network.model.shared.NetworkResponse
 import com.music.dzr.core.network.model.shared.PaginatedList
-import com.music.dzr.core.network.model.track.TracksContainer
+import com.music.dzr.core.network.model.track.Tracks
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -65,5 +65,5 @@ interface ArtistApi {
     suspend fun getArtistTopTracks(
         @Path("id") id: String,
         @Query("market") market: String? = null
-    ): NetworkResponse<TracksContainer>
+    ): NetworkResponse<Tracks>
 }
