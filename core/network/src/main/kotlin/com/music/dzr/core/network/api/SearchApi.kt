@@ -1,7 +1,7 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.NetworkResponse
-import com.music.dzr.core.network.model.SearchResults
+import com.music.dzr.core.network.model.search.SearchResults
+import com.music.dzr.core.network.model.shared.NetworkResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
