@@ -1,5 +1,6 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.model.browse
 
+import com.music.dzr.core.network.model.shared.Image
 import kotlinx.serialization.Serializable
 
 /**
