@@ -1,11 +1,11 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.NetworkResponse
-import com.music.dzr.core.network.model.PaginatedList
-import com.music.dzr.core.network.model.PermissionScope
-import com.music.dzr.core.network.model.SavedTrack
-import com.music.dzr.core.network.model.Track
-import com.music.dzr.core.network.model.TracksContainer
+import com.music.dzr.core.network.model.auth.PermissionScope
+import com.music.dzr.core.network.model.shared.NetworkResponse
+import com.music.dzr.core.network.model.shared.PaginatedList
+import com.music.dzr.core.network.model.track.SavedTrack
+import com.music.dzr.core.network.model.track.Track
+import com.music.dzr.core.network.model.track.TracksContainer
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
