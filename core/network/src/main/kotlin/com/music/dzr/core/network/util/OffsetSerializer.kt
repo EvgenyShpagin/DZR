@@ -9,7 +9,7 @@ import kotlinx.serialization.json.jsonObject
 /**
  * A custom serializer for [Offset].
  */
-object OffsetSerializer : JsonContentPolymorphicSerializer<Offset>(Offset::class) {
+internal object OffsetSerializer : JsonContentPolymorphicSerializer<Offset>(Offset::class) {
     override fun selectDeserializer(element: JsonElement): DeserializationStrategy<Offset> {
         val jsonObject = element.jsonObject
         return when {

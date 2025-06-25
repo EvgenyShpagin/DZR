@@ -15,7 +15,7 @@ import kotlinx.serialization.encoding.Encoder
  * - yyyy-MM
  * - yyyy
  */
-object ReleaseDateSerializer : KSerializer<ReleaseDate> {
+internal object ReleaseDateSerializer : KSerializer<ReleaseDate> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
         "ReleaseDateSerializer",
         PrimitiveKind.STRING
