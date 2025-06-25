@@ -320,9 +320,9 @@ class AlbumApiTest {
         assertNull(response.error)
         assertNotNull(response.data)
         with(response.data!!) {
-            assertEquals(20, albums.items.count())
-            assertEquals(20, albums.limit)
-            assertEquals(100, albums.total)
+            assertEquals(20, items.items.count())
+            assertEquals(20, items.limit)
+            assertEquals(100, items.total)
         }
     }
 

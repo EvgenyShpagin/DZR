@@ -2,7 +2,7 @@ package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.album.Album
 import com.music.dzr.core.network.model.album.Albums
-import com.music.dzr.core.network.model.album.NewReleasesContainer
+import com.music.dzr.core.network.model.album.NewReleases
 import com.music.dzr.core.network.model.album.SavedAlbum
 import com.music.dzr.core.network.model.auth.PermissionScope
 import com.music.dzr.core.network.model.shared.NetworkResponse
@@ -149,5 +149,5 @@ interface AlbumApi {
     suspend fun getNewReleases(
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null
-    ): NetworkResponse<NewReleasesContainer>
+    ): NetworkResponse<NewReleases>
 }
