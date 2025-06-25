@@ -1,11 +1,11 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.AddTracksToPlaylistRequest
-import com.music.dzr.core.network.model.ChangePlaylistDetailsRequest
-import com.music.dzr.core.network.model.CreatePlaylistRequest
-import com.music.dzr.core.network.model.RemovePlaylistTracksRequest
-import com.music.dzr.core.network.model.TrackToRemove
-import com.music.dzr.core.network.model.UpdatePlaylistItemsRequest
+import com.music.dzr.core.network.model.playlist.request.AddTracksToPlaylistRequest
+import com.music.dzr.core.network.model.playlist.request.ChangePlaylistDetailsRequest
+import com.music.dzr.core.network.model.playlist.CreatePlaylistRequest
+import com.music.dzr.core.network.model.playlist.request.RemovePlaylistTracksRequest
+import com.music.dzr.core.network.model.playlist.request.TrackToRemove
+import com.music.dzr.core.network.model.playlist.request.UpdatePlaylistItemsRequest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.encodeToString
