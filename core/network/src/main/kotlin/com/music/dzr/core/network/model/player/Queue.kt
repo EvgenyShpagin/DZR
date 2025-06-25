@@ -1,5 +1,6 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.model.player
 
+import com.music.dzr.core.network.model.track.Track
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -14,4 +15,4 @@ data class Queue(
     @SerialName("currently_playing")
     val currentlyPlaying: Track?,
     val queue: List<Track>
-) 
+)

@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.model.player
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -36,4 +36,4 @@ data class Actions(
     val togglingRepeatTrack: Boolean? = null,
     @SerialName("transferring_playback")
     val transferringPlayback: Boolean? = null
-) 
+)

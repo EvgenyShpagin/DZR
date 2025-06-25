@@ -1,5 +1,6 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.model.player
 
+import com.music.dzr.core.network.model.track.Track
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -35,21 +36,3 @@ data class PlaybackState(
     val currentlyPlayingType: CurrentlyPlayingType,
     val actions: Actions
 )
-
-/**
- * The object type of the currently playing item.
- */
-@Serializable
-enum class CurrentlyPlayingType {
-    @SerialName("track")
-    Track,
-
-    @SerialName("episode")
-    Episode,
-
-    @SerialName("ad")
-    Ad,
-
-    @SerialName("unknown")
-    Unknown
-}

@@ -1,6 +1,5 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.model.player
 
-import com.music.dzr.core.network.util.DeviceTypeSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -32,23 +31,3 @@ data class Device(
     @SerialName("supports_volume")
     val supportsVolume: Boolean
 )
-
-/**
- * The type of device.
- */
-@Serializable(with = DeviceTypeSerializer::class)
-enum class DeviceType {
-    Computer,
-    Tablet,
-    Smartphone,
-    Speaker,
-    Tv,
-    Avr,
-    Stb,
-    AudioDongle,
-    GameConsole,
-    CastVideo,
-    CastAudio,
-    Automobile,
-    Unknown
-}

@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.model.player
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -14,14 +14,4 @@ data class RemovePlaylistTracksRequest(
     val tracks: List<TrackToRemove>,
     @SerialName("snapshot_id")
     val snapshotId: String? = null
-)
-
-/**
- * Describes a track to be removed from a playlist.
- *
- * @property uri The Spotify URI of the track to remove.
- */
-@Serializable
-data class TrackToRemove(
-    val uri: String
 )

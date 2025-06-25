@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.model.player
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -24,4 +24,4 @@ data class UpdatePlaylistItemsRequest(
     val rangeLength: Int? = null,
     @SerialName("snapshot_id")
     val snapshotId: String? = null,
-) 
+)
