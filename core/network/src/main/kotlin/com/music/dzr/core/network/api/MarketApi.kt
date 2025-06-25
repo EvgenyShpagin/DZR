@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.market.MarketsContainer
+import com.music.dzr.core.network.model.market.Markets
 import com.music.dzr.core.network.model.shared.NetworkResponse
 import retrofit2.http.GET
 
@@ -14,5 +14,5 @@ interface MarketApi {
      * Get the list of markets where Spotify is available.
      */
     @GET("markets")
-    suspend fun getAvailableMarkets(): NetworkResponse<MarketsContainer>
+    suspend fun getAvailableMarkets(): NetworkResponse<Markets>
 }
