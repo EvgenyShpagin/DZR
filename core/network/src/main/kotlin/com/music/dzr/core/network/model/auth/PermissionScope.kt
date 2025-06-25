@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.model.auth
 
 /**
  * Scopes provide Spotify users using third-party apps the confidence that only the information
