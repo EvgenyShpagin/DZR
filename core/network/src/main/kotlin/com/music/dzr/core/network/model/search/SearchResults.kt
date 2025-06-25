@@ -1,5 +1,10 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.model.search
 
+import com.music.dzr.core.network.model.album.Album
+import com.music.dzr.core.network.model.artist.Artist
+import com.music.dzr.core.network.model.playlist.PlaylistWithTracksInfo
+import com.music.dzr.core.network.model.shared.PaginatedList
+import com.music.dzr.core.network.model.track.Track
 import kotlinx.serialization.Serializable
 
 /**
