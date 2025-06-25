@@ -3,7 +3,7 @@ package com.music.dzr.core.network.api
 import com.music.dzr.core.network.model.album.AlbumGroup
 import com.music.dzr.core.network.model.artist.ArtistAlbum
 import com.music.dzr.core.network.model.artist.Artist
-import com.music.dzr.core.network.model.artist.ArtistContainer
+import com.music.dzr.core.network.model.artist.Artists
 import com.music.dzr.core.network.model.shared.NetworkResponse
 import com.music.dzr.core.network.model.shared.PaginatedList
 import com.music.dzr.core.network.model.track.TracksContainer
@@ -35,7 +35,7 @@ interface ArtistApi {
     @GET("artists")
     suspend fun getMultipleArtists(
         @Query("ids") ids: String
-    ): NetworkResponse<ArtistContainer>
+    ): NetworkResponse<Artists>
 
     /**
      * Get Spotify catalog information about an artist's albums.

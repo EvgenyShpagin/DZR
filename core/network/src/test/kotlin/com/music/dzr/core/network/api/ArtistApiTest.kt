@@ -73,8 +73,8 @@ class ArtistApiTest {
         assertNull(response.error)
         assertNotNull(response.data)
         with(response.data!!) {
-            assertEquals(3, artists.count())
-            with(artists.first()) {
+            assertEquals(3, items.count())
+            with(items.first()) {
                 assertEquals("deadmau5", name)
                 assertEquals(68, popularity)
             }
