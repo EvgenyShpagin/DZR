@@ -1,5 +1,6 @@
-package com.music.dzr.core.network.model.player
+package com.music.dzr.core.network.model.playlist
 
+import com.music.dzr.core.network.model.player.TrackToRemove
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
