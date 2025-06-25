@@ -2,12 +2,12 @@ package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.Album
-import com.music.dzr.core.network.model.MultipleAlbumsContainer
 import com.music.dzr.core.network.model.NewReleasesContainer
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.PermissionScope
 import com.music.dzr.core.network.model.SavedAlbum
 import com.music.dzr.core.network.model.SimplifiedTrack
+import com.music.dzr.core.network.model.album.AlbumsContainer
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -44,7 +44,7 @@ interface AlbumApi {
     suspend fun getMultipleAlbums(
         @Query("ids") ids: String,
         @Query("market") market: String? = null
-    ): NetworkResponse<MultipleAlbumsContainer>
+    ): NetworkResponse<AlbumsContainer>
 
     /**
      * Retrieves a paginated list of tracks for a given album.

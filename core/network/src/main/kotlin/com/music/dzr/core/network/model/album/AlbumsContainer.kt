@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
  * Response wrapper for getting multiple albums.
  */
 @Serializable
-data class MultipleAlbumsContainer(
+data class AlbumsContainer(
     val albums: List<Album>
 )
