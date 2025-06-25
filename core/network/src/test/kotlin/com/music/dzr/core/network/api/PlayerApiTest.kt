@@ -1,8 +1,8 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.Offset
-import com.music.dzr.core.network.model.PlaybackOptions
-import com.music.dzr.core.network.model.RepeatMode
+import com.music.dzr.core.network.model.player.RepeatMode
+import com.music.dzr.core.network.model.player.Offset
+import com.music.dzr.core.network.model.player.PlaybackOptions
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
