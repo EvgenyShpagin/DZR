@@ -87,8 +87,8 @@ class PlayerApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals(2, response.data!!.items.size)
-        assertEquals("febce7d2eaa377ac85b9f2289f744806ce55435b", response.data!!.items[0].id)
+        assertEquals(2, response.data!!.list.size)
+        assertEquals("febce7d2eaa377ac85b9f2289f744806ce55435b", response.data!!.list[0].id)
     }
 
     @Test

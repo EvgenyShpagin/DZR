@@ -77,8 +77,8 @@ class AlbumApiTest {
         assertNull(response.error)
         assertNotNull(response.data)
         with(response.data!!) {
-            assertEquals(3, items.count())
-            assertEquals("TRON: Legacy Reconfigured", items.first().name)
+            assertEquals(3, list.count())
+            assertEquals("TRON: Legacy Reconfigured", list.first().name)
         }
     }
 
@@ -320,9 +320,9 @@ class AlbumApiTest {
         assertNull(response.error)
         assertNotNull(response.data)
         with(response.data!!) {
-            assertEquals(20, items.items.count())
-            assertEquals(20, items.limit)
-            assertEquals(100, items.total)
+            assertEquals(20, list.items.count())
+            assertEquals(20, list.limit)
+            assertEquals(100, list.total)
         }
     }
 

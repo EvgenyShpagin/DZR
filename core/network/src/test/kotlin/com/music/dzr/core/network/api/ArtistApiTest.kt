@@ -73,8 +73,8 @@ class ArtistApiTest {
         assertNull(response.error)
         assertNotNull(response.data)
         with(response.data!!) {
-            assertEquals(3, items.count())
-            with(items.first()) {
+            assertEquals(3, list.count())
+            with(list.first()) {
                 assertEquals("deadmau5", name)
                 assertEquals(68, popularity)
             }
@@ -155,8 +155,8 @@ class ArtistApiTest {
         assertNull(response.error)
         assertNotNull(response.data)
         with(response.data!!) {
-            assertEquals(10, items.count())
-            with(items.first()) {
+            assertEquals(10, list.count())
+            with(list.first()) {
                 assertEquals("Give Me Everything (feat. Nayer)", name)
                 assertEquals("spotify:track:4QNpBfC0zvjKqPJcyqBy9W", uri)
             }

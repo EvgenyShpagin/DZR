@@ -9,5 +9,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Tracks(
     @SerialName("tracks")
-    val items: List<Track>
+    val list: List<Track>
 ) 

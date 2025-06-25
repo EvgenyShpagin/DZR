@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 /**
  * A container for a list of [Device] objects.
  *
- * @property items A list of devices.
+ * @property list A list of devices.
  */
 @Serializable
 data class Devices(
-    @SerialName("devices") val items: List<Device>
+    @SerialName("devices") val list: List<Device>
 ) 

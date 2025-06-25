@@ -10,5 +10,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class BrowseCategories(
     @SerialName("categories")
-    val items: PaginatedList<BrowseCategory>
+    val list: PaginatedList<BrowseCategory>
 )

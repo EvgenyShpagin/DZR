@@ -38,9 +38,9 @@ class MarketApiTest {
         assertNull(response.error)
         assertNotNull(response.data)
         with(response.data!!) {
-            assertEquals(185, items.count())
-            assertEquals("AD", items.first())
-            assertEquals("ZW", items.last())
+            assertEquals(185, list.count())
+            assertEquals("AD", list.first())
+            assertEquals("ZW", list.last())
         }
     }
 

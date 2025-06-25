@@ -36,7 +36,7 @@ class BrowseCategoryApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!.items) {
+        with(response.data!!.list) {
             assertEquals(20, items.count())
             assertEquals("Made For You", items.first().name)
             assertEquals(64, total)

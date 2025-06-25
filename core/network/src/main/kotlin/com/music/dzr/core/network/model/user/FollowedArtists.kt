@@ -8,10 +8,10 @@ import kotlinx.serialization.Serializable
 /**
  * A container for a cursor-paginated list of followed artists.
  *
- * @property items The paginated list of followed artists.
+ * @property list The paginated list of followed artists.
  */
 @Serializable
 data class FollowedArtists(
     @SerialName("artists")
-    val items: CursorPaginatedList<Artist>,
+    val list: CursorPaginatedList<Artist>,
 )

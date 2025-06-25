@@ -10,5 +10,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class NewReleases(
     @SerialName("albums")
-    val items: PaginatedList<SimplifiedAlbum>
+    val list: PaginatedList<SimplifiedAlbum>
 )

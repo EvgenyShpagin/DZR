@@ -119,7 +119,7 @@ class UserApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals(20, response.data!!.items.items.size)
+        assertEquals(20, response.data!!.list.items.size)
     }
 
     @Test
