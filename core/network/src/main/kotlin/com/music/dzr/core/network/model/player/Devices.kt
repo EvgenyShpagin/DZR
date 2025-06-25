@@ -10,5 +10,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Devices(
-    @SerialName("devices") val list: List<Device>
+    @SerialName("devices")
+    val list: List<Device>
 ) 

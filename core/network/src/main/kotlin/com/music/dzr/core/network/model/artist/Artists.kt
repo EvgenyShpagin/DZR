@@ -8,5 +8,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Artists(
-    @SerialName("artists") val list: List<Artist>
+    @SerialName("artists")
+    val list: List<Artist>
 ) 
