@@ -1,15 +1,15 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.Artist
-import com.music.dzr.core.network.model.CurrentUser
-import com.music.dzr.core.network.model.FollowPlaylistRequest
-import com.music.dzr.core.network.model.FollowedArtistsContainer
-import com.music.dzr.core.network.model.NetworkResponse
-import com.music.dzr.core.network.model.PaginatedList
-import com.music.dzr.core.network.model.PermissionScope
-import com.music.dzr.core.network.model.PublicUser
-import com.music.dzr.core.network.model.TimeRange
-import com.music.dzr.core.network.model.Track
+import com.music.dzr.core.network.model.artist.Artist
+import com.music.dzr.core.network.model.auth.PermissionScope
+import com.music.dzr.core.network.model.playlist.FollowPlaylistRequest
+import com.music.dzr.core.network.model.shared.NetworkResponse
+import com.music.dzr.core.network.model.shared.PaginatedList
+import com.music.dzr.core.network.model.track.Track
+import com.music.dzr.core.network.model.user.CurrentUser
+import com.music.dzr.core.network.model.user.FollowedArtistsContainer
+import com.music.dzr.core.network.model.user.PublicUser
+import com.music.dzr.core.network.model.user.TimeRange
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
