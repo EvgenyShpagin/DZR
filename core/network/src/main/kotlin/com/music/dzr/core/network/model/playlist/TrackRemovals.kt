@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
  * @property snapshotId The playlist's snapshot ID against which you want to make the changes.
  */
 @Serializable
-data class RemovePlaylistTracksRequest(
+data class TrackRemovals(
     val tracks: List<TrackToRemove>,
     @SerialName("snapshot_id")
     val snapshotId: String? = null

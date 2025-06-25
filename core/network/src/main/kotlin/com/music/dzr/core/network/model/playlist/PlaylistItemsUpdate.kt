@@ -14,7 +14,7 @@ import kotlinx.serialization.Serializable
  * @property snapshotId The playlist's snapshot ID against which you want to make the changes.
  */
 @Serializable
-data class UpdatePlaylistItemsRequest(
+data class PlaylistItemsUpdate(
     val uris: List<String>? = null,
     @SerialName("range_start")
     val rangeStart: Int? = null,

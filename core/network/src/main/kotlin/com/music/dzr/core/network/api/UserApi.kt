@@ -2,7 +2,7 @@ package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.artist.Artist
 import com.music.dzr.core.network.model.auth.PermissionScope
-import com.music.dzr.core.network.model.playlist.FollowPlaylistRequest
+import com.music.dzr.core.network.model.playlist.PlaylistFollowDetails
 import com.music.dzr.core.network.model.shared.NetworkResponse
 import com.music.dzr.core.network.model.shared.PaginatedList
 import com.music.dzr.core.network.model.track.Track
@@ -94,7 +94,7 @@ interface UserApi {
     @PUT("playlists/{playlist_id}/followers")
     suspend fun followPlaylist(
         @Path("playlist_id") playlistId: String,
-        @Body requestBody: FollowPlaylistRequest,
+        @Body requestBody: PlaylistFollowDetails,
     ): NetworkResponse<Unit>
 
     /**

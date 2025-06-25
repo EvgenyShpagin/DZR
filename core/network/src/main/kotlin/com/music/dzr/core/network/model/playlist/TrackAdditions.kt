@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  * @property position The position to insert the items, a zero-based index.
  */
 @Serializable
-data class AddTracksToPlaylistRequest(
+data class TrackAdditions(
     val uris: List<String>,
     val position: Int? = null,
 )

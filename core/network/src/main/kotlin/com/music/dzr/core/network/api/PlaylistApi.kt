@@ -5,11 +5,11 @@ import com.music.dzr.core.network.model.playlist.PlaylistTrack
 import com.music.dzr.core.network.model.playlist.PlaylistWithPaginatedTracks
 import com.music.dzr.core.network.model.playlist.PlaylistWithTracks
 import com.music.dzr.core.network.model.playlist.PlaylistWithTracksInfo
-import com.music.dzr.core.network.model.playlist.AddTracksToPlaylistRequest
-import com.music.dzr.core.network.model.playlist.ChangePlaylistDetailsRequest
-import com.music.dzr.core.network.model.playlist.CreatePlaylistRequest
-import com.music.dzr.core.network.model.playlist.RemovePlaylistTracksRequest
-import com.music.dzr.core.network.model.playlist.UpdatePlaylistItemsRequest
+import com.music.dzr.core.network.model.playlist.TrackAdditions
+import com.music.dzr.core.network.model.playlist.PlaylistDetailsUpdate
+import com.music.dzr.core.network.model.playlist.NewPlaylistDetails
+import com.music.dzr.core.network.model.playlist.TrackRemovals
+import com.music.dzr.core.network.model.playlist.PlaylistItemsUpdate
 import com.music.dzr.core.network.model.shared.Image
 import com.music.dzr.core.network.model.shared.NetworkResponse
 import com.music.dzr.core.network.model.shared.PaginatedList
@@ -59,7 +59,7 @@ interface PlaylistApi {
     @PUT("playlists/{playlist_id}")
     suspend fun changePlaylistDetails(
         @Path("playlist_id") playlistId: String,
-        @Body body: ChangePlaylistDetailsRequest
+        @Body body: PlaylistDetailsUpdate
     ): NetworkResponse<Unit>
 
     /**
@@ -96,7 +96,7 @@ interface PlaylistApi {
     @PUT("playlists/{playlist_id}/tracks")
     suspend fun updatePlaylistTracks(
         @Path("playlist_id") playlistId: String,
-        @Body body: UpdatePlaylistItemsRequest
+        @Body body: PlaylistItemsUpdate
     ): NetworkResponse<SnapshotId>
 
     /**
@@ -113,7 +113,7 @@ interface PlaylistApi {
     @POST("playlists/{playlist_id}/tracks")
     suspend fun addTracksToPlaylist(
         @Path("playlist_id") playlistId: String,
-        @Body body: AddTracksToPlaylistRequest
+        @Body body: TrackAdditions
     ): NetworkResponse<SnapshotId>
 
     /**
@@ -130,7 +130,7 @@ interface PlaylistApi {
     @HTTP(method = "DELETE", path = "playlists/{playlist_id}/tracks", hasBody = true)
     suspend fun removePlaylistTracks(
         @Path("playlist_id") playlistId: String,
-        @Body body: RemovePlaylistTracksRequest
+        @Body body: TrackRemovals
     ): NetworkResponse<SnapshotId>
 
     /**
@@ -181,7 +181,7 @@ interface PlaylistApi {
     @POST("users/{user_id}/playlists")
     suspend fun createPlaylist(
         @Path("user_id") userId: String,
-        @Body body: CreatePlaylistRequest
+        @Body body: NewPlaylistDetails
     ): NetworkResponse<PlaylistWithPaginatedTracks>
 
     /**

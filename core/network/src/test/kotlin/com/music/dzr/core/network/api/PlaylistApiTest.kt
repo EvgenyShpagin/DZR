@@ -1,11 +1,11 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.playlist.AddTracksToPlaylistRequest
-import com.music.dzr.core.network.model.playlist.ChangePlaylistDetailsRequest
-import com.music.dzr.core.network.model.playlist.CreatePlaylistRequest
-import com.music.dzr.core.network.model.playlist.RemovePlaylistTracksRequest
+import com.music.dzr.core.network.model.playlist.TrackAdditions
+import com.music.dzr.core.network.model.playlist.PlaylistDetailsUpdate
+import com.music.dzr.core.network.model.playlist.NewPlaylistDetails
+import com.music.dzr.core.network.model.playlist.TrackRemovals
 import com.music.dzr.core.network.model.playlist.TrackToRemove
-import com.music.dzr.core.network.model.playlist.UpdatePlaylistItemsRequest
+import com.music.dzr.core.network.model.playlist.PlaylistItemsUpdate
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.encodeToString
@@ -85,7 +85,7 @@ class PlaylistApiTest {
         server.enqueueEmptyResponse(204)
 
         // Act
-        val changeDetails = ChangePlaylistDetailsRequest(name = "New Name")
+        val changeDetails = PlaylistDetailsUpdate(name = "New Name")
         val response = api.changePlaylistDetails(playlistId, changeDetails)
 
         // Assert
@@ -97,7 +97,7 @@ class PlaylistApiTest {
     fun changePlaylistDetails_usesCorrectPathMethodAndBody_onRequest() = runTest {
         // Arrange
         server.enqueueEmptyResponse(204)
-        val requestBody = ChangePlaylistDetailsRequest(
+        val requestBody = PlaylistDetailsUpdate(
             name = "New Playlist Name",
             public = true,
             collaborative = false,
@@ -151,7 +151,7 @@ class PlaylistApiTest {
     fun updatePlaylistTracks_returnsData_on200CodeResponse() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json")
-        val requestBody = UpdatePlaylistItemsRequest(rangeStart = 0, insertBefore = 2)
+        val requestBody = PlaylistItemsUpdate(rangeStart = 0, insertBefore = 2)
 
         // Act
         val response = api.updatePlaylistTracks(playlistId, requestBody)
@@ -166,7 +166,7 @@ class PlaylistApiTest {
     fun updatePlaylistTracks_usesCorrectPathMethodAndBody_onRequest() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json")
-        val requestBody = UpdatePlaylistItemsRequest(
+        val requestBody = PlaylistItemsUpdate(
             rangeStart = 0,
             insertBefore = 2,
             uris = listOf("spotify:track:4iV5W9uYEdYUVa79Axb7Rh")
@@ -189,7 +189,7 @@ class PlaylistApiTest {
     fun addTracksToPlaylist_returnsData_on201CodeResponse() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json", 201)
-        val requestBody = AddTracksToPlaylistRequest(uris = trackUris, position = 0)
+        val requestBody = TrackAdditions(uris = trackUris, position = 0)
 
         // Act
         val response = api.addTracksToPlaylist(playlistId, requestBody)
@@ -204,7 +204,7 @@ class PlaylistApiTest {
     fun addTracksToPlaylist_usesCorrectPathMethodAndBody_onRequest() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json", 201)
-        val requestBody = AddTracksToPlaylistRequest(uris = trackUris, position = 0)
+        val requestBody = TrackAdditions(uris = trackUris, position = 0)
 
         // Act
         api.addTracksToPlaylist(playlistId, requestBody)
@@ -220,7 +220,7 @@ class PlaylistApiTest {
     fun removePlaylistTracks_returnsData_on200CodeResponse() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json")
-        val requestBody = RemovePlaylistTracksRequest(tracks = listOf(TrackToRemove(trackUri)))
+        val requestBody = TrackRemovals(tracks = listOf(TrackToRemove(trackUri)))
 
         // Act
         val response = api.removePlaylistTracks(playlistId, requestBody)
@@ -235,7 +235,7 @@ class PlaylistApiTest {
     fun removePlaylistTracks_usesCorrectPathMethodAndBody_onRequest() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json")
-        val requestBody = RemovePlaylistTracksRequest(tracks = listOf(TrackToRemove(trackUri)))
+        val requestBody = TrackRemovals(tracks = listOf(TrackToRemove(trackUri)))
 
         // Act
         api.removePlaylistTracks(playlistId, requestBody)
@@ -303,7 +303,7 @@ class PlaylistApiTest {
     fun createPlaylist_returnsData_on201CodeResponse() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/playlist/playlist.json", 201)
-        val requestBody = CreatePlaylistRequest(name = "Spotify Web API Testing playlist")
+        val requestBody = NewPlaylistDetails(name = "Spotify Web API Testing playlist")
 
         // Act
         val response = api.createPlaylist(userId, requestBody)
@@ -318,7 +318,7 @@ class PlaylistApiTest {
     fun createPlaylist_usesCorrectPathMethodAndBody_onRequest() = runTest {
         // Arrange
         server.enqueueEmptyResponse(201)
-        val requestBody = CreatePlaylistRequest(
+        val requestBody = NewPlaylistDetails(
             name = "Spotify Web API Testing playlist",
             public = false,
             collaborative = true,

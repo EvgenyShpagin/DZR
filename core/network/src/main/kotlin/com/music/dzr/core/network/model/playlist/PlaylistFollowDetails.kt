@@ -8,6 +8,6 @@ import kotlinx.serialization.Serializable
  * @property public If `true` the playlist will be included in user's public playlists, if `false` if false it will remain private.
  */
 @Serializable
-data class FollowPlaylistRequest(
+data class PlaylistFollowDetails(
     val public: Boolean = true,
 )

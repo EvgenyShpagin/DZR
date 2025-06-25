@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.playlist.FollowPlaylistRequest
+import com.music.dzr.core.network.model.playlist.PlaylistFollowDetails
 import com.music.dzr.core.network.model.user.TimeRange
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
@@ -88,7 +88,7 @@ class UserApiTest {
     fun followPlaylist_usesCorrectPathAndMethod() = runTest {
         // Arrange
         server.enqueueEmptyResponse()
-        val requestBody = FollowPlaylistRequest(public = false)
+        val requestBody = PlaylistFollowDetails(public = false)
         // Act
         api.followPlaylist(id, requestBody)
         // Assert
