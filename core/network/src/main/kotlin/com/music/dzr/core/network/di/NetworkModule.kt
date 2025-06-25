@@ -67,7 +67,7 @@ val networkModule = module {
 
     single(named(API_CLIENT)) {
         OkHttpClient.Builder()
-            .authenticator(get<TokenAuthenticator>())
+            .authenticator(get<Authenticator>())
             .addInterceptor(get<AuthInterceptor>())
             .addInterceptor(get<HttpLoggingInterceptor>())
             .build()
@@ -89,7 +89,7 @@ val networkModule = module {
 
     single { AuthInterceptor(tokenRepository = get()) }
 
-    single {
+    single<Authenticator> {
         TokenAuthenticator(
             tokenRepository = get(),
             clientId = BuildConfig.SPOTIFY_CLIENT_ID,
