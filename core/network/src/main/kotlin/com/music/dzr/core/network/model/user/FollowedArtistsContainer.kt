@@ -1,5 +1,7 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.model.user
 
+import com.music.dzr.core.network.model.artist.Artist
+import com.music.dzr.core.network.model.shared.CursorPaginatedList
 import kotlinx.serialization.Serializable
 
 /**

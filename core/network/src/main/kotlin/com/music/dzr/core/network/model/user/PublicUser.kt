@@ -1,5 +1,8 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.model.user
 
+import com.music.dzr.core.network.model.shared.ExternalUrls
+import com.music.dzr.core.network.model.shared.Followers
+import com.music.dzr.core.network.model.shared.Image
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -27,4 +30,4 @@ data class PublicUser(
     val images: List<Image>? = null,
     val type: String,
     val uri: String,
-) 
+)
