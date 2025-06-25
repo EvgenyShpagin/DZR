@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.browse.BrowseCategoriesContainer
+import com.music.dzr.core.network.model.browse.BrowseCategories
 import com.music.dzr.core.network.model.browse.BrowseCategory
 import com.music.dzr.core.network.model.shared.NetworkResponse
 import retrofit2.http.GET
@@ -26,7 +26,7 @@ interface BrowseCategoryApi {
         @Query("locale") locale: String? = null,
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null
-    ): NetworkResponse<BrowseCategoriesContainer>
+    ): NetworkResponse<BrowseCategories>
 
     /**
      * Get a single category used to tag items in Spotify (on, for example, the Spotify player's "Browse" tab).
