@@ -1,10 +1,10 @@
 package com.music.dzr.core.network.authenticator
 
 import com.music.dzr.core.network.api.AuthApi
-import com.music.dzr.core.network.model.NetworkError
-import com.music.dzr.core.network.model.NetworkErrorType
-import com.music.dzr.core.network.model.NetworkResponse
-import com.music.dzr.core.network.model.Token
+import com.music.dzr.core.network.model.auth.Token
+import com.music.dzr.core.network.model.error.NetworkError
+import com.music.dzr.core.network.model.error.NetworkErrorType
+import com.music.dzr.core.network.model.shared.NetworkResponse
 import com.music.dzr.core.testing.repository.FakeTokenRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
