@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.util
+package com.music.dzr.core.network.serialization
 
 import com.music.dzr.core.network.model.player.Offset
 import kotlinx.serialization.DeserializationStrategy
@@ -18,4 +18,4 @@ internal object OffsetSerializer : JsonContentPolymorphicSerializer<Offset>(Offs
             else -> throwDeserializationException(jsonObject.toString())
         }
     }
-}
+} 

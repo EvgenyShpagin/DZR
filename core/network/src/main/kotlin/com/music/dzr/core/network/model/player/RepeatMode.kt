@@ -1,7 +1,7 @@
 package com.music.dzr.core.network.model.player
 
 import com.music.dzr.core.network.retrofit.UrlParameter
-import com.music.dzr.core.network.util.getSerializedName
+import com.music.dzr.core.network.serialization.getSerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

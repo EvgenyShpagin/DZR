@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.util
+package com.music.dzr.core.network.serialization
 
 import com.music.dzr.core.network.model.player.DeviceType
 import kotlinx.serialization.json.Json

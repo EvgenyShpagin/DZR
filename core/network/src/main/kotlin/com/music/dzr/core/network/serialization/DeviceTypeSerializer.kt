@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.util
+package com.music.dzr.core.network.serialization
 
 import com.music.dzr.core.network.model.player.DeviceType
 import kotlinx.serialization.KSerializer
@@ -43,4 +43,4 @@ internal object DeviceTypeSerializer : KSerializer<DeviceType> {
     override fun serialize(encoder: Encoder, value: DeviceType) {
         encoder.encodeString(enumToStringMap.getValue(value))
     }
-}
+} 

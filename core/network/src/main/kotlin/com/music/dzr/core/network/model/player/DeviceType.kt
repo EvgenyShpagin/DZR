@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.model.player
 
-import com.music.dzr.core.network.util.DeviceTypeSerializer
+import com.music.dzr.core.network.serialization.DeviceTypeSerializer
 import kotlinx.serialization.Serializable
 
 /**

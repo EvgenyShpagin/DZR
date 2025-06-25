@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.model.album
 
-import com.music.dzr.core.network.util.ReleaseDateSerializer
+import com.music.dzr.core.network.serialization.ReleaseDateSerializer
 import kotlinx.serialization.Serializable
 
 /**

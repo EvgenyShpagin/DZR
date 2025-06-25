@@ -1,6 +1,7 @@
-package com.music.dzr.core.network.util
+package com.music.dzr.core.network.serialization
 
 import com.music.dzr.core.network.model.album.ReleaseDate
+import com.music.dzr.core.network.serialization.throwDeserializationException
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
@@ -42,4 +43,4 @@ internal object ReleaseDateSerializer : KSerializer<ReleaseDate> {
         }
         encoder.encodeString(dateString)
     }
-}
+} 

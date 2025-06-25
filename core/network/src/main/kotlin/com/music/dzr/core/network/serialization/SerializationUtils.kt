@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.util
+package com.music.dzr.core.network.serialization
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
@@ -25,4 +25,4 @@ internal fun KSerializer<*>.throwDeserializationException(rawValue: String): Not
 @OptIn(ExperimentalSerializationApi::class)
 internal inline fun <reified T : Enum<T>> Enum<T>.getSerializedName(): String {
     return serializer<T>().descriptor.getElementName(ordinal)
-}
+} 
