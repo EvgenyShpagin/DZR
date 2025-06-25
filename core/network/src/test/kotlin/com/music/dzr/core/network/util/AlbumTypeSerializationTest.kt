@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.util
 
-import com.music.dzr.core.network.model.AlbumType
+import com.music.dzr.core.network.model.album.AlbumType
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.junit.Assert.assertEquals
