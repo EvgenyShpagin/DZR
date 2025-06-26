@@ -27,7 +27,6 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
     packaging {
         resources.excludes.addAll(
