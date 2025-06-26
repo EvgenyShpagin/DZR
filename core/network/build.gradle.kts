@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.core)
+    implementation(libs.kotlinx.coroutines.core)
 
     testImplementation(project(":core:testing"))
     testImplementation(libs.junit)
