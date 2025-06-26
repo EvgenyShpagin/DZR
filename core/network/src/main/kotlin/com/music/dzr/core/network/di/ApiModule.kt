@@ -12,6 +12,8 @@ import com.music.dzr.core.network.api.SearchApi
 import com.music.dzr.core.network.api.TrackApi
 import com.music.dzr.core.network.api.UserApi
 import com.music.dzr.core.network.util.AuthorizationUrlBuilder
+import org.koin.core.definition.KoinDefinition
+import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -21,15 +23,19 @@ internal val apiModule = module {
 
     single { AuthorizationUrlBuilder(BuildConfig.SPOTIFY_CLIENT_ID) }
 
-    single<AuthApi> { get<Retrofit>(named(AUTH_RETROFIT)).create() }
+    singleApi<AuthApi>(AUTH_RETROFIT)
 
-    single<AlbumApi> { get<Retrofit>(named(API_RETROFIT)).create() }
-    single<ArtistApi> { get<Retrofit>(named(API_RETROFIT)).create() }
-    single<BrowseCategoryApi> { get<Retrofit>(named(API_RETROFIT)).create() }
-    single<MarketApi> { get<Retrofit>(named(API_RETROFIT)).create() }
-    single<PlayerApi> { get<Retrofit>(named(API_RETROFIT)).create() }
-    single<PlaylistApi> { get<Retrofit>(named(API_RETROFIT)).create() }
-    single<SearchApi> { get<Retrofit>(named(API_RETROFIT)).create() }
-    single<TrackApi> { get<Retrofit>(named(API_RETROFIT)).create() }
-    single<UserApi> { get<Retrofit>(named(API_RETROFIT)).create() }
+    singleApi<AlbumApi>(API_RETROFIT)
+    singleApi<ArtistApi>(API_RETROFIT)
+    singleApi<BrowseCategoryApi>(API_RETROFIT)
+    singleApi<MarketApi>(API_RETROFIT)
+    singleApi<PlayerApi>(API_RETROFIT)
+    singleApi<PlaylistApi>(API_RETROFIT)
+    singleApi<SearchApi>(API_RETROFIT)
+    singleApi<TrackApi>(API_RETROFIT)
+    singleApi<UserApi>(API_RETROFIT)
+}
+
+private inline fun <reified T> Module.singleApi(retrofitName: String): KoinDefinition<T> {
+    return single<T> { get<Retrofit>(named(retrofitName)).create() }
 }
