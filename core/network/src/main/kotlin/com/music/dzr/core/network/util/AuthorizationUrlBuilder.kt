@@ -1,7 +1,7 @@
 package com.music.dzr.core.network.util
 
-import androidx.core.net.toUri
 import com.music.dzr.core.network.BuildConfig
+import okhttp3.HttpUrl.Companion.toHttpUrl
 
 /**
  * A helper class to build the authorization URL for the Spotify Authorization Code Flow with PKCE.
@@ -45,15 +45,15 @@ class AuthorizationUrlBuilder(
         state: String,
         codeChallenge: String
     ): String {
-        return AUTH_URL.toUri()
-            .buildUpon()
-            .appendQueryParameter("response_type", RESPONSE_TYPE)
-            .appendQueryParameter("client_id", clientId)
-            .appendQueryParameter("scope", scope)
-            .appendQueryParameter("redirect_uri", redirectUri)
-            .appendQueryParameter("state", state)
-            .appendQueryParameter("code_challenge_method", CODE_CHALLENGE_METHOD)
-            .appendQueryParameter("code_challenge", codeChallenge)
+        return authUrl.toHttpUrl()
+            .newBuilder()
+            .addQueryParameter("response_type", responseType)
+            .addQueryParameter("client_id", clientId)
+            .addQueryParameter("scope", scope)
+            .addQueryParameter("redirect_uri", redirectUri)
+            .addQueryParameter("state", state)
+            .addQueryParameter("code_challenge_method", codeChallengeMethod)
+            .addQueryParameter("code_challenge", codeChallenge)
             .build()
             .toString()
     }
