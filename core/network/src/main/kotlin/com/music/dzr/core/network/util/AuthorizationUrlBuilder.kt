@@ -11,12 +11,16 @@ import com.music.dzr.core.network.BuildConfig
  *
  * It assumes and hardcodes protocol-specific parameters required by Spotify, such as
  * `response_type` and `code_challenge_method`.
+ *
+ * The [clientId] is provided via DI and is encapsulated within this class.
  */
-object AuthorizationUrlBuilder {
+class AuthorizationUrlBuilder(
+    private val clientId: String
+) {
 
-    private const val AUTH_URL = "${BuildConfig.SPOTIFY_ACCOUNTS_URL}authorize"
-    private const val RESPONSE_TYPE = "code"
-    private const val CODE_CHALLENGE_METHOD = "S256"
+    private val authUrl = "${BuildConfig.SPOTIFY_ACCOUNTS_URL}authorize"
+    private val responseType = "code"
+    private val codeChallengeMethod = "S256"
 
     /**
      * Builds the full authorization URL to be opened in a browser or Custom Tab.
@@ -24,7 +28,6 @@ object AuthorizationUrlBuilder {
      * This method automatically includes the `code_challenge_method=S256` parameter, as this is
      * the only method supported and required by the Spotify API.
      *
-     * @param clientId The client ID of your application.
      * @param redirectUri The URI to redirect to after the user grants or denies permission.
      *                    This must be a constant value that is also configured in your app's
      *                    developer console.
@@ -37,7 +40,6 @@ object AuthorizationUrlBuilder {
      * @return A [String] containing the complete authorization URL.
      */
     fun build(
-        clientId: String,
         redirectUri: String,
         scope: String,
         state: String,
