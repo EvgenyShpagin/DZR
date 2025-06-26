@@ -19,9 +19,7 @@ import retrofit2.create
 
 internal val apiModule = module {
 
-    val clientId = BuildConfig.SPOTIFY_CLIENT_ID
-
-    single { AuthorizationUrlBuilder(clientId) }
+    single { AuthorizationUrlBuilder(BuildConfig.SPOTIFY_CLIENT_ID) }
 
     single<AuthApi> { get<Retrofit>(named(AUTH_RETROFIT)).create() }
 

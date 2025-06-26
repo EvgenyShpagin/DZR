@@ -14,8 +14,6 @@ internal const val AUTH_CLIENT = "AuthOkHttpClient"
 
 internal val httpClientModule = module {
 
-    val clientId = BuildConfig.SPOTIFY_CLIENT_ID
-
     single<HttpLoggingInterceptor.Logger> { HttpLoggingInterceptor.Logger.DEFAULT }
 
     single {
@@ -31,7 +29,7 @@ internal val httpClientModule = module {
     single<Authenticator> {
         TokenAuthenticator(
             tokenRepository = get(),
-            clientId = clientId,
+            clientId = BuildConfig.SPOTIFY_CLIENT_ID,
             authApi = get()
         )
     }
