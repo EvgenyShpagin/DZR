@@ -18,3 +18,10 @@ kotlin {
         jvmTarget.set(JvmTarget.JVM_17)
     }
 }
+
+tasks {
+    validatePlugins {
+        enableStricterValidation = true
+        failOnWarning = true
+    }
+}
