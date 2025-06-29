@@ -37,7 +37,7 @@ internal fun Project.configureKotlinAndroid(
     configureKotlin<KotlinAndroidProjectExtension>()
 
     dependencies {
-        "coreLibraryDesugaring"(libs.findLibrary("android.desugarJdkLibs").get())
+        coreLibraryDesugaring(libs.findLibrary("android-desugarJdkLibs").get())
     }
 }
 
@@ -64,7 +64,7 @@ private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() =
     when (this) {
         is KotlinAndroidProjectExtension -> compilerOptions
         is KotlinJvmProjectExtension -> compilerOptions
-        else -> TODO("Unsupported project extension $this ${T::class}")
+        else -> throw IllegalArgumentException("Unsupported project extension $this ${T::class}")
     }.apply {
         jvmTarget = JvmTarget.JVM_11
         allWarningsAsErrors = warningsAsErrors
