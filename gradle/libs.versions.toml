@@ -87,3 +87,13 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot" }
 secrets-gradle = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin" }
+# Base Convention Plugins
+dzr-android-application = { id = "dzr.android.application" }
+dzr-android-library = { id = "dzr.android.library" }
+dzr-jvm-library = { id = "dzr.jvm.library" }
+# Feature Convention Plugins
+dzr-android-application-compose = { id = "dzr.android.application.compose" }
+dzr-android-library-compose = { id = "dzr.android.library.compose" }
+dzr-koin = { id = "dzr.koin" }
+# Aggregate Convention Plugins
+dzr-android-feature = { id = "dzr.android.feature" }
