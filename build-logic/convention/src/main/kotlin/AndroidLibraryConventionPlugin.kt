@@ -1,12 +1,16 @@
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
+import com.music.dzr.androidTestImplementation
 import com.music.dzr.configureGradleManagedDevices
 import com.music.dzr.configureKotlinAndroid
 import com.music.dzr.disableEmptyAndroidTests
+import com.music.dzr.libs
+import com.music.dzr.testImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -25,6 +29,10 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             }
             extensions.configure<LibraryAndroidComponentsExtension> {
                 disableEmptyAndroidTests(target)
+            }
+            dependencies {
+                testImplementation(libs.findLibrary("kotlin.test").get())
+                androidTestImplementation(libs.findLibrary("kotlin.test").get())
             }
         }
     }
