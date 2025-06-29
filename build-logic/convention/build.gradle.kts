@@ -32,3 +32,41 @@ tasks {
         failOnWarning = true
     }
 }
+
+gradlePlugin {
+    plugins {
+        // Base Plugins
+        register("androidApplication") {
+            id = libs.plugins.dzr.android.application.asProvider().get().pluginId
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
+        register("androidLibrary") {
+            id = libs.plugins.dzr.android.library.asProvider().get().pluginId
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
+        register("jvmLibrary") {
+            id = libs.plugins.dzr.jvm.library.get().pluginId
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
+
+        // Feature Plugins
+        register("androidApplicationCompose") {
+            id = libs.plugins.dzr.android.application.compose.get().pluginId
+            implementationClass = "AndroidApplicationComposeConventionPlugin"
+        }
+        register("androidLibraryCompose") {
+            id = libs.plugins.dzr.android.library.compose.get().pluginId
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
+        }
+        register("koin") {
+            id = libs.plugins.dzr.koin.get().pluginId
+            implementationClass = "KoinConventionPlugin"
+        }
+
+        // Aggregate Plugins
+        register("androidFeature") {
+            id = libs.plugins.dzr.android.feature.get().pluginId
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
+    }
+}
