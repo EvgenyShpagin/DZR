@@ -73,6 +73,7 @@ kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.re
 screenshot-validation-api = { group = "com.android.tools.screenshot", name = "screenshot-validation-api", version.ref = "screenshot" }
 secrets-gradle = { group = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", name = "secrets-gradle-plugin", version.ref = "secrets" }
 # Dependencies of the included build-logic
+compose-screenshot-gradlePlugin = { module = "com.android.compose.screenshot:com.android.compose.screenshot.gradle.plugin", version.ref = "screenshot" }
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 compose-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -95,5 +96,6 @@ dzr-jvm-library = { id = "dzr.jvm.library" }
 dzr-android-application-compose = { id = "dzr.android.application.compose" }
 dzr-android-library-compose = { id = "dzr.android.library.compose" }
 dzr-koin = { id = "dzr.koin" }
+dzr-screenshot = { id = "dzr.screenshot" }
 # Aggregate Convention Plugins
 dzr-android-feature = { id = "dzr.android.feature" }

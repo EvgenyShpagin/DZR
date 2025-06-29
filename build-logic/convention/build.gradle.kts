@@ -24,6 +24,7 @@ dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.compose.gradlePlugin)
+    implementation(libs.compose.screenshot.gradlePlugin)
 }
 
 tasks {
@@ -61,6 +62,10 @@ gradlePlugin {
         register("koin") {
             id = libs.plugins.dzr.koin.get().pluginId
             implementationClass = "KoinConventionPlugin"
+        }
+        register("screenshot") {
+            id = libs.plugins.dzr.screenshot.get().pluginId
+            implementationClass = "ScreenshotConventionPlugin"
         }
 
         // Aggregate Plugins

@@ -24,3 +24,6 @@ fun DependencyHandler.testImplementation(dependencyNotation: Any) =
 
 fun DependencyHandler.androidTestImplementation(dependencyNotation: Any) =
     add("androidTestImplementation", dependencyNotation)
+
+fun DependencyHandler.screenshotTestImplementation(dependencyNotation: Any) =
+    add("screenshotTestImplementation", dependencyNotation)
