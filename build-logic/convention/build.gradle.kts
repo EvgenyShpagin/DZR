@@ -19,6 +19,13 @@ kotlin {
     }
 }
 
+// Specify dependencies which are used by plugins for compilation
+dependencies {
+    compileOnly(libs.android.gradlePlugin)
+    compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.compose.gradlePlugin)
+}
+
 tasks {
     validatePlugins {
         enableStricterValidation = true
