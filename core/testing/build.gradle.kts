@@ -13,5 +13,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:oauth"))
+    implementation(projects.core.oauth)
 }

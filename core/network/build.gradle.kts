@@ -35,14 +35,14 @@ secrets {
 
 dependencies {
     api(libs.kotlinx.datetime)
-    api(project(":core:oauth"))
+    api(projects.core.oauth)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
     implementation(libs.okhttp.logging)
     implementation(libs.kotlinx.coroutines.core)
 
-    testImplementation(project(":core:testing"))
+    testImplementation(projects.core.testing)
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)

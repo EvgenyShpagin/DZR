@@ -17,8 +17,8 @@ android {
 }
 
 dependencies {
-    api(project(":core:design-system"))
-    api(project(":core:model"))
+    api(projects.core.designSystem)
+    api(projects.core.model)
     implementation(libs.coil.compose)
     testImplementation(libs.junit)
 
