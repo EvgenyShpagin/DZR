@@ -14,6 +14,7 @@ class KoinConventionPlugin : Plugin<Project> {
             dependencies {
                 implementation(platform(bom))
                 testImplementation(platform(bom))
+                testImplementation(libs.findLibrary("koin.test").get())
             }
 
             // Add support for Jvm Modules
