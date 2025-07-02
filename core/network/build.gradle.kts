@@ -1,17 +1,14 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.dzr.android.library)
+    alias(libs.plugins.dzr.koin)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.secrets.gradle)
 }
 
 android {
     namespace = "com.music.dzr.core.network"
-    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-
         buildConfigField("String", "SPOTIFY_API_URL", "\"https://api.spotify.com/v1/\"")
         buildConfigField("String", "SPOTIFY_ACCOUNTS_URL", "\"https://accounts.spotify.com/\"")
     }
@@ -20,13 +17,6 @@ android {
         release {
             isMinifyEnabled = false
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
     }
     buildFeatures {
         buildConfig = true
@@ -50,8 +40,6 @@ dependencies {
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
     implementation(libs.okhttp.logging)
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin.core)
     implementation(libs.kotlinx.coroutines.core)
 
     testImplementation(project(":core:testing"))
@@ -59,5 +47,4 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockwebserver)
-    testImplementation(libs.koin.test)
 }
