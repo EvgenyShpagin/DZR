@@ -18,7 +18,7 @@ import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
 import org.junit.Rule
-import org.junit.Test
+import kotlin.test.Test
 
 class PlayableHeaderTest {
 

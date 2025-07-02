@@ -15,9 +15,9 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
-import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 
 /**
  * Tests for [ReleaseCard]
@@ -35,7 +35,7 @@ class ReleaseCardTest {
     private val releaseYear = "2000"
     private val releaseType = ReleaseType.ALBUM
 
-    @Before
+    @BeforeTest
     fun setUp() {
         every { mockOnClick() } just runs
         every { mockOnLongClick() } just runs

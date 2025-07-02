@@ -17,9 +17,9 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
-import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 
 class TrackTest {
 
@@ -34,7 +34,7 @@ class TrackTest {
     private val coverUrl = "https://example.com/track.jpg"
     private val contributors = listOf("Artist 1", "Artist 2")
 
-    @Before
+    @BeforeTest
     fun setUp() {
         every { mockOnClick() } just runs
         every { mockOnMoreClick() } just runs

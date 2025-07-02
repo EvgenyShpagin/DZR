@@ -12,9 +12,9 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
-import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 
 class PlaylistCardTest {
 
@@ -25,7 +25,7 @@ class PlaylistCardTest {
     private val name = "2000s Metal"
     private val url = "https://example.com/playlist.jpg"
 
-    @Before
+    @BeforeTest
     fun setUp() {
         every { mockOnClick() } just runs
 

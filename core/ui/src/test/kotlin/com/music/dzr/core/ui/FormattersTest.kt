@@ -1,7 +1,7 @@
 package com.music.dzr.core.ui
 
-import junit.framework.TestCase.assertEquals
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class FormattersTest {
 
