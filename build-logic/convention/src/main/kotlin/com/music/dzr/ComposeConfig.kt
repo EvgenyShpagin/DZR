@@ -26,6 +26,7 @@ internal fun Project.configureAndroidCompose(
             androidTestImplementation(platform(bom))
             implementation(libs.findLibrary("androidx.ui.tooling.preview").get())
             debugImplementation(libs.findLibrary("androidx.ui.tooling").get())
+            debugImplementation(libs.findLibrary("androidx.ui.test.manifest").get())
         }
     }
 
