@@ -2,26 +2,26 @@ package com.music.dzr.core.network.api
 
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class MarketApiTest {
 
     private lateinit var server: MockWebServer
     private lateinit var api: MarketApi
 
-    @Before
+    @BeforeTest
     fun setUp() {
         server = MockWebServer()
         server.start()
         api = createApi(server.url("/"))
     }
 
-    @After
+    @AfterTest
     fun tearDown() {
         server.shutdown()
     }
@@ -37,7 +37,7 @@ class MarketApiTest {
         // Assert: correct data is fetched
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals(185, list.count())
             assertEquals("AD", list.first())
             assertEquals("ZW", list.last())

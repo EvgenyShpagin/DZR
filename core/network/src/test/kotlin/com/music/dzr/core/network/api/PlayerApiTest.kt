@@ -1,17 +1,17 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.player.RepeatMode
 import com.music.dzr.core.network.model.player.Offset
 import com.music.dzr.core.network.model.player.PlaybackOptions
+import com.music.dzr.core.network.model.player.RepeatMode
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class PlayerApiTest {
 
@@ -20,13 +20,13 @@ class PlayerApiTest {
     private val deviceId = "dummy_id"
     private val market = "US"
 
-    @Before
+    @BeforeTest
     fun setUp() {
         server = MockWebServer().apply { start() }
         api = createApi(server.url("/"))
     }
 
-    @After
+    @AfterTest
     fun tearDown() {
         server.shutdown()
     }
@@ -42,7 +42,7 @@ class PlayerApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals(true, response.data!!.isPlaying)
+        assertEquals(true, response.data.isPlaying)
     }
 
     @Test
@@ -87,8 +87,8 @@ class PlayerApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals(2, response.data!!.list.size)
-        assertEquals("febce7d2eaa377ac85b9f2289f744806ce55435b", response.data!!.list[0].id)
+        assertEquals(2, response.data.list.size)
+        assertEquals("febce7d2eaa377ac85b9f2289f744806ce55435b", response.data.list[0].id)
     }
 
     @Test
@@ -116,7 +116,7 @@ class PlayerApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals(true, response.data!!.isPlaying)
+        assertEquals(true, response.data.isPlaying)
     }
 
     @Test
@@ -276,7 +276,7 @@ class PlayerApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals(20, response.data!!.items.size)
+        assertEquals(20, response.data.items.size)
     }
 
     @Test

@@ -4,8 +4,8 @@ import com.music.dzr.core.network.model.player.Offset
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class OffsetSerializerTest {
 

@@ -4,9 +4,9 @@ import com.music.dzr.core.network.model.user.TimeRange
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThrows
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class TimeRangeSerializerTest {
     private val json = Json { ignoreUnknownKeys = true }
@@ -35,7 +35,7 @@ class TimeRangeSerializerTest {
     @Test
     fun throwsException_whenGotUnknown() {
         val input = "\"unknown\""
-        assertThrows(SerializationException::class.java) {
+        assertFailsWith<SerializationException> {
             json.decodeFromString<TimeRange>(input)
         }
     }

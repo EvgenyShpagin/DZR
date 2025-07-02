@@ -3,12 +3,12 @@ package com.music.dzr.core.network.api
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Instant
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class AlbumApiTest {
 
@@ -21,14 +21,14 @@ class AlbumApiTest {
     private val commaSeparatedIds = "1,2,3"
     private val encodedCommaSeparatedIds = "1%2C2%2C3"
 
-    @Before
+    @BeforeTest
     fun setUp() {
         server = MockWebServer()
         server.start()
         api = createApi(server.url("/"))
     }
 
-    @After
+    @AfterTest
     fun tearDown() {
         server.shutdown()
     }
@@ -44,7 +44,7 @@ class AlbumApiTest {
         // Assert: correct data is fetched
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals(3, images.count())
             assertEquals(18, tracks.total)
             assertEquals("Global Warming", name)
@@ -76,7 +76,7 @@ class AlbumApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals(3, list.count())
             assertEquals("TRON: Legacy Reconfigured", list.first().name)
         }
@@ -107,7 +107,7 @@ class AlbumApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals(18, items.count())
             with(items.first()) {
                 assertEquals("Global Warming (feat. Sensato)", name)
@@ -144,7 +144,7 @@ class AlbumApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals(2, items.count())
             with(items.first()) {
                 assertEquals("TRON: Legacy Reconfigured", album.name)
@@ -289,7 +289,7 @@ class AlbumApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals(2, size)
             assertEquals(false, first())
         }
@@ -319,7 +319,7 @@ class AlbumApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals(20, list.items.count())
             assertEquals(20, list.limit)
             assertEquals(100, list.total)

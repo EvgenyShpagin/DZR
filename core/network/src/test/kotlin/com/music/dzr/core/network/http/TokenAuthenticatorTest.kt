@@ -13,11 +13,11 @@ import kotlinx.coroutines.test.runTest
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class TokenAuthenticatorTest {
 
@@ -27,7 +27,7 @@ class TokenAuthenticatorTest {
 
     private val mockRoute: Route? = null
 
-    @Before
+    @BeforeTest
     fun setUp() {
         tokenRepository = FakeTokenRepository()
         authenticator = TokenAuthenticator(tokenRepository, "test_client_id", authApi)
@@ -53,7 +53,7 @@ class TokenAuthenticatorTest {
 
         // Assert
         assertNotNull(newRequest)
-        assertEquals("Bearer ${newToken.accessToken}", newRequest?.header("Authorization"))
+        assertEquals("Bearer ${newToken.accessToken}", newRequest.header("Authorization"))
         assertEquals(newToken.accessToken, tokenRepository.getAccessToken())
         assertEquals(newToken.refreshToken, tokenRepository.getRefreshToken())
     }
@@ -128,7 +128,7 @@ class TokenAuthenticatorTest {
 
         // Assert
         assertNotNull(newRequest)
-        assertEquals("Bearer $refreshedToken", newRequest?.header("Authorization"))
+        assertEquals("Bearer $refreshedToken", newRequest.header("Authorization"))
         coVerify(exactly = 0) { authApi.refreshToken(any(), any(), any()) }
     }
 

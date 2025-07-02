@@ -2,27 +2,27 @@ package com.music.dzr.core.network.api
 
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Before
-import org.junit.Test
 import java.net.URLDecoder
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class AuthApiTest {
 
     private lateinit var server: MockWebServer
     private lateinit var api: AuthApi
 
-    @Before
+    @BeforeTest
     fun setUp() {
         server = MockWebServer()
         server.start()
         api = createApi(server.url("/"))
     }
 
-    @After
+    @AfterTest
     fun tearDown() {
         server.shutdown()
     }
@@ -43,7 +43,7 @@ class AuthApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals("BQBLuPRYBQ...BP8stIv5xr-Iwaf4l8eg", accessToken)
             assertEquals("Bearer", tokenType)
             assertEquals(3600, expiresIn)
@@ -94,7 +94,7 @@ class AuthApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals("BQBLuPRYBQ...BP8stIv5xr-Iwaf4l8eg", accessToken)
             assertEquals("Bearer", tokenType)
             assertEquals(3600, expiresIn)

@@ -2,10 +2,10 @@ package com.music.dzr.core.network.di
 
 import com.music.dzr.core.oauth.repository.TokenRepository
 import io.mockk.mockk
-import org.junit.Test
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.dsl.module
 import org.koin.test.verify.verify
+import kotlin.test.Test
 
 @OptIn(KoinExperimentalAPI::class)
 class NetworkModuleTest {

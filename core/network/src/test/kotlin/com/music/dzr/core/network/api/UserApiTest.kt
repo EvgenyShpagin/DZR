@@ -4,12 +4,12 @@ import com.music.dzr.core.network.model.playlist.PlaylistFollowDetails
 import com.music.dzr.core.network.model.user.TimeRange
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class UserApiTest {
 
@@ -20,14 +20,14 @@ class UserApiTest {
     private val commaSeparatedIds = "1,2,3"
     private val encodedCommaSeparatedIds = "1%2C2%2C3"
 
-    @Before
+    @BeforeTest
     fun setUp() {
         server = MockWebServer()
         server.start()
         api = createApi(server.url("/"))
     }
 
-    @After
+    @AfterTest
     fun tearDown() {
         server.shutdown()
     }
@@ -41,7 +41,7 @@ class UserApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals("sancotmdyspqyhjsc2d5qz1du", response.data!!.id)
+        assertEquals("sancotmdyspqyhjsc2d5qz1du", response.data.id)
     }
 
     @Test
@@ -53,7 +53,7 @@ class UserApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals(20, response.data!!.items.size)
+        assertEquals(20, response.data.items.size)
     }
 
     @Test
@@ -81,7 +81,7 @@ class UserApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals("smedjan", response.data!!.displayName)
+        assertEquals("smedjan", response.data.displayName)
     }
 
     @Test
@@ -119,7 +119,7 @@ class UserApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals(20, response.data!!.list.items.size)
+        assertEquals(20, response.data.list.items.size)
     }
 
     @Test
@@ -161,7 +161,7 @@ class UserApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals(listOf(false, true), response.data!!)
+        assertEquals(listOf(false, true), response.data)
     }
 
     @Test
@@ -173,6 +173,6 @@ class UserApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals(listOf(true), response.data!!)
+        assertEquals(listOf(true), response.data)
     }
 } 

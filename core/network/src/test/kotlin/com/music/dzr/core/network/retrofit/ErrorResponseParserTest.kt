@@ -7,8 +7,6 @@ import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody.Companion.toResponseBody
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
@@ -16,6 +14,8 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLException
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ErrorResponseParserTest {
 

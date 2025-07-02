@@ -2,9 +2,9 @@ package com.music.dzr.core.network.util
 
 import com.music.dzr.core.network.BuildConfig
 import okhttp3.HttpUrl.Companion.toHttpUrl
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import java.net.URL
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class AuthorizationUrlBuilderTest {
 

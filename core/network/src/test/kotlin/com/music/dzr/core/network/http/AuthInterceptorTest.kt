@@ -5,11 +5,11 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class AuthInterceptorTest {
 
@@ -17,7 +17,7 @@ class AuthInterceptorTest {
     private lateinit var client: OkHttpClient
     private lateinit var tokenRepository: FakeTokenRepository
 
-    @Before
+    @BeforeTest
     fun setUp() {
         server = MockWebServer()
         server.start()
@@ -27,7 +27,7 @@ class AuthInterceptorTest {
             .build()
     }
 
-    @After
+    @AfterTest
     fun tearDown() {
         server.shutdown()
     }

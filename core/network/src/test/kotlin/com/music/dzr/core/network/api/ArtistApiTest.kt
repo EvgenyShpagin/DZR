@@ -3,12 +3,12 @@ package com.music.dzr.core.network.api
 import com.music.dzr.core.network.model.album.ReleaseDate
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class ArtistApiTest {
 
@@ -18,13 +18,13 @@ class ArtistApiTest {
     private val commaSeparatedIds = "1,2,3"
     private val encodedCommaSeparatedIds = "1%2C2%2C3"
 
-    @Before
+    @BeforeTest
     fun setUp() {
         server = MockWebServer().apply { start() }
         api = createApi(server.url("/"))
     }
 
-    @After
+    @AfterTest
     fun tearDown() {
         server.shutdown()
     }
@@ -40,7 +40,7 @@ class ArtistApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals("Pitbull", name)
             assertEquals(88, popularity)
             assertEquals(emptyList<String>(), genres)
@@ -72,7 +72,7 @@ class ArtistApiTest {
         // Assert Response
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals(3, list.count())
             with(list.first()) {
                 assertEquals("deadmau5", name)
@@ -106,7 +106,7 @@ class ArtistApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals(20, items.count())
             with(items.first()) {
                 assertEquals("Trackhouse (Daytona 500 Edition)", name)
@@ -154,7 +154,7 @@ class ArtistApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals(10, list.count())
             with(list.first()) {
                 assertEquals("Give Me Everything (feat. Nayer)", name)

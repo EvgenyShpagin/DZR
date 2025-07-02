@@ -1,11 +1,11 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.playlist.TrackAdditions
-import com.music.dzr.core.network.model.playlist.PlaylistDetailsUpdate
 import com.music.dzr.core.network.model.playlist.NewPlaylistDetails
+import com.music.dzr.core.network.model.playlist.PlaylistDetailsUpdate
+import com.music.dzr.core.network.model.playlist.PlaylistItemsUpdate
+import com.music.dzr.core.network.model.playlist.TrackAdditions
 import com.music.dzr.core.network.model.playlist.TrackRemovals
 import com.music.dzr.core.network.model.playlist.TrackToRemove
-import com.music.dzr.core.network.model.playlist.PlaylistItemsUpdate
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.encodeToString
@@ -13,12 +13,12 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 @ExperimentalCoroutinesApi
 class PlaylistApiTest {
@@ -33,14 +33,14 @@ class PlaylistApiTest {
     private val trackUris = listOf("spotify:track:4iV5W9uYEdYUVa79Axb7Rh")
     private val trackUri = trackUris.first()
 
-    @Before
+    @BeforeTest
     fun setUp() {
         server = MockWebServer()
         server.start()
         api = createApi(server.url("/"))
     }
 
-    @After
+    @AfterTest
     fun tearDown() {
         server.shutdown()
     }
@@ -56,7 +56,7 @@ class PlaylistApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals("Spotify Web API Testing playlist", name)
             with(tracks) {
                 assertEquals("Api", items.first().track.name)
@@ -125,7 +125,7 @@ class PlaylistApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals(5, total)
             with(items) {
                 assertEquals("Api", first().track.name)
@@ -159,7 +159,7 @@ class PlaylistApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", response.data!!.snapshotId)
+        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", response.data.snapshotId)
     }
 
     @Test
@@ -197,7 +197,7 @@ class PlaylistApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", response.data!!.snapshotId)
+        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", response.data.snapshotId)
     }
 
     @Test
@@ -228,7 +228,7 @@ class PlaylistApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", response.data!!.snapshotId)
+        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", response.data.snapshotId)
     }
 
     @Test
@@ -261,7 +261,7 @@ class PlaylistApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals(9, total)
             assertEquals("Rock", items.first().name)
         }
@@ -311,7 +311,7 @@ class PlaylistApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals("3cEYpjA9oz9GiPac4AsH4n", response.data!!.id)
+        assertEquals("3cEYpjA9oz9GiPac4AsH4n", response.data.id)
     }
 
     @Test
@@ -346,8 +346,8 @@ class PlaylistApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        assertEquals(3, response.data!!.count())
-        assertEquals(640, response.data!!.first().height)
+        assertEquals(3, response.data.count())
+        assertEquals(640, response.data.first().height)
     }
 
     @Test

@@ -2,25 +2,25 @@ package com.music.dzr.core.network.api
 
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class BrowseCategoryApiTest {
 
     private lateinit var server: MockWebServer
     private lateinit var api: BrowseCategoryApi
 
-    @Before
+    @BeforeTest
     fun setUp() {
         server = MockWebServer().apply { start() }
         api = createApi(server.url("/"))
     }
 
-    @After
+    @AfterTest
     fun tearDown() {
         server.shutdown()
     }
@@ -36,7 +36,7 @@ class BrowseCategoryApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!.list) {
+        with(response.data.list) {
             assertEquals(20, items.count())
             assertEquals("Made For You", items.first().name)
             assertEquals(64, total)
@@ -72,7 +72,7 @@ class BrowseCategoryApiTest {
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
-        with(response.data!!) {
+        with(response.data) {
             assertEquals("Made For You", name)
         }
     }
