@@ -44,7 +44,7 @@ fun RadioCard(
     ) {
         InspectableAsyncImage(
             model = pictureUrl,
-            contentDescription = stringResource(R.string.cd_radio),
+            contentDescription = stringResource(R.string.core_ui_cd_radio),
             placeholder = painterResource(designSystemR.drawable.ic_placeholder_default),
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()

@@ -65,7 +65,7 @@ class ReleaseRowTest {
     @Test
     fun releaseRow_invokesCallback_moreButton() {
         setContent()
-        val moreButtonDesc = composeTestRule.activity.getString(R.string.cd_show_more)
+        val moreButtonDesc = composeTestRule.activity.getString(R.string.core_ui_cd_show_more)
         composeTestRule.onNodeWithContentDescription(moreButtonDesc).performClick()
     }
 

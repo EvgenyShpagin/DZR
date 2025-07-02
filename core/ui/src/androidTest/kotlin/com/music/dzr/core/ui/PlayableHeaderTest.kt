@@ -68,7 +68,7 @@ class PlayableHeaderTest {
             )
         }
 
-        val playMusicText = composeTestRule.activity.getString(R.string.cd_play_music)
+        val playMusicText = composeTestRule.activity.getString(R.string.core_ui_cd_play_music)
         composeTestRule
             .onNodeWithContentDescription(playMusicText)
             .performClick()
@@ -88,7 +88,7 @@ class PlayableHeaderTest {
         }
 
         // Check for pause button when isPlaying=true
-        val pauseMusicText = composeTestRule.activity.getString(R.string.cd_pause_music)
+        val pauseMusicText = composeTestRule.activity.getString(R.string.core_ui_cd_pause_music)
         composeTestRule.onNodeWithContentDescription(pauseMusicText).assertIsDisplayed()
     }
 }

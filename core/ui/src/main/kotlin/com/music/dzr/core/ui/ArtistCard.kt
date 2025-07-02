@@ -40,13 +40,13 @@ fun ArtistCard(
                 role = Role.Button,
                 onClick = onClick,
                 onLongClick = onLongClick,
-                onLongClickLabel = stringResource(R.string.cd_show_more)
+                onLongClickLabel = stringResource(R.string.core_ui_cd_show_more)
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         InspectableAsyncImage(
             model = pictureUrl,
-            contentDescription = stringResource(R.string.cd_artist),
+            contentDescription = stringResource(R.string.core_ui_cd_artist),
             placeholder = painterResource(designSystemR.drawable.ic_placeholder_default),
             contentScale = ContentScale.Crop,
             modifier = Modifier

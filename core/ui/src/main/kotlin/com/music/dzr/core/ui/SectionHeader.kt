@@ -78,7 +78,7 @@ private fun SectionHeaderInternal(
                 Icon(
                     DzrIcons.KeyboardArrowRight,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    contentDescription = stringResource(R.string.cd_to_detailed_view),
+                    contentDescription = stringResource(R.string.core_ui_cd_to_detailed_view),
                     modifier = Modifier
                         .padding(start = 16.dp)
                         .size(20.dp)

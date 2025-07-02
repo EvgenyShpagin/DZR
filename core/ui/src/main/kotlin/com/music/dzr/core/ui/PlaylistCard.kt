@@ -30,7 +30,7 @@ fun PlaylistCard(
     ) {
         TrackListCover(
             coverUrl = pictureUrl,
-            contentDescription = stringResource(R.string.cd_playlist),
+            contentDescription = stringResource(R.string.core_ui_cd_playlist),
             modifier = Modifier.size(128.dp)
         )
         Spacer(Modifier.height(4.dp))

@@ -48,13 +48,13 @@ fun ReleaseCard(
                 role = Role.Button,
                 onClick = onClick,
                 onLongClick = onLongClick,
-                onLongClickLabel = stringResource(R.string.cd_show_more)
+                onLongClickLabel = stringResource(R.string.core_ui_cd_show_more)
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TrackListCover(
             coverUrl = coverUrl,
-            contentDescription = stringResource(R.string.cd_release_cover),
+            contentDescription = stringResource(R.string.core_ui_cd_release_cover),
             modifier = coverModifier.size(128.dp)
         )
         Spacer(Modifier.height(4.dp))
@@ -98,7 +98,7 @@ fun ReleaseRow(
     ) {
         TrackListCover(
             coverUrl = coverUrl,
-            contentDescription = stringResource(R.string.cd_release_cover),
+            contentDescription = stringResource(R.string.core_ui_cd_release_cover),
             modifier = coverModifier.size(96.dp)
         )
         Spacer(Modifier.width(16.dp))
@@ -118,7 +118,7 @@ fun ReleaseRow(
         IconButton(onClick = onMoreClick) {
             Icon(
                 DzrIcons.MoreVert,
-                contentDescription = stringResource(R.string.cd_show_more)
+                contentDescription = stringResource(R.string.core_ui_cd_show_more)
             )
         }
     }

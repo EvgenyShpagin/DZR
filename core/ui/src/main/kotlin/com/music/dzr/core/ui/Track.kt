@@ -40,7 +40,7 @@ fun Track(
             {
                 InspectableAsyncImage(
                     model = url,
-                    contentDescription = stringResource(R.string.cd_track_cover),
+                    contentDescription = stringResource(R.string.core_ui_cd_track_cover),
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(designSystemR.drawable.ic_placeholder_default),
                     modifier = Modifier.clip(ShapeDefaults.ExtraSmall)
@@ -67,7 +67,7 @@ fun Track(
             ) {
                 Icon(
                     DzrIcons.MoreVert,
-                    contentDescription = stringResource(R.string.cd_show_more)
+                    contentDescription = stringResource(R.string.core_ui_cd_show_more)
                 )
             }
         },
@@ -75,7 +75,7 @@ fun Track(
             role = Role.Button,
             onClick = onClick,
             onLongClick = onLongClick,
-            onLongClickLabel = stringResource(R.string.cd_show_more)
+            onLongClickLabel = stringResource(R.string.core_ui_cd_show_more)
         )
     )
 }

@@ -178,9 +178,9 @@ private fun PlayButton(
         modifier = modifier
     ) {
         if (isPlaying) {
-            Icon(DzrIcons.Pause, stringResource(R.string.cd_pause_music))
+            Icon(DzrIcons.Pause, stringResource(R.string.core_ui_cd_pause_music))
         } else {
-            Icon(DzrIcons.PlayArrow, stringResource(R.string.cd_play_music))
+            Icon(DzrIcons.PlayArrow, stringResource(R.string.core_ui_cd_play_music))
         }
     }
 }
