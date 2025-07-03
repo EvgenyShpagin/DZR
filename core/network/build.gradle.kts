@@ -31,6 +31,7 @@ android {
 
 secrets {
     propertiesFileName = "core/network/secrets.properties"
+    defaultPropertiesFileName = "core/network/secrets.defaults.properties"
 }
 
 dependencies {
