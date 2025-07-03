@@ -2,6 +2,7 @@ package com.music.dzr.core.network.di
 
 import com.music.dzr.core.network.BuildConfig
 import com.music.dzr.core.network.http.AuthInterceptor
+import com.music.dzr.core.network.http.RateLimitInterceptor
 import com.music.dzr.core.network.http.TokenAuthenticator
 import okhttp3.Authenticator
 import okhttp3.OkHttpClient
@@ -26,6 +27,8 @@ internal val httpClientModule = module {
 
     single { AuthInterceptor(get()) }
 
+    single { RateLimitInterceptor() }
+
     single<Authenticator> {
         TokenAuthenticator(
             tokenRepository = get(),
@@ -45,6 +48,7 @@ internal val httpClientModule = module {
             .authenticator(get<Authenticator>())
             .addInterceptor(get<AuthInterceptor>())
             .addInterceptor(get<HttpLoggingInterceptor>())
+            .addNetworkInterceptor(get<RateLimitInterceptor>())
             .build()
     }
 } 
