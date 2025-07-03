@@ -26,13 +26,21 @@ internal fun MockWebServer.enqueueResponseFromAssets(assetFilename: String, code
 }
 
 /**
- * Enqueues an empty response with a given HTTP status code.
+ * Enqueues an empty response with a given HTTP status code and headers.
  */
-internal fun MockWebServer.enqueueEmptyResponse(code: Int = 200) {
+internal fun MockWebServer.enqueueEmptyResponse(
+    code: Int = 200,
+    headers: Map<String, String> = emptyMap()
+) {
     enqueue(
         MockResponse()
             .setResponseCode(code)
             .setBody("")
+            .apply {
+                headers.forEach { (name, value) ->
+                    addHeader(name, value)
+                }
+            }
     )
 }
 
