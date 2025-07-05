@@ -43,7 +43,7 @@ class ArtistApiTest {
         with(response.data) {
             assertEquals("Pitbull", name)
             assertEquals(88, popularity)
-            assertEquals(emptyList<String>(), genres)
+            assertEquals(emptyList(), genres)
         }
     }
 
