@@ -74,7 +74,7 @@ private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() =
              * https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-consistent-copy-visibility/#deprecation-timeline
              *
              * Deprecation timeline
-             * Phase 3. (Supposedly Kotlin 2.2 or Kotlin 2.3).
+             * Phase 3. (Kotlin 2.3).
              * The default changes.
              * Unless ExposedCopyVisibility is used, the generated 'copy' method has the same visibility as the primary constructor.
              * The binary signature changes. The error on the declaration is no longer reported.
