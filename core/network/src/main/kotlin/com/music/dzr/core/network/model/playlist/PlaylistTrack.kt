@@ -2,9 +2,9 @@ package com.music.dzr.core.network.model.playlist
 
 import com.music.dzr.core.network.model.track.Track
 import com.music.dzr.core.network.model.user.PublicUser
-import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.time.Instant
 
 /**
  * Represents a track in a playlist.

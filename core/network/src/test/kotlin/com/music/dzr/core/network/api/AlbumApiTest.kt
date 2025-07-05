@@ -1,7 +1,6 @@
 package com.music.dzr.core.network.api
 
 import kotlinx.coroutines.test.runTest
-import kotlinx.datetime.Instant
 import okhttp3.mockwebserver.MockWebServer
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -9,6 +8,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
+import kotlin.time.Instant
 
 class AlbumApiTest {
 

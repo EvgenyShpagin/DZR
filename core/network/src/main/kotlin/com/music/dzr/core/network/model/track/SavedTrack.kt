@@ -1,8 +1,8 @@
 package com.music.dzr.core.network.model.track
 
-import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.time.Instant
 
 /**
  * Represents a track saved in the current user's library.

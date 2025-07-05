@@ -1,9 +1,9 @@
 package com.music.dzr.core.network.model.player
 
 import com.music.dzr.core.network.model.track.Track
-import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.time.Instant
 
 /**
  * Represents an entry in the user's recently played tracks.

@@ -35,7 +35,6 @@ secrets {
 }
 
 dependencies {
-    api(libs.kotlinx.datetime)
     api(projects.core.oauth)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.retrofit.core)

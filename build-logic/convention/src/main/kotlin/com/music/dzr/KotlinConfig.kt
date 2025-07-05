@@ -82,5 +82,13 @@ private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() =
              */
             "-Xconsistent-data-class-copy-visibility"
         )
+
+        freeCompilerArgs.add(
+            /**
+             * Avoids widespread `@OptIn(kotlin.time.ExperimentalTime::class)` annotations
+             * required for the experimental `kotlin.time.Instant` API.
+             */
+            "-opt-in=kotlin.time.ExperimentalTime"
+        )
     }
 }
