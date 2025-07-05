@@ -21,7 +21,7 @@ kotlinxDatetime = "0.6.1"
 kotlinxCoroutines = "1.10.2"
 retrofit = "2.11.0"
 okhttp = "4.7.2"
-koin-bom = "4.0.4"
+koin-bom = "4.1.0"
 screenshot = "0.0.1-alpha10"
 secrets = "2.0.1"
 
