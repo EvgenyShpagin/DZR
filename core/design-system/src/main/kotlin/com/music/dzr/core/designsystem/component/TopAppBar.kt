@@ -37,7 +37,7 @@ fun DzrTopAppBar(
             IconButton(onClick = onNavigationClick) {
                 Icon(
                     imageVector = DzrIcons.ArrowBack,
-                    contentDescription = stringResource(R.string.cd_navigation_back),
+                    contentDescription = stringResource(R.string.core_design_system_cd_navigation_back),
                     tint = MaterialTheme.colorScheme.onSurface,
                 )
             }

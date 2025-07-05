@@ -17,7 +17,7 @@ fun TrackListCover(
     coverUrl: String,
     contentDescription: String,
     modifier: Modifier = Modifier,
-    placeholder: Painter = painterResource(designSystemR.drawable.ic_placeholder_default)
+    placeholder: Painter = painterResource(designSystemR.drawable.core_design_system_ic_placeholder_default)
 ) {
     InspectableAsyncImage(
         model = coverUrl,

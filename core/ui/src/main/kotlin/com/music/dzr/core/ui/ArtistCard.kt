@@ -47,7 +47,7 @@ fun ArtistCard(
         InspectableAsyncImage(
             model = pictureUrl,
             contentDescription = stringResource(R.string.core_ui_cd_artist),
-            placeholder = painterResource(designSystemR.drawable.ic_placeholder_default),
+            placeholder = painterResource(designSystemR.drawable.core_design_system_ic_placeholder_default),
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(128.dp)

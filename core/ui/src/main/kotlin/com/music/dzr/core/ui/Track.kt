@@ -42,7 +42,7 @@ fun Track(
                     model = url,
                     contentDescription = stringResource(R.string.core_ui_cd_track_cover),
                     contentScale = ContentScale.Crop,
-                    placeholder = painterResource(designSystemR.drawable.ic_placeholder_default),
+                    placeholder = painterResource(designSystemR.drawable.core_design_system_ic_placeholder_default),
                     modifier = Modifier.clip(ShapeDefaults.ExtraSmall)
                 )
             }

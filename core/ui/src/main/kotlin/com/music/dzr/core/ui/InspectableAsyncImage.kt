@@ -20,7 +20,7 @@ fun InspectableAsyncImage(
 ) {
     if (LocalInspectionMode.current) {
         Image(
-            painter = inspectionImage ?: painterResource(R.drawable.inspection_placeholder),
+            painter = inspectionImage ?: painterResource(R.drawable.core_design_system_inspection_placeholder),
             contentDescription = null,
             contentScale = contentScale,
             modifier = modifier
