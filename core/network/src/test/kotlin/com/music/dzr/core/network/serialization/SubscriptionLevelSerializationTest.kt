@@ -1,7 +1,6 @@
 package com.music.dzr.core.network.serialization
 
 import com.music.dzr.core.network.model.user.SubscriptionLevel
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals

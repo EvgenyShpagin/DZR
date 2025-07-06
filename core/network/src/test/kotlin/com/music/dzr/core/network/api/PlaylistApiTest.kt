@@ -6,9 +6,7 @@ import com.music.dzr.core.network.model.playlist.PlaylistItemsUpdate
 import com.music.dzr.core.network.model.playlist.TrackAdditions
 import com.music.dzr.core.network.model.playlist.TrackRemovals
 import com.music.dzr.core.network.model.playlist.TrackToRemove
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -20,7 +18,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
-@ExperimentalCoroutinesApi
 class PlaylistApiTest {
 
     private lateinit var server: MockWebServer
