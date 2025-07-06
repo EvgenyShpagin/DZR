@@ -1,15 +1,16 @@
 package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.auth.PermissionScope
+import com.music.dzr.core.network.model.playlist.NewPlaylistDetails
+import com.music.dzr.core.network.model.playlist.Playlist
+import com.music.dzr.core.network.model.playlist.PlaylistDetailsUpdate
+import com.music.dzr.core.network.model.playlist.PlaylistItemsUpdate
 import com.music.dzr.core.network.model.playlist.PlaylistTrack
 import com.music.dzr.core.network.model.playlist.PlaylistWithPaginatedTracks
 import com.music.dzr.core.network.model.playlist.PlaylistWithTracks
 import com.music.dzr.core.network.model.playlist.PlaylistWithTracksInfo
 import com.music.dzr.core.network.model.playlist.TrackAdditions
-import com.music.dzr.core.network.model.playlist.PlaylistDetailsUpdate
-import com.music.dzr.core.network.model.playlist.NewPlaylistDetails
 import com.music.dzr.core.network.model.playlist.TrackRemovals
-import com.music.dzr.core.network.model.playlist.PlaylistItemsUpdate
 import com.music.dzr.core.network.model.shared.Image
 import com.music.dzr.core.network.model.shared.NetworkResponse
 import com.music.dzr.core.network.model.shared.PaginatedList
