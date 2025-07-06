@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.model.user
 
+import com.music.dzr.core.network.model.auth.PermissionScope
 import com.music.dzr.core.network.model.shared.ExternalUrls
 import com.music.dzr.core.network.model.shared.Followers
 import com.music.dzr.core.network.model.shared.Image
