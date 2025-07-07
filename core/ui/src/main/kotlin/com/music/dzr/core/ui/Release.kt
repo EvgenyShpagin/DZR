@@ -27,7 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
-import com.music.dzr.core.model.ReleaseType
+import com.music.dzr.core.model.album.ReleaseType
 
 @Composable
 fun ReleaseCard(

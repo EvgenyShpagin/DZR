@@ -9,7 +9,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
-import com.music.dzr.core.model.ReleaseType
+import com.music.dzr.core.model.album.ReleaseType
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
