@@ -7,7 +7,7 @@ import com.music.dzr.core.network.model.shared.ExternalUrls
 import com.music.dzr.core.network.model.shared.Image
 import com.music.dzr.core.network.model.shared.PaginatedList
 import com.music.dzr.core.network.model.shared.Restrictions
-import com.music.dzr.core.network.model.track.SimplifiedTrack
+import com.music.dzr.core.network.model.track.AlbumTrack
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -30,7 +30,7 @@ data class Album(
     val type: String,
     val uri: String,
     val artists: List<SimplifiedArtist>,
-    val tracks: PaginatedList<SimplifiedTrack>,
+    val tracks: PaginatedList<AlbumTrack>,
     val copyrights: List<Copyright>? = null,
     @SerialName("external_ids") val externalIds: ExternalIds? = null,
     val genres: List<String>? = null,
