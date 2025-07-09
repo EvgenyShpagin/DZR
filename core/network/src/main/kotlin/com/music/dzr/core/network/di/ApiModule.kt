@@ -4,7 +4,6 @@ import com.music.dzr.core.network.BuildConfig
 import com.music.dzr.core.network.api.AlbumApi
 import com.music.dzr.core.network.api.ArtistApi
 import com.music.dzr.core.network.api.AuthApi
-import com.music.dzr.core.network.api.BrowseCategoryApi
 import com.music.dzr.core.network.api.MarketApi
 import com.music.dzr.core.network.api.PlayerApi
 import com.music.dzr.core.network.api.PlaylistApi
@@ -27,7 +26,6 @@ internal val apiModule = module {
 
     singleApi<AlbumApi>(API_RETROFIT)
     singleApi<ArtistApi>(API_RETROFIT)
-    singleApi<BrowseCategoryApi>(API_RETROFIT)
     singleApi<MarketApi>(API_RETROFIT)
     singleApi<PlayerApi>(API_RETROFIT)
     singleApi<PlaylistApi>(API_RETROFIT)
