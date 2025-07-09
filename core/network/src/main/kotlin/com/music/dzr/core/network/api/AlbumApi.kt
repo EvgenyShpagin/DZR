@@ -6,7 +6,7 @@ import com.music.dzr.core.network.model.album.NewReleases
 import com.music.dzr.core.network.model.album.SavedAlbum
 import com.music.dzr.core.network.model.shared.NetworkResponse
 import com.music.dzr.core.network.model.shared.PaginatedList
-import com.music.dzr.core.network.model.track.AlbumTrack
+import com.music.dzr.core.network.model.album.AlbumTrack
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET

@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.model.track
+package com.music.dzr.core.network.model.album
 
 import com.music.dzr.core.network.model.artist.SimplifiedArtist
 import com.music.dzr.core.network.model.shared.ExternalUrls
