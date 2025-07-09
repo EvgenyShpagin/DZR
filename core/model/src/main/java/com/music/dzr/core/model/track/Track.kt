@@ -1,6 +1,7 @@
 package com.music.dzr.core.model.track
 
 import com.music.dzr.core.model.artist.SimplifiedArtist
+import com.music.dzr.core.model.shared.ContentRestriction
 import kotlin.time.Duration
 
 /**
@@ -17,4 +18,5 @@ sealed class Track {
     abstract val isPlayable: Boolean
     abstract val isLocal: Boolean
     abstract val externalUrl: String
+    abstract val restriction: ContentRestriction?
 }
