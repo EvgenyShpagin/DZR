@@ -22,4 +22,10 @@ data class Token(
     val expiresInSeconds: Int,
     val refreshToken: String?,
     val scopes: List<OAuthScope>?
-)
+) {
+    init {
+        require(accessToken.isNotBlank()) { "Access token cannot be blank" }
+        require(tokenType.isNotBlank()) { "Token type cannot be blank" }
+        require(expiresInSeconds > 0) { "Expires in seconds must be positive" }
+    }
+}
