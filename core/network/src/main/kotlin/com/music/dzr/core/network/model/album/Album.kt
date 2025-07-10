@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.model.album
 
+import android.annotation.SuppressLint
 import com.music.dzr.core.network.model.artist.SimplifiedArtist
 import com.music.dzr.core.network.model.shared.Copyright
 import com.music.dzr.core.network.model.shared.ExternalIds
@@ -13,6 +14,7 @@ import kotlinx.serialization.Serializable
 /**
  * Represents a full album object with all available fields.
  */
+@SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class Album(
     @SerialName("album_type") val albumType: AlbumType,
@@ -30,9 +32,8 @@ data class Album(
     val uri: String,
     val artists: List<SimplifiedArtist>,
     val tracks: PaginatedList<AlbumTrack>,
-    val copyrights: List<Copyright>? = null,
-    @SerialName("external_ids") val externalIds: ExternalIds? = null,
-    val genres: List<String>? = null,
-    val label: String? = null,
-    val popularity: Int? = null
+    val copyrights: List<Copyright>,
+    @SerialName("external_ids") val externalIds: ExternalIds,
+    val label: String,
+    val popularity: Int
 )
