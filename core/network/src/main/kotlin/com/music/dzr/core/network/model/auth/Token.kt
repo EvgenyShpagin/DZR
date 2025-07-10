@@ -3,7 +3,7 @@ package com.music.dzr.core.network.model.auth
 import com.music.dzr.core.oauth.model.OAuthScope
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import com.music.dzr.core.oauth.model.Token as DomainToken
+import com.music.dzr.core.oauth.model.OAuthToken as DomainToken
 
 /**
  * Represents the response from the Spotify token endpoint.

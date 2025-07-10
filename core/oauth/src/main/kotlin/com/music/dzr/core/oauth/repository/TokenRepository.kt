@@ -1,6 +1,6 @@
 package com.music.dzr.core.oauth.repository
 
-import com.music.dzr.core.oauth.model.Token
+import com.music.dzr.core.oauth.model.OAuthToken
 
 /**
  * An interface that defines the contract for storing, retrieving, and managing OAuth tokens.
@@ -16,9 +16,9 @@ interface TokenRepository {
      * The implementation should persist the necessary parts of the token. If the refreshToken
      * in the provided [token] is null, the existing refresh token should be preserved.
      *
-     * @param token The [Token] domain model to save.
+     * @param token The [OAuthToken] domain model to save.
      */
-    suspend fun saveToken(token: Token)
+    suspend fun saveToken(token: OAuthToken)
 
     /**
      * Retrieves the current access token.

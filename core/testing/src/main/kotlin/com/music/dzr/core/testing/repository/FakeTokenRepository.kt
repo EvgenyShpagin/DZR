@@ -1,6 +1,6 @@
 package com.music.dzr.core.testing.repository
 
-import com.music.dzr.core.oauth.model.Token
+import com.music.dzr.core.oauth.model.OAuthToken
 import com.music.dzr.core.oauth.repository.TokenRepository
 
 class FakeTokenRepository : TokenRepository {
@@ -14,7 +14,7 @@ class FakeTokenRepository : TokenRepository {
         this.refreshToken = refreshToken
     }
 
-    override suspend fun saveToken(token: Token) {
+    override suspend fun saveToken(token: OAuthToken) {
         this.accessToken = token.accessToken
         // Per the interface docs, preserve refresh token if the new one is null
         if (token.refreshToken != null) {

@@ -16,7 +16,7 @@ package com.music.dzr.core.oauth.model
  *                      as it's not always returned, especially on subsequent token refreshes.
  * @property scopes A list of scopes that have been granted for this token.
  */
-data class Token(
+data class OAuthToken(
     val accessToken: String,
     val tokenType: String,
     val expiresInSeconds: Int,
