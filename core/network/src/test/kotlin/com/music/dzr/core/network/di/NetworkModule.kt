@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.di
 
-import com.music.dzr.core.oauth.repository.TokenRepository
+import com.music.dzr.core.oauth.repository.OAuthTokenRepository
 import io.mockk.mockk
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.dsl.module
@@ -15,7 +15,7 @@ class NetworkModuleTest {
         // Arrange: The network module requires a TokenRepository.
         // We provide a relaxed mock to satisfy this dependency for verification.
         val mockTokenRepositoryModule = module {
-            single<TokenRepository> { mockk(relaxed = true) }
+            single<OAuthTokenRepository> { mockk(relaxed = true) }
         }
 
         // Act & Assert: Combine the real network module with the mock and run Koin's verification.

@@ -3,7 +3,7 @@ package com.music.dzr.core.network.http
 import com.music.dzr.core.network.api.AuthApi
 import com.music.dzr.core.network.model.auth.toDomain
 import com.music.dzr.core.network.model.error.NetworkErrorType
-import com.music.dzr.core.oauth.repository.TokenRepository
+import com.music.dzr.core.oauth.repository.OAuthTokenRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
@@ -19,7 +19,7 @@ import okhttp3.Route
  * @param authApi The API service for refreshing tokens.
  */
 internal class TokenAuthenticator(
-    private val tokenRepository: TokenRepository,
+    private val tokenRepository: OAuthTokenRepository,
     private val clientId: String,
     private val authApi: AuthApi
 ) : Authenticator {

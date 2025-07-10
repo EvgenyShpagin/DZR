@@ -8,7 +8,7 @@ import com.music.dzr.core.oauth.model.OAuthToken
  * This repository is responsible for the persistence of authentication state.
  * Implementations of this interface will handle the actual storage mechanism.
  */
-interface TokenRepository {
+interface OAuthTokenRepository {
 
     /**
      * Saves the complete token grant.

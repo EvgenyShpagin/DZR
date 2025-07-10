@@ -1,9 +1,9 @@
 package com.music.dzr.core.testing.repository
 
 import com.music.dzr.core.oauth.model.OAuthToken
-import com.music.dzr.core.oauth.repository.TokenRepository
+import com.music.dzr.core.oauth.repository.OAuthTokenRepository
 
-class FakeTokenRepository : TokenRepository {
+class FakeTokenRepository : OAuthTokenRepository {
 
     private var accessToken: String? = null
     private var refreshToken: String? = null
