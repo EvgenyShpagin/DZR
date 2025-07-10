@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.track
+package com.music.dzr.core.model.shared
 
 /**
  * Represents content popularity level.
