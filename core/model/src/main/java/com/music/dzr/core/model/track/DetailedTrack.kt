@@ -4,6 +4,7 @@ import com.music.dzr.core.model.album.AlbumOnTrack
 import com.music.dzr.core.model.artist.SimplifiedArtist
 import com.music.dzr.core.model.shared.ContentRestriction
 import com.music.dzr.core.model.shared.ExternalIdentifiers
+import com.music.dzr.core.model.shared.PopularityLevel
 import kotlin.time.Duration
 
 /**
@@ -22,6 +23,6 @@ data class DetailedTrack(
     override val externalUrl: String,
     override val restriction: ContentRestriction?,
     val album: AlbumOnTrack,
-    val popularity: Int,
+    val popularity: PopularityLevel,
     val externalIds: ExternalIdentifiers
 ) : Track()

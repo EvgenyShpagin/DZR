@@ -7,6 +7,7 @@ import com.music.dzr.core.model.shared.ExternalIdentifiers
 import com.music.dzr.core.model.shared.Image
 import com.music.dzr.core.model.shared.Market
 import com.music.dzr.core.model.shared.MusicGenre
+import com.music.dzr.core.model.shared.PopularityLevel
 import com.music.dzr.core.model.track.TrackOnAlbum
 
 /**
@@ -25,8 +26,8 @@ data class DetailedAlbum(
     override val restriction: ContentRestriction?,
     val tracks: List<TrackOnAlbum>,
     val copyrights: List<Copyright>,
-    val externalIds: ExternalIdentifiers?,
+    val externalIds: ExternalIdentifiers,
     val genres: List<MusicGenre>,
-    val label: String?,
-    val popularityScore: Int?
+    val label: String,
+    val popularity: PopularityLevel
 ) : Album()
