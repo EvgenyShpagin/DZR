@@ -14,12 +14,12 @@ package com.music.dzr.core.oauth.model
  * @property expiresInSeconds The lifetime of the access token in seconds.
  * @property refreshToken The token that can be used to obtain a new access token. It can be null,
  *                      as it's not always returned, especially on subsequent token refreshes.
- * @property scope A space-separated list of scopes that have been granted for this token.
+ * @property scopes A list of scopes that have been granted for this token.
  */
 data class Token(
     val accessToken: String,
     val tokenType: String,
     val expiresInSeconds: Int,
     val refreshToken: String?,
-    val scope: String?
+    val scopes: List<OAuthScope>?
 )

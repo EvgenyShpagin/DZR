@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.model.auth
 
+import com.music.dzr.core.oauth.model.OAuthScope
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import com.music.dzr.core.oauth.model.Token as DomainToken
@@ -32,6 +33,6 @@ internal fun Token.toDomain(): DomainToken {
         tokenType = tokenType,
         expiresInSeconds = expiresIn,
         refreshToken = refreshToken,
-        scope = scope
+        scopes = OAuthScope.parse(scope)
     )
 }
