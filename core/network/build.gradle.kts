@@ -40,7 +40,7 @@ dependencies {
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
     implementation(libs.okhttp.logging)
-    implementation(libs.kotlinx.coroutines.core) // TODO: must be exposed via core/common
+    implementation(libs.kotlinx.coroutines.core)
 
     testImplementation(projects.core.testing)
     testImplementation(libs.junit)
