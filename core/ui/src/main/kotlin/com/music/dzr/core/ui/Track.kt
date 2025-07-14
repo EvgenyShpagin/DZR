@@ -2,6 +2,7 @@ package com.music.dzr.core.ui
 
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
@@ -41,6 +42,7 @@ fun Track(
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(designSystemR.drawable.core_design_system_ic_placeholder_default),
                     modifier = Modifier.clip(ShapeDefaults.ExtraSmall)
+                        .size(56.dp)
                 )
             }
         },
