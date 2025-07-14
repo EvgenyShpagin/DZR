@@ -25,18 +25,15 @@ import com.music.dzr.core.designsystem.R as designSystemR
 
 @Composable
 fun Track(
-    coverUrl: String?,
+    state: TrackUiState,
     onClick: () -> Unit,
-    title: String,
-    explicit: Boolean,
-    contributors: List<String>,
     onMoreClick: () -> Unit,
     modifier: Modifier = Modifier,
     onLongClick: () -> Unit = onMoreClick
 ) {
     ListItem(
         colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-        leadingContent = coverUrl?.let { url ->
+        leadingContent = state.coverUrl?.let { url ->
             {
                 InspectableAsyncImage(
                     model = url,
@@ -49,14 +46,14 @@ fun Track(
         },
         headlineContent = {
             Text(
-                text = if (explicit) "$title \uD83C\uDD74" else title,
+                text = if (state.isExplicit) "${state.title} \uD83C\uDD74" else state.title,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1
             )
         },
         supportingContent = {
             Text(
-                text = formatContributors(contributors),
+                text = formatContributors(state.contributors),
                 maxLines = 1
             )
         },
@@ -83,14 +80,17 @@ fun Track(
 @Preview
 @Composable
 private fun TrackPreview() {
+    val uiState = TrackUiState(
+        coverUrl = "",
+        title = "Sample Track",
+        isExplicit = true,
+        contributors = listOf("Artist 1", "Artist 2")
+    )
     DzrTheme {
         Track(
-            coverUrl = "",
-            title = "Sample Track",
-            explicit = true,
+            state = uiState,
             onClick = {},
             onMoreClick = {},
-            contributors = listOf("Artist 1", "Artist 2")
         )
     }
 }
@@ -98,14 +98,17 @@ private fun TrackPreview() {
 @Preview
 @Composable
 private fun TrackWithoutCoverPreview() {
+    val uiState = TrackUiState(
+        coverUrl = "",
+        title = "Sample Track",
+        isExplicit = true,
+        contributors = listOf("Artist 1", "Artist 2")
+    )
     DzrTheme {
         Track(
-            coverUrl = null,
-            title = "Sample Track",
-            explicit = true,
+            state = uiState,
             onClick = {},
             onMoreClick = {},
-            contributors = listOf("Artist 1", "Artist 2")
         )
     }
 }
