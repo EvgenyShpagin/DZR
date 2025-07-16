@@ -50,14 +50,3 @@ fun MediaListItem(
         )
     )
 }
-
-@Preview
-@Composable
-private fun MediaListItemPreview() {
-    Surface {
-        MediaListItem(
-            headlineContent = { Text("Headline") },
-            supportingContent = { Text("Supporting") },
-        )
-    }
-}
