@@ -1,13 +1,13 @@
 package com.music.dzr.core.ui
 
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 
@@ -24,6 +24,10 @@ import androidx.compose.ui.semantics.Role
  * @param icon The trailing content, typically an icon for actions like 'more options'. Can be null.
  * @param onClick A lambda to be invoked when the item is clicked.
  * @param onLongClick A lambda to be invoked when the item is long-clicked.
+ * @param onLongClickLabel The label for the long click action, used for accessibility.
+ * @param enabled Whether the item is enabled and can be interacted with.
+ * @param colors The colors to be used for this list item. See [MediaListItemColors].
+ * @param disabledImageAlpha The alpha value to apply to the image when the item is disabled.
  */
 @Composable
 fun MediaListItem(
@@ -34,15 +38,30 @@ fun MediaListItem(
     icon: @Composable (() -> Unit)? = null,
     onClick: () -> Unit = {},
     onLongClick: () -> Unit = {},
-    onLongClickLabel: String? = null
+    onLongClickLabel: String? = null,
+    enabled: Boolean = true,
+    colors: MediaListItemColors = MediaItemDefaults.listItemColors(),
+    disabledImageAlpha: Float = MediaItemDefaults.DISABLED_IMAGE_ALPHA
 ) {
     ListItem(
-        colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-        leadingContent = image,
+        colors = ListItemDefaults.colors(  // ListItem now uses only enabled colors
+            containerColor = Color.Transparent,
+            headlineColor = colors.headlineColor(enabled = enabled),
+            supportingColor = colors.supportingColor(enabled = enabled),
+            trailingIconColor = colors.iconColor(enabled = enabled)
+        ),
+        leadingContent = if (enabled) image else image?.let {
+            {
+                Box(modifier = Modifier.alpha(disabledImageAlpha)) {
+                    image()
+                }
+            }
+        },
         headlineContent = headlineContent,
         supportingContent = supportingContent,
         trailingContent = icon,
         modifier = modifier.combinedClickable(
+            enabled = enabled,
             role = Role.Button,
             onClick = onClick,
             onLongClick = onLongClick,
