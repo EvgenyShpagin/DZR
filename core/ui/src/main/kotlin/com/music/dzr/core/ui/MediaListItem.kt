@@ -1,15 +1,34 @@
 package com.music.dzr.core.ui
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.music.dzr.core.designsystem.theme.DzrTheme
 
 /**
  * A composable that displays a media item as a row, designed for use in lists like `LazyColumn`.
@@ -102,4 +121,135 @@ class MediaListItemColors(
     /** The color of this [MediaListItem]'s trailing content based on enabled state */
     internal fun iconColor(enabled: Boolean): Color =
         if (enabled) iconColor else disabledIconColor
+}
+
+@Composable
+private fun MediaListItemPreviewSurface(content: @Composable () -> Unit) {
+    DzrTheme {
+        Surface(color = MaterialTheme.colorScheme.background) {
+            Column(modifier = Modifier.padding(8.dp)) {
+                content()
+            }
+        }
+    }
+}
+
+@Preview(name = "Enabled - Full")
+@Composable
+private fun MediaListItemPreview_EnabledFull() {
+    MediaListItemPreviewSurface {
+        MediaListItem(
+            headlineContent = { Text("The Greatest Song Ever Written In The World") },
+            supportingContent = { Text("By The Talented Artist & Another One") },
+            image = {
+                Image(
+                    painter = painterResource(id = android.R.drawable.ic_menu_gallery),
+                    contentDescription = "Album Art",
+                    modifier = Modifier
+                        .size(56.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.primaryContainer),
+                    contentScale = ContentScale.Crop
+                )
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.MoreVert,
+                    contentDescription = "More options"
+                )
+            },
+            enabled = true,
+            onClick = {}
+        )
+    }
+}
+
+@Preview(name = "Disabled - Full")
+@Composable
+private fun MediaListItemPreview_DisabledFull() {
+    MediaListItemPreviewSurface {
+        MediaListItem(
+            headlineContent = { Text("The Greatest Song Ever Written In The World (Disabled)") },
+            supportingContent = { Text("By The Talented Artist & Another One") },
+            image = {
+                Image(
+                    painter = painterResource(id = android.R.drawable.ic_menu_gallery),
+                    contentDescription = "Album Art",
+                    modifier = Modifier
+                        .size(56.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.primaryContainer),
+                    contentScale = ContentScale.Crop
+                )
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.MoreVert,
+                    contentDescription = "More options"
+                )
+            },
+            enabled = false,
+            onClick = {}
+        )
+    }
+}
+
+@Preview(name = "Enabled - No Image")
+@Composable
+private fun MediaListItemPreview_EnabledNoImage() {
+    MediaListItemPreviewSurface {
+        MediaListItem(
+            headlineContent = { Text("Song Without Cover") },
+            supportingContent = { Text("Anonymous Artist") },
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.Favorite,
+                    contentDescription = "Favorite"
+                )
+            },
+            enabled = true,
+            onClick = {}
+        )
+    }
+}
+
+@Preview(name = "Enabled - No Supporting Text")
+@Composable
+private fun MediaListItemPreview_EnabledNoSupporting() {
+    MediaListItemPreviewSurface {
+        MediaListItem(
+            headlineContent = { Text("Headline Only Track") },
+            image = {
+                Image(
+                    painter = painterResource(id = android.R.drawable.ic_menu_slideshow),
+                    contentDescription = "Album Art",
+                    modifier = Modifier
+                        .size(56.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.secondaryContainer),
+                    contentScale = ContentScale.Crop
+                )
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.MoreVert,
+                    contentDescription = "More options"
+                )
+            },
+            enabled = true,
+            onClick = {}
+        )
+    }
+}
+
+@Preview(name = "Enabled - Minimal")
+@Composable
+private fun MediaListItemPreview_EnabledMinimal() {
+    MediaListItemPreviewSurface {
+        MediaListItem(
+            headlineContent = { Text("Minimal Item") },
+            enabled = true,
+            onClick = {}
+        )
+    }
 }
