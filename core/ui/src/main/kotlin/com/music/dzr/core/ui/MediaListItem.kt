@@ -18,8 +18,8 @@ import androidx.compose.ui.tooling.preview.Preview
  * providing a consistent API for media content across the application.
  *
  * @param headlineContent The primary content of the list item, typically the title of the media.
- * @param supportingContent The secondary content, displayed below the headline. Can be null.
  * @param modifier The [Modifier] to be applied to this component.
+ * @param supportingContent The secondary content, displayed below the headline. Can be null.
  * @param image The leading content, typically an album cover or artist image. Can be null.
  * @param icon The trailing content, typically an icon for actions like 'more options'. Can be null.
  * @param onClick A lambda to be invoked when the item is clicked.
@@ -28,8 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun MediaListItem(
     headlineContent: @Composable () -> Unit,
-    supportingContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    supportingContent: (@Composable () -> Unit)? = null,
     image: @Composable (() -> Unit)? = null,
     icon: @Composable (() -> Unit)? = null,
     onClick: () -> Unit = {},
