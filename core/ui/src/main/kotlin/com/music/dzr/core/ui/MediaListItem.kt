@@ -6,10 +6,10 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.tooling.preview.Preview
 
 /**
  * A composable that displays a media item as a row, designed for use in lists like `LazyColumn`.
@@ -49,4 +49,38 @@ fun MediaListItem(
             onLongClickLabel = onLongClickLabel
         )
     )
+}
+
+/**
+ * Represents the container and content colors used in a list item in different states.
+ *
+ * @param headlineColor the headline text content color of this list item when enabled.
+ * @param supportingTextColor the supporting text color of this list item
+ * @param iconColor the color of this list item's trailing content when enabled.
+ * @param disabledHeadlineColor the content color of this list item when not enabled.
+ * @param disabledSupportingTextColor the supporting text color of this list item when not enabled.
+ * @param disabledIconColor the color of this list item's trailing content when not enabled.
+ * @constructor create an instance with arbitrary colors.
+ * See [MediaItemDefaults.listItemColors] for the default colors used in a [MediaListItem].
+ */
+@Immutable
+class MediaListItemColors(
+    val headlineColor: Color,
+    val supportingTextColor: Color,
+    val iconColor: Color,
+    val disabledHeadlineColor: Color,
+    val disabledSupportingTextColor: Color,
+    val disabledIconColor: Color
+) {
+    /** The color of this [MediaListItem]'s headline text based on enabled state */
+    internal fun headlineColor(enabled: Boolean): Color =
+        if (enabled) headlineColor else disabledHeadlineColor
+
+    /** The color of this [MediaListItem]'s supporting text based on enabled state */
+    internal fun supportingColor(enabled: Boolean): Color =
+        if (enabled) supportingTextColor else disabledSupportingTextColor
+
+    /** The color of this [MediaListItem]'s trailing content based on enabled state */
+    internal fun iconColor(enabled: Boolean): Color =
+        if (enabled) iconColor else disabledIconColor
 }
