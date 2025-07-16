@@ -1,20 +1,37 @@
 package com.music.dzr.core.ui
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.music.dzr.core.designsystem.theme.DzrTheme
 
 /**
  * A composable that displays a media item as a tile, designed for use in carousels (`LazyRow`)
@@ -96,4 +113,168 @@ class MediaGridItemColors(
     /** The color of this [MediaGridItem]'s supporting text based on enabled state */
     internal fun supportingColor(enabled: Boolean): Color =
         if (enabled) supportingTextColor else disabledSupportingTextColor
+}
+
+@Composable
+private fun MediaGridItemPreviewSurface(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    DzrTheme {
+        Card(
+            modifier = modifier
+                .padding(8.dp)
+                .width(IntrinsicSize.Min),
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+        ) {
+            Box(modifier = Modifier.padding(8.dp)) {
+                content()
+            }
+        }
+    }
+}
+
+@Preview(name = "Enabled - Full")
+@Composable
+private fun MediaGridItemPreview_EnabledFull() {
+    MediaGridItemPreviewSurface {
+        MediaGridItem(
+            headlineContent = {
+                Text(
+                    "Awesome Album",
+                    textAlign = TextAlign.Center,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            },
+            image = {
+                Image(
+                    painter = painterResource(id = android.R.drawable.ic_menu_gallery),
+                    contentDescription = "Album Art",
+                    modifier = Modifier
+                        .size(120.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(MaterialTheme.colorScheme.primaryContainer),
+                    contentScale = ContentScale.Crop
+                )
+            },
+            supportingContent = {
+                Text(
+                    "The Best Artist",
+                    textAlign = TextAlign.Center,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            },
+            enabled = true,
+            onClick = {}
+        )
+    }
+}
+
+@Preview(name = "Disabled - Full")
+@Composable
+private fun MediaGridItemPreview_DisabledFull() {
+    MediaGridItemPreviewSurface {
+        MediaGridItem(
+            headlineContent = {
+                Text(
+                    "Awesome Album (Off)",
+                    textAlign = TextAlign.Center,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            },
+            image = {
+                Image(
+                    painter = painterResource(id = android.R.drawable.ic_menu_gallery),
+                    contentDescription = "Album Art",
+                    modifier = Modifier
+                        .size(120.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(MaterialTheme.colorScheme.primaryContainer),
+                    contentScale = ContentScale.Crop
+                )
+            },
+            supportingContent = {
+                Text(
+                    "The Best Artist",
+                    textAlign = TextAlign.Center,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            },
+            enabled = false,
+            onClick = {}
+        )
+    }
+}
+
+@Preview(name = "Enabled - No Supporting")
+@Composable
+private fun MediaGridItemPreview_EnabledNoSupporting() {
+    MediaGridItemPreviewSurface {
+        MediaGridItem(
+            headlineContent = {
+                Text(
+                    "Podcast Episode",
+                    textAlign = TextAlign.Center,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            },
+            image = {
+                Image(
+                    painter = painterResource(id = android.R.drawable.ic_menu_slideshow),
+                    contentDescription = "Episode Art",
+                    modifier = Modifier
+                        .size(120.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(MaterialTheme.colorScheme.secondaryContainer),
+                    contentScale = ContentScale.Crop
+                )
+            },
+            enabled = true,
+            onClick = {}
+        )
+    }
+}
+
+@Preview(name = "Long Headline")
+@Composable
+private fun MediaGridItemPreview_LongHeadline() {
+    MediaGridItemPreviewSurface {
+        MediaGridItem(
+            headlineContent = {
+                Text(
+                    "A Very Long Title That Will Surely Be Ellipsized",
+                    textAlign = TextAlign.Center,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+            },
+            image = {
+                Image(
+                    painter = painterResource(id = android.R.drawable.ic_menu_mapmode),
+                    contentDescription = "Art",
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(MaterialTheme.colorScheme.tertiaryContainer),
+                    contentScale = ContentScale.Crop
+                )
+            },
+            supportingContent = {
+                Text(
+                    "Artist With A Fairly Long Name Also",
+                    textAlign = TextAlign.Center,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            },
+            enabled = true,
+            onClick = {}
+        )
+    }
 }
