@@ -37,4 +37,26 @@ object MediaItemDefaults {
         disabledSupportingTextColor = disabledSupportingColor,
         disabledIconColor = disabledIconColor
     )
+
+    /**
+     * Creates a [MediaGridItemColors] that represents the default container and content colors
+     * used in a [MediaGridItem].
+     *
+     * @param headlineColor the headline text content color of this list item when enabled.
+     * @param supportingColor the supporting text color of this list item
+     * @param disabledHeadlineColor the content color of this list item when not enabled.
+     * @param disabledSupportingColor the supporting text color of this list item when not enabled.
+     */
+    @Composable
+    fun gridItemColors(
+        headlineColor: Color = MaterialTheme.colorScheme.onSurface,
+        supportingColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+        disabledHeadlineColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+        disabledSupportingColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+    ) = MediaGridItemColors(
+        headlineColor = headlineColor,
+        supportingTextColor = supportingColor,
+        disabledHeadlineColor = disabledHeadlineColor,
+        disabledSupportingTextColor = disabledSupportingColor
+    )
 }
