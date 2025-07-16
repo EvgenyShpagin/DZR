@@ -1,22 +1,17 @@
 package com.music.dzr.core.ui
 
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,16 +27,17 @@ fun Track(
     modifier: Modifier = Modifier,
     onLongClick: () -> Unit = onMoreClick
 ) {
-    ListItem(
-        colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-        leadingContent = state.coverUrl?.let { url ->
+    MediaListItem(
+        modifier = modifier,
+        image = state.coverUrl?.let { url ->
             {
                 InspectableAsyncImage(
                     model = url,
                     contentDescription = stringResource(R.string.core_ui_cd_track_cover),
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(designSystemR.drawable.core_design_system_ic_placeholder_default),
-                    modifier = Modifier.clip(ShapeDefaults.ExtraSmall)
+                    modifier = Modifier
+                        .clip(ShapeDefaults.ExtraSmall)
                         .size(56.dp)
                 )
             }
@@ -59,7 +55,7 @@ fun Track(
                 maxLines = 1
             )
         },
-        trailingContent = {
+        icon = {
             IconButton(
                 onClick = onMoreClick,
                 modifier = Modifier.offset(x = 8.dp)
@@ -70,12 +66,9 @@ fun Track(
                 )
             }
         },
-        modifier = modifier.combinedClickable(
-            role = Role.Button,
-            onClick = onClick,
-            onLongClick = onLongClick,
-            onLongClickLabel = stringResource(R.string.core_ui_cd_show_more)
-        )
+        onClick = onClick,
+        onLongClick = onLongClick,
+        onLongClickLabel = stringResource(R.string.core_ui_cd_show_more)
     )
 }
 
