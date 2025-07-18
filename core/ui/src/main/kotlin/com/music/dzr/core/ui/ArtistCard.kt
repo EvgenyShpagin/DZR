@@ -1,7 +1,9 @@
 package com.music.dzr.core.ui
 
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,7 +27,7 @@ fun ArtistCard(
     modifier: Modifier = Modifier
 ) {
     MediaGridItem(
-        modifier = modifier,
+        modifier = modifier.width(IntrinsicSize.Min),
         headlineContent = {
             Text(
                 text = name,
@@ -40,7 +42,7 @@ fun ArtistCard(
                 placeholder = painterResource(designSystemR.drawable.core_design_system_ic_placeholder_default),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .size(128.dp)
+                    .sizeIn(minWidth = 128.dp)
                     .aspectRatio(1f)
                     .clip(CircleShape)
             )
