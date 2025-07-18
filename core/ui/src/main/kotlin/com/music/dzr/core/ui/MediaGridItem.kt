@@ -5,15 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
@@ -116,30 +111,10 @@ class MediaGridItemColors(
         if (enabled) supportingTextColor else disabledSupportingTextColor
 }
 
-@Composable
-private fun MediaGridItemPreviewSurface(
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
-) {
-    DzrTheme {
-        Card(
-            modifier = modifier
-                .padding(8.dp)
-                .width(IntrinsicSize.Min),
-            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
-        ) {
-            Box(modifier = Modifier.padding(8.dp)) {
-                content()
-            }
-        }
-    }
-}
-
 @Preview(name = "Enabled - Full")
 @Composable
 private fun MediaGridItemPreview_EnabledFull() {
-    MediaGridItemPreviewSurface {
+    DzrTheme {
         MediaGridItem(
             headlineContent = {
                 Text(
@@ -177,7 +152,7 @@ private fun MediaGridItemPreview_EnabledFull() {
 @Preview(name = "Disabled - Full")
 @Composable
 private fun MediaGridItemPreview_DisabledFull() {
-    MediaGridItemPreviewSurface {
+    DzrTheme {
         MediaGridItem(
             headlineContent = {
                 Text(
@@ -215,7 +190,7 @@ private fun MediaGridItemPreview_DisabledFull() {
 @Preview(name = "Enabled - No Supporting")
 @Composable
 private fun MediaGridItemPreview_EnabledNoSupporting() {
-    MediaGridItemPreviewSurface {
+    DzrTheme {
         MediaGridItem(
             headlineContent = {
                 Text(
@@ -245,7 +220,7 @@ private fun MediaGridItemPreview_EnabledNoSupporting() {
 @Preview(name = "Long Headline")
 @Composable
 private fun MediaGridItemPreview_LongHeadline() {
-    MediaGridItemPreviewSurface {
+    DzrTheme {
         MediaGridItem(
             headlineContent = {
                 Text(
