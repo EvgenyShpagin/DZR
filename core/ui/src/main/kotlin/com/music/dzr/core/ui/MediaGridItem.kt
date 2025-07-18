@@ -62,6 +62,7 @@ fun MediaGridItem(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.combinedClickable(
+            enabled = enabled,
             role = Role.Button,
             onClick = onClick,
             onLongClick = onLongClick,
