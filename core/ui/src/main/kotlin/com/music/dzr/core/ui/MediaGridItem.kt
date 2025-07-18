@@ -64,7 +64,11 @@ fun MediaGridItem(
             onLongClickLabel = onLongClickLabel
         )
     ) {
-        Box(modifier = Modifier.alpha(disabledImageAlpha)) {
+        Box(
+            modifier = Modifier.alpha(
+                if (enabled) 1f else disabledImageAlpha
+            )
+        ) {
             image()
         }
         Spacer(modifier = Modifier.height(4.dp))
