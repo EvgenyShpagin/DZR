@@ -2,12 +2,10 @@ package com.music.dzr.core.ui
 
 import android.content.Context
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
@@ -41,37 +39,40 @@ fun ReleaseCard(
     modifier: Modifier = Modifier,
     coverModifier: Modifier = Modifier
 ) {
-    Column(
+    MediaGridItem(
         modifier = modifier
             .clip(ShapeDefaults.Small)
-            .combinedClickable(
-                role = Role.Button,
-                onClick = onClick,
-                onLongClick = onLongClick,
-                onLongClickLabel = stringResource(R.string.core_ui_cd_show_more)
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TrackListCover(
-            coverUrl = coverUrl,
-            contentDescription = stringResource(R.string.core_ui_cd_release_cover),
-            modifier = coverModifier.size(128.dp)
-        )
-        Spacer(Modifier.height(4.dp))
-        ReleaseTitle(
-            title = title,
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
-        ReleaseSecondaryText(
-            text = formatReleaseDetails(
-                context = LocalContext.current,
-                releaseYear = releaseYear,
-                explicit = explicit,
-                releaseType = releaseType
-            ),
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
-    }
+            .width(IntrinsicSize.Min),
+        image = {
+            TrackListCover(
+                coverUrl = coverUrl,
+                contentDescription = stringResource(R.string.core_ui_cd_release_cover),
+                modifier = coverModifier.size(128.dp)
+            )
+        },
+        headlineContent = {
+            Text(
+                text = title,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
+            )
+        },
+        supportingContent = {
+            Text(
+                text = formatReleaseDetails(
+                    context = LocalContext.current,
+                    releaseYear = releaseYear,
+                    explicit = explicit,
+                    releaseType = releaseType
+                ),
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
+            )
+        },
+        onClick = onClick,
+        onLongClick = onLongClick,
+        onLongClickLabel = stringResource(R.string.core_ui_cd_show_more)
+    )
 }
 
 @Composable
