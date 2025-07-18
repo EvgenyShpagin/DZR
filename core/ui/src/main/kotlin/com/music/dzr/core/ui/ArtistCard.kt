@@ -1,7 +1,6 @@
 package com.music.dzr.core.ui
 
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
@@ -32,7 +31,6 @@ fun ArtistCard(
                 text = name,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(horizontal = 16.dp)
             )
         },
         image = {
