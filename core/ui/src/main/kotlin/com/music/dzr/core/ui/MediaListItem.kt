@@ -4,8 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -15,7 +13,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -123,21 +120,10 @@ class MediaListItemColors(
         if (enabled) iconColor else disabledIconColor
 }
 
-@Composable
-private fun MediaListItemPreviewSurface(content: @Composable () -> Unit) {
-    DzrTheme {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            Column(modifier = Modifier.padding(8.dp)) {
-                content()
-            }
-        }
-    }
-}
-
 @Preview(name = "Enabled - Full")
 @Composable
 private fun MediaListItemPreview_EnabledFull() {
-    MediaListItemPreviewSurface {
+    DzrTheme {
         MediaListItem(
             headlineContent = { Text("The Greatest Song Ever Written In The World") },
             supportingContent = { Text("By The Talented Artist & Another One") },
@@ -167,7 +153,7 @@ private fun MediaListItemPreview_EnabledFull() {
 @Preview(name = "Disabled - Full")
 @Composable
 private fun MediaListItemPreview_DisabledFull() {
-    MediaListItemPreviewSurface {
+    DzrTheme {
         MediaListItem(
             headlineContent = { Text("The Greatest Song Ever Written In The World (Disabled)") },
             supportingContent = { Text("By The Talented Artist & Another One") },
@@ -197,7 +183,7 @@ private fun MediaListItemPreview_DisabledFull() {
 @Preview(name = "Enabled - No Image")
 @Composable
 private fun MediaListItemPreview_EnabledNoImage() {
-    MediaListItemPreviewSurface {
+    DzrTheme {
         MediaListItem(
             headlineContent = { Text("Song Without Cover") },
             supportingContent = { Text("Anonymous Artist") },
@@ -216,7 +202,7 @@ private fun MediaListItemPreview_EnabledNoImage() {
 @Preview(name = "Enabled - No Supporting Text")
 @Composable
 private fun MediaListItemPreview_EnabledNoSupporting() {
-    MediaListItemPreviewSurface {
+    DzrTheme {
         MediaListItem(
             headlineContent = { Text("Headline Only Track") },
             image = {
@@ -245,7 +231,7 @@ private fun MediaListItemPreview_EnabledNoSupporting() {
 @Preview(name = "Enabled - Minimal")
 @Composable
 private fun MediaListItemPreview_EnabledMinimal() {
-    MediaListItemPreviewSurface {
+    DzrTheme {
         MediaListItem(
             headlineContent = { Text("Minimal Item") },
             enabled = true,
