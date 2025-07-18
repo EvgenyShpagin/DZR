@@ -26,6 +26,7 @@ fun ArtistCard(
     onLongClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val contentDescription = stringResource(R.string.core_ui_cd_artist)
     MediaGridItem(
         modifier = modifier.width(IntrinsicSize.Min),
         headlineContent = {
@@ -38,7 +39,7 @@ fun ArtistCard(
         image = {
             InspectableAsyncImage(
                 model = pictureUrl,
-                contentDescription = stringResource(R.string.core_ui_cd_artist),
+                contentDescription = contentDescription,
                 placeholder = painterResource(designSystemR.drawable.core_design_system_ic_placeholder_default),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -48,7 +49,8 @@ fun ArtistCard(
             )
         },
         onClick = onClick,
-        onLongClick = onLongClick
+        onLongClick = onLongClick,
+        onLongClickLabel = contentDescription
     )
 }
 
