@@ -25,19 +25,17 @@ class PlayableHeaderTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
-    private val titleRes = android.R.string.untitled
-    private val subtitleRes = android.R.string.copy
+    private val title = "Title"
+    private val subtitle = "Subtitle"
 
     @Test
     fun playableHeader_displaysAllComponents() {
-        val title = composeTestRule.activity.getString(titleRes)
-        val subtitle = composeTestRule.activity.getString(subtitleRes)
         val contentNodeTag = "content"
 
         composeTestRule.setContent {
             PlayableHeader(
-                titleRes = titleRes,
-                subtitleRes = subtitleRes,
+                title = title,
+                subtitle = subtitle,
                 onPlayClick = {},
                 isPlaying = false,
                 content = { _ ->
@@ -61,7 +59,7 @@ class PlayableHeaderTest {
         every { mockOnPlayClick() } just runs
         composeTestRule.setContent {
             PlayableHeader(
-                titleRes = titleRes,
+                title = title,
                 onPlayClick = mockOnPlayClick,
                 isPlaying = false,
                 content = {}
@@ -80,7 +78,7 @@ class PlayableHeaderTest {
     fun playableHeader_showsCorrectIcon_whenPlaying() {
         composeTestRule.setContent {
             PlayableHeader(
-                titleRes = titleRes,
+                title = title,
                 onPlayClick = {},
                 isPlaying = true,
                 content = {}

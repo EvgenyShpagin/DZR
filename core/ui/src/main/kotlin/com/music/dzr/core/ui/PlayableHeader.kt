@@ -1,6 +1,5 @@
 package com.music.dzr.core.ui
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,11 +41,11 @@ import com.music.dzr.core.designsystem.theme.DzrTheme
  *
  * Uses [SubcomposeLayout] for optimized measurement of complex content.
  *
- * @param titleRes String resource ID for main title
+ * @param title String for main title
  * @param onPlayClick Callback when play button is clicked
  * @param isPlaying Whether tracklist is currently playing or not
  * @param modifier Optional [Modifier] for the root layout
- * @param subtitleRes Optional string resource ID for subtitle
+ * @param subtitle Optional string for subtitle
  * @param playButtonSize Maximum size of the play button (default: [PlayableHeaderDefaults.PlayButtonSize])
  * @param buttonSpacing Space between text content and play button (default: [PlayableHeaderDefaults.ButtonSpacing])
  * @param horizontalMargin Horizontal padding values (default: [PlayableHeaderDefaults.Margin])
@@ -62,11 +61,11 @@ import com.music.dzr.core.designsystem.theme.DzrTheme
  */
 @Composable
 fun PlayableHeader(
-    @StringRes titleRes: Int,
+    title: String,
     onPlayClick: () -> Unit,
     isPlaying: Boolean,
     modifier: Modifier = Modifier,
-    @StringRes subtitleRes: Int? = null,
+    subtitle: String? = null,
     playButtonSize: Dp = PlayableHeaderDefaults.PlayButtonSize,
     buttonSpacing: Dp = PlayableHeaderDefaults.ButtonSpacing,
     horizontalMargin: PaddingValues = PlayableHeaderDefaults.Margin,
@@ -82,9 +81,9 @@ fun PlayableHeader(
     ) { constraints ->
         val titlesPlaceables = subcompose(PlayableTopAppBarSlot.Titles) {
             Column {
-                DisplayText(titleRes)
-                if (subtitleRes != null) {
-                    Subtitle(subtitleRes)
+                DisplayText(title)
+                if (subtitle != null) {
+                    Subtitle(subtitle)
                 }
             }
         }.map { it.measure(constraints) }
@@ -147,9 +146,9 @@ fun PlayableHeader(
 }
 
 @Composable
-private fun DisplayText(@StringRes titleRes: Int) {
+private fun DisplayText(title: String) {
     Text(
-        text = stringResource(titleRes),
+        text = title,
         overflow = TextOverflow.Ellipsis,
         maxLines = 1,
         style = MaterialTheme.typography.displayLarge
@@ -157,9 +156,9 @@ private fun DisplayText(@StringRes titleRes: Int) {
 }
 
 @Composable
-private fun Subtitle(@StringRes subtitleRes: Int) {
+private fun Subtitle(subtitle: String) {
     Text(
-        text = stringResource(subtitleRes),
+        text = subtitle,
         overflow = TextOverflow.Ellipsis,
         maxLines = 2,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -210,8 +209,8 @@ private enum class PlayableTopAppBarSlot {
 private fun PlayableHeader_WithSubtitle_Preview() {
     DzrTheme {
         PlayableHeader(
-            titleRes = android.R.string.untitled,
-            subtitleRes = android.R.string.untitled,
+            title = "Title",
+            subtitle = "Subtitle",
             onPlayClick = {},
             isPlaying = false,
             content = { (bottomSpaceHeight, widthExcludePlayButton, _) ->
@@ -233,8 +232,7 @@ private fun PlayableHeader_WithSubtitle_Preview() {
 private fun PlayableHeader_LongText_WithoutSubtitle_Preview() {
     DzrTheme {
         PlayableHeader(
-            titleRes = android.R.string.emptyPhoneNumber,
-            subtitleRes = android.R.string.untitled,
+            title = "Some Long Title",
             onPlayClick = {},
             isPlaying = false,
             content = { (_, widthExcludePlayButton, _) ->
