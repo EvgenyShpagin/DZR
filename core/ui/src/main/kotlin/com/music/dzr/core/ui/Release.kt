@@ -45,11 +45,7 @@ fun ReleaseCard(
             )
         },
         headlineContent = {
-            Text(
-                text = title,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1
-            )
+            SingleLineText(text = title)
         },
         supportingContent = {
             Text(
@@ -58,9 +54,7 @@ fun ReleaseCard(
                     releaseYear = releaseYear,
                     explicit = explicit,
                     releaseType = releaseType
-                ),
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1
+                )
             )
         },
         onClick = onClick,
@@ -101,20 +95,16 @@ fun ReleaseRow(
         },
         supportingContent = {
             Column {
-                Text(
+                SingleLineText(
                     text = formatContributors(contributors),
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
                 )
-                Text(
+                SingleLineText(
                     text = formatReleaseDetails(
                         context = LocalContext.current,
                         releaseYear = releaseYear,
                         explicit = explicit,
                         releaseType = releaseType
-                    ),
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
+                    )
                 )
             }
         },
@@ -133,32 +123,11 @@ fun ReleaseRow(
 }
 
 @Composable
-private fun ReleaseTitle(
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = title,
-        style = MaterialTheme.typography.titleSmall,
-        color = MaterialTheme.colorScheme.onSurface,
-        overflow = TextOverflow.Ellipsis,
-        maxLines = 1,
-        modifier = modifier
-    )
-}
-
-@Composable
-private fun ReleaseSecondaryText(
-    text: String,
-    modifier: Modifier = Modifier
-) {
+private fun SingleLineText(text: String) {
     Text(
         text = text,
-        style = MaterialTheme.typography.labelSmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
         overflow = TextOverflow.Ellipsis,
-        maxLines = 1,
-        modifier = modifier
+        maxLines = 1
     )
 }
 
