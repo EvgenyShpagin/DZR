@@ -230,28 +230,6 @@ private fun PlayableHeader_WithSubtitle_Preview() {
 
 @Preview
 @Composable
-private fun PlayableHeader_WithoutSubtitle_Preview() {
-    DzrTheme {
-        PlayableHeader(
-            titleRes = android.R.string.untitled,
-            onPlayClick = {},
-            isPlaying = false,
-            content = { (bottomSpaceHeight, widthExcludePlayButton, _) ->
-                Box(
-                    Modifier
-                        .background(Color.LightGray)
-                        .height(bottomSpaceHeight)
-                        .width(widthExcludePlayButton)
-                ) {
-                    Text("Filled space")
-                }
-            }
-        )
-    }
-}
-
-@Preview
-@Composable
 private fun PlayableHeader_LongText_WithoutSubtitle_Preview() {
     DzrTheme {
         PlayableHeader(
