@@ -58,7 +58,7 @@ fun Track(
         icon = {
             IconButton(
                 onClick = onMoreClick,
-                modifier = Modifier.offset(x = 8.dp)
+                modifier = Modifier.offset(x = 12.dp)
             ) {
                 Icon(
                     DzrIcons.MoreVert,
