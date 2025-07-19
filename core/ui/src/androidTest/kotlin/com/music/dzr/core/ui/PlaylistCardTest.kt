@@ -34,6 +34,7 @@ class PlaylistCardTest {
                 name = name,
                 pictureUrl = url,
                 onClick = mockOnClick,
+                onLongClick = {},
                 modifier = Modifier.testTag("playlistCard")
             )
         }
