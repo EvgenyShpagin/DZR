@@ -207,7 +207,7 @@ private enum class PlayableTopAppBarSlot {
 
 @Preview
 @Composable
-private fun DzrPlayableTopAppBarWithSubtitlePreview() {
+private fun PlayableHeader_WithSubtitle_Preview() {
     DzrTheme {
         PlayableHeader(
             titleRes = android.R.string.untitled,
@@ -230,7 +230,7 @@ private fun DzrPlayableTopAppBarWithSubtitlePreview() {
 
 @Preview
 @Composable
-private fun DzrPlayableTopAppBarWithoutSubtitlePreview() {
+private fun PlayableHeader_WithoutSubtitle_Preview() {
     DzrTheme {
         PlayableHeader(
             titleRes = android.R.string.untitled,
@@ -252,7 +252,7 @@ private fun DzrPlayableTopAppBarWithoutSubtitlePreview() {
 
 @Preview
 @Composable
-private fun DzrPlayableTopAppBarLongTextPreview() {
+private fun PlayableHeader_LongText_WithoutSubtitle_Preview() {
     DzrTheme {
         PlayableHeader(
             titleRes = android.R.string.emptyPhoneNumber,
