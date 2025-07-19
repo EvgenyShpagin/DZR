@@ -1,25 +1,19 @@
 package com.music.dzr.core.ui
 
 import android.content.Context
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -86,43 +80,56 @@ fun ReleaseRow(
     explicit: Boolean,
     releaseType: ReleaseType,
     modifier: Modifier = Modifier,
-    coverModifier: Modifier = Modifier
+    coverModifier: Modifier = Modifier,
+    onLongClick: () -> Unit = onMoreClick
 ) {
-    Row(
-        modifier = modifier
-            .clip(ShapeDefaults.Small)
-            .clickable(
-                role = Role.Button,
-                onClick = onClick
-            ),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TrackListCover(
-            coverUrl = coverUrl,
-            contentDescription = stringResource(R.string.core_ui_cd_release_cover),
-            modifier = coverModifier.size(96.dp)
-        )
-        Spacer(Modifier.width(16.dp))
-        Column {
-            ReleaseTitle(title = title)
-            ReleaseSecondaryText(text = formatContributors(contributors))
-            ReleaseSecondaryText(
-                text = formatReleaseDetails(
-                    context = LocalContext.current,
-                    releaseYear = releaseYear,
-                    explicit = explicit,
-                    releaseType = releaseType
+    MediaListItem(
+        modifier = modifier.clip(ShapeDefaults.Small),
+        image = {
+            TrackListCover(
+                coverUrl = coverUrl,
+                contentDescription = stringResource(R.string.core_ui_cd_release_cover),
+                modifier = coverModifier.size(96.dp)
+            )
+        },
+        headlineContent = {
+            Text(
+                text = title,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
+            )
+        },
+        supportingContent = {
+            Column {
+                Text(
+                    text = formatContributors(contributors),
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
                 )
-            )
-        }
-        Spacer(Modifier.weight(1f))
-        IconButton(onClick = onMoreClick) {
-            Icon(
-                DzrIcons.MoreVert,
-                contentDescription = stringResource(R.string.core_ui_cd_show_more)
-            )
-        }
-    }
+                Text(
+                    text = formatReleaseDetails(
+                        context = LocalContext.current,
+                        releaseYear = releaseYear,
+                        explicit = explicit,
+                        releaseType = releaseType
+                    ),
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
+                )
+            }
+        },
+        icon = {
+            IconButton(onClick = onMoreClick) {
+                Icon(
+                    DzrIcons.MoreVert,
+                    contentDescription = stringResource(R.string.core_ui_cd_show_more)
+                )
+            }
+        },
+        onClick = onClick,
+        onLongClick = onLongClick,
+        onLongClickLabel = stringResource(R.string.core_ui_cd_show_more)
+    )
 }
 
 @Composable
