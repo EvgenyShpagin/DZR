@@ -98,11 +98,13 @@ class TrackTest {
     private fun setContent(explicit: Boolean = true) {
         composeTestRule.setContent {
             Track(
-                coverUrl = coverUrl,
+                state = TrackUiState(
+                    coverUrl = coverUrl,
+                    title = title,
+                    isExplicit = explicit,
+                    contributors = contributors,
+                ),
                 onClick = mockOnClick,
-                title = title,
-                explicit = explicit,
-                contributors = contributors,
                 onMoreClick = mockOnMoreClick,
                 onLongClick = mockOnLongClick,
                 modifier = Modifier.testTag("track")
