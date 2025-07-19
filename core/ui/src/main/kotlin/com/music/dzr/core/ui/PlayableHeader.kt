@@ -25,6 +25,7 @@ import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.coerceAtLeast
@@ -91,8 +92,8 @@ fun PlayableHeader(
         val titlesSize =
             titlesPlaceables.fastFold(initial = IntSize.Zero) { currentMax, placeable ->
                 IntSize(
-                    width = maxOf(currentMax.width, placeable.width),
-                    height = maxOf(currentMax.height, placeable.height)
+                    width = minOf(currentMax.width, placeable.width),
+                    height = currentMax.height + placeable.height
                 )
             }
         val titlesWidth = titlesSize.width.toDp()
@@ -138,7 +139,11 @@ fun PlayableHeader(
                         modifier = Modifier.size(actualPlayButtonSize)
                     )
                 }.fastForEach {
-                    it.measure(constraints).placeRelative(widthExcludePlayButton, 0)
+                    val buttonConstraints = Constraints.fixed(
+                        width = actualPlayButtonSizePx,
+                        height = actualPlayButtonSizePx
+                    )
+                    it.measure(buttonConstraints).placeRelative(widthExcludePlayButton, 0)
                 }
             }
         }
