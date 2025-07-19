@@ -1,18 +1,15 @@
 package com.music.dzr.core.ui
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.music.dzr.core.designsystem.theme.DzrTheme
@@ -22,25 +19,31 @@ fun PlaylistCard(
     name: String,
     pictureUrl: String,
     onClick: () -> Unit,
+    onLongClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier.clickable(role = Role.Button, onClick = onClick),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TrackListCover(
-            coverUrl = pictureUrl,
-            contentDescription = stringResource(R.string.core_ui_cd_playlist),
-            modifier = Modifier.size(128.dp)
-        )
-        Spacer(Modifier.height(4.dp))
-        Text(
-            name,
-            style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
-    }
+    MediaGridItem(
+        modifier = modifier
+            .width(IntrinsicSize.Min)
+            .clip(ShapeDefaults.Small),
+        headlineContent = {
+            Text(
+                text = name,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
+            )
+        },
+        image = {
+            TrackListCover(
+                coverUrl = pictureUrl,
+                contentDescription = stringResource(R.string.core_ui_cd_playlist),
+                modifier = Modifier.sizeIn(minWidth = 128.dp)
+            )
+        },
+        onClick = onClick,
+        onLongClick = onLongClick,
+        onLongClickLabel = stringResource(R.string.core_ui_cd_show_more)
+    )
 }
 
 @Preview
@@ -50,7 +53,8 @@ private fun PlaylistCardPreview() {
         PlaylistCard(
             name = "2000s Metal",
             pictureUrl = "",
-            onClick = {}
+            onClick = {},
+            onLongClick = {}
         )
     }
 }
