@@ -3,6 +3,7 @@ package com.music.dzr.core.ui
 import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
@@ -109,7 +110,10 @@ fun ReleaseRow(
             }
         },
         icon = {
-            IconButton(onClick = onMoreClick) {
+            IconButton(
+                onClick = onMoreClick,
+                modifier = Modifier.offset(x = 12.dp)
+            ) {
                 Icon(
                     DzrIcons.MoreVert,
                     contentDescription = stringResource(R.string.core_ui_cd_show_more)
