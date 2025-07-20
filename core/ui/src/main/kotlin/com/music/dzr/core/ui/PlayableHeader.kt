@@ -133,8 +133,9 @@ private fun PlayableHeaderLayout(
         val titlesHeight = titlesPlaceables.fastMaxBy { it.height }?.height ?: 0
 
         // Determine if play button should be displayed
-        val shouldDisplayPlayButton =
-            (layoutWidth - titlesWidth - buttonSpacingPx) >= minButtonSizePx
+        val availableButtonWidthPx = (layoutWidth - titlesWidth - buttonSpacingPx)
+            .coerceAtMost(playButtonSizePx)
+        val shouldDisplayPlayButton = availableButtonWidthPx >= minButtonSizePx
 
         // Measure play button if it should be displayed
         val playButtonPlaceables = subcompose(PlayableHeaderLayoutContent.PlayButton) {
@@ -142,11 +143,11 @@ private fun PlayableHeaderLayout(
                 PlayableHeaderButton(
                     isPlaying = isPlaying,
                     onClick = onPlayClick,
-                    modifier = Modifier.size(playButtonSize)
+                    modifier = Modifier.size(availableButtonWidthPx.toDp())
                 )
             }
         }.fastMap {
-            it.measure(Constraints.fixed(playButtonSizePx, playButtonSizePx))
+            it.measure(Constraints.fixed(availableButtonWidthPx, availableButtonWidthPx))
         }
 
         val playButtonWidth = playButtonPlaceables.fastMaxBy { it.width }?.width ?: 0
