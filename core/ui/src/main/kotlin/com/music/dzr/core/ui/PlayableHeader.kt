@@ -156,6 +156,7 @@ private fun DisplayText(title: String) {
         text = title,
         overflow = TextOverflow.Ellipsis,
         maxLines = 1,
+        color = MaterialTheme.colorScheme.onSurface,
         style = MaterialTheme.typography.displayLarge
     )
 }
