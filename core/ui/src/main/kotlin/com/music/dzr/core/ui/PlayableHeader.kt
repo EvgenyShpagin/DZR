@@ -27,14 +27,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntSize
-import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.util.fastFold
-import androidx.compose.ui.util.fastForEach
+import androidx.compose.ui.unit.max
 import com.music.dzr.core.designsystem.component.DzrIconButton
 import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
+import kotlin.math.max
 
 /**
  * A customizable header component with play controls.
@@ -80,71 +78,79 @@ fun PlayableHeader(
             .consumeWindowInsets(horizontalMargin)
             .windowInsetsPadding(windowInsets)
     ) { constraints ->
-        val titlesPlaceables = subcompose(PlayableTopAppBarSlot.Titles) {
+        val playButtonSizePx = playButtonSize.roundToPx()
+        val minButtonSizePx = minButtonSize.roundToPx()
+        val buttonSpacingPx = buttonSpacing.roundToPx()
+
+        val looseConstraints = constraints.copy(minWidth = 0, minHeight = 0)
+
+        val titlesPlaceable = subcompose(PlayableTopAppBarSlot.Titles) {
             Column {
                 DisplayText(title)
                 if (subtitle != null) {
                     Subtitle(subtitle)
                 }
             }
-        }.map { it.measure(constraints) }
+        }.single().measure(looseConstraints)
 
-        val titlesSize =
-            titlesPlaceables.fastFold(initial = IntSize.Zero) { currentMax, placeable ->
-                IntSize(
-                    width = minOf(currentMax.width, placeable.width),
-                    height = currentMax.height + placeable.height
+        val shouldDisplayPlayButton =
+            (constraints.maxWidth - titlesPlaceable.width - buttonSpacingPx) >=
+                    minButtonSizePx + buttonSpacingPx
+
+        val playButtonPlaceable = subcompose(PlayableTopAppBarSlot.PlayButton) {
+            if (shouldDisplayPlayButton) {
+                PlayButton(
+                    isPlaying = isPlaying,
+                    onPlayClick = onPlayClick,
+                    modifier = Modifier.size(playButtonSize)
                 )
             }
-        val titlesWidth = titlesSize.width.toDp()
-        val titlesWidthWithSpacing = titlesWidth + buttonSpacing
+        }.singleOrNull()?.measure(
+            Constraints.fixed(playButtonSizePx, playButtonSizePx)
+        )
 
-        val actualPlayButtonSize = (constraints.maxWidth.toDp() - titlesWidthWithSpacing)
-            .coerceIn(0.dp..playButtonSize)
-        val actualPlayButtonSizePx = actualPlayButtonSize.roundToPx()
-        val playButtonFits = actualPlayButtonSize >= minButtonSize
+        val playButtonWidth = playButtonPlaceable?.width ?: 0
+        val widthExcludePlayButtonDp = (constraints.maxWidth - playButtonWidth).toDp()
 
-        val widthExcludePlayButton = constraints.maxWidth - actualPlayButtonSizePx
+        val titleBlockHeightDp = titlesPlaceable.height.toDp()
+        val playButtonHeightDp = (playButtonPlaceable?.height ?: 0).toDp()
+        val innerSpaceHeight = max(0.dp, playButtonHeightDp - titleBlockHeightDp)
 
-        val contentPlaceables = subcompose(PlayableTopAppBarSlot.MainContent) {
+        val layoutData = PlayableHeaderLayout(
+            innerSpaceHeight = innerSpaceHeight,
+            widthExcludePlayButton = widthExcludePlayButtonDp,
+            isButtonDisplayed = shouldDisplayPlayButton
+        )
 
-            val resultLayout = PlayableHeaderLayout(
-                innerSpaceHeight = (actualPlayButtonSize - titlesSize.height.toDp())
-                    .coerceAtLeast(0.dp),
-                widthExcludePlayButton = widthExcludePlayButton.toDp(),
-                isButtonDisplayed = playButtonFits
-            )
-            content(resultLayout)
-
-        }.map { it.measure(constraints) }
-
-        val contentSize = contentPlaceables.fastFold(IntSize.Zero) { currentMax, placeable ->
-            IntSize(
-                width = maxOf(currentMax.width, placeable.width),
-                height = maxOf(currentMax.height, placeable.height)
-            )
+        val contentMaxHeight = if (constraints.hasFixedHeight) {
+            (constraints.maxHeight - titlesPlaceable.height).coerceAtLeast(0)
+        } else {
+            Constraints.Infinity
         }
+        val mainContentConstraints = constraints.copy(
+            minWidth = 0,
+            minHeight = 0,
+            maxWidth = constraints.maxWidth,
+            maxHeight = contentMaxHeight
+        )
+        val mainContentPlaceable = subcompose(PlayableTopAppBarSlot.MainContent) {
+            content(layoutData)
+        }.singleOrNull()?.measure(mainContentConstraints)
+
+        val titleBlockHeightPx = titlesPlaceable.height
+        val mainContentHeightPx = mainContentPlaceable?.height ?: 0
+        val playButtonHeightPx = playButtonPlaceable?.height ?: 0
+
+        val calculatedHeight = max(titleBlockHeightPx + mainContentHeightPx, playButtonHeightPx)
 
         layout(
             width = constraints.maxWidth,
-            height = maxOf(titlesSize.height + contentSize.height, actualPlayButtonSizePx)
+            height = constraints.maxHeight.takeIf { constraints.hasFixedHeight } ?: calculatedHeight
         ) {
-            titlesPlaceables.fastForEach { it.placeRelative(0, 0) }
-            contentPlaceables.fastForEach { it.placeRelative(0, titlesSize.height) }
-            if (playButtonFits) {
-                subcompose(PlayableTopAppBarSlot.PlayButton) {
-                    PlayButton(
-                        isPlaying = isPlaying,
-                        onPlayClick = onPlayClick,
-                        modifier = Modifier.size(actualPlayButtonSize)
-                    )
-                }.fastForEach {
-                    val buttonConstraints = Constraints.fixed(
-                        width = actualPlayButtonSizePx,
-                        height = actualPlayButtonSizePx
-                    )
-                    it.measure(buttonConstraints).placeRelative(widthExcludePlayButton, 0)
-                }
+            titlesPlaceable.placeRelative(0, 0)
+            mainContentPlaceable?.placeRelative(0, titleBlockHeightPx)
+            playButtonPlaceable?.let {
+                it.placeRelative(constraints.maxWidth - it.width, 0)
             }
         }
     }
