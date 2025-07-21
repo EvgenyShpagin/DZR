@@ -193,7 +193,7 @@ private fun MediaGridItemPreview_DisabledFull() {
 
 @Preview(name = "Enabled - No Supporting")
 @Composable
-private fun MediaGridItemPreview_EnabledNoSupporting() {
+private fun MediaGridItem_EnabledNoSupporting_Preview() {
     DzrTheme {
         MediaGridItem(
             headlineContent = {
@@ -223,7 +223,7 @@ private fun MediaGridItemPreview_EnabledNoSupporting() {
 
 @Preview(name = "Long Headline")
 @Composable
-private fun MediaGridItemPreview_LongHeadline() {
+private fun MediaGridItem_LongHeadline_Preview() {
     DzrTheme {
         MediaGridItem(
             headlineContent = {

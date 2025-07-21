@@ -230,7 +230,7 @@ private fun MediaListItemPreview_EnabledNoSupporting() {
 
 @Preview(name = "Enabled - Minimal")
 @Composable
-private fun MediaListItemPreview_EnabledMinimal() {
+private fun MediaListItem_EnabledMinimal_Preview() {
     DzrTheme {
         MediaListItem(
             headlineContent = { Text("Minimal Item") },
