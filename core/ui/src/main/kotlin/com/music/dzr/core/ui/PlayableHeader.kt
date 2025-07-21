@@ -36,28 +36,30 @@ import com.music.dzr.core.designsystem.theme.DzrTheme
 import kotlin.math.max
 
 /**
- * A customizable header component with play controls.
- * Combines titles, a dynamic play button, and custom content in an adaptive layout.
+ * A customizable header component that features play controls, titles, and an area for custom content,
+ * all within an adaptive layout.
  *
- * Uses [SubcomposeLayout] for optimized measurement of complex content.
+ * This component uses [SubcomposeLayout] to efficiently measure and arrange its complex content,
+ * ensuring optimal performance.
  *
- * @param title String for main title
- * @param onPlayClick Callback when play button is clicked
- * @param isPlaying Whether tracklist is currently playing or not
- * @param modifier The [Modifier] to be applied to this header
- * @param subtitle Optional string for subtitle
- * @param playButtonSize Maximum size of the play button (default: [PlayableHeaderDefaults.PlayButtonSize])
- * @param buttonSpacing Space between text content and play button (default: [PlayableHeaderDefaults.ButtonSpacing])
- * @param horizontalMargin Horizontal padding values (default: [PlayableHeaderDefaults.Margin])
- * @param minButtonSize Minimum play button size if it doesn't fit completely (default: [PlayableHeaderDefaults.MinButtonSize])
- * @param windowInsets Window insets to handle (default: [PlayableHeaderDefaults.windowInsets])
- * @param content Slot API for custom content below titles. Receives [PlayableHeaderLayout] with:
- * - innerSpaceHeight: Available vertical space between titles and bottom
- * - widthExcludePlayButton: Available width excluding play button area
- * - isButtonDisplayed: Whether play button is currently visible
+ * @param title The main title of the header.
+ * @param onPlayClick The callback to be invoked when the play button is clicked.
+ * @param isPlaying A boolean indicating whether the content is currently playing, which determines the play button's icon.
+ * @param modifier The [Modifier] to be applied to this component.
+ * @param subtitle An optional subtitle to display below the main title.
+ * @param playButtonSize The maximum size of the play button. Defaults to [PlayableHeaderDefaults.PlayButtonSize].
+ * @param buttonSpacing The spacing between the text content and the play button. Defaults to [PlayableHeaderDefaults.ButtonSpacing].
+ * @param horizontalMargin The horizontal padding for the header. Defaults to [PlayableHeaderDefaults.Margin].
+ * @param minButtonSize The minimum size of the play button. If the available space is less than this, the button will not be shown. Defaults to [PlayableHeaderDefaults.MinButtonSize].
+ * @param windowInsets The window insets to apply to the header. Defaults to [PlayableHeaderDefaults.windowInsets].
+ * @param content A slot for custom content to be displayed below the titles. It receives a [PlayableHeaderLayout]
+ * object providing layout details such as:
+ * - `innerSpaceHeight`: Available vertical space between the titles and the bottom of the header.
+ * - `widthExcludePlayButton`: Available width for content, excluding the play button area.
+ * - `isButtonDisplayed`: Indicates if the play button is currently being displayed.
  *
- * @see PlayableHeaderLayout For layout parameters passed to content slot
- * @see PlayableHeaderDefaults For default style values
+ * @see PlayableHeaderLayout Provides layout parameters to the content slot.
+ * @see PlayableHeaderDefaults Contains default styling values for the header.
  */
 @Composable
 fun PlayableHeader(
@@ -90,16 +92,20 @@ fun PlayableHeader(
 }
 
 /**
- * Layout for a [PlayableHeader]'s content.
+ * A private composable that handles the layout logic for [PlayableHeader].
  *
- * @param title the main title to display
- * @param subtitle optional subtitle to display below the title
- * @param isPlaying whether the content is currently playing
- * @param onPlayClick callback when the play button is clicked
- * @param playButtonSize maximum size of the play button
- * @param buttonSpacing space between text content and play button
- * @param minButtonSize minimum play button size
- * @param content the main content slot of the header
+ * It uses [SubcomposeLayout] to measure and place the title, subtitle, play button, and custom content
+ * based on the available space.
+ *
+ * @param title The main title to display.
+ * @param subtitle An optional subtitle to display below the title.
+ * @param isPlaying A boolean indicating if the content is currently playing.
+ * @param onPlayClick A callback invoked when the play button is clicked.
+ * @param playButtonSize The maximum size of the play button.
+ * @param buttonSpacing The spacing between the text and the play button.
+ * @param minButtonSize The minimum size required for the play button to be displayed.
+ * @param content The main content slot of the header.
+ * @param modifier The modifier to be applied to the layout.
  */
 @Composable
 private fun PlayableHeaderLayout(
@@ -123,44 +129,40 @@ private fun PlayableHeaderLayout(
         val minButtonSizePx = minButtonSize.roundToPx()
         val buttonSpacingPx = buttonSpacing.roundToPx()
 
-        // Measure title
+        // Measure title to determine its preferred width
         val titlePlaceable = subcompose(PlayableHeaderLayoutContent.Title) {
             PlayableHeaderTitle(title = title)
         }.single().measure(looseConstraints)
-
         val titleWidth = titlePlaceable.width
 
-        // Determine if play button should be displayed
-        val availableButtonWidthPx = (layoutWidth - titleWidth - buttonSpacingPx)
+        // Determine if play button can be displayed and its potential width
+        val potentialButtonWidthPx = (layoutWidth - titleWidth - buttonSpacingPx)
             .coerceAtMost(playButtonSizePx)
-        val shouldDisplayPlayButton = availableButtonWidthPx >= minButtonSizePx
+        val shouldDisplayPlayButton = potentialButtonWidthPx >= minButtonSizePx
 
-        val maxSubtitleWidth = layoutWidth - availableButtonWidthPx - buttonSpacingPx
-
-        // Measure subtitle
+        // Measure subtitle with width constrained by the button area
+        val subtitleMaxWidth = layoutWidth - potentialButtonWidthPx - buttonSpacingPx
         val subtitlePlaceable = subcompose(PlayableHeaderLayoutContent.Subtitle) {
             if (subtitle != null) {
                 PlayableHeaderSubtitle(subtitle = subtitle)
             }
-        }.singleOrNull()?.measure(looseConstraints.copy(maxWidth = maxSubtitleWidth))
+        }.singleOrNull()?.measure(looseConstraints.copy(maxWidth = subtitleMaxWidth))
 
         val titlesHeight = titlePlaceable.height + (subtitlePlaceable?.height ?: 0)
 
         // Measure play button if it should be displayed
-        val playButtonPlaceables = subcompose(PlayableHeaderLayoutContent.PlayButton) {
+        val playButtonPlaceable = subcompose(PlayableHeaderLayoutContent.PlayButton) {
             if (shouldDisplayPlayButton) {
                 PlayableHeaderButton(
                     isPlaying = isPlaying,
                     onClick = onPlayClick,
-                    modifier = Modifier.size(availableButtonWidthPx.toDp())
+                    modifier = Modifier.size(potentialButtonWidthPx.toDp())
                 )
             }
-        }.fastMap {
-            it.measure(Constraints.fixed(availableButtonWidthPx, availableButtonWidthPx))
-        }
+        }.singleOrNull()?.measure(Constraints.fixed(potentialButtonWidthPx, potentialButtonWidthPx))
 
-        val playButtonWidth = playButtonPlaceables.fastMaxBy { it.width }?.width ?: 0
-        val playButtonHeight = playButtonPlaceables.fastMaxBy { it.height }?.height ?: 0
+        val playButtonWidth = playButtonPlaceable?.width ?: 0
+        val playButtonHeight = playButtonPlaceable?.height ?: 0
 
         // Calculate available space for main content
         val contentMaxWidth = layoutWidth - if (shouldDisplayPlayButton) playButtonWidth else 0
@@ -199,24 +201,20 @@ private fun PlayableHeaderLayout(
         layout(layoutWidth, finalHeight) {
             // Place titles
             titlePlaceable.placeRelative(0, 0)
-            if (subtitlePlaceable != null) {
-                val titleHeight = titlePlaceable.height
-                subtitlePlaceable.placeRelative(0, titleHeight)
-            }
+            subtitlePlaceable?.placeRelative(0, titlePlaceable.height)
 
-            // Place main content below titles if there's space
+            // Place main content below titles
             if (finalHeight - titlesHeight > 0) {
                 contentPlaceables.forEach { it.placeRelative(0, titlesHeight) }
             }
 
             // Place play button at the end
-            playButtonPlaceables.forEach {
-                it.placeRelative(layoutWidth - it.width, 0)
-            }
+            playButtonPlaceable?.let { it.placeRelative(layoutWidth - it.width, 0) }
         }
     }
 }
 
+/** Displays the main title of the header. */
 @Composable
 private fun PlayableHeaderTitle(
     title: String,
@@ -232,6 +230,7 @@ private fun PlayableHeaderTitle(
     )
 }
 
+/** Displays the subtitle of the header. */
 @Composable
 private fun PlayableHeaderSubtitle(
     subtitle: String,
@@ -247,6 +246,7 @@ private fun PlayableHeaderSubtitle(
     )
 }
 
+/** Displays the play/pause button, adapting its icon based on the [isPlaying] state. */
 @Composable
 private fun PlayableHeaderButton(
     isPlaying: Boolean,
@@ -257,26 +257,26 @@ private fun PlayableHeaderButton(
         onClick = onClick,
         modifier = modifier
     ) {
-        if (isPlaying) {
-            Icon(
-                imageVector = DzrIcons.Pause,
-                contentDescription = stringResource(R.string.core_ui_cd_pause_music)
-            )
+        val (icon, contentDescriptionRes) = if (isPlaying) {
+            DzrIcons.Pause to R.string.core_ui_cd_pause_music
         } else {
-            Icon(
-                imageVector = DzrIcons.PlayArrow,
-                contentDescription = stringResource(R.string.core_ui_cd_play_music)
-            )
+            DzrIcons.PlayArrow to R.string.core_ui_cd_play_music
         }
+
+        Icon(
+            imageVector = icon,
+            contentDescription = stringResource(contentDescriptionRes)
+        )
     }
 }
 
 /**
- * Layout parameters provided to [PlayableHeader]'s content slot.
+ * Provides layout parameters to the content slot of [PlayableHeader].
  *
- * @property innerSpaceHeight Available vertical space between subtitle baseline and bottom of the button
- * @property widthExcludePlayButton Available width excluding the play button area
- * @property isButtonDisplayed Whether the play button is currently visible
+ * @property innerSpaceHeight The available vertical space for custom content, calculated from the
+ * height difference between the play button and the text titles.
+ * @property widthExcludePlayButton The available width for the content slot, excluding the play button area.
+ * @property isButtonDisplayed A flag indicating whether the play button is currently visible.
  */
 @Immutable
 data class PlayableHeaderLayout(
@@ -285,21 +285,21 @@ data class PlayableHeaderLayout(
     val isButtonDisplayed: Boolean
 )
 
-/** Object containing various default values for [PlayableHeader] styling. */
+/** Contains default values used by the [PlayableHeader] component. */
 object PlayableHeaderDefaults {
-    /** Default size for play button */
+    /** The default size for the play button. */
     val PlayButtonSize: Dp = 128.dp
 
-    /** Default spacing between text and button */
+    /** The default spacing between the text and the button. */
     val ButtonSpacing: Dp = 8.dp
 
-    /** Minimum play button size */
+    /** The default minimum size for the play button. */
     val MinButtonSize: Dp = 56.dp
 
-    /** Default horizontal margins around header */
+    /** The default horizontal margins for the header. */
     val Margin: PaddingValues = PaddingValues(horizontal = 16.dp)
 
-    /** Default window insets to be handled by the header */
+    /** The default window insets handled by the header. */
     val windowInsets: WindowInsets
         @Composable get() = WindowInsets.systemBars.only(
             WindowInsetsSides.Horizontal + WindowInsetsSides.Top
@@ -319,7 +319,7 @@ private fun PlayableHeader_WithSubtitle_Preview() {
     DzrTheme {
         PlayableHeader(
             title = "Title",
-            subtitle = "Subtitle Subtitle Subtitle Subtitle Subtitle Subtitle Subtitle Subtitle.....",
+            subtitle = "This is a very long subtitle that should be wrapped and constrained by the title width",
             onPlayClick = {},
             isPlaying = false
         ) { layout ->
