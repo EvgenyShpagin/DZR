@@ -2,7 +2,6 @@ package com.music.dzr.core.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -124,18 +123,28 @@ private fun PlayableHeaderLayout(
         val minButtonSizePx = minButtonSize.roundToPx()
         val buttonSpacingPx = buttonSpacing.roundToPx()
 
-        // Measure titles block
-        val titlesPlaceables = subcompose(PlayableHeaderLayoutContent.Titles) {
-            PlayableHeaderTitles(title = title, subtitle = subtitle)
-        }.fastMap { it.measure(looseConstraints) }
+        // Measure title
+        val titlePlaceable = subcompose(PlayableHeaderLayoutContent.Title) {
+            PlayableHeaderTitle(title = title)
+        }.single().measure(looseConstraints)
 
-        val titlesWidth = titlesPlaceables.fastMaxBy { it.width }?.width ?: 0
-        val titlesHeight = titlesPlaceables.fastMaxBy { it.height }?.height ?: 0
+        val titleWidth = titlePlaceable.width
 
         // Determine if play button should be displayed
-        val availableButtonWidthPx = (layoutWidth - titlesWidth - buttonSpacingPx)
+        val availableButtonWidthPx = (layoutWidth - titleWidth - buttonSpacingPx)
             .coerceAtMost(playButtonSizePx)
         val shouldDisplayPlayButton = availableButtonWidthPx >= minButtonSizePx
+
+        val maxSubtitleWidth = layoutWidth - availableButtonWidthPx - buttonSpacingPx
+
+        // Measure subtitle
+        val subtitlePlaceable = subcompose(PlayableHeaderLayoutContent.Subtitle) {
+            if (subtitle != null) {
+                PlayableHeaderSubtitle(subtitle = subtitle)
+            }
+        }.singleOrNull()?.measure(looseConstraints.copy(maxWidth = maxSubtitleWidth))
+
+        val titlesHeight = titlePlaceable.height + (subtitlePlaceable?.height ?: 0)
 
         // Measure play button if it should be displayed
         val playButtonPlaceables = subcompose(PlayableHeaderLayoutContent.PlayButton) {
@@ -189,7 +198,11 @@ private fun PlayableHeaderLayout(
 
         layout(layoutWidth, finalHeight) {
             // Place titles
-            titlesPlaceables.forEach { it.placeRelative(0, 0) }
+            titlePlaceable.placeRelative(0, 0)
+            if (subtitlePlaceable != null) {
+                val titleHeight = titlePlaceable.height
+                subtitlePlaceable.placeRelative(0, titleHeight)
+            }
 
             // Place main content below titles if there's space
             if (finalHeight - titlesHeight > 0) {
@@ -205,29 +218,33 @@ private fun PlayableHeaderLayout(
 }
 
 @Composable
-private fun PlayableHeaderTitles(
+private fun PlayableHeaderTitle(
     title: String,
-    subtitle: String?,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier) {
-        Text(
-            text = title,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 1,
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.displayLarge
-        )
-        if (subtitle != null) {
-            Text(
-                text = subtitle,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 2,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.labelLarge
-            )
-        }
-    }
+    Text(
+        text = title,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 1,
+        color = MaterialTheme.colorScheme.onSurface,
+        style = MaterialTheme.typography.displayLarge,
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun PlayableHeaderSubtitle(
+    subtitle: String,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = subtitle,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 2,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        style = MaterialTheme.typography.labelLarge,
+        modifier = modifier
+    )
 }
 
 @Composable
@@ -290,7 +307,8 @@ object PlayableHeaderDefaults {
 }
 
 private enum class PlayableHeaderLayoutContent {
-    Titles,
+    Title,
+    Subtitle,
     PlayButton,
     MainContent
 }
@@ -301,7 +319,7 @@ private fun PlayableHeader_WithSubtitle_Preview() {
     DzrTheme {
         PlayableHeader(
             title = "Title",
-            subtitle = "Subtitle",
+            subtitle = "Subtitle Subtitle Subtitle Subtitle Subtitle Subtitle Subtitle Subtitle.....",
             onPlayClick = {},
             isPlaying = false
         ) { layout ->
