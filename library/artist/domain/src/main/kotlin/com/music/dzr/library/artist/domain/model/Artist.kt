@@ -1,8 +1,8 @@
 package com.music.dzr.library.artist.domain.model
 
-import com.music.dzr.core.model.shared.Image
-import com.music.dzr.core.model.shared.MusicGenre
-import com.music.dzr.core.model.shared.PopularityLevel
+import com.music.dzr.core.model.Image
+import com.music.dzr.core.model.MusicGenre
+import com.music.dzr.core.model.PopularityLevel
 
 /**
  * Music artist with full profile information.
