@@ -1,14 +1,14 @@
 package com.music.dzr.library.album.domain.model
 
-import com.music.dzr.core.model.artist.SimplifiedArtist
-import com.music.dzr.core.model.shared.ContentRestriction
-import com.music.dzr.core.model.shared.Copyright
-import com.music.dzr.core.model.shared.ExternalIdentifiers
-import com.music.dzr.core.model.shared.Image
-import com.music.dzr.core.model.shared.Market
-import com.music.dzr.core.model.shared.MusicGenre
-import com.music.dzr.core.model.shared.PopularityLevel
-import com.music.dzr.core.model.track.TrackOnAlbum
+import com.music.dzr.core.model.ContentRestriction
+import com.music.dzr.core.model.Copyright
+import com.music.dzr.core.model.ExternalIdentifiers
+import com.music.dzr.core.model.Image
+import com.music.dzr.core.model.Market
+import com.music.dzr.core.model.MusicGenre
+import com.music.dzr.core.model.PopularityLevel
+import com.music.dzr.library.artist.domain.model.SimplifiedArtist
+import com.music.dzr.library.track.domain.model.TrackOnAlbum
 
 /**
  * Album with full information including tracks.

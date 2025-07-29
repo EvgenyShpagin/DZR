@@ -1,9 +1,9 @@
 package com.music.dzr.library.album.domain.model
 
-import com.music.dzr.core.model.artist.SimplifiedArtist
-import com.music.dzr.core.model.shared.ContentRestriction
-import com.music.dzr.core.model.shared.Image
-import com.music.dzr.core.model.shared.Market
+import com.music.dzr.core.model.ContentRestriction
+import com.music.dzr.core.model.Image
+import com.music.dzr.core.model.Market
+import com.music.dzr.library.artist.domain.model.SimplifiedArtist
 
 /**
  * Album in artist's discography.
