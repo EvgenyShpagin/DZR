@@ -12,6 +12,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,13 +29,18 @@ fun Track(
     modifier: Modifier = Modifier,
     onLongClick: () -> Unit = onMoreClick
 ) {
+    val contentDescription = stringResource(
+        R.string.core_ui_cd_track_by_artist,
+        state.title,
+        state.contributors.first()
+    )
     MediaListItem(
-        modifier = modifier,
+        modifier = modifier.semantics { this.contentDescription = contentDescription },
         image = state.coverUrl?.let { url ->
             {
                 InspectableAsyncImage(
                     model = url,
-                    contentDescription = stringResource(R.string.core_ui_cd_track_cover),
+                    contentDescription = null,
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(designSystemR.drawable.core_design_system_ic_placeholder_default),
                     modifier = Modifier
