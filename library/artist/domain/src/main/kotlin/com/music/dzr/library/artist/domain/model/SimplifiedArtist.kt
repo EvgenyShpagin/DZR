@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.artist
+package com.music.dzr.library.artist.domain.model
 
 /**
  * Artist reference used in album and track contexts.

@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.artist
+package com.music.dzr.library.artist.domain.model
 
 import com.music.dzr.core.model.shared.Image
 import com.music.dzr.core.model.shared.MusicGenre
