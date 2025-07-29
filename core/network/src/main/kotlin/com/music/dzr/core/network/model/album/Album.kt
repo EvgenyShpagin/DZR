@@ -14,7 +14,6 @@ import kotlinx.serialization.Serializable
 /**
  * Represents a full album object with all available fields.
  */
-@SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class Album(
     @SerialName("album_type") val albumType: AlbumType,
