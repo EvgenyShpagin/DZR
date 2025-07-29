@@ -52,7 +52,6 @@ fun ReleaseCard(
         image = {
             TrackListCover(
                 coverUrl = coverUrl,
-                contentDescription = null,
                 modifier = coverModifier.size(128.dp)
             )
         },
@@ -101,7 +100,6 @@ fun ReleaseRow(
         image = {
             TrackListCover(
                 coverUrl = coverUrl,
-                contentDescription = null,
                 modifier = coverModifier.size(96.dp)
             )
         },

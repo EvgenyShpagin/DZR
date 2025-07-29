@@ -17,8 +17,8 @@ import com.music.dzr.core.designsystem.R as designSystemR
 @Composable
 fun TrackListCover(
     coverUrl: String,
-    contentDescription: String?,
     modifier: Modifier = Modifier,
+    contentDescription: String? = null,
     placeholder: Painter = painterResource(designSystemR.drawable.core_design_system_ic_placeholder_default)
 ) {
     InspectableAsyncImage(
@@ -38,7 +38,6 @@ fun TrackListCoverPreview() {
     DzrTheme {
         TrackListCover(
             coverUrl = "",
-            contentDescription = "",
             modifier = Modifier.size(128.dp)
         )
     }

@@ -40,7 +40,6 @@ fun PlaylistCard(
         image = {
             TrackListCover(
                 coverUrl = pictureUrl,
-                contentDescription = null,
                 modifier = Modifier.sizeIn(minWidth = 128.dp)
             )
         },
