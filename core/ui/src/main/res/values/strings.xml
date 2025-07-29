@@ -10,6 +10,6 @@
     <string name="core_ui_release_type_single">Single</string>
     <string name="core_ui_release_type_compilation">Compilation</string>
     <string name="core_ui_cd_show_more">Show more</string>
-    <string name="core_ui_cd_artist">Artist</string>
+    <string name="core_ui_cd_artist">Artist %s</string>
     <string name="core_ui_cd_track_cover">Track cover</string>
 </resources>
