@@ -4,7 +4,7 @@
     <string name="core_ui_cd_pause_music">Pause music</string>
     <string name="core_ui_cd_to_detailed_view">Go to detailed view</string>
     <string name="core_ui_cd_playlist">Playlist: %s</string>
-    <string name="core_ui_cd_release_cover">Album</string>
+    <string name="core_ui_cd_release">%1$s by %2$s</string>
     <string name="core_ui_release_type_album">Album</string>
     <string name="core_ui_release_type_ep">EP</string>
     <string name="core_ui_release_type_single">Single</string>

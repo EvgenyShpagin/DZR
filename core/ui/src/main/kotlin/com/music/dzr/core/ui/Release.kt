@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,17 +33,26 @@ fun ReleaseCard(
     releaseYear: String,
     explicit: Boolean,
     releaseType: ReleaseType,
+    mainArtistName: String,
     modifier: Modifier = Modifier,
     coverModifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+    val contentDescription =
+        stringResource(
+            R.string.core_ui_cd_release,
+            releaseType.toString(context),
+            mainArtistName
+        )
     MediaGridItem(
         modifier = modifier
             .clip(ShapeDefaults.Small)
-            .width(IntrinsicSize.Min),
+            .width(IntrinsicSize.Min)
+            .semantics { this.contentDescription = contentDescription },
         image = {
             TrackListCover(
                 coverUrl = coverUrl,
-                contentDescription = stringResource(R.string.core_ui_cd_release_cover),
+                contentDescription = null,
                 modifier = coverModifier.size(128.dp)
             )
         },
@@ -78,12 +89,19 @@ fun ReleaseRow(
     coverModifier: Modifier = Modifier,
     onLongClick: () -> Unit = onMoreClick
 ) {
+    val contentDescription = stringResource(
+        R.string.core_ui_cd_release,
+        releaseType.toString(LocalContext.current),
+        contributors.first()
+    )
     MediaListItem(
-        modifier = modifier.clip(ShapeDefaults.Small),
+        modifier = modifier
+            .clip(ShapeDefaults.Small)
+            .semantics { this.contentDescription = contentDescription },
         image = {
             TrackListCover(
                 coverUrl = coverUrl,
-                contentDescription = stringResource(R.string.core_ui_cd_release_cover),
+                contentDescription = null,
                 modifier = coverModifier.size(96.dp)
             )
         },
@@ -155,7 +173,8 @@ private fun ReleaseCardPreview() {
             onLongClick = {},
             releaseYear = "2000",
             explicit = true,
-            releaseType = ReleaseType.ALBUM
+            releaseType = ReleaseType.ALBUM,
+            mainArtistName = "Limp Bizkit"
         )
     }
 }

@@ -99,6 +99,7 @@ class ReleaseCardTest {
                 releaseYear = releaseYear,
                 explicit = explicit,
                 releaseType = releaseType,
+                mainArtistName = "Limp Bizkit",
                 modifier = Modifier.testTag("releaseCard")
             )
         }
