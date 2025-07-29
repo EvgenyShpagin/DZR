@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.album
+package com.music.dzr.library.album.domain.model
 
 /**
  * Album release date with variable precision.
