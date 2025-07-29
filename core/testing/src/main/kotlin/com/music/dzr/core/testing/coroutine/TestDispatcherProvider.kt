@@ -1,4 +1,4 @@
-package coroutine
+package com.music.dzr.core.testing.coroutine
 
 import com.music.dzr.core.coroutine.DispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher
