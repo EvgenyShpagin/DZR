@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.track
+package com.music.dzr.library.track.domain.model
 
 import com.music.dzr.core.model.album.AlbumOnTrack
 import com.music.dzr.core.model.artist.SimplifiedArtist
