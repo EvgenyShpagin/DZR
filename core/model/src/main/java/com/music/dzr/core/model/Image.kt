@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.shared
+package com.music.dzr.core.model
 
 /**
  * Domain representation of an image.

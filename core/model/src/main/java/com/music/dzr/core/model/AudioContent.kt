@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.shared
+package com.music.dzr.core.model
 
 /**
  * Represents any audio content that can be played in the player.
@@ -8,8 +8,8 @@ package com.music.dzr.core.model.shared
  *
  * @property id Unique identifier of the audio content
  *
- * @see com.music.dzr.core.model.track.Track
- * @see com.music.dzr.core.model.player.Advertisement
+ * @see com.music.dzr.library.track.domain.model.Track
+ * @see com.music.dzr.player.domain.model.Advertisement
  */
 interface AudioContent {
     val id: String

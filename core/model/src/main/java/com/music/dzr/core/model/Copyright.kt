@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.shared
+package com.music.dzr.core.model
 
 /**
  * Copyright statement for music content.
