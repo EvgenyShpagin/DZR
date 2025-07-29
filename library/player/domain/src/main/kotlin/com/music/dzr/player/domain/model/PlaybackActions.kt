@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.player
+package com.music.dzr.player.domain.model
 
 /**
  * Represents the available playback control actions for the current context.

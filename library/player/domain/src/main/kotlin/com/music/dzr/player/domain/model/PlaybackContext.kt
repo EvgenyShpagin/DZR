@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.player
+package com.music.dzr.player.domain.model
 
 /**
  * Represents the playback context - the source from which music is playing.

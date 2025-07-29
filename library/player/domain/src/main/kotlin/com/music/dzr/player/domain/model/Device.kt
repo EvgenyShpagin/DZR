@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.device
+package com.music.dzr.player.domain.model
 
 /**
  * Represents a device that can be used to play music.

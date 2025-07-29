@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.player
+package com.music.dzr.player.domain.model
 
 import com.music.dzr.core.model.device.Device
 import com.music.dzr.core.model.shared.AudioContent
@@ -19,10 +19,10 @@ import kotlin.time.Duration
  * @property playingItem The currently playing audio content
  * @property actions Available playback control actions
  *
- * @see Device
+ * @see com.music.dzr.core.model.device.Device
  * @see PlaybackContext
  * @see RepeatMode
- * @see AudioContent
+ * @see com.music.dzr.core.model.shared.AudioContent
  * @see PlaybackActions
  */
 data class PlaybackState(

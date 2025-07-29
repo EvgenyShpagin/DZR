@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.device
+package com.music.dzr.player.domain.model
 
 /**
  * Types of devices that can be used for music playback.
