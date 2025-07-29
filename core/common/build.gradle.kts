@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.dzr.jvm.library)
-    alias(libs.plugins.dzr.koin)
     `java-test-fixtures`
 }
 
