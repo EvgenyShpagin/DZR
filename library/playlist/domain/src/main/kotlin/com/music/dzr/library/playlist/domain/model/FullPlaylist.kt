@@ -1,13 +1,13 @@
-package com.music.dzr.core.model.playlist
+package com.music.dzr.library.playlist.domain.model
 
 import com.music.dzr.core.model.shared.Image
 import com.music.dzr.core.model.user.User
 
 /**
- * A lightweight, summary representation of a playlist without its track list.
- * Ideal for use in lists or search results.
+ * A complete representation of a playlist with all its tracks loaded in a simple list.
+ * Useful for small playlists or when the API returns all items at once.
  */
-data class SimplifiedPlaylist(
+data class FullPlaylist(
     override val id: String,
     override val name: String,
     override val description: String?,
@@ -18,5 +18,6 @@ data class SimplifiedPlaylist(
     override val followersCount: Int?,
     override val externalUrl: String,
     override val snapshotId: String,
-    override val tracksCount: Int
+    override val tracksCount: Int,
+    val entries: List<PlaylistEntry>
 ) : Playlist()

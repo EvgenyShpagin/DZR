@@ -1,13 +1,14 @@
-package com.music.dzr.core.model.playlist
+package com.music.dzr.library.playlist.domain.model
 
 import com.music.dzr.core.model.shared.Image
+import com.music.dzr.core.model.shared.PaginatedList
 import com.music.dzr.core.model.user.User
 
 /**
- * A complete representation of a playlist with all its tracks loaded in a simple list.
- * Useful for small playlists or when the API returns all items at once.
+ * A detailed representation of a playlist that includes a paginated list of its tracks.
+ * Used for viewing the content of large playlists.
  */
-data class FullPlaylist(
+data class PagedPlaylist(
     override val id: String,
     override val name: String,
     override val description: String?,
@@ -19,5 +20,5 @@ data class FullPlaylist(
     override val externalUrl: String,
     override val snapshotId: String,
     override val tracksCount: Int,
-    val entries: List<PlaylistEntry>
+    val entries: PaginatedList<PlaylistEntry>
 ) : Playlist()

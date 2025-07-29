@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.playlist
+package com.music.dzr.library.playlist.domain.model
 
 import com.music.dzr.core.model.shared.Image
 import com.music.dzr.core.model.user.User
