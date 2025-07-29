@@ -50,7 +50,7 @@ fun ArtistCard(
         },
         onClick = onClick,
         onLongClick = onLongClick,
-        onLongClickLabel = contentDescription
+        onLongClickLabel = stringResource(R.string.core_ui_cd_show_more)
     )
 }
 
