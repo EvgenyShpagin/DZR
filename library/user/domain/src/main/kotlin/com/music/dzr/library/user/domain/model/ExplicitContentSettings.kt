@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.user
+package com.music.dzr.library.user.domain.model
 
 /**
  * The user's explicit content settings.

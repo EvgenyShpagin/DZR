@@ -1,4 +1,4 @@
-package com.music.dzr.core.model.user
+package com.music.dzr.library.user.domain.model
 
 /**
  * Represents a time period for calculating user preferences and statistics.
