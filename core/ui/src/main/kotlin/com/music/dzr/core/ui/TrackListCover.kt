@@ -17,7 +17,7 @@ import com.music.dzr.core.designsystem.R as designSystemR
 @Composable
 fun TrackListCover(
     coverUrl: String,
-    contentDescription: String,
+    contentDescription: String?,
     modifier: Modifier = Modifier,
     placeholder: Painter = painterResource(designSystemR.drawable.core_design_system_ic_placeholder_default)
 ) {
