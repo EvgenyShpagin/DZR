@@ -1,10 +1,9 @@
 package com.music.dzr.library.track.domain.model
 
-import com.music.dzr.core.model.album.AlbumOnTrack
-import com.music.dzr.core.model.artist.SimplifiedArtist
-import com.music.dzr.core.model.shared.ContentRestriction
-import com.music.dzr.core.model.shared.ExternalIdentifiers
-import com.music.dzr.core.model.shared.PopularityLevel
+import com.music.dzr.core.model.ContentRestriction
+import com.music.dzr.core.model.ExternalIdentifiers
+import com.music.dzr.core.model.PopularityLevel
+import com.music.dzr.core.model.SimplifiedArtist
 import kotlin.time.Duration
 
 /**
