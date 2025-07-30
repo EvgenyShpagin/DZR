@@ -1,6 +1,6 @@
 package com.music.dzr.library.user.domain.model
 
-import com.music.dzr.core.model.shared.Image
+import com.music.dzr.core.model.Image
 
 /**
  * Represents the current authenticated user's profile with full access to private information.
