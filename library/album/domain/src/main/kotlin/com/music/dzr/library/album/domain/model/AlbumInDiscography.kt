@@ -1,9 +1,12 @@
 package com.music.dzr.library.album.domain.model
 
+import com.music.dzr.core.model.Album
 import com.music.dzr.core.model.ContentRestriction
 import com.music.dzr.core.model.Image
 import com.music.dzr.core.model.Market
-import com.music.dzr.library.artist.domain.model.SimplifiedArtist
+import com.music.dzr.core.model.ReleaseDate
+import com.music.dzr.core.model.ReleaseType
+import com.music.dzr.core.model.SimplifiedArtist
 
 /**
  * Album in artist's discography.

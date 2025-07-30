@@ -1,4 +1,4 @@
-package com.music.dzr.library.album.domain.model
+package com.music.dzr.core.model
 
 enum class ReleaseType {
     ALBUM,
