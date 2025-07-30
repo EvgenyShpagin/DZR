@@ -7,9 +7,6 @@ package com.music.dzr.core.model
  * as the current item in the player (tracks, ads, podcasts, etc.).
  *
  * @property id Unique identifier of the audio content
- *
- * @see com.music.dzr.library.track.domain.model.Track
- * @see com.music.dzr.player.domain.model.Advertisement
  */
 interface AudioContent {
     val id: String
