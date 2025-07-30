@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.model.artist
 
+import com.music.dzr.core.network.model.album.AlbumGroup
 import com.music.dzr.core.network.model.album.AlbumType
 import com.music.dzr.core.network.model.album.ReleaseDate
 import com.music.dzr.core.network.model.album.ReleaseDatePrecision
@@ -28,5 +29,5 @@ data class ArtistAlbum(
     val type: String,
     val uri: String,
     val artists: List<SimplifiedArtist>,
-    @SerialName("album_group") val albumGroup: String
+    @SerialName("album_group") val albumGroup: AlbumGroup
 )
