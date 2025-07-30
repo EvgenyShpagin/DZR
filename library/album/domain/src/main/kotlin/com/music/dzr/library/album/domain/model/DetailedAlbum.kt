@@ -11,7 +11,6 @@ import com.music.dzr.core.model.PopularityLevel
 import com.music.dzr.core.model.ReleaseDate
 import com.music.dzr.core.model.ReleaseType
 import com.music.dzr.core.model.SimplifiedArtist
-import com.music.dzr.library.track.domain.model.TrackOnAlbum
 
 /**
  * Album with full information including tracks.

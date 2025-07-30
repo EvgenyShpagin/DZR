@@ -1,14 +1,11 @@
-package com.music.dzr.library.track.domain.model
+package com.music.dzr.core.model
 
-import com.music.dzr.core.model.AudioContent
-import com.music.dzr.core.model.ContentRestriction
-import com.music.dzr.core.model.SimplifiedArtist
 import kotlin.time.Duration
 
 /**
  * Represents common track information across different contexts.
  */
-sealed class Track : AudioContent {
+abstract class Track : AudioContent {
     abstract override val id: String
     abstract val name: String
     abstract val artists: List<SimplifiedArtist>

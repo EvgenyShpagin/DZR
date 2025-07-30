@@ -1,6 +1,6 @@
 package com.music.dzr.player.domain.model
 
-import com.music.dzr.library.track.domain.model.Track
+import com.music.dzr.core.model.Track
 
 /**
  * Represents the user's playback queue.

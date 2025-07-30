@@ -1,7 +1,8 @@
-package com.music.dzr.library.track.domain.model
+package com.music.dzr.library.album.domain.model
 
 import com.music.dzr.core.model.ContentRestriction
 import com.music.dzr.core.model.SimplifiedArtist
+import com.music.dzr.core.model.Track
 import kotlin.time.Duration
 
 /**
