@@ -1,6 +1,6 @@
 package com.music.dzr.player.domain.model
 
-import com.music.dzr.core.model.track.Track
+import com.music.dzr.library.track.domain.model.Track
 import kotlin.time.Instant
 
 /**
@@ -13,7 +13,7 @@ import kotlin.time.Instant
  * @property playedAt The date and time when the track was played
  * @property context The playback context from which the track was played. May be `null` if context is unknown
  *
- * @see com.music.dzr.library.track.domain.model.Track
+ * @see Track
  * @see PlaybackContext
  */
 data class PlayHistoryEntry(

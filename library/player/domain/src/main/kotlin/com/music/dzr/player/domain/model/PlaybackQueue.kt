@@ -1,6 +1,6 @@
 package com.music.dzr.player.domain.model
 
-import com.music.dzr.core.model.track.Track
+import com.music.dzr.library.track.domain.model.Track
 
 /**
  * Represents the user's playback queue.
@@ -11,7 +11,7 @@ import com.music.dzr.core.model.track.Track
  * @property currentlyPlaying The currently playing track. May be `null` if nothing is playing
  * @property upcoming List of tracks that will be played after the current one
  *
- * @see com.music.dzr.library.track.domain.model.Track
+ * @see Track
  * @see PlaybackState
  */
 data class PlaybackQueue(

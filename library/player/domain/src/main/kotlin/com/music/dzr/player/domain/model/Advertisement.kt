@@ -1,6 +1,6 @@
 package com.music.dzr.player.domain.model
 
-import com.music.dzr.core.model.shared.AudioContent
+import com.music.dzr.core.model.AudioContent
 
 /**
  * Represents an advertisement that can be played in the player.
@@ -10,7 +10,7 @@ import com.music.dzr.core.model.shared.AudioContent
  *
  * @property id Unique identifier of the advertisement
  *
- * @see com.music.dzr.core.model.shared.AudioContent
+ * @see AudioContent
  */
 data class Advertisement(
     override val id: String
