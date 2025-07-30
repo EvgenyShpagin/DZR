@@ -7,8 +7,8 @@ package com.music.dzr.library.user.domain.model
  * are computed. The period is specified in months, providing full flexibility for
  * different analysis timeframes while maintaining type safety.
  *
- * Examples: TimeRange(1) for recent preferences, TimeRange(6) for medium-term,
- * TimeRange(12) for long-term analysis.
+ * Examples: `TimeRange(1)` for recent preferences, `TimeRange(6)` for medium-term,
+ * `TimeRange(12)` for long-term analysis.
  */
 @JvmInline
 value class TimeRange(val months: Int) {
