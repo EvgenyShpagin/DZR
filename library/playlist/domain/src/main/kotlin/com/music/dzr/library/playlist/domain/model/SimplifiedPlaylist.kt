@@ -1,7 +1,7 @@
 package com.music.dzr.library.playlist.domain.model
 
-import com.music.dzr.core.model.shared.Image
-import com.music.dzr.core.model.user.User
+import com.music.dzr.core.model.Image
+import com.music.dzr.library.user.domain.model.User
 
 /**
  * A lightweight, summary representation of a playlist without its track list.
