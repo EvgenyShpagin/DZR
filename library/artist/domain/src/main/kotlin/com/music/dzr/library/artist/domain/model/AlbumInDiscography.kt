@@ -1,4 +1,4 @@
-package com.music.dzr.library.album.domain.model
+package com.music.dzr.library.artist.domain.model
 
 import com.music.dzr.core.model.Album
 import com.music.dzr.core.model.ContentRestriction
