@@ -1,7 +1,7 @@
 package com.music.dzr.core.model
 
 /**
- * Album representations for different contexts.
+ * Album representation for different contexts.
  */
 abstract class Album {
     abstract val id: String
