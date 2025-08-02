@@ -1,10 +1,6 @@
-package com.music.dzr.core.network.model.track
+package com.music.dzr.core.network.model
 
-import com.music.dzr.core.network.model.artist.SimplifiedArtist
-import com.music.dzr.core.network.model.shared.ExternalIds
-import com.music.dzr.core.network.model.shared.ExternalUrls
-import com.music.dzr.core.network.model.shared.LinkedFrom
-import com.music.dzr.core.network.model.shared.Restrictions
+import com.music.dzr.core.network.model.track.TrackAlbum
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

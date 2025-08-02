@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.model.shared
+package com.music.dzr.core.network.model
 
 import com.music.dzr.core.network.model.error.NetworkError
 import kotlinx.serialization.Serializable

@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.model.album
+package com.music.dzr.core.network.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

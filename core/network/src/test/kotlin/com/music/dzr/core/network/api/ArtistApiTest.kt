@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.album.ReleaseDate
+import com.music.dzr.core.network.model.ReleaseDate
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import kotlin.test.AfterTest

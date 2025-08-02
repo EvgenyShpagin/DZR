@@ -1,8 +1,5 @@
-package com.music.dzr.core.network.model.user
+package com.music.dzr.core.network.model
 
-import com.music.dzr.core.network.model.shared.ExternalUrls
-import com.music.dzr.core.network.model.shared.Followers
-import com.music.dzr.core.network.model.shared.Image
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

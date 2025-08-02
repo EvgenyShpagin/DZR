@@ -1,12 +1,13 @@
 package com.music.dzr.library.artist.data.remote.dto
 
-import com.music.dzr.core.network.model.album.AlbumGroup
-import com.music.dzr.core.network.model.album.AlbumType
-import com.music.dzr.core.network.model.album.ReleaseDate
-import com.music.dzr.core.network.model.album.ReleaseDatePrecision
-import com.music.dzr.core.network.model.shared.ExternalUrls
-import com.music.dzr.core.network.model.shared.Image
-import com.music.dzr.core.network.model.shared.Restrictions
+import com.music.dzr.core.network.model.AlbumGroup
+import com.music.dzr.core.network.model.AlbumType
+import com.music.dzr.core.network.model.ExternalUrls
+import com.music.dzr.core.network.model.Image
+import com.music.dzr.core.network.model.ReleaseDate
+import com.music.dzr.core.network.model.ReleaseDatePrecision
+import com.music.dzr.core.network.model.Restrictions
+import com.music.dzr.core.network.model.SimplifiedArtist
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

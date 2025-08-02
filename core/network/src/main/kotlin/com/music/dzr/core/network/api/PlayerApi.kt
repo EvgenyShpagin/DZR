@@ -1,14 +1,13 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.auth.PermissionScope
 import com.music.dzr.core.network.model.player.CurrentlyPlayingContext
 import com.music.dzr.core.network.model.player.Devices
 import com.music.dzr.core.network.model.player.PlaybackState
 import com.music.dzr.core.network.model.player.Queue
 import com.music.dzr.core.network.model.player.RepeatMode
 import com.music.dzr.core.network.model.player.PlaybackOptions
-import com.music.dzr.core.network.model.shared.CursorPaginatedList
-import com.music.dzr.core.network.model.shared.NetworkResponse
+import com.music.dzr.core.network.model.CursorPaginatedList
+import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.player.PlayHistory
 import retrofit2.http.Body
 import retrofit2.http.GET

@@ -1,5 +1,6 @@
 package com.music.dzr.core.network.model.artist
 
+import com.music.dzr.core.network.model.Artist
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

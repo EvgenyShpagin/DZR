@@ -1,9 +1,12 @@
 package com.music.dzr.core.network.model.album
 
-import com.music.dzr.core.network.model.artist.SimplifiedArtist
-import com.music.dzr.core.network.model.shared.ExternalUrls
-import com.music.dzr.core.network.model.shared.Image
-import com.music.dzr.core.network.model.shared.Restrictions
+import com.music.dzr.core.network.model.AlbumType
+import com.music.dzr.core.network.model.SimplifiedArtist
+import com.music.dzr.core.network.model.ExternalUrls
+import com.music.dzr.core.network.model.Image
+import com.music.dzr.core.network.model.ReleaseDate
+import com.music.dzr.core.network.model.ReleaseDatePrecision
+import com.music.dzr.core.network.model.Restrictions
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

@@ -1,6 +1,5 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.auth.PermissionScope
 import com.music.dzr.core.network.model.playlist.NewPlaylistDetails
 import com.music.dzr.core.network.model.playlist.Playlist
 import com.music.dzr.core.network.model.playlist.PlaylistDetailsUpdate
@@ -11,10 +10,10 @@ import com.music.dzr.core.network.model.playlist.PlaylistWithTracks
 import com.music.dzr.core.network.model.playlist.PlaylistWithTracksInfo
 import com.music.dzr.core.network.model.playlist.TrackAdditions
 import com.music.dzr.core.network.model.playlist.TrackRemovals
-import com.music.dzr.core.network.model.shared.Image
-import com.music.dzr.core.network.model.shared.NetworkResponse
-import com.music.dzr.core.network.model.shared.PaginatedList
-import com.music.dzr.core.network.model.shared.SnapshotId
+import com.music.dzr.core.network.model.Image
+import com.music.dzr.core.network.model.NetworkResponse
+import com.music.dzr.core.network.model.PaginatedList
+import com.music.dzr.core.network.model.SnapshotId
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET

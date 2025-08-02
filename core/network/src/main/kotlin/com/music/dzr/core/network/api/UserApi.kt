@@ -1,14 +1,13 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.artist.Artist
-import com.music.dzr.core.network.model.auth.PermissionScope
+import com.music.dzr.core.network.model.Artist
 import com.music.dzr.core.network.model.playlist.PlaylistFollowDetails
-import com.music.dzr.core.network.model.shared.NetworkResponse
-import com.music.dzr.core.network.model.shared.PaginatedList
-import com.music.dzr.core.network.model.track.Track
+import com.music.dzr.core.network.model.NetworkResponse
+import com.music.dzr.core.network.model.PaginatedList
+import com.music.dzr.core.network.model.Track
 import com.music.dzr.core.network.model.user.CurrentUser
 import com.music.dzr.core.network.model.user.FollowedArtists
-import com.music.dzr.core.network.model.user.PublicUser
+import com.music.dzr.core.network.model.PublicUser
 import com.music.dzr.core.network.model.user.TimeRange
 import retrofit2.http.Body
 import retrofit2.http.DELETE

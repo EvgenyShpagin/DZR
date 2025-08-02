@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.model.album
+package com.music.dzr.core.network.model
 
 import com.music.dzr.core.network.retrofit.UrlParameter
 import com.music.dzr.core.network.serialization.getSerializedName

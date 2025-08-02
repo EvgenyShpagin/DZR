@@ -1,13 +1,12 @@
 package com.music.dzr.library.album.data.remote.dto
 
-import android.annotation.SuppressLint
-import com.music.dzr.core.network.model.artist.SimplifiedArtist
-import com.music.dzr.core.network.model.shared.Copyright
-import com.music.dzr.core.network.model.shared.ExternalIds
-import com.music.dzr.core.network.model.shared.ExternalUrls
-import com.music.dzr.core.network.model.shared.Image
-import com.music.dzr.core.network.model.shared.PaginatedList
-import com.music.dzr.core.network.model.shared.Restrictions
+import com.music.dzr.core.network.model.SimplifiedArtist
+import com.music.dzr.core.network.model.Copyright
+import com.music.dzr.core.network.model.ExternalIds
+import com.music.dzr.core.network.model.ExternalUrls
+import com.music.dzr.core.network.model.Image
+import com.music.dzr.core.network.model.PaginatedList
+import com.music.dzr.core.network.model.Restrictions
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

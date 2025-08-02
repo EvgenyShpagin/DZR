@@ -1,7 +1,7 @@
 package com.music.dzr.core.network.api
 
 import com.music.dzr.core.network.model.auth.Token
-import com.music.dzr.core.network.model.shared.NetworkResponse
+import com.music.dzr.core.network.model.NetworkResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST

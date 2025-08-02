@@ -1,11 +1,11 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.album.AlbumGroup
+import com.music.dzr.core.network.model.AlbumGroup
 import com.music.dzr.core.network.model.artist.ArtistAlbum
-import com.music.dzr.core.network.model.artist.Artist
+import com.music.dzr.core.network.model.Artist
 import com.music.dzr.core.network.model.artist.Artists
-import com.music.dzr.core.network.model.shared.NetworkResponse
-import com.music.dzr.core.network.model.shared.PaginatedList
+import com.music.dzr.core.network.model.NetworkResponse
+import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.track.Tracks
 import retrofit2.http.GET
 import retrofit2.http.Path

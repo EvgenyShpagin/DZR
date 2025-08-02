@@ -1,9 +1,8 @@
 package com.music.dzr.library.user.data.remote.dto
 
-import com.music.dzr.core.network.model.auth.PermissionScope
-import com.music.dzr.core.network.model.shared.ExternalUrls
-import com.music.dzr.core.network.model.shared.Followers
-import com.music.dzr.core.network.model.shared.Image
+import com.music.dzr.core.network.model.ExternalUrls
+import com.music.dzr.core.network.model.Followers
+import com.music.dzr.core.network.model.Image
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

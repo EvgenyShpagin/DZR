@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.model.album
 
-import com.music.dzr.core.network.model.shared.PaginatedList
+import com.music.dzr.core.network.model.PaginatedList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

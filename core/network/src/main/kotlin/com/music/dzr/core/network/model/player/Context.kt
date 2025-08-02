@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.model.player
 
-import com.music.dzr.core.network.model.shared.ExternalUrls
+import com.music.dzr.core.network.model.ExternalUrls
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

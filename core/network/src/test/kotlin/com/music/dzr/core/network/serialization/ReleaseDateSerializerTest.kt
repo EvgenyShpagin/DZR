@@ -1,7 +1,7 @@
 package com.music.dzr.core.network.serialization
 
-import com.music.dzr.core.network.model.album.ReleaseDate
-import com.music.dzr.core.network.model.album.ReleaseDatePrecision
+import com.music.dzr.core.network.model.ReleaseDate
+import com.music.dzr.core.network.model.ReleaseDatePrecision
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals
