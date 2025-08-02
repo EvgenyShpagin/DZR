@@ -10,7 +10,7 @@ import kotlinx.serialization.serializer
  *
  * @param rawValue The raw string value that could not be deserialized.
  */
-internal fun KSerializer<*>.throwDeserializationException(rawValue: String): Nothing {
+fun KSerializer<*>.throwDeserializationException(rawValue: String): Nothing {
     throw SerializationException(
         "Couldn't deserialize '$rawValue' to type ${descriptor.serialName}"
     )
