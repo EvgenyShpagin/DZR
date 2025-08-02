@@ -17,16 +17,16 @@ class AndroidDataLibraryConventionPlugin : Plugin<Project> {
             apply(plugin = "dzr.koin")
 
             dependencies {
-                implementation(libs.findLibrary("retrofit.core"))
-                implementation(libs.findLibrary("kotlinx.serialization.json"))
-                implementation(libs.findLibrary("retrofit.kotlin.serialization"))
+                implementation(libs.findLibrary("retrofit.core").get())
+                implementation(libs.findLibrary("kotlinx.serialization.json").get())
+                implementation(libs.findLibrary("retrofit.kotlin.serialization").get())
                 implementation(project(":core:network"))
 
-                testImplementation(project("core:testing"))
-                testImplementation(libs.findLibrary("junit"))
-                testImplementation(libs.findLibrary("mockk"))
-                testImplementation(libs.findLibrary("kotlinx.coroutines.test"))
-                testImplementation(libs.findLibrary("mockwebserver"))
+                testImplementation(project(":core:testing"))
+                testImplementation(libs.findLibrary("junit").get())
+                testImplementation(libs.findLibrary("mockk").get())
+                testImplementation(libs.findLibrary("kotlinx.coroutines.test").get())
+                testImplementation(libs.findLibrary("mockwebserver").get())
             }
         }
     }
