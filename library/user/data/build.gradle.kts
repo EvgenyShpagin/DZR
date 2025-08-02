@@ -5,6 +5,8 @@ plugins {
 }
 
 android {
+    namespace = "com.music.dzr.library.user.data"
+
     buildTypes {
         release {
             isMinifyEnabled = false
