@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.api
 
-import com.music.dzr.core.network.model.playlist.PlaylistFollowDetails
+import com.music.dzr.core.network.model.PlaylistFollowDetails
 import com.music.dzr.core.network.model.user.TimeRange
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
