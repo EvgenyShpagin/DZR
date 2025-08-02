@@ -97,3 +97,4 @@ dzr-koin = { id = "dzr.koin" }
 dzr-screenshot = { id = "dzr.screenshot" }
 # Aggregate Convention Plugins
 dzr-android-feature = { id = "dzr.android.feature" }
+dzr-android-data-library = { id = "dzr.android.data.library" }
