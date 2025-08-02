@@ -6,7 +6,7 @@ import com.music.dzr.core.network.model.Artist
 import com.music.dzr.core.network.model.artist.Artists
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
-import com.music.dzr.core.network.model.track.Tracks
+import com.music.dzr.core.network.model.Tracks
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

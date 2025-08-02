@@ -4,7 +4,7 @@ import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.track.SavedTrack
 import com.music.dzr.core.network.model.Track
-import com.music.dzr.core.network.model.track.Tracks
+import com.music.dzr.core.network.model.Tracks
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
