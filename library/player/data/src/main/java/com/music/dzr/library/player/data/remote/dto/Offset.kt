@@ -31,7 +31,7 @@ sealed interface Offset {
 /**
  * A custom serializer for [Offset].
  */
-internal object OffsetSerializer : JsonContentPolymorphicSerializer<Offset>(Offset::class) {
+private object OffsetSerializer : JsonContentPolymorphicSerializer<Offset>(Offset::class) {
     override fun selectDeserializer(element: JsonElement): DeserializationStrategy<Offset> {
         val jsonObject = element.jsonObject
         return when {

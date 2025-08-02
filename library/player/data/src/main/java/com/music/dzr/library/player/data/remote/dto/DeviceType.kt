@@ -32,7 +32,7 @@ enum class DeviceType {
  * A custom serializer for [DeviceType] that gracefully handles unknown values.
  * If an unknown device type string is received from the API, it defaults to [DeviceType.Unknown].
  */
-internal object DeviceTypeSerializer : KSerializer<DeviceType> {
+private object DeviceTypeSerializer : KSerializer<DeviceType> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
         "DeviceTypeSerializer",
         PrimitiveKind.STRING
