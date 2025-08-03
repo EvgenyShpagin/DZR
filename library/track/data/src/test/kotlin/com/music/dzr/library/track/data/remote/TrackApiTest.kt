@@ -1,5 +1,10 @@
-package com.music.dzr.core.network.api
+package com.music.dzr.library.track.data.remote
 
+import com.music.dzr.core.network.api.TrackApi
+import com.music.dzr.core.network.api.createApi
+import com.music.dzr.core.network.api.enqueueEmptyResponse
+import com.music.dzr.core.network.api.enqueueResponseFromAssets
+import com.music.dzr.core.network.api.toJsonArray
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import kotlin.test.AfterTest
@@ -35,13 +40,12 @@ class TrackApiTest {
     @Test
     fun getTrack_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/track/track.json")
+        server.enqueueResponseFromAssets("track.json")
         // Act
         val response = api.getTrack(id)
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals("11dFghVXANMlKmJXsNCbNl", id)
             assertEquals("Cut To The Feeling", name)
         }
@@ -50,7 +54,7 @@ class TrackApiTest {
     @Test
     fun getTrack_usesCorrectPathAndMethod_onRequestWithMarket() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/track/track.json")
+        server.enqueueResponseFromAssets("track.json")
         // Act
         api.getTrack(id, market = "US")
         // Assert
@@ -62,13 +66,12 @@ class TrackApiTest {
     @Test
     fun getMultipleTracks_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/track/multiple-tracks.json")
+        server.enqueueResponseFromAssets("multiple-tracks.json")
         // Act
         val response = api.getMultipleTracks(commaSeparatedIds)
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals(3, list.count())
             assertEquals("Knights of Cydonia", list.first().name)
         }
@@ -77,7 +80,7 @@ class TrackApiTest {
     @Test
     fun getMultipleTracks_usesCorrectPathAndMethod_onRequestWithMarket() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/track/multiple-tracks.json")
+        server.enqueueResponseFromAssets("multiple-tracks.json")
         // Act
         api.getMultipleTracks(commaSeparatedIds, market = "GB")
         // Assert
@@ -89,16 +92,15 @@ class TrackApiTest {
     @Test
     fun getUsersSavedTracks_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/track/user-saved-tracks.json")
+        server.enqueueResponseFromAssets("user-saved-tracks.json")
         // Act
         val response = api.getUsersSavedTracks()
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals(3, items.count())
             with(items.first()) {
-                assertEquals(Instant.parse("2025-06-14T13:45:57Z"), addedAt)
+                assertEquals(Instant.Companion.parse("2025-06-14T13:45:57Z"), addedAt)
                 assertEquals("1BKT2I9x4RGKaKqW4up34s", track.id)
             }
         }
@@ -107,7 +109,7 @@ class TrackApiTest {
     @Test
     fun getUsersSavedTracks_usesCorrectPathAndMethod_onResponseWithParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/track/user-saved-tracks.json")
+        server.enqueueResponseFromAssets("user-saved-tracks.json")
         // Act
         api.getUsersSavedTracks(limit = 20, offset = 0, market = "FR")
         // Assert
@@ -213,7 +215,7 @@ class TrackApiTest {
     @Test
     fun checkUsersSavedTracks_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/track/check-user-saved-tracks.json")
+        server.enqueueResponseFromAssets("check-user-saved-tracks.json")
         // Act
         val response = api.checkUsersSavedTracks(commaSeparatedIds)
         // Assert
@@ -225,7 +227,7 @@ class TrackApiTest {
     @Test
     fun checkUsersSavedTracks_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/track/check-user-saved-tracks.json")
+        server.enqueueResponseFromAssets("check-user-saved-tracks.json")
         // Act
         api.checkUsersSavedTracks(commaSeparatedIds)
         // Assert
@@ -233,4 +235,4 @@ class TrackApiTest {
         assertEquals("/me/tracks/contains?ids=$encodedCommaSeparatedIds", recordedRequest.path)
         assertEquals("GET", recordedRequest.method)
     }
-} 
+}
