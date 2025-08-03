@@ -1,5 +1,7 @@
-package com.music.dzr.core.network.api
+package com.music.dzr.library.artist.data.remote.api
 
+import com.music.dzr.core.network.api.createApi
+import com.music.dzr.core.network.api.enqueueResponseFromAssets
 import com.music.dzr.core.network.model.ReleaseDate
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
@@ -32,15 +34,14 @@ class ArtistApiTest {
     @Test
     fun getArtist_returnsData_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/artist.json")
+        server.enqueueResponseFromAssets("artist.json")
 
         // Act
         val response = api.getArtist(id)
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals("Pitbull", name)
             assertEquals(88, popularity)
             assertEquals(emptyList(), genres)
@@ -50,7 +51,7 @@ class ArtistApiTest {
     @Test
     fun getArtist_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/artist.json")
+        server.enqueueResponseFromAssets("artist.json")
 
         // Act
         api.getArtist(id)
@@ -64,15 +65,14 @@ class ArtistApiTest {
     @Test
     fun getMultipleArtists_returnsData_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/multiple-artists.json")
+        server.enqueueResponseFromAssets("multiple-artists.json")
 
         // Act
         val response = api.getMultipleArtists(commaSeparatedIds)
 
         // Assert Response
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals(3, list.count())
             with(list.first()) {
                 assertEquals("deadmau5", name)
@@ -84,7 +84,7 @@ class ArtistApiTest {
     @Test
     fun getMultipleArtists_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/multiple-artists.json")
+        server.enqueueResponseFromAssets("multiple-artists.json")
 
         // Act
         api.getMultipleArtists(commaSeparatedIds)
@@ -98,15 +98,14 @@ class ArtistApiTest {
     @Test
     fun getArtistAlbums_returnsData_onRequestWithAllParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/artist-albums.json")
+        server.enqueueResponseFromAssets("artist-albums.json")
 
         // Act
         val response = api.getArtistAlbums(id)
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals(20, items.count())
             with(items.first()) {
                 assertEquals("Trackhouse (Daytona 500 Edition)", name)
@@ -118,7 +117,7 @@ class ArtistApiTest {
     @Test
     fun getArtistAlbums_usesCorrectPathAndMethod_onRequestWithAllParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/artist-albums.json")
+        server.enqueueResponseFromAssets("artist-albums.json")
         val includeGroups = "album,single"
         val encodedIncludeGroups = "album%2Csingle"
         val market = "US"
@@ -145,7 +144,7 @@ class ArtistApiTest {
     @Test
     fun getArtistTopTracks_returnsData_onRequestWithMarket() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/artist-top-tracks.json")
+        server.enqueueResponseFromAssets("artist-top-tracks.json")
         val market = "CA"
 
         // Act
@@ -153,8 +152,7 @@ class ArtistApiTest {
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals(10, list.count())
             with(list.first()) {
                 assertEquals("Give Me Everything (feat. Nayer)", name)
@@ -166,7 +164,7 @@ class ArtistApiTest {
     @Test
     fun getArtistTopTracks_usesCorrectPathAndMethod_onRequestWithMarket() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/artist/artist-top-tracks.json")
+        server.enqueueResponseFromAssets("artist-top-tracks.json")
         val market = "CA"
 
         // Act
