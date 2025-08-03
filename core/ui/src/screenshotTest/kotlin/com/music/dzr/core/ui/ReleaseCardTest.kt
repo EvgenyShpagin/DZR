@@ -19,7 +19,8 @@ private fun ReleaseCard_LongTitle_Preview() {
             onLongClick = {},
             releaseYear = "2023",
             explicit = true,
-            releaseType = ReleaseType.ALBUM
+            releaseType = ReleaseType.ALBUM,
+            mainArtistName = "Pink Floyd"
         )
     }
 }
@@ -36,7 +37,8 @@ private fun ReleaseCard_FontScale_1_5_Preview() {
             onLongClick = {},
             releaseYear = "1984",
             explicit = false,
-            releaseType = ReleaseType.ALBUM
+            releaseType = ReleaseType.ALBUM,
+            mainArtistName = "Bruce Springsteen"
         )
     }
 }
