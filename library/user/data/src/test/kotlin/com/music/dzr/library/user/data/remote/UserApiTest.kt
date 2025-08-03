@@ -1,5 +1,9 @@
-package com.music.dzr.core.network.api
+package com.music.dzr.library.user.data.remote
 
+import com.music.dzr.core.network.api.UserApi
+import com.music.dzr.core.network.api.createApi
+import com.music.dzr.core.network.api.enqueueEmptyResponse
+import com.music.dzr.core.network.api.enqueueResponseFromAssets
 import com.music.dzr.core.network.model.PlaylistFollowDetails
 import com.music.dzr.core.network.model.user.TimeRange
 import kotlinx.coroutines.test.runTest
@@ -35,31 +39,31 @@ class UserApiTest {
     @Test
     fun getCurrentUserProfile_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/user/my-profile.json")
+        server.enqueueResponseFromAssets("my-profile.json")
         // Act
         val response = api.getCurrentUserProfile()
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        assertEquals("sancotmdyspqyhjsc2d5qz1du", response.data.id)
+        val data = assertNotNull(response.data)
+        assertEquals("sancotmdyspqyhjsc2d5qz1du", data.id)
     }
 
     @Test
     fun getUsersTopArtists_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/user/top-artists.json")
+        server.enqueueResponseFromAssets("top-artists.json")
         // Act
         val response = api.getUsersTopArtists()
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        assertEquals(20, response.data.items.size)
+        val data = assertNotNull(response.data)
+        assertEquals(20, data.items.size)
     }
 
     @Test
     fun getUsersTopTracks_usesCorrectPathAndMethod() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/user/top-artists.json")
+        server.enqueueResponseFromAssets("top-artists.json")
         val timeRange = TimeRange.ShortTerm
         // Act
         api.getUsersTopTracks(limit = 10, offset = 5, timeRange = timeRange)
@@ -75,13 +79,13 @@ class UserApiTest {
     @Test
     fun getUserProfile_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/user/other's-profile.json")
+        server.enqueueResponseFromAssets("other's-profile.json")
         // Act
         val response = api.getUserProfile(id)
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        assertEquals("smedjan", response.data.displayName)
+        val data = assertNotNull(response.data)
+        assertEquals("smedjan", data.displayName)
     }
 
     @Test
@@ -113,13 +117,13 @@ class UserApiTest {
     @Test
     fun getFollowedArtists_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/user/followed-artists.json")
+        server.enqueueResponseFromAssets("followed-artists.json")
         // Act
         val response = api.getFollowedArtists()
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        assertEquals(20, response.data.list.items.size)
+        val data = assertNotNull(response.data)
+        assertEquals(20, data.list.items.size)
     }
 
     @Test
@@ -155,7 +159,7 @@ class UserApiTest {
     @Test
     fun checkIfUserFollowsArtists_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/user/check-follows-artists-or-users.json")
+        server.enqueueResponseFromAssets("check-follows-artists-or-users.json")
         // Act
         val response = api.checkIfUserFollowsArtists(commaSeparatedIds)
         // Assert
@@ -167,7 +171,7 @@ class UserApiTest {
     @Test
     fun checkIfUsersFollowPlaylist_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/user/check-current-user-follows-playlist.json")
+        server.enqueueResponseFromAssets("check-current-user-follows-playlist.json")
         // Act
         val response = api.checkIfUsersFollowPlaylist(id)
         // Assert
@@ -175,4 +179,4 @@ class UserApiTest {
         assertNotNull(response.data)
         assertEquals(listOf(true), response.data)
     }
-} 
+}
