@@ -18,6 +18,9 @@ android {
             isMinifyEnabled = false
         }
     }
+    testFixtures {
+        enable = true
+    }
     buildFeatures {
         buildConfig = true
     }
@@ -47,4 +50,8 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockwebserver)
+
+    testFixturesApi(libs.retrofit.core)
+    testFixturesApi(libs.retrofit.kotlin.serialization)
+    testFixturesApi(libs.mockwebserver)
 }

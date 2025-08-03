@@ -16,7 +16,7 @@ import retrofit2.create
 /**
  * Enqueues a response from a JSON file in the assets folder.
  */
-internal fun MockWebServer.enqueueResponseFromAssets(assetFilename: String, code: Int = 200) {
+fun MockWebServer.enqueueResponseFromAssets(assetFilename: String, code: Int = 200) {
     val responseBody = getJsonBodyAsset(assetFilename)
     enqueue(
         MockResponse()
@@ -28,7 +28,7 @@ internal fun MockWebServer.enqueueResponseFromAssets(assetFilename: String, code
 /**
  * Enqueues an empty response with a given HTTP status code and headers.
  */
-internal fun MockWebServer.enqueueEmptyResponse(
+fun MockWebServer.enqueueEmptyResponse(
     code: Int = 200,
     headers: Map<String, String> = emptyMap()
 ) {
@@ -48,7 +48,7 @@ internal fun MockWebServer.enqueueEmptyResponse(
  * Converts a list of strings into a JSON array formatted string.
  * For example, `listOf("a", "b")` will be converted to `["a","b"]`.
  */
-internal fun List<String>.toJsonArray(): String {
+fun List<String>.toJsonArray(): String {
     val builder = StringBuilder()
     builder.append('[')
     forEach {
@@ -64,7 +64,7 @@ internal fun List<String>.toJsonArray(): String {
 /**
  * Helper function to get response json body from assets file
  */
-internal fun getJsonBodyAsset(filename: String): String {
+fun getJsonBodyAsset(filename: String): String {
     return AssetManager.open(filename).use { inputStream ->
         inputStream.bufferedReader().use { it.readText() }
     }
@@ -73,7 +73,7 @@ internal fun getJsonBodyAsset(filename: String): String {
 /**
  * Helper function to create Retrofit instance within test
  */
-internal inline fun <reified T : Any> createApi(
+inline fun <reified T : Any> createApi(
     httpUrl: HttpUrl,
     json: Json = Json { ignoreUnknownKeys = true },
     errorResponseParser: NetworkErrorResponseParser = NetworkErrorResponseParser(json)
@@ -81,11 +81,11 @@ internal inline fun <reified T : Any> createApi(
     return createRetrofit(httpUrl, json, errorResponseParser).create<T>()
 }
 
-private fun createRetrofit(
+fun createRetrofit(
     httpUrl: HttpUrl,
     json: Json,
     errorResponseParser: NetworkErrorResponseParser
-) = Retrofit.Builder()
+): Retrofit = Retrofit.Builder()
     .baseUrl(httpUrl)
     .addConverterFactory(
         UrlParameterConverterFactory()
