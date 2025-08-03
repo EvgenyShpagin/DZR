@@ -1,6 +1,6 @@
-package com.music.dzr.core.network.serialization
+package com.music.dzr.library.player.data.remote.serialization
 
-import com.music.dzr.core.network.model.player.RepeatMode
+import com.music.dzr.library.player.data.remote.dto.RepeatMode
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals

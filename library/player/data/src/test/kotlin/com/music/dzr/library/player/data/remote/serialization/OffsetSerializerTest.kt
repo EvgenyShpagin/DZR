@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.serialization
+package com.music.dzr.library.player.data.remote.serialization
 
 import com.music.dzr.core.network.model.player.Offset
 import kotlinx.serialization.SerializationException

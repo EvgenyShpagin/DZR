@@ -1,6 +1,6 @@
-package com.music.dzr.core.network.serialization
+package com.music.dzr.library.player.data.remote.serialization
 
-import com.music.dzr.core.network.model.player.DeviceType
+import com.music.dzr.library.player.data.remote.dto.DeviceType
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -28,16 +28,16 @@ class DeviceTypeSerializerTest {
 
         deviceTypeMap.forEach { (type, jsonValue) ->
             // Test deserialization
-            assertEquals(type, json.decodeFromString(DeviceTypeSerializer, jsonValue))
+            assertEquals(type, json.decodeFromString(jsonValue))
             // Test serialization
-            assertEquals(jsonValue, json.encodeToString(DeviceTypeSerializer, type))
+            assertEquals(jsonValue, json.encodeToString(type))
         }
     }
 
     @Test
     fun `deserializes other to unknown`() {
         val input = "\"something_else\""
-        val result = json.decodeFromString(DeviceTypeSerializer, input)
+        val result = json.decodeFromString<DeviceType>(input)
         assertEquals(DeviceType.Unknown, result)
     }
 } 
