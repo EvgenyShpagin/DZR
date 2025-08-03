@@ -1,5 +1,9 @@
-package com.music.dzr.core.network.api
+package com.music.dzr.library.player.data.remote
 
+import com.music.dzr.core.network.api.PlayerApi
+import com.music.dzr.core.network.api.createApi
+import com.music.dzr.core.network.api.enqueueEmptyResponse
+import com.music.dzr.core.network.api.enqueueResponseFromAssets
 import com.music.dzr.core.network.model.player.Offset
 import com.music.dzr.core.network.model.player.PlaybackOptions
 import com.music.dzr.core.network.model.player.RepeatMode
@@ -34,21 +38,21 @@ class PlayerApiTest {
     @Test
     fun getPlaybackState_returnsData_when200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playback/playback-state.json")
+        server.enqueueResponseFromAssets("playback-state.json")
 
         // Act
         val response = api.getPlaybackState()
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        assertEquals(true, response.data.isPlaying)
+        val data = assertNotNull(response.data)
+        assertEquals(true, data.isPlaying)
     }
 
     @Test
     fun getPlaybackState_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playback/playback-state.json")
+        server.enqueueResponseFromAssets("playback-state.json")
 
         // Act
         api.getPlaybackState(market)
@@ -79,22 +83,22 @@ class PlayerApiTest {
     @Test
     fun getAvailableDevices_returnsData_when200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playback/available-devices.json")
+        server.enqueueResponseFromAssets("available-devices.json")
 
         // Act
         val response = api.getAvailableDevices()
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        assertEquals(2, response.data.list.size)
-        assertEquals("febce7d2eaa377ac85b9f2289f744806ce55435b", response.data.list[0].id)
+        val data = assertNotNull(response.data)
+        assertEquals(2, data.list.size)
+        assertEquals("febce7d2eaa377ac85b9f2289f744806ce55435b", data.list[0].id)
     }
 
     @Test
     fun getAvailableDevices_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playback/available-devices.json")
+        server.enqueueResponseFromAssets("available-devices.json")
 
         // Act
         api.getAvailableDevices()
@@ -108,21 +112,21 @@ class PlayerApiTest {
     @Test
     fun getCurrentlyPlayingTrack_returnsData_when200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playback/currently-playing-track.json")
+        server.enqueueResponseFromAssets("currently-playing-track.json")
 
         // Act
         val response = api.getCurrentlyPlayingTrack(market)
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        assertEquals(true, response.data.isPlaying)
+        val data = assertNotNull(response.data)
+        assertEquals(true, data.isPlaying)
     }
 
     @Test
     fun getCurrentlyPlayingTrack_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playback/currently-playing-track.json")
+        server.enqueueResponseFromAssets("currently-playing-track.json")
 
         // Act
         api.getCurrentlyPlayingTrack(market)
@@ -268,21 +272,21 @@ class PlayerApiTest {
     @Test
     fun getRecentlyPlayed_returnsData_when200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playback/recently-played.json")
+        server.enqueueResponseFromAssets("recently-played.json")
 
         // Act
         val response = api.getRecentlyPlayed()
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        assertEquals(20, response.data.items.size)
+        val data = assertNotNull(response.data)
+        assertEquals(20, data.items.size)
     }
 
     @Test
     fun getRecentlyPlayed_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playback/recently-played.json")
+        server.enqueueResponseFromAssets("recently-played.json")
         val limit = 10
         val after = 1234567890L
 
@@ -338,4 +342,4 @@ class PlayerApiTest {
         assertEquals("/me/player/queue?uri=$encodedUri&device_id=$deviceId", recorded.path)
         assertEquals("POST", recorded.method)
     }
-} 
+}
