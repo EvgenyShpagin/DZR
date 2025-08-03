@@ -1,6 +1,6 @@
-package com.music.dzr.core.network.serialization
+package com.music.dzr.library.user.data.remote.serialization
 
-import com.music.dzr.core.network.model.user.TimeRange
+import com.music.dzr.library.user.data.remote.dto.TimeRange
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
