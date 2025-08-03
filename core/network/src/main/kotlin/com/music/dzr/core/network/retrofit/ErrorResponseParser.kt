@@ -24,7 +24,7 @@ import javax.net.ssl.SSLException
  *
  * @property json The [Json] instance used to deserialize error response bodies.
  */
-internal class NetworkErrorResponseParser(private val json: Json) {
+class NetworkErrorResponseParser(private val json: Json) {
 
     /**
      * Parses an unsuccessful Retrofit [Response] into a structured [NetworkError].
