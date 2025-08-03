@@ -1,5 +1,9 @@
-package com.music.dzr.core.network.api
+package com.music.dzr.library.playlist.data.remote
 
+import com.music.dzr.core.network.api.PlaylistApi
+import com.music.dzr.core.network.api.createApi
+import com.music.dzr.core.network.api.enqueueEmptyResponse
+import com.music.dzr.core.network.api.enqueueResponseFromAssets
 import com.music.dzr.core.network.model.playlist.NewPlaylistDetails
 import com.music.dzr.core.network.model.playlist.PlaylistDetailsUpdate
 import com.music.dzr.core.network.model.playlist.PlaylistItemsUpdate
@@ -22,7 +26,7 @@ class PlaylistApiTest {
 
     private lateinit var server: MockWebServer
     private lateinit var api: PlaylistApi
-    private val json = Json
+    private val json = Json.Default
 
     // Dummy parameters
     private val playlistId = "3cEYpjA9oz9GiPac4AsH4n"
@@ -45,15 +49,14 @@ class PlaylistApiTest {
     @Test
     fun getPlaylist_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playlist/playlist.json")
+        server.enqueueResponseFromAssets("playlist.json")
 
         // Act
         val response = api.getPlaylist(playlistId)
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals("Spotify Web API Testing playlist", name)
             with(tracks) {
                 assertEquals("Api", items.first().track.name)
@@ -65,7 +68,7 @@ class PlaylistApiTest {
     @Test
     fun getPlaylist_usesCorrectPathAndMethod_onRequestWithParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playlist/playlist.json")
+        server.enqueueResponseFromAssets("playlist.json")
 
         // Act
         api.getPlaylist(playlistId, market = "US", fields = "name,description")
@@ -114,15 +117,14 @@ class PlaylistApiTest {
     @Test
     fun getPlaylistTracks_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playlist/playlist-tracks.json")
+        server.enqueueResponseFromAssets("playlist-tracks.json")
 
         // Act
         val response = api.getPlaylistTracks(playlistId)
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals(5, total)
             with(items) {
                 assertEquals("Api", first().track.name)
@@ -133,7 +135,7 @@ class PlaylistApiTest {
     @Test
     fun getPlaylistTracks_usesCorrectPathAndMethod_onRequestWithParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playlist/playlist-tracks.json")
+        server.enqueueResponseFromAssets("playlist-tracks.json")
 
         // Act
         api.getPlaylistTracks(playlistId, market = "ES", limit = 10, offset = 5)
@@ -147,7 +149,7 @@ class PlaylistApiTest {
     @Test
     fun updatePlaylistTracks_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json")
+        server.enqueueResponseFromAssets("snapshot-id.json")
         val requestBody = PlaylistItemsUpdate(rangeStart = 0, insertBefore = 2)
 
         // Act
@@ -155,14 +157,14 @@ class PlaylistApiTest {
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", response.data.snapshotId)
+        val data = assertNotNull(response.data)
+        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", data.snapshotId)
     }
 
     @Test
     fun updatePlaylistTracks_usesCorrectPathMethodAndBody_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json")
+        server.enqueueResponseFromAssets("snapshot-id.json")
         val requestBody = PlaylistItemsUpdate(
             rangeStart = 0,
             insertBefore = 2,
@@ -185,7 +187,7 @@ class PlaylistApiTest {
     @Test
     fun addTracksToPlaylist_returnsData_on201CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json", 201)
+        server.enqueueResponseFromAssets("snapshot-id.json", 201)
         val requestBody = TrackAdditions(uris = trackUris, position = 0)
 
         // Act
@@ -193,14 +195,14 @@ class PlaylistApiTest {
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", response.data.snapshotId)
+        val data = assertNotNull(response.data)
+        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", data.snapshotId)
     }
 
     @Test
     fun addTracksToPlaylist_usesCorrectPathMethodAndBody_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json", 201)
+        server.enqueueResponseFromAssets("snapshot-id.json", 201)
         val requestBody = TrackAdditions(uris = trackUris, position = 0)
 
         // Act
@@ -216,7 +218,7 @@ class PlaylistApiTest {
     @Test
     fun removePlaylistTracks_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json")
+        server.enqueueResponseFromAssets("snapshot-id.json")
         val requestBody = TrackRemovals(tracks = listOf(TrackToRemove(trackUri)))
 
         // Act
@@ -224,14 +226,14 @@ class PlaylistApiTest {
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", response.data.snapshotId)
+        val data = assertNotNull(response.data)
+        assertEquals("JbtmHBDBAYu3/bt8BOXKbBTGCxgNZz3JJX6sfZGjC", data.snapshotId)
     }
 
     @Test
     fun removePlaylistTracks_usesCorrectPathMethodAndBody_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playlist/snapshot-id.json")
+        server.enqueueResponseFromAssets("snapshot-id.json")
         val requestBody = TrackRemovals(tracks = listOf(TrackToRemove(trackUri)))
 
         // Act
@@ -250,15 +252,14 @@ class PlaylistApiTest {
     @Test
     fun getCurrentUserPlaylists_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playlist/user-playlists.json")
+        server.enqueueResponseFromAssets("user-playlists.json")
 
         // Act
         val response = api.getCurrentUserPlaylists()
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals(9, total)
             assertEquals("Rock", items.first().name)
         }
@@ -299,7 +300,7 @@ class PlaylistApiTest {
     @Test
     fun createPlaylist_returnsData_on201CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playlist/playlist.json", 201)
+        server.enqueueResponseFromAssets("playlist.json", 201)
         val requestBody = NewPlaylistDetails(name = "Spotify Web API Testing playlist")
 
         // Act
@@ -307,8 +308,8 @@ class PlaylistApiTest {
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        assertEquals("3cEYpjA9oz9GiPac4AsH4n", response.data.id)
+        val data = assertNotNull(response.data)
+        assertEquals("3cEYpjA9oz9GiPac4AsH4n", data.id)
     }
 
     @Test
@@ -335,16 +336,17 @@ class PlaylistApiTest {
     @Test
     fun getPlaylistCoverImage_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/playlist/playlist-cover-images.json")
+        server.enqueueResponseFromAssets("playlist-cover-images.json")
 
         // Act
         val response = api.getPlaylistCoverImage(playlistId)
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        assertEquals(3, response.data.count())
-        assertEquals(640, response.data.first().height)
+        with(assertNotNull(response.data)) {
+            assertEquals(3, count())
+            assertEquals(640, first().height)
+        }
     }
 
     @Test
