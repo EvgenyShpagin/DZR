@@ -24,7 +24,6 @@ internal val apiModule = module {
 
     singleApi<AuthApi>(AUTH_RETROFIT)
 
-    singleApi<AlbumApi>(API_RETROFIT)
     singleApi<ArtistApi>(API_RETROFIT)
     singleApi<MarketApi>(API_RETROFIT)
     singleApi<PlayerApi>(API_RETROFIT)

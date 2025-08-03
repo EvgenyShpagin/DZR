@@ -1,5 +1,9 @@
-package com.music.dzr.core.network.api
+package com.music.dzr.library.album.data.remote.api
 
+import com.music.dzr.core.network.api.createApi
+import com.music.dzr.core.network.api.enqueueEmptyResponse
+import com.music.dzr.core.network.api.enqueueResponseFromAssets
+import com.music.dzr.core.network.api.toJsonArray
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import kotlin.test.AfterTest
@@ -36,15 +40,14 @@ class AlbumApiTest {
     @Test
     fun getAlbum_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange: enqueue a 200 response with a sample album JSON
-        server.enqueueResponseFromAssets("responses/album/album.json")
+        server.enqueueResponseFromAssets("album.json")
 
         // Act: call the API (no market parameter)
         val response = api.getAlbum(id)
 
         // Assert: correct data is fetched
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals(3, images.count())
             assertEquals(18, tracks.total)
             assertEquals("Global Warming", name)
@@ -54,7 +57,7 @@ class AlbumApiTest {
     @Test
     fun getAlbum_usesCorrectPathAndMethod_onRequestWithMarket() = runTest {
         // Arrange: enqueue a 200 response with a sample album JSON
-        server.enqueueResponseFromAssets("responses/album/album.json")
+        server.enqueueResponseFromAssets("album.json")
 
         // Act: call the API (has market parameter)
         api.getAlbum(id, market = "US")
@@ -68,15 +71,14 @@ class AlbumApiTest {
     @Test
     fun getMultipleAlbums_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/album/multiple-albums.json")
+        server.enqueueResponseFromAssets("multiple-albums.json")
 
         // Act
         val response = api.getMultipleAlbums(commaSeparatedIds)
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals(3, list.count())
             assertEquals("TRON: Legacy Reconfigured", list.first().name)
         }
@@ -85,7 +87,7 @@ class AlbumApiTest {
     @Test
     fun getMultipleAlbums_usesCorrectPathAndMethod_onRequestWithMarket() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/album/multiple-albums.json")
+        server.enqueueResponseFromAssets("multiple-albums.json")
 
         // Act
         api.getMultipleAlbums(commaSeparatedIds, market = "GB")
@@ -99,15 +101,14 @@ class AlbumApiTest {
     @Test
     fun getAlbumTracks_returnsData_whenServerRespondsWith200() = runTest {
         // mockResponse
-        server.enqueueResponseFromAssets("responses/album/album-tracks.json")
+        server.enqueueResponseFromAssets("album-tracks.json")
 
         // Act
         val response = api.getAlbumTracks(id)
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals(18, items.count())
             with(items.first()) {
                 assertEquals("Global Warming (feat. Sensato)", name)
@@ -119,7 +120,7 @@ class AlbumApiTest {
     @Test
     fun getAlbumTracks_usesCorrectPathAndMethod_onResponseWithParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/album/album-tracks.json")
+        server.enqueueResponseFromAssets("album-tracks.json")
 
         // Act
         api.getAlbumTracks(id, market = "CA", limit = 5, offset = 10)
@@ -136,15 +137,14 @@ class AlbumApiTest {
     @Test
     fun getUsersSavedAlbums_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/album/user-saved-albums.json")
+        server.enqueueResponseFromAssets("user-saved-albums.json")
 
         // Act
         val response = api.getUsersSavedAlbums()
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals(2, items.count())
             with(items.first()) {
                 assertEquals("TRON: Legacy Reconfigured", album.name)
@@ -156,7 +156,7 @@ class AlbumApiTest {
     @Test
     fun getUsersSavedAlbums_usesCorrectPathAndMethod_onResponseWithParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/album/user-saved-albums.json")
+        server.enqueueResponseFromAssets("user-saved-albums.json")
 
         // Act
         api.getUsersSavedAlbums(limit = 20, offset = 0, market = "FR")
@@ -281,15 +281,14 @@ class AlbumApiTest {
     @Test
     fun checkUsersSavedAlbums_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/album/check-user-saved-albums.json")
+        server.enqueueResponseFromAssets("check-user-saved-albums.json")
 
         // Act
         val response = api.checkUsersSavedAlbums(commaSeparatedIds)
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals(2, size)
             assertEquals(false, first())
         }
@@ -298,7 +297,7 @@ class AlbumApiTest {
     @Test
     fun checkUsersSavedAlbums_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/album/check-user-saved-albums.json")
+        server.enqueueResponseFromAssets("check-user-saved-albums.json")
 
         // Act
         api.checkUsersSavedAlbums(commaSeparatedIds)
@@ -311,15 +310,14 @@ class AlbumApiTest {
     @Test
     fun getNewReleases_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/album/new-releases.json")
+        server.enqueueResponseFromAssets("new-releases.json")
 
         // Act
         val response = api.getNewReleases()
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals(20, list.items.count())
             assertEquals(20, list.limit)
             assertEquals(100, list.total)
@@ -329,7 +327,7 @@ class AlbumApiTest {
     @Test
     fun getNewReleases_usesCorrectPathAndMethod_onRequestWithParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/album/new-releases.json")
+        server.enqueueResponseFromAssets("new-releases.json")
 
         // Act
         api.getNewReleases(limit = 10, offset = 5)
