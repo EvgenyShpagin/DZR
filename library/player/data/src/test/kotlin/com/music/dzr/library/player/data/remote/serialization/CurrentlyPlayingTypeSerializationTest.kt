@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.serialization
+package com.music.dzr.library.player.data.remote.serialization
 
 import com.music.dzr.core.network.model.player.CurrentlyPlayingType
 import kotlinx.serialization.json.Json
@@ -6,7 +6,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class CurrentlyPlayingTypeSerializationTest {
-    private val json = Json
+    private val json = Json.Default
 
     @Test
     fun `deserializes track`() {
@@ -63,4 +63,4 @@ class CurrentlyPlayingTypeSerializationTest {
         val result = json.encodeToString(input)
         assertEquals("\"unknown\"", result)
     }
-} 
+}
