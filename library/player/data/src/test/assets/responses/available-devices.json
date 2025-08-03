@@ -1,0 +1,24 @@
+{
+  "devices": [
+    {
+      "id": "febce7d2eaa377ac85b9f2289f744806ce55435b",
+      "is_active": true,
+      "is_private_session": false,
+      "is_restricted": false,
+      "name": "REDMIBOOK",
+      "supports_volume": true,
+      "type": "Computer",
+      "volume_percent": 100
+    },
+    {
+      "id": "2e86ba95b3459a8b9b74ad096d38eb29a700c54a",
+      "is_active": false,
+      "is_private_session": false,
+      "is_restricted": false,
+      "name": "PJC110",
+      "supports_volume": false,
+      "type": "Smartphone",
+      "volume_percent": 100
+    }
+  ]
+}

@@ -40,7 +40,7 @@ class TrackApiTest {
     @Test
     fun getTrack_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("track.json")
+        server.enqueueResponseFromAssets("responses/track.json")
         // Act
         val response = api.getTrack(id)
         // Assert
@@ -54,7 +54,7 @@ class TrackApiTest {
     @Test
     fun getTrack_usesCorrectPathAndMethod_onRequestWithMarket() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("track.json")
+        server.enqueueResponseFromAssets("responses/track.json")
         // Act
         api.getTrack(id, market = "US")
         // Assert
@@ -66,7 +66,7 @@ class TrackApiTest {
     @Test
     fun getMultipleTracks_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("multiple-tracks.json")
+        server.enqueueResponseFromAssets("responses/multiple-tracks.json")
         // Act
         val response = api.getMultipleTracks(commaSeparatedIds)
         // Assert
@@ -80,7 +80,7 @@ class TrackApiTest {
     @Test
     fun getMultipleTracks_usesCorrectPathAndMethod_onRequestWithMarket() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("multiple-tracks.json")
+        server.enqueueResponseFromAssets("responses/multiple-tracks.json")
         // Act
         api.getMultipleTracks(commaSeparatedIds, market = "GB")
         // Assert
@@ -92,7 +92,7 @@ class TrackApiTest {
     @Test
     fun getUsersSavedTracks_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("user-saved-tracks.json")
+        server.enqueueResponseFromAssets("responses/user-saved-tracks.json")
         // Act
         val response = api.getUsersSavedTracks()
         // Assert
@@ -109,7 +109,7 @@ class TrackApiTest {
     @Test
     fun getUsersSavedTracks_usesCorrectPathAndMethod_onResponseWithParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("user-saved-tracks.json")
+        server.enqueueResponseFromAssets("responses/user-saved-tracks.json")
         // Act
         api.getUsersSavedTracks(limit = 20, offset = 0, market = "FR")
         // Assert
@@ -215,7 +215,7 @@ class TrackApiTest {
     @Test
     fun checkUsersSavedTracks_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("check-user-saved-tracks.json")
+        server.enqueueResponseFromAssets("responses/check-user-saved-tracks.json")
         // Act
         val response = api.checkUsersSavedTracks(commaSeparatedIds)
         // Assert
@@ -227,7 +227,7 @@ class TrackApiTest {
     @Test
     fun checkUsersSavedTracks_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("check-user-saved-tracks.json")
+        server.enqueueResponseFromAssets("responses/check-user-saved-tracks.json")
         // Act
         api.checkUsersSavedTracks(commaSeparatedIds)
         // Assert

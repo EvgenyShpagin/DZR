@@ -39,7 +39,7 @@ class UserApiTest {
     @Test
     fun getCurrentUserProfile_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("my-profile.json")
+        server.enqueueResponseFromAssets("responses/my-profile.json")
         // Act
         val response = api.getCurrentUserProfile()
         // Assert
@@ -51,7 +51,7 @@ class UserApiTest {
     @Test
     fun getUsersTopArtists_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("top-artists.json")
+        server.enqueueResponseFromAssets("responses/top-artists.json")
         // Act
         val response = api.getUsersTopArtists()
         // Assert
@@ -63,7 +63,7 @@ class UserApiTest {
     @Test
     fun getUsersTopTracks_usesCorrectPathAndMethod() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("top-artists.json")
+        server.enqueueResponseFromAssets("responses/top-artists.json")
         val timeRange = TimeRange.ShortTerm
         // Act
         api.getUsersTopTracks(limit = 10, offset = 5, timeRange = timeRange)
@@ -79,7 +79,7 @@ class UserApiTest {
     @Test
     fun getUserProfile_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("other's-profile.json")
+        server.enqueueResponseFromAssets("responses/other's-profile.json")
         // Act
         val response = api.getUserProfile(id)
         // Assert
@@ -117,7 +117,7 @@ class UserApiTest {
     @Test
     fun getFollowedArtists_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("followed-artists.json")
+        server.enqueueResponseFromAssets("responses/followed-artists.json")
         // Act
         val response = api.getFollowedArtists()
         // Assert
@@ -159,7 +159,7 @@ class UserApiTest {
     @Test
     fun checkIfUserFollowsArtists_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("check-follows-artists-or-users.json")
+        server.enqueueResponseFromAssets("responses/check-follows-artists-or-users.json")
         // Act
         val response = api.checkIfUserFollowsArtists(commaSeparatedIds)
         // Assert
@@ -171,7 +171,7 @@ class UserApiTest {
     @Test
     fun checkIfUsersFollowPlaylist_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("check-current-user-follows-playlist.json")
+        server.enqueueResponseFromAssets("responses/check-current-user-follows-playlist.json")
         // Act
         val response = api.checkIfUsersFollowPlaylist(id)
         // Assert

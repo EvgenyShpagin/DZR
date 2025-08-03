@@ -40,7 +40,7 @@ class AlbumApiTest {
     @Test
     fun getAlbum_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange: enqueue a 200 response with a sample album JSON
-        server.enqueueResponseFromAssets("album.json")
+        server.enqueueResponseFromAssets("responses/album.json")
 
         // Act: call the API (no market parameter)
         val response = api.getAlbum(id)
@@ -57,7 +57,7 @@ class AlbumApiTest {
     @Test
     fun getAlbum_usesCorrectPathAndMethod_onRequestWithMarket() = runTest {
         // Arrange: enqueue a 200 response with a sample album JSON
-        server.enqueueResponseFromAssets("album.json")
+        server.enqueueResponseFromAssets("responses/album.json")
 
         // Act: call the API (has market parameter)
         api.getAlbum(id, market = "US")
@@ -71,7 +71,7 @@ class AlbumApiTest {
     @Test
     fun getMultipleAlbums_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("multiple-albums.json")
+        server.enqueueResponseFromAssets("responses/multiple-albums.json")
 
         // Act
         val response = api.getMultipleAlbums(commaSeparatedIds)
@@ -87,7 +87,7 @@ class AlbumApiTest {
     @Test
     fun getMultipleAlbums_usesCorrectPathAndMethod_onRequestWithMarket() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("multiple-albums.json")
+        server.enqueueResponseFromAssets("responses/multiple-albums.json")
 
         // Act
         api.getMultipleAlbums(commaSeparatedIds, market = "GB")
@@ -101,7 +101,7 @@ class AlbumApiTest {
     @Test
     fun getAlbumTracks_returnsData_whenServerRespondsWith200() = runTest {
         // mockResponse
-        server.enqueueResponseFromAssets("album-tracks.json")
+        server.enqueueResponseFromAssets("responses/album-tracks.json")
 
         // Act
         val response = api.getAlbumTracks(id)
@@ -120,7 +120,7 @@ class AlbumApiTest {
     @Test
     fun getAlbumTracks_usesCorrectPathAndMethod_onResponseWithParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("album-tracks.json")
+        server.enqueueResponseFromAssets("responses/album-tracks.json")
 
         // Act
         api.getAlbumTracks(id, market = "CA", limit = 5, offset = 10)
@@ -137,7 +137,7 @@ class AlbumApiTest {
     @Test
     fun getUsersSavedAlbums_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("user-saved-albums.json")
+        server.enqueueResponseFromAssets("responses/user-saved-albums.json")
 
         // Act
         val response = api.getUsersSavedAlbums()
@@ -156,7 +156,7 @@ class AlbumApiTest {
     @Test
     fun getUsersSavedAlbums_usesCorrectPathAndMethod_onResponseWithParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("user-saved-albums.json")
+        server.enqueueResponseFromAssets("responses/user-saved-albums.json")
 
         // Act
         api.getUsersSavedAlbums(limit = 20, offset = 0, market = "FR")
@@ -281,7 +281,7 @@ class AlbumApiTest {
     @Test
     fun checkUsersSavedAlbums_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("check-user-saved-albums.json")
+        server.enqueueResponseFromAssets("responses/check-user-saved-albums.json")
 
         // Act
         val response = api.checkUsersSavedAlbums(commaSeparatedIds)
@@ -297,7 +297,7 @@ class AlbumApiTest {
     @Test
     fun checkUsersSavedAlbums_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("check-user-saved-albums.json")
+        server.enqueueResponseFromAssets("responses/check-user-saved-albums.json")
 
         // Act
         api.checkUsersSavedAlbums(commaSeparatedIds)
@@ -310,7 +310,7 @@ class AlbumApiTest {
     @Test
     fun getNewReleases_returnsData_on200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("new-releases.json")
+        server.enqueueResponseFromAssets("responses/new-releases.json")
 
         // Act
         val response = api.getNewReleases()
@@ -327,7 +327,7 @@ class AlbumApiTest {
     @Test
     fun getNewReleases_usesCorrectPathAndMethod_onRequestWithParams() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("new-releases.json")
+        server.enqueueResponseFromAssets("responses/new-releases.json")
 
         // Act
         api.getNewReleases(limit = 10, offset = 5)

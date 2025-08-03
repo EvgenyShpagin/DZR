@@ -38,7 +38,7 @@ class PlayerApiTest {
     @Test
     fun getPlaybackState_returnsData_when200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playback-state.json")
+        server.enqueueResponseFromAssets("responses/playback-state.json")
 
         // Act
         val response = api.getPlaybackState()
@@ -52,7 +52,7 @@ class PlayerApiTest {
     @Test
     fun getPlaybackState_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("playback-state.json")
+        server.enqueueResponseFromAssets("responses/playback-state.json")
 
         // Act
         api.getPlaybackState(market)
@@ -83,7 +83,7 @@ class PlayerApiTest {
     @Test
     fun getAvailableDevices_returnsData_when200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("available-devices.json")
+        server.enqueueResponseFromAssets("responses/available-devices.json")
 
         // Act
         val response = api.getAvailableDevices()
@@ -98,7 +98,7 @@ class PlayerApiTest {
     @Test
     fun getAvailableDevices_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("available-devices.json")
+        server.enqueueResponseFromAssets("responses/available-devices.json")
 
         // Act
         api.getAvailableDevices()
@@ -112,7 +112,7 @@ class PlayerApiTest {
     @Test
     fun getCurrentlyPlayingTrack_returnsData_when200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("currently-playing-track.json")
+        server.enqueueResponseFromAssets("responses/currently-playing-track.json")
 
         // Act
         val response = api.getCurrentlyPlayingTrack(market)
@@ -126,7 +126,7 @@ class PlayerApiTest {
     @Test
     fun getCurrentlyPlayingTrack_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("currently-playing-track.json")
+        server.enqueueResponseFromAssets("responses/currently-playing-track.json")
 
         // Act
         api.getCurrentlyPlayingTrack(market)
@@ -272,7 +272,7 @@ class PlayerApiTest {
     @Test
     fun getRecentlyPlayed_returnsData_when200CodeResponse() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("recently-played.json")
+        server.enqueueResponseFromAssets("responses/recently-played.json")
 
         // Act
         val response = api.getRecentlyPlayed()
@@ -286,7 +286,7 @@ class PlayerApiTest {
     @Test
     fun getRecentlyPlayed_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("recently-played.json")
+        server.enqueueResponseFromAssets("responses/recently-played.json")
         val limit = 10
         val after = 1234567890L
 
