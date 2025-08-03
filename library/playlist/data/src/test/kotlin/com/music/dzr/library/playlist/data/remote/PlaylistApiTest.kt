@@ -1,15 +1,15 @@
 package com.music.dzr.library.playlist.data.remote
 
-import com.music.dzr.core.network.api.PlaylistApi
-import com.music.dzr.core.network.api.createApi
-import com.music.dzr.core.network.api.enqueueEmptyResponse
-import com.music.dzr.core.network.api.enqueueResponseFromAssets
-import com.music.dzr.core.network.model.playlist.NewPlaylistDetails
-import com.music.dzr.core.network.model.playlist.PlaylistDetailsUpdate
-import com.music.dzr.core.network.model.playlist.PlaylistItemsUpdate
-import com.music.dzr.core.network.model.playlist.TrackAdditions
-import com.music.dzr.core.network.model.playlist.TrackRemovals
-import com.music.dzr.core.network.model.playlist.TrackToRemove
+import com.music.dzr.core.network.createApi
+import com.music.dzr.core.network.enqueueEmptyResponse
+import com.music.dzr.core.network.enqueueResponseFromAssets
+import com.music.dzr.library.playlist.data.remote.api.PlaylistApi
+import com.music.dzr.library.playlist.data.remote.dto.NewPlaylistDetails
+import com.music.dzr.library.playlist.data.remote.dto.PlaylistDetailsUpdate
+import com.music.dzr.library.playlist.data.remote.dto.PlaylistItemsUpdate
+import com.music.dzr.library.playlist.data.remote.dto.TrackAdditions
+import com.music.dzr.library.playlist.data.remote.dto.TrackRemovals
+import com.music.dzr.library.playlist.data.remote.dto.TrackToRemove
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
