@@ -1,9 +1,8 @@
-package com.music.dzr.library.player.data.remote
+package com.music.dzr.library.player.data.remote.api
 
 import com.music.dzr.core.network.api.createApi
 import com.music.dzr.core.network.api.enqueueEmptyResponse
 import com.music.dzr.core.network.api.enqueueResponseFromAssets
-import com.music.dzr.library.player.data.remote.api.PlayerApi
 import com.music.dzr.library.player.data.remote.dto.Offset
 import com.music.dzr.library.player.data.remote.dto.PlaybackOptions
 import com.music.dzr.library.player.data.remote.dto.RepeatMode
