@@ -2,7 +2,7 @@ package com.music.dzr.core.ui
 
 import android.content.Context
 import androidx.compose.ui.util.fastJoinToString
-import com.music.dzr.core.model.album.ReleaseType
+import com.music.dzr.core.model.ReleaseType
 
 fun formatContributors(contributors: List<String>): String {
     return contributors.fastJoinToString()
