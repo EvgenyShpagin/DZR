@@ -1,11 +1,11 @@
 package com.music.dzr.library.user.data.remote
 
-import com.music.dzr.core.network.api.UserApi
 import com.music.dzr.core.network.api.createApi
 import com.music.dzr.core.network.api.enqueueEmptyResponse
 import com.music.dzr.core.network.api.enqueueResponseFromAssets
 import com.music.dzr.core.network.model.PlaylistFollowDetails
-import com.music.dzr.core.network.model.user.TimeRange
+import com.music.dzr.library.user.data.remote.api.UserApi
+import com.music.dzr.library.user.data.remote.dto.TimeRange
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import kotlin.test.AfterTest
