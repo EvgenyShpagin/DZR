@@ -1,8 +1,8 @@
 package com.music.dzr.library.playlist.data.remote
 
-import com.music.dzr.core.network.createApi
-import com.music.dzr.core.network.enqueueEmptyResponse
-import com.music.dzr.core.network.enqueueResponseFromAssets
+import com.music.dzr.core.network.test.createApi
+import com.music.dzr.core.network.test.enqueueEmptyResponse
+import com.music.dzr.core.network.test.enqueueResponseFromAssets
 import com.music.dzr.library.playlist.data.remote.api.PlaylistApi
 import com.music.dzr.library.playlist.data.remote.dto.NewPlaylistDetails
 import com.music.dzr.library.playlist.data.remote.dto.PlaylistDetailsUpdate

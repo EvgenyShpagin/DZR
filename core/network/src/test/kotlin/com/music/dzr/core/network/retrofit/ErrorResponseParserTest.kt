@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.retrofit
 
-import com.music.dzr.core.network.api.getJsonBodyAsset
+import com.music.dzr.core.network.test.getJsonBodyAsset
 import com.music.dzr.core.network.model.error.NetworkError
 import com.music.dzr.core.network.model.error.NetworkErrorType
 import kotlinx.serialization.SerializationException

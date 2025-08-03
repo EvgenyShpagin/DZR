@@ -1,9 +1,9 @@
 package com.music.dzr.library.album.data.remote.api
 
-import com.music.dzr.core.network.api.createApi
-import com.music.dzr.core.network.api.enqueueEmptyResponse
-import com.music.dzr.core.network.api.enqueueResponseFromAssets
-import com.music.dzr.core.network.api.toJsonArray
+import com.music.dzr.core.network.test.createApi
+import com.music.dzr.core.network.test.enqueueEmptyResponse
+import com.music.dzr.core.network.test.enqueueResponseFromAssets
+import com.music.dzr.core.network.test.toJsonArray
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import kotlin.test.AfterTest

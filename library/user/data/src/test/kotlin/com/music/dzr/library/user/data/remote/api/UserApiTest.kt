@@ -1,8 +1,8 @@
 package com.music.dzr.library.user.data.remote.api
 
-import com.music.dzr.core.network.api.createApi
-import com.music.dzr.core.network.api.enqueueEmptyResponse
-import com.music.dzr.core.network.api.enqueueResponseFromAssets
+import com.music.dzr.core.network.test.createApi
+import com.music.dzr.core.network.test.enqueueEmptyResponse
+import com.music.dzr.core.network.test.enqueueResponseFromAssets
 import com.music.dzr.core.network.model.PlaylistFollowDetails
 import com.music.dzr.library.user.data.remote.dto.TimeRange
 import kotlinx.coroutines.test.runTest

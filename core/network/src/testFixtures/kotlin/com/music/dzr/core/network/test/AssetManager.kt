@@ -1,4 +1,4 @@
-package com.music.dzr.core.network
+package com.music.dzr.core.network.test
 
 import java.io.File
 import java.io.InputStream

@@ -1,7 +1,7 @@
 package com.music.dzr.library.artist.data.remote.api
 
-import com.music.dzr.core.network.api.createApi
-import com.music.dzr.core.network.api.enqueueResponseFromAssets
+import com.music.dzr.core.network.test.createApi
+import com.music.dzr.core.network.test.enqueueResponseFromAssets
 import com.music.dzr.core.network.model.ReleaseDate
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer

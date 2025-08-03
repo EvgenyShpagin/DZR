@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.http
 
-import com.music.dzr.core.network.api.enqueueEmptyResponse
+import com.music.dzr.core.network.test.enqueueEmptyResponse
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.mockwebserver.MockWebServer
