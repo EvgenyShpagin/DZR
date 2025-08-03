@@ -1,12 +1,12 @@
 package com.music.dzr.library.player.data.remote
 
-import com.music.dzr.core.network.api.PlayerApi
 import com.music.dzr.core.network.api.createApi
 import com.music.dzr.core.network.api.enqueueEmptyResponse
 import com.music.dzr.core.network.api.enqueueResponseFromAssets
-import com.music.dzr.core.network.model.player.Offset
-import com.music.dzr.core.network.model.player.PlaybackOptions
-import com.music.dzr.core.network.model.player.RepeatMode
+import com.music.dzr.library.player.data.remote.api.PlayerApi
+import com.music.dzr.library.player.data.remote.dto.Offset
+import com.music.dzr.library.player.data.remote.dto.PlaybackOptions
+import com.music.dzr.library.player.data.remote.dto.RepeatMode
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer

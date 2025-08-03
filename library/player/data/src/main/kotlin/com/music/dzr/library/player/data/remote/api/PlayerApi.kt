@@ -2,9 +2,10 @@ package com.music.dzr.library.player.data.remote.api
 
 import com.music.dzr.core.network.model.CursorPaginatedList
 import com.music.dzr.core.network.model.NetworkResponse
-import com.music.dzr.core.network.model.player.PlayHistory
+import com.music.dzr.core.network.model.auth.PermissionScope
 import com.music.dzr.library.player.data.remote.dto.CurrentlyPlayingContext
 import com.music.dzr.library.player.data.remote.dto.Devices
+import com.music.dzr.library.player.data.remote.dto.PlayHistory
 import com.music.dzr.library.player.data.remote.dto.PlaybackOptions
 import com.music.dzr.library.player.data.remote.dto.PlaybackState
 import com.music.dzr.library.player.data.remote.dto.Queue
@@ -30,7 +31,7 @@ interface PlayerApi {
      */
     @GET("me/player")
     suspend fun getPlaybackState(
-        @Query("market") market: String? = null,
+        @Query("market") market: String? = null
     ): NetworkResponse<PlaybackState>
 
     /**
