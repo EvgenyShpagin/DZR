@@ -1,7 +1,6 @@
 package com.music.dzr.core.network.di
 
 import com.music.dzr.core.network.BuildConfig
-import com.music.dzr.core.network.api.AuthApi
 import com.music.dzr.core.network.api.MarketApi
 import com.music.dzr.core.network.api.SearchApi
 import com.music.dzr.core.network.util.AuthorizationUrlBuilder
@@ -16,7 +15,6 @@ internal val apiModule = module {
 
     single { AuthorizationUrlBuilder(BuildConfig.SPOTIFY_CLIENT_ID) }
 
-    singleApi<AuthApi>(AUTH_RETROFIT)
     singleApi<MarketApi>(API_RETROFIT)
     singleApi<SearchApi>(API_RETROFIT)
 }
