@@ -1,10 +1,5 @@
-package com.music.dzr.library.playlist.data.remote.dto
+package com.music.dzr.core.network.model
 
-import com.music.dzr.core.network.model.ExternalUrls
-import com.music.dzr.core.network.model.Followers
-import com.music.dzr.core.network.model.Image
-import com.music.dzr.core.network.model.PaginatedList
-import com.music.dzr.core.network.model.PublicUser
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

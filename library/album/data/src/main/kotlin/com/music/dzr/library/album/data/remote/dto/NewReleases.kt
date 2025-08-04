@@ -1,6 +1,7 @@
 package com.music.dzr.library.album.data.remote.dto
 
 import com.music.dzr.core.network.model.PaginatedList
+import com.music.dzr.core.network.model.SimplifiedAlbum
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

@@ -1,9 +1,5 @@
-package com.music.dzr.library.album.data.remote.dto
+package com.music.dzr.core.network.model
 
-import com.music.dzr.core.network.model.SimplifiedArtist
-import com.music.dzr.core.network.model.ExternalUrls
-import com.music.dzr.core.network.model.Image
-import com.music.dzr.core.network.model.Restrictions
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

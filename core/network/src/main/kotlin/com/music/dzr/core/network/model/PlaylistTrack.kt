@@ -1,7 +1,5 @@
-package com.music.dzr.library.playlist.data.remote.dto
+package com.music.dzr.core.network.model
 
-import com.music.dzr.core.network.model.Track
-import com.music.dzr.core.network.model.PublicUser
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.time.Instant
