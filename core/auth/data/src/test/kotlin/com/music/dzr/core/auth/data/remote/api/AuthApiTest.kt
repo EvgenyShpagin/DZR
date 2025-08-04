@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.api
+package com.music.dzr.core.auth.data.remote.api
 
 import com.music.dzr.core.network.test.createApi
 import com.music.dzr.core.network.test.enqueueResponseFromAssets
@@ -32,7 +32,7 @@ class AuthApiTest {
     @Test
     fun getToken_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/auth/refresh-token.json")
+        server.enqueueResponseFromAssets("refresh-token.json")
 
         // Act
         val response = api.getToken(
@@ -44,8 +44,7 @@ class AuthApiTest {
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals("BQBLuPRYBQ...BP8stIv5xr-Iwaf4l8eg", accessToken)
             assertEquals("Bearer", tokenType)
             assertEquals(3600, expiresIn)
@@ -57,7 +56,7 @@ class AuthApiTest {
     @Test
     fun getToken_usesCorrectPathMethodAndBody() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/auth/refresh-token.json")
+        server.enqueueResponseFromAssets("refresh-token.json")
         val expectedBody = "grant_type=authorization_code" +
                 "&code=test_code" +
                 "&redirect_uri=test_uri" +
@@ -85,7 +84,7 @@ class AuthApiTest {
     @Test
     fun refreshToken_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/auth/refresh-token.json")
+        server.enqueueResponseFromAssets("refresh-token.json")
 
         // Act
         val response = api.refreshToken(
@@ -95,8 +94,7 @@ class AuthApiTest {
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals("BQBLuPRYBQ...BP8stIv5xr-Iwaf4l8eg", accessToken)
             assertEquals("Bearer", tokenType)
             assertEquals(3600, expiresIn)
@@ -108,7 +106,7 @@ class AuthApiTest {
     @Test
     fun refreshToken_usesCorrectPathMethodAndBody() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/auth/refresh-token.json")
+        server.enqueueResponseFromAssets("refresh-token.json")
         val expectedBody = "grant_type=refresh_token" +
                 "&refresh_token=refresh_token" +
                 "&client_id=client_id"
@@ -127,4 +125,4 @@ class AuthApiTest {
         val actualBody = URLDecoder.decode(request.body.readUtf8(), "UTF-8")
         assertEquals(expectedBody, actualBody)
     }
-} 
+}
