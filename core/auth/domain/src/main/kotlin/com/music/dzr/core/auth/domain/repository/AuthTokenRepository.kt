@@ -11,6 +11,13 @@ import com.music.dzr.core.auth.domain.model.AuthToken
 interface AuthTokenRepository {
 
     /**
+     * Retrieves the current authentication token.
+     *
+     * @return The current [AuthToken], or `null` if no token is available.
+     */
+    suspend fun getToken(): AuthToken?
+
+    /**
      * Saves the complete token grant.
      *
      * The implementation should persist the necessary parts of the token. If the refreshToken
@@ -21,20 +28,6 @@ interface AuthTokenRepository {
     suspend fun saveToken(token: AuthToken)
 
     /**
-     * Retrieves the current access token.
-     *
-     * @return The access token as a [String], or `null` if no token is available.
-     */
-    suspend fun getAccessToken(): String?
-
-    /**
-     * Retrieves the current token type (e.g., "Bearer").
-     *
-     * @return The token type as a [String], or `null` if no token is available.
-     */
-    suspend fun getTokenType(): String?
-
-    /**
      * Attempts to refresh the access token using the current refresh token.
      * Saves the new token on success or clears tokens on unrecoverable failure.
      *
@@ -43,14 +36,28 @@ interface AuthTokenRepository {
     suspend fun refreshToken(): Boolean
 
     /**
-     * Retrieves the current refresh token.
-     *
-     * @return The refresh token as a [String], or `null` if no token is available.
-     */
-    suspend fun getRefreshToken(): String?
-
-    /**
      * Clears all stored tokens, effectively logging the user out.
      */
     suspend fun clearTokens()
-} 
+}
+
+/**
+ * Retrieves the current access token.
+ *
+ * @return The access token as a [String], or `null` if no token is available.
+ */
+suspend fun AuthTokenRepository.getAccessToken() = getToken()?.accessToken
+
+/**
+ * Retrieves the current token type (e.g., "Bearer").
+ *
+ * @return The token type as a [String], or `null` if no token is available.
+ */
+suspend fun AuthTokenRepository.getTokenType() = getToken()?.tokenType
+
+/**
+ * Retrieves the current refresh token.
+ *
+ * @return The refresh token as a [String], or `null` if no token is available.
+ */
+suspend fun AuthTokenRepository.getRefreshToken() = getToken()?.refreshToken
