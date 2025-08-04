@@ -1,10 +1,12 @@
 package com.music.dzr.core.auth.domain.model
 
+import com.music.dzr.core.auth.domain.util.isExpired
 import java.util.concurrent.TimeUnit
 import kotlin.test.DefaultAsserter.assertTrue
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 class AuthTokenTest {
 
@@ -117,6 +119,29 @@ class AuthTokenTest {
         assertTrue(
             "Expiry time is not calculated correctly",
             token.expiresAtMillis in expectedExpiryTime - 100..expectedExpiryTime + 100,
+        )
+    }
+
+    @Test
+    fun returnsTrue_whenTokenIsExpired() {
+        // Arrange
+        val accessToken = "validAccessToken"
+        val tokenType = "Bearer"
+        val expiresInSeconds = 1
+
+        // Act
+        val token = AuthToken(
+            accessToken = accessToken,
+            tokenType = tokenType,
+            expiresInSeconds = expiresInSeconds,
+            refreshToken = null,
+            scopes = null
+        )
+
+        // Assert
+        assertTrue(
+            // Must be expired as `time + 1` >= `time + 1 - 999`
+            token.isExpired(safetyBufferSeconds = 999)
         )
     }
 }
