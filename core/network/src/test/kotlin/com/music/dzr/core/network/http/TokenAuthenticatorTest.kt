@@ -1,14 +1,13 @@
 package com.music.dzr.core.network.http
 
-import com.music.dzr.core.network.api.AuthApi
-import com.music.dzr.core.network.model.auth.Token
+import com.music.dzr.core.auth.domain.model.AuthScope
+import com.music.dzr.core.auth.domain.model.AuthToken
+import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.error.NetworkError
 import com.music.dzr.core.network.model.error.NetworkErrorType
-import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.testing.repository.FakeTokenRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import okhttp3.Request
 import okhttp3.Response
@@ -22,7 +21,6 @@ import kotlin.test.assertNull
 class TokenAuthenticatorTest {
 
     private lateinit var tokenRepository: FakeTokenRepository
-    private val authApi: AuthApi = mockk()
     private lateinit var authenticator: TokenAuthenticator
 
     private val mockRoute: Route? = null
@@ -30,23 +28,23 @@ class TokenAuthenticatorTest {
     @BeforeTest
     fun setUp() {
         tokenRepository = FakeTokenRepository()
-        authenticator = TokenAuthenticator(tokenRepository, "test_client_id", authApi)
+        authenticator = TokenAuthenticator(tokenRepository)
     }
 
     @Test
     fun returnsNewRequest_whenTokenRefreshIsSuccessful() = runTest {
         // Arrange
         val oldToken = "old_token"
-        val newToken = Token(
+        val newToken = AuthToken(
             accessToken = "new_access_token",
             refreshToken = "new_refresh_token",
-            expiresIn = 3600,
-            scope = "scope",
+            expiresInSeconds = 3600,
+            scopes = listOf(AuthScope("scope")),
             tokenType = "bearer"
         )
         val mockResponse = mockResponseWithHeader("Bearer $oldToken")
         tokenRepository.setTokens(oldToken, "refresh_token")
-        coEvery { authApi.refreshToken(any(), any(), any()) } returns NetworkResponse(newToken)
+        coEvery { tokenRepository.refreshToken() } returns true
 
         // Act
         val newRequest = authenticator.authenticate(mockRoute, mockResponse)
