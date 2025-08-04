@@ -1,4 +1,4 @@
-package com.music.dzr.core.oauth.model
+package com.music.dzr.core.auth.domain.model
 
 /**
  * A pure domain model representing an OAuth 2.0 token grant, compliant with RFC 6749.

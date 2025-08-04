@@ -1,4 +1,4 @@
-package com.music.dzr.core.oauth.model
+package com.music.dzr.core.auth.domain.model
 
 /**
  * Represents a standard error response from an OAuth 2.0 token endpoint,

@@ -1,6 +1,6 @@
-package com.music.dzr.core.oauth.repository
+package com.music.dzr.core.auth.domain.repository
 
-import com.music.dzr.core.oauth.model.OAuthToken
+import com.music.dzr.core.auth.domain.model.OAuthToken
 
 /**
  * An interface that defines the contract for storing, retrieving, and managing OAuth tokens.

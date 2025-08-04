@@ -1,4 +1,4 @@
-package com.music.dzr.core.oauth.model
+package com.music.dzr.core.auth.domain.model
 
 /**
  * Represents an OAuth 2.0 scope as defined in RFC 6749, Section 3.3.

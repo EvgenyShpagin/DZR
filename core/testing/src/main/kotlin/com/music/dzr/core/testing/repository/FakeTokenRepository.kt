@@ -1,7 +1,7 @@
 package com.music.dzr.core.testing.repository
 
-import com.music.dzr.core.oauth.model.OAuthToken
-import com.music.dzr.core.oauth.repository.OAuthTokenRepository
+import com.music.dzr.core.auth.domain.model.OAuthToken
+import com.music.dzr.core.auth.domain.repository.OAuthTokenRepository
 
 class FakeTokenRepository : OAuthTokenRepository {
 

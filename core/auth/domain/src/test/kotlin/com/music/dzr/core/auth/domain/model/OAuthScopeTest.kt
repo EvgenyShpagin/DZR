@@ -1,6 +1,6 @@
-package com.music.dzr.core.oauth.model
+package com.music.dzr.core.auth.domain.model
 
-import com.music.dzr.core.oauth.model.OAuthScope.Companion.join
+import com.music.dzr.core.auth.domain.model.OAuthScope.Companion.join
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
