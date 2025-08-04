@@ -33,7 +33,10 @@ suspend fun AuthTokenRepository.getScopes() = getToken()?.scopes
 
 /**
  * Determines if the access token is expired or not.
- *
+ * @param safetyBufferSeconds A safety buffer in seconds to treat the token as expired
+ *                            a bit earlier to account for network latency.
  * @return `true` if the access token has expired or no token is available, `false` otherwise.
  */
-suspend fun AuthTokenRepository.isAccessTokenExpired() = getToken()?.expiresAtMillis
+suspend fun AuthTokenRepository.isAccessTokenExpired(
+    safetyBufferSeconds: Int = 30
+) = getToken()?.isExpired(safetyBufferSeconds = safetyBufferSeconds)
