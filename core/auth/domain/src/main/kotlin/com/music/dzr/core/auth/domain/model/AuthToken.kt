@@ -16,12 +16,12 @@ package com.music.dzr.core.auth.domain.model
  *                      as it's not always returned, especially on subsequent token refreshes.
  * @property scopes A list of scopes that have been granted for this token.
  */
-data class OAuthToken(
+data class AuthToken(
     val accessToken: String,
     val tokenType: String,
     val expiresInSeconds: Int,
     val refreshToken: String?,
-    val scopes: List<OAuthScope>?
+    val scopes: List<AuthScope>?
 ) {
     init {
         require(accessToken.isNotBlank()) { "Access token cannot be blank" }

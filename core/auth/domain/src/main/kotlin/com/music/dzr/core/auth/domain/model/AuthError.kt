@@ -10,7 +10,7 @@ package com.music.dzr.core.auth.domain.model
  *
  * @see <a href="https://tools.ietf.org/html/rfc6749#section-5.2">RFC 6749, Section 5.2</a>
  */
-data class OAuthError(
+data class AuthError(
     val code: Code,
     val description: String? = null,
     val uri: String? = null

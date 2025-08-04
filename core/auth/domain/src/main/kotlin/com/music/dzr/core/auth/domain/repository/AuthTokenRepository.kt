@@ -1,6 +1,6 @@
 package com.music.dzr.core.auth.domain.repository
 
-import com.music.dzr.core.auth.domain.model.OAuthToken
+import com.music.dzr.core.auth.domain.model.AuthToken
 
 /**
  * An interface that defines the contract for storing, retrieving, and managing OAuth tokens.
@@ -8,7 +8,7 @@ import com.music.dzr.core.auth.domain.model.OAuthToken
  * This repository is responsible for the persistence of authentication state.
  * Implementations of this interface will handle the actual storage mechanism.
  */
-interface OAuthTokenRepository {
+interface AuthTokenRepository {
 
     /**
      * Saves the complete token grant.
@@ -16,9 +16,9 @@ interface OAuthTokenRepository {
      * The implementation should persist the necessary parts of the token. If the refreshToken
      * in the provided [token] is null, the existing refresh token should be preserved.
      *
-     * @param token The [OAuthToken] domain model to save.
+     * @param token The [AuthToken] domain model to save.
      */
-    suspend fun saveToken(token: OAuthToken)
+    suspend fun saveToken(token: AuthToken)
 
     /**
      * Retrieves the current access token.

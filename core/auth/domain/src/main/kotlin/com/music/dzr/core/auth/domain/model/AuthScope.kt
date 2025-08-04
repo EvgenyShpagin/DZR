@@ -10,7 +10,7 @@ package com.music.dzr.core.auth.domain.model
  * @see <a href="https://datatracker.ietf.org/doc/html/rfc6749#section-3.3">RFC 6749, Section 3.3</a>
  */
 @JvmInline
-value class OAuthScope(
+value class AuthScope(
     /**
      * The string value of the scope as it appears in OAuth requests and responses.
      *
@@ -37,12 +37,12 @@ value class OAuthScope(
         }
 
 
-        fun Collection<OAuthScope>.join(): String =
+        fun Collection<AuthScope>.join(): String =
             joinToString(" ") { scope -> scope.value }
 
-        fun parse(scopes: String): List<OAuthScope> =
+        fun parse(scopes: String): List<AuthScope> =
             scopes.split(' ')
                 .filter { it.isNotBlank() }
-                .map { scopeValue -> OAuthScope(scopeValue) }
+                .map { scopeValue -> AuthScope(scopeValue) }
     }
 }
