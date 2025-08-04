@@ -35,6 +35,14 @@ interface AuthTokenRepository {
     suspend fun getTokenType(): String?
 
     /**
+     * Attempts to refresh the access token using the current refresh token.
+     * Saves the new token on success or clears tokens on unrecoverable failure.
+     *
+     * @return `true` if the token was refreshed successfully, `false` otherwise.
+     */
+    suspend fun refreshToken(): Boolean
+
+    /**
      * Retrieves the current refresh token.
      *
      * @return The refresh token as a [String], or `null` if no token is available.
