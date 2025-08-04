@@ -30,11 +30,7 @@ internal val httpClientModule = module {
     single { RateLimitInterceptor() }
 
     single<Authenticator> {
-        TokenAuthenticator(
-            tokenRepository = get(),
-            clientId = BuildConfig.SPOTIFY_CLIENT_ID,
-            authApi = get()
-        )
+        TokenAuthenticator(tokenRepository = get())
     }
 
     single(named(AUTH_CLIENT)) {

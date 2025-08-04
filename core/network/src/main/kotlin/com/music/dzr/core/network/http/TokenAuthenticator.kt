@@ -1,9 +1,6 @@
 package com.music.dzr.core.network.http
 
-import com.music.dzr.core.network.api.AuthApi
-import com.music.dzr.core.network.model.auth.toDomain
-import com.music.dzr.core.network.model.error.NetworkErrorType
-import com.music.dzr.core.oauth.repository.OAuthTokenRepository
+import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
@@ -15,13 +12,9 @@ import okhttp3.Route
  * It catches 401 auth errors and attempts to refresh the token.
  *
  * @param tokenRepository A repository to get and update tokens.
- * @param clientId The application's client ID.
- * @param authApi The API service for refreshing tokens.
  */
 internal class TokenAuthenticator(
-    private val tokenRepository: OAuthTokenRepository,
-    private val clientId: String,
-    private val authApi: AuthApi
+    private val tokenRepository: AuthTokenRepository
 ) : Authenticator {
 
     override fun authenticate(route: Route?, response: Response): Request? = synchronized(this) {
@@ -40,34 +33,18 @@ internal class TokenAuthenticator(
                     .header("Authorization", "Bearer $currentToken")
                     .build()
             }
+            val isSuccessful = tokenRepository.refreshToken()
 
-            val refreshToken = tokenRepository.getRefreshToken()
-                ?: return@runBlocking null // No refresh token, we can't refresh.
-
-            val tokenResponse = authApi.refreshToken(
-                refreshToken = refreshToken,
-                clientId = clientId
-            )
-
-            val newToken = tokenResponse.data
-            if (tokenResponse.error == null && newToken != null) {
-                tokenRepository.saveToken(newToken.toDomain())
-                // Retry the request with the new token.
-                return@runBlocking response.request.newBuilder()
-                    .header("Authorization", "Bearer ${newToken.accessToken}")
-                    .build()
-            } else {
-                val error = tokenResponse.error
-                // If the refresh token is invalid, clear tokens to force re-login.
-                val isUnrecoverableAuthError =
-                    error?.type == NetworkErrorType.HttpException && error.reason == "invalid_grant"
-
-                if (isUnrecoverableAuthError) {
-                    tokenRepository.clearTokens()
-                }
+            if (!isSuccessful) {
                 // For any refresh error, fail the original request.
                 return@runBlocking null
             }
+
+            val newToken = tokenRepository.getAccessToken()
+            // Retry the request with the new token.
+            return@runBlocking response.request.newBuilder()
+                .header("Authorization", "Bearer $newToken")
+                .build()
         }
     }
 } 
