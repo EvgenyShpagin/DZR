@@ -15,13 +15,15 @@ package com.music.dzr.core.auth.domain.model
  * @property refreshToken The token that can be used to obtain a new access token. It can be null,
  *                      as it's not always returned, especially on subsequent token refreshes.
  * @property scopes A list of scopes that have been granted for this token.
+ * @property expiresAtMillis The timestamp in milliseconds when this token expires.
  */
 data class AuthToken(
     val accessToken: String,
     val tokenType: String,
     val expiresInSeconds: Int,
     val refreshToken: String?,
-    val scopes: List<AuthScope>?
+    val scopes: List<AuthScope>?,
+    val expiresAtMillis: Long = calculateExpiryTimeMs(expiresInSeconds)
 ) {
     init {
         require(accessToken.isNotBlank()) { "Access token cannot be blank" }
@@ -29,3 +31,6 @@ data class AuthToken(
         require(expiresInSeconds > 0) { "Expires in seconds must be positive" }
     }
 }
+
+private fun calculateExpiryTimeMs(expiresInSeconds: Int): Long =
+    System.currentTimeMillis() + (expiresInSeconds * 1000L)
