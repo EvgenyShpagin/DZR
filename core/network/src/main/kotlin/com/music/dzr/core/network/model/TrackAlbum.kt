@@ -1,14 +1,5 @@
-package com.music.dzr.library.track.data.remote.dto
+package com.music.dzr.core.network.model
 
-import com.music.dzr.core.network.model.AlbumType
-import com.music.dzr.core.network.model.ReleaseDate
-import com.music.dzr.core.network.model.ReleaseDatePrecision
-import com.music.dzr.core.network.model.SimplifiedArtist
-import com.music.dzr.core.network.model.Copyright
-import com.music.dzr.core.network.model.ExternalIds
-import com.music.dzr.core.network.model.ExternalUrls
-import com.music.dzr.core.network.model.Image
-import com.music.dzr.core.network.model.Restrictions
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
