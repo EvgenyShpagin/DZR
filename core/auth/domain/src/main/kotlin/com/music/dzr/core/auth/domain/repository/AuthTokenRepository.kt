@@ -1,5 +1,6 @@
 package com.music.dzr.core.auth.domain.repository
 
+import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
 
 /**
@@ -61,3 +62,17 @@ suspend fun AuthTokenRepository.getTokenType() = getToken()?.tokenType
  * @return The refresh token as a [String], or `null` if no token is available.
  */
 suspend fun AuthTokenRepository.getRefreshToken() = getToken()?.refreshToken
+
+/**
+ * Retrieves the list of authorization scopes associated with the current authentication state.
+ *
+ * @return A list of [AuthScope] objects representing the authorized scopes.
+ */
+suspend fun AuthTokenRepository.getScopes() = getToken()?.scopes
+
+/**
+ * Determines if the access token is expired or not.
+ *
+ * @return `true` if the access token has expired or no token is available, `false` otherwise.
+ */
+suspend fun AuthTokenRepository.isAccessTokenExpired() = getToken()?.expiresAtMillis
