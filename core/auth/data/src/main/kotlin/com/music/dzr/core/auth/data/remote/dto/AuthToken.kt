@@ -13,7 +13,7 @@ import kotlinx.serialization.Serializable
  * @property tokenType How the access token may be used, always "Bearer".
  */
 @Serializable
-data class Token(
+internal data class AuthToken(
     @SerialName("access_token")
     val accessToken: String,
     @SerialName("refresh_token")

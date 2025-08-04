@@ -1,6 +1,6 @@
 package com.music.dzr.core.auth.data.remote.api
 
-import com.music.dzr.core.auth.data.remote.dto.Token
+import com.music.dzr.core.auth.data.remote.dto.AuthToken
 import com.music.dzr.core.network.model.NetworkResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -23,7 +23,7 @@ internal interface AuthApi {
         @Field("redirect_uri") redirectUri: String,
         @Field("client_id") clientId: String,
         @Field("code_verifier") codeVerifier: String
-    ): NetworkResponse<Token>
+    ): NetworkResponse<AuthToken>
 
     /**
      * Refreshes an expired access token using a refresh token.
@@ -34,5 +34,5 @@ internal interface AuthApi {
         @Field("grant_type") grantType: String = "refresh_token",
         @Field("refresh_token") refreshToken: String,
         @Field("client_id") clientId: String
-    ): NetworkResponse<Token>
+    ): NetworkResponse<AuthToken>
 }
