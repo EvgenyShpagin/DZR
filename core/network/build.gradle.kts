@@ -38,7 +38,7 @@ secrets {
 }
 
 dependencies {
-    api(projects.core.oauth)
+    api(projects.core.auth.domain)
     api(libs.kotlinx.serialization.json)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
