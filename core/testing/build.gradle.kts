@@ -15,5 +15,6 @@ android {
 dependencies {
     api(projects.core.common)
     api(projects.core.auth.domain)
+    api(projects.core.network)
     api(libs.kotlinx.coroutines.test)
 }
