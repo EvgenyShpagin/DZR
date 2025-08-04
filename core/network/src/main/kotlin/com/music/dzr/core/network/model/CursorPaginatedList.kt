@@ -1,6 +1,5 @@
 package com.music.dzr.core.network.model
 
-import com.music.dzr.core.network.model.player.Cursor
 import kotlinx.serialization.Serializable
 
 /**

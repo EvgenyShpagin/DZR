@@ -1,4 +1,4 @@
-package com.music.dzr.library.player.data.remote.dto
+package com.music.dzr.core.network.model
 
 import kotlinx.serialization.Serializable
 
