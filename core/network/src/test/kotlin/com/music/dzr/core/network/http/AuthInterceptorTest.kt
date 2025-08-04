@@ -51,7 +51,7 @@ class AuthInterceptorTest {
     @Test
     fun doesNotAddAuthorizationHeader_whenTokenIsNull() {
         // Arrange
-        tokenRepository.setTokens(null, null)
+        tokenRepository.resetTokens()
         server.enqueue(MockResponse())
         val request = Request.Builder().url(server.url("/")).build()
 
