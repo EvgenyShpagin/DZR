@@ -5,7 +5,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-class OAuthScopeTest {
+class AuthScopeTest {
     @Test
     fun createsValidScope() {
         val scope = AuthScope("user-read-private")
