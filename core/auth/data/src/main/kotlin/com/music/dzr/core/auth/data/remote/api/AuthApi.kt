@@ -1,6 +1,6 @@
-package com.music.dzr.core.network.api
+package com.music.dzr.core.auth.data.remote.api
 
-import com.music.dzr.core.network.model.auth.Token
+import com.music.dzr.core.auth.data.remote.dto.Token
 import com.music.dzr.core.network.model.NetworkResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

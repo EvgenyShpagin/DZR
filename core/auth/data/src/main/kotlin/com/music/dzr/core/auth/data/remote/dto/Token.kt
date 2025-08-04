@@ -1,9 +1,9 @@
-package com.music.dzr.core.network.model.auth
+package com.music.dzr.core.auth.data.remote.dto
 
-import com.music.dzr.core.oauth.model.OAuthScope
+import com.music.dzr.core.auth.domain.model.AuthScope
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import com.music.dzr.core.oauth.model.OAuthToken as DomainToken
+import com.music.dzr.core.auth.domain.model.AuthToken as DomainToken
 
 /**
  * Represents the response from the Spotify token endpoint.
@@ -33,6 +33,6 @@ internal fun Token.toDomain(): DomainToken {
         tokenType = tokenType,
         expiresInSeconds = expiresIn,
         refreshToken = refreshToken,
-        scopes = OAuthScope.parse(scope)
+        scopes = AuthScope.parse(scope)
     )
 }
