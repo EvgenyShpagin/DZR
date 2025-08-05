@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.model.market
+package com.music.dzr.core.data.remote.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

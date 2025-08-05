@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.dzr.android.library)
+    alias(libs.plugins.dzr.android.data.library)
 }
 
 android {
@@ -10,8 +10,4 @@ android {
             isMinifyEnabled = false
         }
     }
-}
-
-dependencies {
-    api(projects.core.network)
 }

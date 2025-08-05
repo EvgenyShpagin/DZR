@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.api
+package com.music.dzr.core.data.remote.api
 
 import com.music.dzr.core.network.test.createApi
 import com.music.dzr.core.network.test.enqueueResponseFromAssets
@@ -31,15 +31,14 @@ class MarketApiTest {
     @Test
     fun getMarkets_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange: enqueue a 200 response with a sample album JSON
-        server.enqueueResponseFromAssets("responses/market/available-markets.json")
+        server.enqueueResponseFromAssets("responses/available-markets.json")
 
         // Act: call the API
         val response = api.getAvailableMarkets()
 
         // Assert: correct data is fetched
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertEquals(185, list.count())
             assertEquals("AD", list.first())
             assertEquals("ZW", list.last())
@@ -49,7 +48,7 @@ class MarketApiTest {
     @Test
     fun getMarkets_usesCorrectPathAndMethod_onRequestWithMarket() = runTest {
         // Arrange: enqueue a 200 response with a sample album JSON
-        server.enqueueResponseFromAssets("responses/market/available-markets.json")
+        server.enqueueResponseFromAssets("responses/available-markets.json")
 
         // Act: call the API
         api.getAvailableMarkets()

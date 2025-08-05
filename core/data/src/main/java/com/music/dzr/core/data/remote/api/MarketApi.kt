@@ -1,7 +1,7 @@
-package com.music.dzr.core.network.api
+package com.music.dzr.core.data.remote.api
 
-import com.music.dzr.core.network.model.market.Markets
 import com.music.dzr.core.network.model.NetworkResponse
+import com.music.dzr.core.data.remote.dto.Markets
 import retrofit2.http.GET
 
 /**
