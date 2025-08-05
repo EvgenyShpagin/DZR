@@ -4,7 +4,6 @@ import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
 import com.music.dzr.core.network.model.Track
 import com.music.dzr.core.network.model.Tracks
-import com.music.dzr.core.network.model.auth.PermissionScope
 import com.music.dzr.library.track.data.remote.dto.SavedTrack
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -48,7 +47,7 @@ interface TrackApi {
     /**
      * Get a list of the songs saved in the current Spotify user's 'Your Music' library.
      *
-     * Requires [PermissionScope.UserLibraryRead].
+     * Requires permission `UserLibraryRead`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/get-users-saved-tracks">Get User's Saved Tracks</a>
      *
@@ -66,7 +65,7 @@ interface TrackApi {
     /**
      * Save one or more tracks to the current user's 'Your Music' library.
      *
-     * Requires [PermissionScope.UserLibraryModify].
+     * Requires permission `UserLibraryModify`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/save-tracks-user">Save Tracks for Current User</a>
      *
@@ -80,7 +79,7 @@ interface TrackApi {
     /**
      * Save one or more tracks to the current user's 'Your Music' library.
      *
-     * Requires [PermissionScope.UserLibraryModify].
+     * Requires permission `UserLibraryModify`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/save-tracks-user">Save Tracks for Current User</a>
      *
@@ -94,7 +93,7 @@ interface TrackApi {
     /**
      * Remove one or more tracks from the current user's 'Your Music' library.
      *
-     * Requires [PermissionScope.UserLibraryModify].
+     * Requires permission `UserLibraryModify`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/remove-tracks-user">Remove User's Saved Tracks</a>
      *
@@ -108,7 +107,7 @@ interface TrackApi {
     /**
      * Remove one or more tracks from the current user's 'Your Music' library.
      *
-     * Requires [PermissionScope.UserLibraryModify].
+     * Requires permission `UserLibraryModify`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/remove-tracks-user">Remove User's Saved Tracks</a>
      *
@@ -122,7 +121,7 @@ interface TrackApi {
     /**
      * Check if one or more tracks is already saved in the current Spotify user's 'Your Music' library.
      *
-     * Requires [PermissionScope.UserLibraryRead].
+     * Requires permission `UserLibraryRead`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/check-users-saved-tracks">Check User's Saved Tracks</a>
      *

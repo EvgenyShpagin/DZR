@@ -2,7 +2,6 @@ package com.music.dzr.library.player.data.remote.api
 
 import com.music.dzr.core.network.model.CursorPaginatedList
 import com.music.dzr.core.network.model.NetworkResponse
-import com.music.dzr.core.network.model.auth.PermissionScope
 import com.music.dzr.library.player.data.remote.dto.CurrentlyPlayingContext
 import com.music.dzr.library.player.data.remote.dto.Devices
 import com.music.dzr.library.player.data.remote.dto.PlayHistory
@@ -25,7 +24,7 @@ interface PlayerApi {
     /**
      * Get information about the user's current playback state, including track or episode, progress, and active device.
      *
-     * Requires [PermissionScope.UserReadPlaybackState]
+     * Requires permission `UserReadPlaybackState`
      *
      * @param market An ISO 3166-1 alpha-2 country code.
      */
@@ -37,7 +36,7 @@ interface PlayerApi {
     /**
      * Transfer playback to a new device and determine if it should start playing.
      *
-     * Requires [PermissionScope.UserModifyPlaybackState]
+     * Requires permission `UserModifyPlaybackState`
      *
      * @param deviceIds A JSON object containing a single key "device_ids" which is an array of device IDs to transfer playback to.
      * **Only a single `device_id` is currently supported**
@@ -52,7 +51,7 @@ interface PlayerApi {
     /**
      * Get information about a user's available devices.
      *
-     * Requires [PermissionScope.UserReadPlaybackState]
+     * Requires permission `UserReadPlaybackState`
      */
     @GET("me/player/devices")
     suspend fun getAvailableDevices(): NetworkResponse<Devices>
@@ -60,7 +59,7 @@ interface PlayerApi {
     /**
      * Get the object for the user's currently playing track.
      *
-     * Requires [PermissionScope.UserReadCurrentlyPlaying]
+     * Requires permission `UserReadCurrentlyPlaying`
      *
      * @param market An ISO 3166-1 alpha-2 country code.
      */
@@ -72,7 +71,7 @@ interface PlayerApi {
     /**
      * Start a new context or resume current playback on the user's active device.
      *
-     * Requires [PermissionScope.UserModifyPlaybackState]
+     * Requires permission `UserModifyPlaybackState`
      *
      * @param deviceId The id of the device this command is targeting.
      * @param body The playback options.
@@ -86,7 +85,7 @@ interface PlayerApi {
     /**
      * Pause playback on the user's account.
      *
-     * Requires [PermissionScope.UserModifyPlaybackState]
+     * Requires permission `UserModifyPlaybackState`
      *
      * @param deviceId The id of the device this command is targeting.
      */
@@ -98,7 +97,7 @@ interface PlayerApi {
     /**
      * Skips to next track in the user's queue.
      *
-     * Requires [PermissionScope.UserModifyPlaybackState]
+     * Requires permission `UserModifyPlaybackState`
      *
      * @param deviceId The id of the device this command is targeting.
      */
@@ -110,7 +109,7 @@ interface PlayerApi {
     /**
      * Skips to previous track in the user's queue.
      *
-     * Requires [PermissionScope.UserModifyPlaybackState]
+     * Requires permission `UserModifyPlaybackState`
      *
      * @param deviceId The id of the device this command is targeting.
      */
@@ -122,7 +121,7 @@ interface PlayerApi {
     /**
      * Seeks to the given position in the user's currently playing track.
      *
-     * Requires [PermissionScope.UserModifyPlaybackState]
+     * Requires permission `UserModifyPlaybackState`
      *
      * @param positionMs The position in milliseconds to seek to.
      * @param deviceId The id of the device this command is targeting.
@@ -136,7 +135,7 @@ interface PlayerApi {
     /**
      * Set the repeat mode for the user's playback.
      *
-     * Requires [PermissionScope.UserModifyPlaybackState]
+     * Requires permission `UserModifyPlaybackState`
      *
      * @param state The repeat mode.
      * @param deviceId The id of the device this command is targeting.
@@ -150,7 +149,7 @@ interface PlayerApi {
     /**
      * Set the volume for the user's playback.
      *
-     * Requires [PermissionScope.UserModifyPlaybackState]
+     * Requires permission `UserModifyPlaybackState`
      *
      * @param volumePercent The volume to set. Must be a value from 0 to 100.
      * @param deviceId The id of the device this command is targeting.
@@ -164,7 +163,7 @@ interface PlayerApi {
     /**
      * Toggle shuffle on or off for user's playback.
      *
-     * Requires [PermissionScope.UserModifyPlaybackState]
+     * Requires permission `UserModifyPlaybackState`
      *
      * @param state `true` : Turn shuffle on. `false` : Turn shuffle off.
      * @param deviceId The id of the device this command is targeting.
@@ -178,7 +177,7 @@ interface PlayerApi {
     /**
      * Get tracks from the current user's recently played tracks.
      *
-     * Requires [PermissionScope.UserReadRecentlyPlayed]
+     * Requires permission `UserReadRecentlyPlayed`
      *
      * @param limit The maximum number of items to return.
      * @param after A Unix timestamp in milliseconds. Returns items after this time.
@@ -194,9 +193,9 @@ interface PlayerApi {
     /**
      * Get the list of objects that make up the user's queue.
      *
-     * Requires:
-     * - [PermissionScope.UserReadCurrentlyPlaying]
-     * - [PermissionScope.UserReadPlaybackState]
+     * Requires permissions:
+     * - `UserReadCurrentlyPlaying`
+     * - `UserReadPlaybackState`
      */
     @GET("me/player/queue")
     suspend fun getUserQueue(): NetworkResponse<Queue>
@@ -204,7 +203,7 @@ interface PlayerApi {
     /**
      * Add an item to the end of the user's current playback queue.
      *
-     * Requires [PermissionScope.UserModifyPlaybackState]
+     * Requires permission `UserModifyPlaybackState`
      *
      * @param uri The uri of the item to add to the queue.
      * @param deviceId The id of the device this command is targeting.

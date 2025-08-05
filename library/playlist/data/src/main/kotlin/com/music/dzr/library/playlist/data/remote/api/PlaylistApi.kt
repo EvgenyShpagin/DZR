@@ -3,16 +3,15 @@ package com.music.dzr.library.playlist.data.remote.api
 import com.music.dzr.core.network.model.Image
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
-import com.music.dzr.core.network.model.SnapshotId
-import com.music.dzr.library.playlist.data.remote.dto.NewPlaylistDetails
 import com.music.dzr.core.network.model.Playlist
-import com.music.dzr.library.playlist.data.remote.dto.PlaylistDetailsUpdate
-import com.music.dzr.library.playlist.data.remote.dto.PlaylistItemsUpdate
 import com.music.dzr.core.network.model.PlaylistTrack
 import com.music.dzr.core.network.model.PlaylistWithPaginatedTracks
 import com.music.dzr.core.network.model.PlaylistWithTracks
 import com.music.dzr.core.network.model.PlaylistWithTracksInfo
-import com.music.dzr.core.network.model.auth.PermissionScope
+import com.music.dzr.core.network.model.SnapshotId
+import com.music.dzr.library.playlist.data.remote.dto.NewPlaylistDetails
+import com.music.dzr.library.playlist.data.remote.dto.PlaylistDetailsUpdate
+import com.music.dzr.library.playlist.data.remote.dto.PlaylistItemsUpdate
 import com.music.dzr.library.playlist.data.remote.dto.TrackAdditions
 import com.music.dzr.library.playlist.data.remote.dto.TrackRemovals
 import okhttp3.RequestBody
@@ -50,9 +49,9 @@ interface PlaylistApi {
     /**
      * Change a playlist's name and public/private state. (The user must, of course, own the playlist.)
      *
-     * Requires:
-     * - [PermissionScope.PlaylistModifyPublic]
-     * - [PermissionScope.PlaylistModifyPrivate]
+     * Requires permissions:
+     * - `PlaylistModifyPublic`
+     * - `PlaylistModifyPrivate`
      *
      * @param playlistId The Spotify ID of the playlist.
      * @param body The request body.
@@ -66,7 +65,7 @@ interface PlaylistApi {
     /**
      * Get full details of the items of a playlist owned by a Spotify user.
      *
-     * Requires [PermissionScope.PlaylistReadPrivate]
+     * Requires permission `PlaylistReadPrivate`
      *
      * @param playlistId The [Spotify ID] of the playlist.
      * @param market An [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code.
@@ -86,9 +85,9 @@ interface PlaylistApi {
     /**
      * Either reorder or replace items in a playlist.
      *
-     * Requires:
-     * - [PermissionScope.PlaylistModifyPublic]
-     * - [PermissionScope.PlaylistModifyPrivate]
+     * Requires permissions:
+     * - `PlaylistModifyPublic`
+     * - `PlaylistModifyPrivate`
      *
      * @param playlistId The Spotify ID of the playlist.
      * @param body The request body.
@@ -103,9 +102,9 @@ interface PlaylistApi {
     /**
      * Add one or more items to a user's playlist.
      *
-     * Requires:
-     * - [PermissionScope.PlaylistModifyPublic]
-     * - [PermissionScope.PlaylistModifyPrivate]
+     * Requires permissions:
+     * - `PlaylistModifyPublic`
+     * - `PlaylistModifyPrivate`
      *
      * @param playlistId The Spotify ID of the playlist.
      * @param body The request body.
@@ -120,9 +119,9 @@ interface PlaylistApi {
     /**
      * Remove one or more items from a user's playlist.
      *
-     * Requires:
-     * - [PermissionScope.PlaylistModifyPublic]
-     * - [PermissionScope.PlaylistModifyPrivate]
+     * Requires permissions:
+     * - `PlaylistModifyPublic`
+     * - `PlaylistModifyPrivate`
      *
      * @param playlistId The Spotify ID of the playlist.
      * @param body The request body.
@@ -137,7 +136,7 @@ interface PlaylistApi {
     /**
      * Get a list of the playlists owned or followed by the current Spotify user.
      *
-     * Requires [PermissionScope.PlaylistReadPrivate]
+     * Requires permission `PlaylistReadPrivate`
      *
      * @param limit The maximum number of items to return.
      * @param offset The index of the first item to return.
@@ -152,9 +151,9 @@ interface PlaylistApi {
     /**
      * Get a list of the playlists owned or followed by a Spotify user.
      *
-     * Requires:
-     * - [PermissionScope.PlaylistReadPrivate]
-     * - [PermissionScope.PlaylistReadCollaborative]
+     * Requires permissions:
+     * - `PlaylistReadPrivate`
+     * - `PlaylistReadCollaborative`
      *
      * @param userId The user's Spotify ID.
      * @param limit The maximum number of items to return.
@@ -171,9 +170,9 @@ interface PlaylistApi {
     /**
      * Create a playlist for a Spotify user. (The playlist will be empty until you add tracks.)
      *
-     * Requires:
-     * - [PermissionScope.PlaylistModifyPublic]
-     * - [PermissionScope.PlaylistModifyPrivate]
+     * Requires permissions:
+     * - `PlaylistModifyPublic`
+     * - `PlaylistModifyPrivate`
      *
      * @param userId The user's Spotify user ID.
      * @param body The request body.
@@ -199,10 +198,10 @@ interface PlaylistApi {
     /**
      * Replace the image used to represent a specific playlist.
      *
-     * Requires:
-     * - [PermissionScope.UgcImageUpload]
-     * - [PermissionScope.PlaylistModifyPublic]
-     * - [PermissionScope.PlaylistModifyPrivate]
+     * Requires permissions:
+     * - `UgcImageUpload`
+     * - `PlaylistModifyPublic`
+     * - `PlaylistModifyPrivate`
      *
      * @param playlistId The Spotify ID of the playlist.
      * @param encodedImageData The image data, base64-encoded.
