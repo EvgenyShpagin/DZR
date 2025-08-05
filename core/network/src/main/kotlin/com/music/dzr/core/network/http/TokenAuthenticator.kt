@@ -1,6 +1,7 @@
 package com.music.dzr.core.network.http
 
 import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
+import com.music.dzr.core.auth.domain.util.getAccessToken
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
