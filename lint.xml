@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Ignore `InternalSerializationApi` error which is wrongly reported as an error -->
+    <issue id="UnsafeOptInUsageError" severity="ignore">
+        <ignore regexp=".*InternalSerializationApi.*" />
+    </issue>
+</lint>
