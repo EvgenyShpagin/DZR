@@ -64,7 +64,7 @@ interface AlbumApi {
     /**
      * Retrieves a paginated list of albums saved in the current user’s library.
      *
-     * Requires [PermissionScope.UserLibraryRead]
+     * Requires permission `UserLibraryRead`
      *
      * @param limit  The maximum number of items to return (default and maximum value as defined by Spotify).
      * @param offset The index of the first item to return (used for pagination).
@@ -80,7 +80,7 @@ interface AlbumApi {
     /**
      * Save one or more albums to the current user’s library.
      *
-     * Requires [PermissionScope.UserLibraryModify]
+     * Requires permission `UserLibraryModify`
      *
      * @param ids Required query param: ids (comma-separated IDs, max 20)
      */
@@ -92,7 +92,7 @@ interface AlbumApi {
     /**
      * Save one or more albums to the current user’s library.
      *
-     * Requires [PermissionScope.UserLibraryModify]
+     * Requires permission `UserLibraryModify`
      *
      * @param ids List of ids (max 50)
      */
@@ -104,7 +104,7 @@ interface AlbumApi {
     /**
      * Remove one or more albums from the current user’s library.
      *
-     * Requires [PermissionScope.UserLibraryModify]
+     * Requires permission `UserLibraryModify`
      *
      * @param ids An id list of albums (comma-separated IDs, max 20)
      */
@@ -116,7 +116,7 @@ interface AlbumApi {
     /**
      * Removes one or more albums from the current user’s library.
      *
-     * Requires [PermissionScope.UserLibraryModify]
+     * Requires permission `UserLibraryModify`
      *
      * @param ids Id list of albums (comma-separated IDs, max 20)
      * @param ids List of ids in format (max 50)
@@ -129,7 +129,7 @@ interface AlbumApi {
     /**
      * Check if one or more albums are already saved in the current user’s library.
      *
-     * Requires [PermissionScope.UserLibraryRead]
+     * Requires permission `UserLibraryRead`
      *
      * @param ids An id list of albums (comma-separated IDs, max 20)
      */

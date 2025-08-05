@@ -3,9 +3,9 @@ package com.music.dzr.library.user.data.remote.api
 import com.music.dzr.core.network.model.Artist
 import com.music.dzr.core.network.model.NetworkResponse
 import com.music.dzr.core.network.model.PaginatedList
+import com.music.dzr.core.network.model.PlaylistFollowDetails
 import com.music.dzr.core.network.model.PublicUser
 import com.music.dzr.core.network.model.Track
-import com.music.dzr.core.network.model.PlaylistFollowDetails
 import com.music.dzr.library.user.data.remote.dto.CurrentUser
 import com.music.dzr.library.user.data.remote.dto.FollowedArtists
 import com.music.dzr.library.user.data.remote.dto.TimeRange
@@ -24,9 +24,9 @@ interface UserApi {
     /**
      * Get detailed profile information about the current user (including the current user's username).
      *
-     * Requires:
-     * - [PermissionScope.UserReadPrivate],
-     * - [PermissionScope.UserReadEmail].
+     * Requires permissions:
+     * - `UserReadPrivate`,
+     * - `UserReadEmail`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/get-current-users-profile">Get Current User's Profile</a>
      */
@@ -36,7 +36,7 @@ interface UserApi {
     /**
      * Get the current user's top artists based on calculated affinity.
      *
-     * Requires [PermissionScope.UserTopRead].
+     * Requires permission `UserTopRead`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks">Get User's Top Items</a>
      *
@@ -54,7 +54,7 @@ interface UserApi {
     /**
      * Get the current user's top tracks based on calculated affinity.
      *
-     * Requires [PermissionScope.UserTopRead].
+     * Requires permission `UserTopRead`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks">Get User's Top Items</a>
      *
@@ -82,8 +82,8 @@ interface UserApi {
      * Add the current user as a follower of a playlist.
      *
      * Requires:
-     * - [PermissionScope.PlaylistModifyPublic],
-     * - [PermissionScope.PlaylistModifyPrivate].
+     * - `PlaylistModifyPublic`,
+     * - `PlaylistModifyPrivate`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/follow-playlist">Follow Playlist</a>
      *
@@ -100,8 +100,8 @@ interface UserApi {
      * Remove the current user as a follower of a playlist.
      *
      * Requires:
-     * - [PermissionScope.PlaylistModifyPublic],
-     * - [PermissionScope.PlaylistModifyPrivate].
+     * - `PlaylistModifyPublic`,
+     * - `PlaylistModifyPrivate`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/unfollow-playlist">Unfollow Playlist</a>
      *
@@ -113,7 +113,7 @@ interface UserApi {
     /**
      * Get the current user's followed artists.
      *
-     * Requires [PermissionScope.UserFollowRead].
+     * Requires permission `UserFollowRead`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/get-followed">Get Followed Artists</a>
      *
@@ -129,7 +129,7 @@ interface UserApi {
     /**
      * Add the current user as a follower of one or more artists.
      *
-     * Requires [PermissionScope.UserFollowModify].
+     * Requires permission `UserFollowModify`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/follow-artists-users">Follow Artists or Users</a>
      *
@@ -141,7 +141,7 @@ interface UserApi {
     /**
      * Add the current user as a follower of one or more users.
      *
-     * Requires [PermissionScope.UserFollowModify].
+     * Requires permission `UserFollowModify`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/follow-artists-users">Follow Artists or Users</a>
      *
@@ -153,7 +153,7 @@ interface UserApi {
     /**
      * Remove the current user as a follower of one or more artists.
      *
-     * Requires [PermissionScope.UserFollowModify].
+     * Requires permission `UserFollowModify`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/unfollow-artists-users">Unfollow Artists or Users</a>
      *
@@ -165,7 +165,7 @@ interface UserApi {
     /**
      * Remove the current user as a follower of one or more users.
      *
-     * Requires [PermissionScope.UserFollowModify].
+     * Requires permission `UserFollowModify`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/unfollow-artists-users">Unfollow Artists or Users</a>
      *
@@ -177,7 +177,7 @@ interface UserApi {
     /**
      * Check to see if the current user is following one or more artists.
      *
-     * Requires [PermissionScope.UserFollowRead].
+     * Requires permission `UserFollowRead`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/check-current-user-follows">Check If User Follows Artists or Users</a>
      *
@@ -189,7 +189,7 @@ interface UserApi {
     /**
      * Check to see if the current user is following one or more users.
      *
-     * Requires [PermissionScope.UserFollowRead].
+     * Requires `UserFollowRead`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/check-current-user-follows">Check If User Follows Artists or Users</a>
      *
@@ -201,7 +201,7 @@ interface UserApi {
     /**
      * Check to see if one or more Spotify users are following a specified playlist.
      *
-     * Requires [PermissionScope.PlaylistReadPrivate].
+     * Requires `PlaylistReadPrivate`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/check-if-user-follows-playlist">Check if Users Follow Playlist</a>
      *

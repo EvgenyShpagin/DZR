@@ -18,7 +18,7 @@ import kotlinx.serialization.Serializable
  * @property href A link to the Web API endpoint for this user.
  * @property id The Spotify user ID for this user.
  * @property images The user's profile image.
- * @property product The user's Spotify subscription level (`null` if [PermissionScope.UserReadPrivate] is not provided).
+ * @property product The user's Spotify subscription level (`null` if the permission `UserReadPrivate` is not provided).
  * @property type The object type: "user".
  * @property uri The Spotify URI for this user.
  */
