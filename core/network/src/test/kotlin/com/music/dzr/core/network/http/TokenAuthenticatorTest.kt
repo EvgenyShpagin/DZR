@@ -2,12 +2,9 @@ package com.music.dzr.core.network.http
 
 import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
-import com.music.dzr.core.network.model.NetworkResponse
-import com.music.dzr.core.network.model.error.NetworkError
-import com.music.dzr.core.network.model.error.NetworkErrorType
+import com.music.dzr.core.auth.domain.util.getAccessToken
+import com.music.dzr.core.auth.domain.util.getRefreshToken
 import com.music.dzr.core.testing.repository.FakeTokenRepository
-import io.mockk.coEvery
-import io.mockk.coVerify
 import kotlinx.coroutines.test.runTest
 import okhttp3.Request
 import okhttp3.Response
@@ -15,6 +12,7 @@ import okhttp3.Route
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
@@ -44,7 +42,9 @@ class TokenAuthenticatorTest {
         )
         val mockResponse = mockResponseWithHeader("Bearer $oldToken")
         tokenRepository.setTokens(oldToken, "refresh_token")
-        coEvery { tokenRepository.refreshToken() } returns true
+
+        tokenRepository.refreshShouldSucceed = true
+        tokenRepository.tokenAfterRefresh = newToken
 
         // Act
         val newRequest = authenticator.authenticate(mockRoute, mockResponse)
@@ -73,14 +73,8 @@ class TokenAuthenticatorTest {
     fun returnsNullAndClearsTokens_onInvalidGrantError() = runTest {
         // Arrange
         val mockResponse = mockResponseWithHeader("Bearer old_token")
-        val error = NetworkError(
-            type = NetworkErrorType.HttpException,
-            message = "Invalid Grant",
-            code = 400,
-            reason = "invalid_grant"
-        )
         tokenRepository.setTokens("old_token", "refresh_token")
-        coEvery { authApi.refreshToken(any(), any(), any()) } returns NetworkResponse(null, error)
+        tokenRepository.refreshShouldSucceed = false
 
         // Act
         val newRequest = authenticator.authenticate(mockRoute, mockResponse)
@@ -95,15 +89,9 @@ class TokenAuthenticatorTest {
     fun returnsNullAndKeepsSession_onTransientRefreshError() = runTest {
         // Arrange
         val mockResponse = mockResponseWithHeader("Bearer old_token")
-        val error = NetworkError(
-            type = NetworkErrorType.Timeout,
-            message = "timeout",
-            code = 500,
-            reason = "timeout"
-        )
         tokenRepository.setTokens("old_token", "refresh_token")
-        coEvery { authApi.refreshToken(any(), any(), any()) } returns
-                NetworkResponse(null, error)
+        tokenRepository.clearTokensOnRefreshFailure = false
+        tokenRepository.refreshShouldSucceed = false
 
         // Act
         val newRequest = authenticator.authenticate(mockRoute, mockResponse)
@@ -119,6 +107,11 @@ class TokenAuthenticatorTest {
         val failedRequestToken = "failed_token"
         val refreshedToken = "refreshed_token"
         val mockResponse = mockResponseWithHeader("Bearer $failedRequestToken")
+        // New tokens which shouldn't be used
+        tokenRepository.refreshShouldSucceed = true
+        tokenRepository.tokenAfterRefresh =
+            FakeTokenRepository.NonNullAuthToken.copy(accessToken = "will_not_be_used")
+        // The imitation of updating the token in another thread
         tokenRepository.setTokens(refreshedToken, "any_refresh_token")
 
         // Act
@@ -127,7 +120,7 @@ class TokenAuthenticatorTest {
         // Assert
         assertNotNull(newRequest)
         assertEquals("Bearer $refreshedToken", newRequest.header("Authorization"))
-        coVerify(exactly = 0) { authApi.refreshToken(any(), any(), any()) }
+        assertNotEquals(tokenRepository.tokenAfterRefresh, tokenRepository.getToken())
     }
 
     private fun mockResponseWithHeader(authHeader: String): Response {
