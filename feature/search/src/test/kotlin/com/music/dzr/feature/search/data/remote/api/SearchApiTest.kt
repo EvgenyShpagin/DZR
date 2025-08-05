@@ -1,5 +1,7 @@
-package com.music.dzr.core.network.api
+package com.music.dzr.feature.search.data.remote.api
 
+import com.music.dzr.core.network.test.createApi
+import com.music.dzr.core.network.test.enqueueResponseFromAssets
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import kotlin.test.AfterTest
@@ -29,15 +31,14 @@ class SearchApiTest {
     @Test
     fun search_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/search/search-results.json")
+        server.enqueueResponseFromAssets("responses/search-results.json")
 
         // Act
         val response = api.search(query = "dummy", type = "dummy")
 
         // Assert
         assertNull(response.error)
-        assertNotNull(response.data)
-        with(response.data) {
+        with(assertNotNull(response.data)) {
             assertNotNull(tracks)
             assertEquals(20, tracks.limit)
             assertEquals(829, tracks.total)
@@ -51,7 +52,7 @@ class SearchApiTest {
     @Test
     fun search_usesCorrectPathAndMethod_onRequestWithAllParameters() = runTest {
         // Arrange
-        server.enqueueResponseFromAssets("responses/search/search-results.json")
+        server.enqueueResponseFromAssets("responses/search-results.json")
         val spaceEncodedQuery = "remaster%20track:Doxy%20artist:Miles%20Davis"
         val encodedQuery = "remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis"
         val type = "album,track"
@@ -82,4 +83,4 @@ class SearchApiTest {
         assertEquals(expectedPath, recordedRequest.path)
         assertEquals("GET", recordedRequest.method)
     }
-} 
+}
