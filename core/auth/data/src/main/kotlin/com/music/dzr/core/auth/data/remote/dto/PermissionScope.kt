@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.model.auth
+package com.music.dzr.core.auth.data.remote.dto
 
 /**
  * Scopes provide Spotify users using third-party apps the confidence that only the information
