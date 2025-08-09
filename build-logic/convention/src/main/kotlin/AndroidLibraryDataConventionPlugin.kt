@@ -1,5 +1,4 @@
 import com.android.build.gradle.LibraryExtension
-import com.music.dzr.implementation
 import com.music.dzr.libs
 import com.music.dzr.testImplementation
 import org.gradle.api.Plugin
@@ -9,13 +8,13 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
 /**
- * Convention plugin for `library:*:data` modules.
+ * Base convention plugin for data layer modules (`library:*:data`, `core:data`).
+ * Keeps common Android + test configuration.
  */
-class AndroidDataLibraryConventionPlugin : Plugin<Project> {
+class AndroidLibraryDataConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "dzr.android.library")
-            apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
             apply(plugin = "dzr.koin")
 
             extensions.configure<LibraryExtension> {
@@ -23,17 +22,10 @@ class AndroidDataLibraryConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
-                implementation(libs.findLibrary("retrofit.core").get())
-                implementation(libs.findLibrary("kotlinx.serialization.json").get())
-                implementation(libs.findLibrary("retrofit.kotlin.serialization").get())
-                implementation(project(":core:network"))
-
                 testImplementation(project(":core:testing"))
                 testImplementation(libs.findLibrary("junit").get())
                 testImplementation(libs.findLibrary("mockk").get())
                 testImplementation(libs.findLibrary("kotlinx.coroutines.test").get())
-                testImplementation(libs.findLibrary("mockwebserver").get())
-                testImplementation(testFixtures(project(":core:network")))
             }
         }
     }

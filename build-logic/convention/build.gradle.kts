@@ -73,9 +73,13 @@ gradlePlugin {
             id = libs.plugins.dzr.android.feature.get().pluginId
             implementationClass = "AndroidFeatureConventionPlugin"
         }
-        register("androidDataLibrary") {
-            id = libs.plugins.dzr.android.data.library.get().pluginId
-            implementationClass = "AndroidDataLibraryConventionPlugin"
+        register("androidLibraryData") {
+            id = libs.plugins.dzr.android.library.data.get().pluginId
+            implementationClass = "AndroidLibraryDataConventionPlugin"
+        }
+        register("androidLibraryDataNetwork") {
+            id = libs.plugins.dzr.android.library.network.data.get().pluginId
+            implementationClass = "AndroidLibraryNetworkDataConventionPlugin"
         }
     }
 }

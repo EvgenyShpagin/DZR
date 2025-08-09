@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.dzr.android.data.library)
+    alias(libs.plugins.dzr.android.library.network.data)
 }
 
 android {
