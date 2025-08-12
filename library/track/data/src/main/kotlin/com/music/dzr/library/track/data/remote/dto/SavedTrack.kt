@@ -12,7 +12,7 @@ import kotlin.time.Instant
  * @property track Full information about the track.
  */
 @Serializable
-data class SavedTrack(
+internal data class SavedTrack(
     @SerialName("added_at")
     val addedAt: Instant,
     val track: Track,

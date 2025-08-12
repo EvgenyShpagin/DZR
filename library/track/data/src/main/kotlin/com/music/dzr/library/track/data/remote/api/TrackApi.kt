@@ -17,7 +17,7 @@ import retrofit2.http.Query
  * A service for interacting with the Spotify Track API.
  * @see <a href="https://developer.spotify.com/documentation/web-api/reference/tracks">Spotify Track API</a>
  */
-interface TrackApi {
+internal interface TrackApi {
     /**
      * Get Spotify catalog information for a single track identified by its unique Spotify ID.
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/get-track">Get Track</a>
