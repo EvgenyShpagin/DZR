@@ -13,7 +13,7 @@ import kotlinx.serialization.encoding.Encoder
  * The date the object was first released.
  */
 @Serializable(with = ReleaseDateSerializer::class)
-data class ReleaseDate(
+internal data class ReleaseDate(
     val year: Int,
     val month: Int?,
     val day: Int?

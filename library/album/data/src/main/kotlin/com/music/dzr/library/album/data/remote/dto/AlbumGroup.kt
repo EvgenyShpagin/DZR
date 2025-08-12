@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  * This describes the relationship between the artist and the album.
  */
 @Serializable
-enum class AlbumGroup : UrlParameter {
+internal enum class AlbumGroup : UrlParameter {
     @SerialName("album")
     Album,
 

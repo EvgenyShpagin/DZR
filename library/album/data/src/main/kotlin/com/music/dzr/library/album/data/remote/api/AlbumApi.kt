@@ -19,7 +19,7 @@ import retrofit2.http.Query
  * A service for interacting with the Spotify Album API.
  * @see <a href="https://developer.spotify.com/documentation/web-api/">Spotify API</a>
  */
-interface AlbumApi {
+internal interface AlbumApi {
 
     /**
      * Retrieves detailed information about a single album from the Spotify catalog.

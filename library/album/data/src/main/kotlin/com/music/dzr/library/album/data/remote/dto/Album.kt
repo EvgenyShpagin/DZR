@@ -14,7 +14,7 @@ import kotlinx.serialization.Serializable
  * Represents a full album object with all available fields.
  */
 @Serializable
-data class Album(
+internal data class Album(
     @SerialName("album_type") val albumType: AlbumType,
     @SerialName("total_tracks") val totalTracks: Int,
     @SerialName("available_markets") val availableMarkets: List<String>,

@@ -8,7 +8,7 @@ import kotlin.time.Instant
  * Represents a saved album in the user's library, with timestamp.
  */
 @Serializable
-data class SavedAlbum(
+internal data class SavedAlbum(
     @SerialName("added_at") val addedAt: Instant,
     val album: Album
 )

@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
  * Represents simplified track information returned inside an album’s track list.
  */
 @Serializable
-data class AlbumTrack(
+internal data class AlbumTrack(
     val artists: List<SimplifiedArtist>,
     @SerialName("available_markets") val availableMarkets: List<String>,
     @SerialName("disc_number") val discNumber: Int,

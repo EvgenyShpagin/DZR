@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  * Paging object for new releases.
  */
 @Serializable
-data class NewReleases(
+internal data class NewReleases(
     @SerialName("albums")
     val list: PaginatedList<SimplifiedAlbum>
 )

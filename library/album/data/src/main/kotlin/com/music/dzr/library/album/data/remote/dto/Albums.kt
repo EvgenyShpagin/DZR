@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
  * Response wrapper for getting multiple albums.
  */
 @Serializable
-data class Albums(
+internal data class Albums(
     @SerialName("albums")
     val list: List<Album>
 )

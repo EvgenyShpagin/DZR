@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
  * The precision with which [ReleaseDate] value is known.
  */
 @Serializable
-enum class ReleaseDatePrecision {
+internal enum class ReleaseDatePrecision {
     @SerialName("year")
     YEAR,
 

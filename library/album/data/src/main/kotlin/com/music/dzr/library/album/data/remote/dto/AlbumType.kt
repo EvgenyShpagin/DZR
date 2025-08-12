@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
  * Represents the Spotify type of the album
  */
 @Serializable
-enum class AlbumType {
+internal enum class AlbumType {
 
     @SerialName("album")
     Album,
