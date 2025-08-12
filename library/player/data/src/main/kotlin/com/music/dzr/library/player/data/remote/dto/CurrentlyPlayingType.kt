@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
  * The object type of the currently playing item.
  */
 @Serializable
-enum class CurrentlyPlayingType {
+internal enum class CurrentlyPlayingType {
     @SerialName("track")
     Track,
 

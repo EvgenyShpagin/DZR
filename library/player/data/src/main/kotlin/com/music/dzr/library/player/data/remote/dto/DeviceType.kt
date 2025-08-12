@@ -12,7 +12,7 @@ import kotlinx.serialization.encoding.Encoder
  * The type of device.
  */
 @Serializable(with = DeviceTypeSerializer::class)
-enum class DeviceType {
+internal enum class DeviceType {
     Computer,
     Tablet,
     Smartphone,

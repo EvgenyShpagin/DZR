@@ -18,7 +18,7 @@ import kotlinx.serialization.Serializable
  * @property transferringPlayback Transferring playback between devices.
  */
 @Serializable
-data class Actions(
+internal data class Actions(
     @SerialName("interrupting_playback")
     val interruptingPlayback: Boolean? = null,
     val pausing: Boolean? = null,

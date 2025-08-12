@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
  * @property queue The tracks or episodes in the queue.
  */
 @Serializable
-data class Queue(
+internal data class Queue(
     @SerialName("currently_playing")
     val currentlyPlaying: Track?,
     val queue: List<Track>

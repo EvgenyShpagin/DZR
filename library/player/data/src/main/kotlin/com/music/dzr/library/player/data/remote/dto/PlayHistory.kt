@@ -13,7 +13,7 @@ import kotlin.time.Instant
  * @property context The context the track was played from.
  */
 @Serializable
-data class PlayHistory(
+internal data class PlayHistory(
     val track: Track,
     @SerialName("played_at")
     val playedAt: Instant,

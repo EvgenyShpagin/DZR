@@ -16,7 +16,7 @@ import kotlinx.serialization.Serializable
  * @property actions Allows to update the user interface based on which playback actions are available within the current context.
  */
 @Serializable
-data class CurrentlyPlayingContext(
+internal data class CurrentlyPlayingContext(
     val context: Context?,
     val timestamp: Long,
     @SerialName("progress_ms")

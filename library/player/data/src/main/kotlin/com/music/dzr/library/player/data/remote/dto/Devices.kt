@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  * @property list A list of devices.
  */
 @Serializable
-data class Devices(
+internal data class Devices(
     @SerialName("devices")
     val list: List<Device>
 ) 

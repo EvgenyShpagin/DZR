@@ -19,7 +19,7 @@ import kotlinx.serialization.Serializable
  * @property actions Allows to update the user interface based on which playback actions are available within the current context.
  */
 @Serializable
-data class PlaybackState(
+internal data class PlaybackState(
     val device: Device,
     @SerialName("repeat_state")
     val repeatState: String,

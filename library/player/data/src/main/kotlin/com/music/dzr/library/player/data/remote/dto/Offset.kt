@@ -12,7 +12,7 @@ import kotlinx.serialization.json.jsonObject
  * Used within [PlaybackOptions].
  */
 @Serializable(with = OffsetSerializer::class)
-sealed interface Offset {
+internal sealed interface Offset {
     /**
      * Specifies the track to start playback from by its position in the context.
      * @property position The zero-based index of the track.

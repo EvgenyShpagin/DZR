@@ -13,7 +13,7 @@ import kotlinx.serialization.Serializable
  * @property uri The Spotify URI for the context.
  */
 @Serializable
-data class Context(
+internal data class Context(
     val type: String,
     val href: String,
     @SerialName("external_urls")

@@ -16,7 +16,7 @@ import kotlinx.serialization.Serializable
  * @property supportsVolume If this device can be used to set the volume.
  */
 @Serializable
-data class Device(
+internal data class Device(
     val id: String?,
     @SerialName("is_active")
     val isActive: Boolean,

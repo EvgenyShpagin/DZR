@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  * Represents the repeat mode for the user's playback.
  */
 @Serializable
-enum class RepeatMode : UrlParameter {
+internal enum class RepeatMode : UrlParameter {
     /**
      * Repeat the current track.
      */

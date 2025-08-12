@@ -13,7 +13,7 @@ import kotlinx.serialization.Serializable
  * @property positionMs The position in milliseconds to start playback from.
  */
 @Serializable
-data class PlaybackOptions(
+internal data class PlaybackOptions(
     @SerialName("context_uri")
     val contextUri: String? = null,
     val uris: List<String>? = null,
