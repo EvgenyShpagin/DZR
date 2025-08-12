@@ -1,6 +1,6 @@
 package com.music.dzr.library.player.data.remote.serialization
 
-import com.music.dzr.core.network.model.player.Offset
+import com.music.dzr.library.player.data.remote.dto.Offset
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
