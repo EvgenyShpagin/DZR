@@ -1,11 +1,11 @@
 package com.music.dzr.library.user.data.remote.api
 
-import com.music.dzr.core.network.model.Artist
-import com.music.dzr.core.network.model.NetworkResponse
-import com.music.dzr.core.network.model.PaginatedList
-import com.music.dzr.core.network.model.PlaylistFollowDetails
-import com.music.dzr.core.network.model.PublicUser
-import com.music.dzr.core.network.model.Track
+import com.music.dzr.core.network.dto.Artist
+import com.music.dzr.core.network.dto.NetworkResponse
+import com.music.dzr.core.network.dto.PaginatedList
+import com.music.dzr.core.network.dto.PlaylistFollowDetails
+import com.music.dzr.core.network.dto.PublicUser
+import com.music.dzr.core.network.dto.Track
 import com.music.dzr.library.user.data.remote.dto.CurrentUser
 import com.music.dzr.library.user.data.remote.dto.FollowedArtists
 import com.music.dzr.library.user.data.remote.dto.TimeRange

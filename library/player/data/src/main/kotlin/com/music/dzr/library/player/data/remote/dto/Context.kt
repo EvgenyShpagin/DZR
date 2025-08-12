@@ -1,6 +1,6 @@
 package com.music.dzr.library.player.data.remote.dto
 
-import com.music.dzr.core.network.model.ExternalUrls
+import com.music.dzr.core.network.dto.ExternalUrls
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

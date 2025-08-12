@@ -1,6 +1,6 @@
 package com.music.dzr.feature.search.data.remote.api
 
-import com.music.dzr.core.network.model.NetworkResponse
+import com.music.dzr.core.network.dto.NetworkResponse
 import com.music.dzr.feature.search.data.remote.dto.SearchResults
 import retrofit2.http.GET
 import retrofit2.http.Query

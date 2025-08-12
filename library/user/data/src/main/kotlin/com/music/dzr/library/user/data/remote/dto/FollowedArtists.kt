@@ -1,7 +1,7 @@
 package com.music.dzr.library.user.data.remote.dto
 
-import com.music.dzr.core.network.model.Artist
-import com.music.dzr.core.network.model.CursorPaginatedList
+import com.music.dzr.core.network.dto.Artist
+import com.music.dzr.core.network.dto.CursorPaginatedList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

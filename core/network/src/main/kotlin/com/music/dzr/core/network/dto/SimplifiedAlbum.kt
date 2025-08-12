@@ -1,13 +1,13 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Represents an album object with all available fields except for the tracks.
+ * Represents a simplified album in the "new releases" context.
  */
 @Serializable
-data class TrackAlbum(
+data class SimplifiedAlbum(
     @SerialName("album_type") val albumType: AlbumType,
     @SerialName("total_tracks") val totalTracks: Int,
     @SerialName("available_markets") val availableMarkets: List<String>,
@@ -21,10 +21,5 @@ data class TrackAlbum(
     val restrictions: Restrictions? = null,
     val type: String,
     val uri: String,
-    val artists: List<SimplifiedArtist>,
-    val copyrights: List<Copyright>? = null,
-    @SerialName("external_ids") val externalIds: ExternalIds? = null,
-    val genres: List<String>? = null,
-    val label: String? = null,
-    val popularity: Int? = null
+    val artists: List<SimplifiedArtist>
 )

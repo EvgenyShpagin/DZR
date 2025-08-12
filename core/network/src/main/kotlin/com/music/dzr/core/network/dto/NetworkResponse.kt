@@ -1,6 +1,6 @@
-package com.music.dzr.core.network.model
+package com.music.dzr.core.network.dto
 
-import com.music.dzr.core.network.model.error.NetworkError
+import com.music.dzr.core.network.dto.error.NetworkError
 import kotlinx.serialization.Serializable
 
 /**

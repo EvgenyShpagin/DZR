@@ -1,7 +1,7 @@
 package com.music.dzr.library.album.data.remote.api
 
-import com.music.dzr.core.network.model.NetworkResponse
-import com.music.dzr.core.network.model.PaginatedList
+import com.music.dzr.core.network.dto.NetworkResponse
+import com.music.dzr.core.network.dto.PaginatedList
 import com.music.dzr.library.album.data.remote.dto.Album
 import com.music.dzr.library.album.data.remote.dto.AlbumTrack
 import com.music.dzr.library.album.data.remote.dto.Albums

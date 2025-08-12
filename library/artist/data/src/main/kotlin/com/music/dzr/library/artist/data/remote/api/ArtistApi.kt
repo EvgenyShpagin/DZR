@@ -1,10 +1,10 @@
 package com.music.dzr.library.artist.data.remote.api
 
-import com.music.dzr.core.network.model.AlbumGroup
-import com.music.dzr.core.network.model.Artist
-import com.music.dzr.core.network.model.NetworkResponse
-import com.music.dzr.core.network.model.PaginatedList
-import com.music.dzr.core.network.model.Tracks
+import com.music.dzr.core.network.dto.AlbumGroup
+import com.music.dzr.core.network.dto.Artist
+import com.music.dzr.core.network.dto.NetworkResponse
+import com.music.dzr.core.network.dto.PaginatedList
+import com.music.dzr.core.network.dto.Tracks
 import com.music.dzr.library.artist.data.remote.dto.ArtistAlbum
 import com.music.dzr.library.artist.data.remote.dto.Artists
 import retrofit2.http.GET

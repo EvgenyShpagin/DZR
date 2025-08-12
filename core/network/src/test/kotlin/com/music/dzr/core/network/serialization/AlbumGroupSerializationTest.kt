@@ -1,6 +1,6 @@
 package com.music.dzr.core.network.serialization
 
-import com.music.dzr.core.network.model.AlbumGroup
+import com.music.dzr.core.network.dto.AlbumGroup
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals

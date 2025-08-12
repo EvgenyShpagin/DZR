@@ -1,6 +1,6 @@
 package com.music.dzr.core.data.remote.api
 
-import com.music.dzr.core.network.model.NetworkResponse
+import com.music.dzr.core.network.dto.NetworkResponse
 import com.music.dzr.core.data.remote.dto.Markets
 import retrofit2.http.GET
 

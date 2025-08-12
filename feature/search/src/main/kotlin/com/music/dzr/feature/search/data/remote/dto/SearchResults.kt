@@ -1,10 +1,10 @@
 package com.music.dzr.feature.search.data.remote.dto
 
-import com.music.dzr.core.network.model.PaginatedList
-import com.music.dzr.core.network.model.PlaylistWithTracksInfo
-import com.music.dzr.core.network.model.SimplifiedAlbum
-import com.music.dzr.core.network.model.SimplifiedArtist
-import com.music.dzr.core.network.model.Track
+import com.music.dzr.core.network.dto.PaginatedList
+import com.music.dzr.core.network.dto.PlaylistWithTracksInfo
+import com.music.dzr.core.network.dto.SimplifiedAlbum
+import com.music.dzr.core.network.dto.SimplifiedArtist
+import com.music.dzr.core.network.dto.Track
 import kotlinx.serialization.Serializable
 
 /**

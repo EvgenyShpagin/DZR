@@ -1,9 +1,9 @@
 package com.music.dzr.library.track.data.remote.api
 
-import com.music.dzr.core.network.model.NetworkResponse
-import com.music.dzr.core.network.model.PaginatedList
-import com.music.dzr.core.network.model.Track
-import com.music.dzr.core.network.model.Tracks
+import com.music.dzr.core.network.dto.NetworkResponse
+import com.music.dzr.core.network.dto.PaginatedList
+import com.music.dzr.core.network.dto.Track
+import com.music.dzr.core.network.dto.Tracks
 import com.music.dzr.library.track.data.remote.dto.SavedTrack
 import retrofit2.http.Body
 import retrofit2.http.DELETE

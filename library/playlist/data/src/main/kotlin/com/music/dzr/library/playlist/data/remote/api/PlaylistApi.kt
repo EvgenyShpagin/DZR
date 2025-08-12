@@ -1,14 +1,14 @@
 package com.music.dzr.library.playlist.data.remote.api
 
-import com.music.dzr.core.network.model.Image
-import com.music.dzr.core.network.model.NetworkResponse
-import com.music.dzr.core.network.model.PaginatedList
-import com.music.dzr.core.network.model.Playlist
-import com.music.dzr.core.network.model.PlaylistTrack
-import com.music.dzr.core.network.model.PlaylistWithPaginatedTracks
-import com.music.dzr.core.network.model.PlaylistWithTracks
-import com.music.dzr.core.network.model.PlaylistWithTracksInfo
-import com.music.dzr.core.network.model.SnapshotId
+import com.music.dzr.core.network.dto.Image
+import com.music.dzr.core.network.dto.NetworkResponse
+import com.music.dzr.core.network.dto.PaginatedList
+import com.music.dzr.core.network.dto.Playlist
+import com.music.dzr.core.network.dto.PlaylistTrack
+import com.music.dzr.core.network.dto.PlaylistWithPaginatedTracks
+import com.music.dzr.core.network.dto.PlaylistWithTracks
+import com.music.dzr.core.network.dto.PlaylistWithTracksInfo
+import com.music.dzr.core.network.dto.SnapshotId
 import com.music.dzr.library.playlist.data.remote.dto.NewPlaylistDetails
 import com.music.dzr.library.playlist.data.remote.dto.PlaylistDetailsUpdate
 import com.music.dzr.library.playlist.data.remote.dto.PlaylistItemsUpdate

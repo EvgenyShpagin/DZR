@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.model.error
+package com.music.dzr.core.network.dto.error
 
 /**
  * Represents the various types of errors that can occur when interacting

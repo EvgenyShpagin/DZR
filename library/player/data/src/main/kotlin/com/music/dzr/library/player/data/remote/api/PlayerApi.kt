@@ -1,7 +1,7 @@
 package com.music.dzr.library.player.data.remote.api
 
-import com.music.dzr.core.network.model.CursorPaginatedList
-import com.music.dzr.core.network.model.NetworkResponse
+import com.music.dzr.core.network.dto.CursorPaginatedList
+import com.music.dzr.core.network.dto.NetworkResponse
 import com.music.dzr.library.player.data.remote.dto.CurrentlyPlayingContext
 import com.music.dzr.library.player.data.remote.dto.Devices
 import com.music.dzr.library.player.data.remote.dto.PlayHistory
