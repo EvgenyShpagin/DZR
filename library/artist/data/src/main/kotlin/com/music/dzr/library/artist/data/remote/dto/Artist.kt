@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
  * Represents a Spotify artist with full profile information
  */
 @Serializable
-data class Artist(
+internal data class Artist(
     @SerialName("external_urls") val externalUrls: ExternalUrls,
     val followers: Followers,
     val genres: List<String>,

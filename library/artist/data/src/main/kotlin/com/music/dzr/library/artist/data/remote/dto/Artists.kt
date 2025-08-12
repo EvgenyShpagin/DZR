@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
  * Response wrapper for getting multiple artists
  */
 @Serializable
-data class Artists(
+internal data class Artists(
     @SerialName("artists")
     val list: List<Artist>
 ) 

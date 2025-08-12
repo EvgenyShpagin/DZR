@@ -15,7 +15,7 @@ import kotlinx.serialization.Serializable
  * Represents a simplified album version for artist collection
  */
 @Serializable
-data class ArtistAlbum(
+internal data class ArtistAlbum(
     @SerialName("album_type") val albumType: AlbumType,
     @SerialName("total_tracks") val totalTracks: Int,
     @SerialName("available_markets") val availableMarkets: List<String>,
