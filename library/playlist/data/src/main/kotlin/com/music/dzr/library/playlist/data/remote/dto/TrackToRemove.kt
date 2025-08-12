@@ -8,6 +8,6 @@ import kotlinx.serialization.Serializable
  * @property uri The Spotify URI of the track to remove.
  */
 @Serializable
-data class TrackToRemove(
+internal data class TrackToRemove(
     val uri: String
 )

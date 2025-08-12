@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
  * @property description Value for playlist description as displayed in Spotify Clients and in the Web API.
  */
 @Serializable
-data class PlaylistDetailsUpdate(
+internal data class PlaylistDetailsUpdate(
     val name: String? = null,
     val public: Boolean? = null,
     val collaborative: Boolean? = null,
