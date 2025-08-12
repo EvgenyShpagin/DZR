@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
  * Used for getting top user tracks/artists.
  */
 @Serializable
-enum class TimeRange : UrlParameter {
+internal enum class TimeRange : UrlParameter {
     /**
      * Calculated from ~1 year of data and including all new data as it becomes available.
      */

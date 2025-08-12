@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
  * @property filterLocked When true, indicates that the explicit content setting is locked and can't be changed by the user.
  */
 @Serializable
-data class ExplicitContent(
+internal data class ExplicitContent(
     @SerialName("filter_enabled")
     val filterEnabled: Boolean,
     @SerialName("filter_locked")

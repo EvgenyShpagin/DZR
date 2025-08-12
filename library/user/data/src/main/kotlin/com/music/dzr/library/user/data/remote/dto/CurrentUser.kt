@@ -23,7 +23,7 @@ import kotlinx.serialization.Serializable
  * @property uri The Spotify URI for this user.
  */
 @Serializable
-data class CurrentUser(
+internal data class CurrentUser(
     val country: String,
     @SerialName("display_name")
     val displayName: String,

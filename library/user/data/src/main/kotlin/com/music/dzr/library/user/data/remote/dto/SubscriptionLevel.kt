@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  * The subscription level [Open] can be considered the same as [Free]
  */
 @Serializable
-enum class SubscriptionLevel {
+internal enum class SubscriptionLevel {
     @SerialName("premium")
     Premium,
 

@@ -20,7 +20,7 @@ import retrofit2.http.Query
  * A service for interacting with the Spotify User API.
  * @see <a href="https://developer.spotify.com/documentation/web-api/reference/users">Spotify User API</a>
  */
-interface UserApi {
+internal interface UserApi {
     /**
      * Get detailed profile information about the current user (including the current user's username).
      *

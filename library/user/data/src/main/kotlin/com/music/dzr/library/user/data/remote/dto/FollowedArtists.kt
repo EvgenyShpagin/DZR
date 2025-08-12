@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
  * @property list The paginated list of followed artists.
  */
 @Serializable
-data class FollowedArtists(
+internal data class FollowedArtists(
     @SerialName("artists")
     val list: CursorPaginatedList<Artist>,
 )
