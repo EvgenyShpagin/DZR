@@ -4,14 +4,9 @@ import com.music.dzr.core.network.dto.NetworkResponse
 import com.music.dzr.core.network.dto.PaginatedList
 import com.music.dzr.core.network.dto.Track
 import com.music.dzr.core.network.dto.Tracks
+import com.music.dzr.library.track.data.remote.dto.SaveTracksTimestampedRequest
 import com.music.dzr.library.track.data.remote.dto.SavedTrack
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.HTTP
-import retrofit2.http.PUT
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * A service for interacting with the Spotify Track API.
@@ -77,17 +72,18 @@ internal interface TrackApi {
     ): NetworkResponse<Unit>
 
     /**
-     * Save one or more tracks to the current user's 'Your Music' library.
+     * Save one or more tracks to the current user's 'Your Music' library (**Preferred method**).
+     * This allows you to specify when tracks were added to maintain a specific chronological order in the user's library.
      *
      * Requires permission `UserLibraryModify`.
      *
      * @see <a href="https://developer.spotify.com/documentation/web-api/reference/save-tracks-user">Save Tracks for Current User</a>
      *
-     * @param ids A list of the Spotify IDs. Maximum: 50.
+     * @param request A request containing timestamped Spotify track IDs. Maximum: 50.
      */
     @PUT("me/tracks")
     suspend fun saveTracksForUser(
-        @Body ids: List<String>
+        @Body request: SaveTracksTimestampedRequest
     ): NetworkResponse<Unit>
 
     /**
