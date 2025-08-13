@@ -11,7 +11,7 @@ import com.music.dzr.library.track.data.remote.dto.SavedTrack
  * Remote data source for working with tracks.
  * Thin wrapper around [TrackApi] with convenient method signatures.
  */
-internal class TrackDataSource(private val trackApi: TrackApi) {
+internal class TrackRemoteDataSource(private val trackApi: TrackApi) {
 
     /**
      * Fetch track information by its Spotify ID.
