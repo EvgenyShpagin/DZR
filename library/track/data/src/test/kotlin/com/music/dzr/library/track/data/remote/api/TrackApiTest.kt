@@ -4,15 +4,11 @@ import com.music.dzr.core.network.test.createApi
 import com.music.dzr.core.network.test.enqueueEmptyResponse
 import com.music.dzr.core.network.test.enqueueResponseFromAssets
 import com.music.dzr.core.network.test.toJsonArray
-import com.music.dzr.library.track.data.remote.api.TrackApi
+import com.music.dzr.library.track.data.remote.dto.SaveTracksTimestampedRequest
+import com.music.dzr.library.track.data.remote.dto.TimestampedId
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
+import kotlin.test.*
 import kotlin.time.Instant
 
 class TrackApiTest {
@@ -21,6 +17,13 @@ class TrackApiTest {
     private lateinit var api: TrackApi
 
     private val id = "1"
+    private val saveTracksTimestampedRequest = SaveTracksTimestampedRequest(
+        timestampedIds = listOf(
+            TimestampedId("1", Instant.parse("2025-06-07T12:34:56Z")),
+            TimestampedId("2", Instant.parse("2025-06-07T12:34:57Z")),
+            TimestampedId("3", Instant.parse("2025-06-07T12:34:58Z")),
+        )
+    )
     private val ids = listOf("1", "2", "3")
     private val commaSeparatedIds = "1,2,3"
     private val encodedCommaSeparatedIds = "1%2C2%2C3"
@@ -100,7 +103,7 @@ class TrackApiTest {
         with(assertNotNull(response.data)) {
             assertEquals(3, items.count())
             with(items.first()) {
-                assertEquals(Instant.Companion.parse("2025-06-14T13:45:57Z"), addedAt)
+                assertEquals(Instant.parse("2025-06-14T13:45:57Z"), addedAt)
                 assertEquals("1BKT2I9x4RGKaKqW4up34s", track.id)
             }
         }
@@ -146,7 +149,7 @@ class TrackApiTest {
         // Arrange
         server.enqueueEmptyResponse()
         // Act
-        val response = api.saveTracksForUser(ids)
+        val response = api.saveTracksForUser(saveTracksTimestampedRequest)
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
@@ -157,12 +160,16 @@ class TrackApiTest {
         // Arrange
         server.enqueueEmptyResponse()
         // Act
-        api.saveTracksForUser(ids)
+        api.saveTracksForUser(saveTracksTimestampedRequest)
         // Assert
         val recordedRequest = server.takeRequest()
         assertEquals("/me/tracks", recordedRequest.path)
         assertEquals("PUT", recordedRequest.method)
-        assertEquals(ids.toJsonArray(), recordedRequest.body.readUtf8())
+        with(recordedRequest.body.readUtf8()) {
+            assertTrue("\"1\"" in this && "\"2025-06-07T12:34:56Z\"" in this)
+            assertTrue("\"2\"" in this && "\"2025-06-07T12:34:57Z\"" in this)
+            assertTrue("\"3\"" in this && "\"2025-06-07T12:34:58Z\"" in this)
+        }
     }
 
     @Test
