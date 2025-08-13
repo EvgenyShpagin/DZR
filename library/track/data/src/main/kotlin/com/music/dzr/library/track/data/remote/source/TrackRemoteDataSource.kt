@@ -5,7 +5,9 @@ import com.music.dzr.core.network.dto.PaginatedList
 import com.music.dzr.core.network.dto.Track
 import com.music.dzr.core.network.dto.Tracks
 import com.music.dzr.library.track.data.remote.api.TrackApi
+import com.music.dzr.library.track.data.remote.dto.SaveTracksTimestampedRequest
 import com.music.dzr.library.track.data.remote.dto.SavedTrack
+import com.music.dzr.library.track.data.remote.dto.TimestampedId
 
 /**
  * Remote data source for working with tracks.
@@ -58,7 +60,22 @@ internal class TrackRemoteDataSource(private val trackApi: TrackApi) {
      * @param ids List of Spotify IDs (maximum 50)
      */
     suspend fun saveTracksForUser(ids: List<String>): NetworkResponse<Unit> {
-        return trackApi.saveTracksForUser(ids = ids)
+        val idsCsv = ids.joinToString(",")
+        return trackApi.saveTracksForUser(ids = idsCsv)
+    }
+
+    /**
+     * Save one or more tracks to the user's library with timestamps (**Preferred method**).
+     * This allows you to specify when tracks were added to maintain a specific chronological order in the user's library.
+     *
+     * @param timestampedIds List of timestamped IDs (id + addedAt), maximum 50
+     */
+    suspend fun saveTracksForUserWithTimestamps(
+        timestampedIds: List<TimestampedId>
+    ): NetworkResponse<Unit> {
+        return trackApi.saveTracksForUser(
+            request = SaveTracksTimestampedRequest(timestampedIds)
+        )
     }
 
     /**
