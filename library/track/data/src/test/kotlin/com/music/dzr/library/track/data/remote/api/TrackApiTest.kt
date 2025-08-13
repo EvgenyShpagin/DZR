@@ -1,4 +1,4 @@
-package com.music.dzr.library.track.data.remote
+package com.music.dzr.library.track.data.remote.api
 
 import com.music.dzr.core.network.test.createApi
 import com.music.dzr.core.network.test.enqueueEmptyResponse
