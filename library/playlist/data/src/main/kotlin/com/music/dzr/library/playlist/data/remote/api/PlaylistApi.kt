@@ -11,6 +11,7 @@ import com.music.dzr.core.network.dto.PlaylistWithTracksInfo
 import com.music.dzr.core.network.dto.SnapshotId
 import com.music.dzr.library.playlist.data.remote.dto.NewPlaylistDetails
 import com.music.dzr.library.playlist.data.remote.dto.PlaylistDetailsUpdate
+import com.music.dzr.library.playlist.data.remote.dto.PlaylistFields
 import com.music.dzr.library.playlist.data.remote.dto.PlaylistItemsUpdate
 import com.music.dzr.library.playlist.data.remote.dto.TrackAdditions
 import com.music.dzr.library.playlist.data.remote.dto.TrackRemovals
@@ -38,12 +39,14 @@ internal interface PlaylistApi {
      * @param market An [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code.
      * @param fields Filters for the query.
      * @return A [Playlist] object.
+     *
+     * @see <a href="https://developer.spotify.com/documentation/web-api/reference/get-playlist">Spotify API</a>
      */
     @GET("playlists/{playlist_id}")
     suspend fun getPlaylist(
         @Path("playlist_id") playlistId: String,
         @Query("market") market: String? = null,
-        @Query("fields") fields: String? = null
+        @Query("fields") fields: PlaylistFields? = null
     ): NetworkResponse<PlaylistWithPaginatedTracks>
 
     /**

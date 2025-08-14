@@ -3,9 +3,10 @@ package com.music.dzr.library.playlist.data.remote.api
 import com.music.dzr.core.network.test.createApi
 import com.music.dzr.core.network.test.enqueueEmptyResponse
 import com.music.dzr.core.network.test.enqueueResponseFromAssets
-import com.music.dzr.library.playlist.data.remote.api.PlaylistApi
 import com.music.dzr.library.playlist.data.remote.dto.NewPlaylistDetails
 import com.music.dzr.library.playlist.data.remote.dto.PlaylistDetailsUpdate
+import com.music.dzr.library.playlist.data.remote.dto.PlaylistField
+import com.music.dzr.library.playlist.data.remote.dto.PlaylistFields
 import com.music.dzr.library.playlist.data.remote.dto.PlaylistItemsUpdate
 import com.music.dzr.library.playlist.data.remote.dto.TrackAdditions
 import com.music.dzr.library.playlist.data.remote.dto.TrackRemovals
@@ -71,7 +72,13 @@ class PlaylistApiTest {
         server.enqueueResponseFromAssets("responses/playlist.json")
 
         // Act
-        api.getPlaylist(playlistId, market = "US", fields = "name,description")
+        api.getPlaylist(
+            playlistId,
+            market = "US",
+            fields = PlaylistFields(
+                listOf(PlaylistField.NAME, PlaylistField.DESCRIPTION)
+            )
+        )
 
         // Assert
         val request = server.takeRequest()
