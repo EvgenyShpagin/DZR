@@ -57,12 +57,12 @@ internal interface PlaylistApi {
      * - `PlaylistModifyPrivate`
      *
      * @param playlistId The Spotify ID of the playlist.
-     * @param body The request body.
+     * @param update The request body.
      */
     @PUT("playlists/{playlist_id}")
     suspend fun changePlaylistDetails(
         @Path("playlist_id") playlistId: String,
-        @Body body: PlaylistDetailsUpdate
+        @Body update: PlaylistDetailsUpdate
     ): NetworkResponse<Unit>
 
     /**
@@ -93,13 +93,13 @@ internal interface PlaylistApi {
      * - `PlaylistModifyPrivate`
      *
      * @param playlistId The Spotify ID of the playlist.
-     * @param body The request body.
+     * @param update The request body.
      * @return A [SnapshotId] object.
      */
     @PUT("playlists/{playlist_id}/tracks")
     suspend fun updatePlaylistTracks(
         @Path("playlist_id") playlistId: String,
-        @Body body: PlaylistItemsUpdate
+        @Body update: PlaylistItemsUpdate
     ): NetworkResponse<SnapshotId>
 
     /**
@@ -178,13 +178,13 @@ internal interface PlaylistApi {
      * - `PlaylistModifyPrivate`
      *
      * @param userId The user's Spotify user ID.
-     * @param body The request body.
+     * @param details The request body.
      * @return The created [Playlist] object.
      */
     @POST("users/{user_id}/playlists")
     suspend fun createPlaylist(
         @Path("user_id") userId: String,
-        @Body body: NewPlaylistDetails
+        @Body details: NewPlaylistDetails
     ): NetworkResponse<PlaylistWithPaginatedTracks>
 
     /**
