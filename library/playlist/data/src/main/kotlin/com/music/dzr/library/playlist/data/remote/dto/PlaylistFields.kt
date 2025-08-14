@@ -57,7 +57,7 @@ internal value class PlaylistFields private constructor(val value: String) {
         /**
          * Items group: `items(listOf(field(ADDED_AT)))` → `"items(added_at)"`
          */
-        fun items(sub: List<PlaylistFields>) = group(PlaylistField.ITEMS, sub)
+        fun items(sub: List<PlaylistFields>) = group(PlaylistField.Items, sub)
 
         /**
          * Named group: `group(TRACKS, listOf(...))` → `"tracks(...)"`

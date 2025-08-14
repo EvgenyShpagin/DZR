@@ -76,7 +76,7 @@ class PlaylistApiTest {
             playlistId,
             market = "US",
             fields = PlaylistFields(
-                listOf(PlaylistField.NAME, PlaylistField.DESCRIPTION)
+                listOf(PlaylistField.Name, PlaylistField.Description)
             )
         )
 

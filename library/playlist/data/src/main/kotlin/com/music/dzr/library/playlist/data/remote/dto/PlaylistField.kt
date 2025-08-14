@@ -5,22 +5,21 @@ package com.music.dzr.library.playlist.data.remote.dto
  * Contains constants for common playlist and track fields used in Spotify Web API.
  *
  * Examples:
- * - Basic fields: `NAME`, `DESCRIPTION`, `URI`
- * - Track fields: `TRACK`, `ALBUM`, `ARTISTS`
- * - Collection fields: `ITEMS`, `TRACKS`
- * - Nested fields: `ADDED_AT`, `ADDED_BY`
+ * - Basic fields: `Name`, `Description`, `Uri`
+ * - Track fields: `Track`, `Album`, `Artists`
+ * - Collection fields: `Items`, `Tracks`
+ * - Nested fields: `AddedAt`, `AddedBy`
  *
  * Usage with [PlaylistFields]:
  * ```
- * PlaylistFields.include(listOf(NAME, DESCRIPTION))     // "name,description"
- * PlaylistFields.path(listOf(OWNER, ID))               // "owner.id"
- * PlaylistFields.group(TRACKS, listOf(items(...)))     // "tracks(items(...))"
+ * PlaylistFields(listOf(Name, Description))            // "name,description"
+ * PlaylistFields.path(listOf(Owner, ID))               // "owner.id"
+ * PlaylistFields.group(Tracks, listOf(items(...)))     // "tracks(items(...))"
  * ```
  *
  * Exclusion operator:
  * ```
- * val excludedName = !NAME  // Creates PlaylistField("!name")
- * PlaylistFields.exclude(NAME)  // Same result
+ * val excludedName = !Name  // Creates PlaylistField("!name")
  * ```
  */
 @JvmInline
@@ -32,43 +31,43 @@ internal value class PlaylistField private constructor(val value: String) {
 
     companion object {
         // Top-level common playlist fields
-        val ID = PlaylistField("id")
-        val NAME = PlaylistField("name")
-        val URI = PlaylistField("uri")
-        val HREF = PlaylistField("href")
-        val TYPE = PlaylistField("type")
-        val DESCRIPTION = PlaylistField("description")
-        val PUBLIC = PlaylistField("public")
-        val SNAPSHOT_ID = PlaylistField("snapshot_id")
-        val IMAGES = PlaylistField("images")
-        val OWNER = PlaylistField("owner")
-        val TRACKS = PlaylistField("tracks")
+        val Id = PlaylistField("id")
+        val Name = PlaylistField("name")
+        val Uri = PlaylistField("uri")
+        val Href = PlaylistField("href")
+        val Type = PlaylistField("type")
+        val Description = PlaylistField("description")
+        val Public = PlaylistField("public")
+        val SnapshotId = PlaylistField("snapshot_id")
+        val Images = PlaylistField("images")
+        val Owner = PlaylistField("owner")
+        val Tracks = PlaylistField("tracks")
 
         // Recurring/collection helpers
-        val ITEMS = PlaylistField("items")
-        val ADDED_AT = PlaylistField("added_at")
-        val ADDED_BY = PlaylistField("added_by")
-        val IS_LOCAL = PlaylistField("is_local")
-        val TRACK = PlaylistField("track")
-        val ALBUM = PlaylistField("album")
+        val Items = PlaylistField("items")
+        val AddedAt = PlaylistField("added_at")
+        val AddedBy = PlaylistField("added_by")
+        val IsLocal = PlaylistField("is_local")
+        val Track = PlaylistField("track")
+        val Album = PlaylistField("album")
 
         // Frequently used nested fields
-        val DISPLAY_NAME = PlaylistField("display_name")
-        val EXTERNAL_URLS = PlaylistField("external_urls")
-        val FOLLOWERS = PlaylistField("followers")
-        val IMAGES_URL = PlaylistField("url")
+        val DisplayName = PlaylistField("display_name")
+        val ExternalUrls = PlaylistField("external_urls")
+        val Followers = PlaylistField("followers")
+        val ImagesUrl = PlaylistField("url")
 
         // Track fields
-        val ARTISTS = PlaylistField("artists")
-        val AVAILABLE_MARKETS = PlaylistField("available_markets")
-        val DISC_NUMBER = PlaylistField("disc_number")
-        val DURATION_MS = PlaylistField("duration_ms")
-        val EXPLICIT = PlaylistField("explicit")
-        val EXTERNAL_IDS = PlaylistField("external_ids")
-        val IS_PLAYABLE = PlaylistField("is_playable")
-        val LINKED_FROM = PlaylistField("linked_from")
-        val RESTRICTIONS = PlaylistField("restrictions")
-        val POPULARITY = PlaylistField("popularity")
-        val TRACK_NUMBER = PlaylistField("track_number")
+        val Artists = PlaylistField("artists")
+        val AvailableMarkets = PlaylistField("available_markets")
+        val DiscNumber = PlaylistField("disc_number")
+        val DurationMs = PlaylistField("duration_ms")
+        val Explicit = PlaylistField("explicit")
+        val ExternalIds = PlaylistField("external_ids")
+        val IsPlayable = PlaylistField("is_playable")
+        val LinkedFrom = PlaylistField("linked_from")
+        val Restrictions = PlaylistField("restrictions")
+        val Popularity = PlaylistField("popularity")
+        val TrackNumber = PlaylistField("track_number")
     }
 }
