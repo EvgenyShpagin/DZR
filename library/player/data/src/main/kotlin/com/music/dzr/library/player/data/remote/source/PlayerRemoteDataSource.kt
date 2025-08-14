@@ -41,7 +41,9 @@ internal class PlayerRemoteDataSource(private val playerApi: PlayerApi) {
     /**
      * Get the user's currently playing track.
      */
-    suspend fun getCurrentlyPlayingTrack(market: String? = null): NetworkResponse<CurrentlyPlayingContext> {
+    suspend fun getCurrentlyPlayingTrack(
+        market: String? = null
+    ): NetworkResponse<CurrentlyPlayingContext> {
         return playerApi.getCurrentlyPlayingTrack(market)
     }
 
