@@ -38,7 +38,7 @@ class PlaylistRemoteDataSourceTest {
     @Test
     fun getPlaylist_delegatesAllParams() = runTest {
         val expected = NetworkResponse<PlaylistWithPaginatedTracks>(data = mockk())
-        val fields = PlaylistFields(listOf(PlaylistField.ID, PlaylistField.NAME))
+        val fields = PlaylistFields(listOf(PlaylistField.Id, PlaylistField.Name))
         coEvery { api.getPlaylist("pl", "US", fields) } returns expected
 
         val actual = dataSource.getPlaylist("pl", "US", fields)
@@ -125,9 +125,9 @@ class PlaylistRemoteDataSourceTest {
         val fields = PlaylistFields.items(
             listOf(
                 PlaylistFields.group(
-                    PlaylistField.TRACK,
+                    PlaylistField.Track,
                     listOf(
-                        PlaylistFields(listOf(PlaylistField.ID))
+                        PlaylistFields(listOf(PlaylistField.Id))
                     )
                 )
             )
@@ -140,8 +140,8 @@ class PlaylistRemoteDataSourceTest {
             PlaylistFields.items(
                 listOf(
                     PlaylistFields.group(
-                        PlaylistField.TRACK,
-                        listOf(PlaylistFields(listOf(PlaylistField.ID)))
+                        PlaylistField.Track,
+                        listOf(PlaylistFields(listOf(PlaylistField.Id)))
                     )
                 )
             ),
