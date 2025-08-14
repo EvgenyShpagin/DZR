@@ -80,7 +80,7 @@ internal interface PlaylistApi {
     suspend fun getPlaylistTracks(
         @Path("playlist_id") playlistId: String,
         @Query("market") market: String? = null,
-        @Query("fields") fields: String? = null,
+        @Query("fields") fields: PlaylistFields? = null,
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null
     ): NetworkResponse<PaginatedList<PlaylistTrack>>
