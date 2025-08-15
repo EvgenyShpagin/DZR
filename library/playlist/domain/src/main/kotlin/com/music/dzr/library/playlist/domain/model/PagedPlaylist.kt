@@ -1,7 +1,7 @@
 package com.music.dzr.library.playlist.domain.model
 
 import com.music.dzr.core.model.Image
-import com.music.dzr.core.model.PaginatedList
+import com.music.dzr.core.model.OffsetPage
 import com.music.dzr.library.user.domain.model.User
 
 /**
@@ -20,5 +20,5 @@ data class PagedPlaylist(
     override val externalUrl: String,
     override val snapshotId: String,
     override val tracksCount: Int,
-    val entries: PaginatedList<PlaylistEntry>
+    val entries: OffsetPage<PlaylistEntry>
 ) : Playlist()
