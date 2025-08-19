@@ -10,4 +10,7 @@ sealed interface ConnectivityError : AppError {
 
     /** The network request timed out. */
     data object Timeout : ConnectivityError
+
+    /** A connection could not be established to the server. */
+    data object ServerUnreachable : ConnectivityError
 }
