@@ -2,6 +2,7 @@
 
 package com.music.dzr.core.result
 
+import com.music.dzr.core.error.AppError
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract

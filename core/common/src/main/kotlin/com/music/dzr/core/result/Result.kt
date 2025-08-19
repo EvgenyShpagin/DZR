@@ -1,5 +1,7 @@
 package com.music.dzr.core.result
 
+import com.music.dzr.core.error.AppError
+
 /**
  * Represents the result of an operation that can either succeed or fail.
  *
