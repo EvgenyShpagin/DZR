@@ -9,5 +9,7 @@ enum class PopularityLevel {
     LOW,
     MEDIUM,
     HIGH,
-    VERY_HIGH
+    VERY_HIGH;
+
+    companion object
 }
