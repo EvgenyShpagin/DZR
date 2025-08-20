@@ -25,6 +25,13 @@ fun <I, O> NetworkResponse<I>.toResult(
 }
 
 /**
+ * A convenience overload of [toResult] for responses that do not have a body.
+ */
+fun NetworkResponse<Unit>.toResult(): Result<Unit, AppError> {
+    return toResult {}
+}
+
+/**
  * Creates a [Result.Success] from the [NetworkResponse.data] field by executing [map] function.
  */
 private fun <I, O> NetworkResponse<I>.dataAsResult(
