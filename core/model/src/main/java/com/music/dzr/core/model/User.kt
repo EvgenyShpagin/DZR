@@ -1,6 +1,4 @@
-package com.music.dzr.library.user.domain.model
-
-import com.music.dzr.core.model.Image
+package com.music.dzr.core.model
 
 /**
  * Represents a public user profile with limited information.

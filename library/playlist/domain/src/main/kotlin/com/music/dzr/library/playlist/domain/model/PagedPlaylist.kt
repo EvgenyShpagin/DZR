@@ -2,7 +2,7 @@ package com.music.dzr.library.playlist.domain.model
 
 import com.music.dzr.core.model.Image
 import com.music.dzr.core.model.OffsetPage
-import com.music.dzr.library.user.domain.model.User
+import com.music.dzr.core.model.User
 
 /**
  * A detailed representation of a playlist that includes a paginated list of its tracks.

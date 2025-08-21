@@ -1,7 +1,7 @@
 package com.music.dzr.library.playlist.domain.model
 
 import com.music.dzr.core.model.Image
-import com.music.dzr.library.user.domain.model.User
+import com.music.dzr.core.model.User
 
 /**
  * Common class for all playlist models.
