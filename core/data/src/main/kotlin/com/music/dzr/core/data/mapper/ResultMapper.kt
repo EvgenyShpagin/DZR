@@ -25,10 +25,14 @@ fun <I, O> NetworkResponse<I>.toResult(
 }
 
 /**
- * A convenience overload of [toResult] for responses that do not have a body.
+ * A convenience overload of [toResult] that performs an identity mapping.
+ *
+ * Use this function when the network response type [T] is the same as the desired
+ * domain type and no transformation is needed. It wraps the successful response data
+ * or a network error directly into a [Result].
  */
-fun NetworkResponse<Unit>.toResult(): Result<Unit, AppError> {
-    return toResult {}
+fun <T> NetworkResponse<T>.toResult(): Result<T, AppError> {
+    return toResult { it }
 }
 
 /**
