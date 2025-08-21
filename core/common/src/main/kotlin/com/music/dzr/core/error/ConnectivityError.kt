@@ -5,12 +5,15 @@ package com.music.dzr.core.error
  * These occur when the app cannot physically reach the server.
  */
 sealed interface ConnectivityError : AppError {
-    /** The device has no internet connection or the server is unreachable. */
-    data object Offline : ConnectivityError
+    /** The device has no active internet connection. */
+    data object NoInternet : ConnectivityError
 
     /** The network request timed out. */
     data object Timeout : ConnectivityError
 
-    /** A connection could not be established to the server. */
-    data object ServerUnreachable : ConnectivityError
+    /**
+     * A connection could not be established to the server host, despite an active internet connection.
+     * This may be due to a DNS resolution failure or the host being down.
+     */
+    data object HostUnreachable : ConnectivityError
 }
