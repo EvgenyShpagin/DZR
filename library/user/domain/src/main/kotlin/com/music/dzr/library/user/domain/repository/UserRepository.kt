@@ -2,7 +2,6 @@ package com.music.dzr.library.user.domain.repository
 
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.model.Artist
-import com.music.dzr.core.model.OffsetPage
 import com.music.dzr.core.model.Page
 import com.music.dzr.core.model.Track
 import com.music.dzr.core.result.Result
@@ -32,7 +31,7 @@ interface UserRepository {
         timeRange: TimeRange? = null,
         limit: Int? = null,
         offset: Int? = null
-    ): Result<OffsetPage<Artist>, AppError>
+    ): Result<Page<Artist>, AppError>
 
     /**
      * Get the current user's top tracks.
@@ -67,7 +66,7 @@ interface UserRepository {
     suspend fun getFollowedArtists(
         limit: Int? = null,
         after: String? = null
-    ): Result<OffsetPage<Artist>, AppError>
+    ): Result<Page<Artist>, AppError>
 
     /**
      * Follow one or more artists.
