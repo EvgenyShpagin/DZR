@@ -1,6 +1,6 @@
 package com.music.dzr.library.playlist.domain.model
 
-import com.music.dzr.library.track.domain.model.DetailedTrack
+import com.music.dzr.core.model.DetailedTrack
 import com.music.dzr.library.user.domain.model.User
 import kotlin.time.Instant
 
