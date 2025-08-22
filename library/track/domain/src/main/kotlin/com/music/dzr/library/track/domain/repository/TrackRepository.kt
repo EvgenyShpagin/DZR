@@ -38,7 +38,7 @@ interface TrackRepository {
     suspend fun getMultipleTracks(
         ids: List<String>,
         market: String? = null
-    ): List<Track>
+    ): Result<List<Track>, AppError>
 
     /**
      * Get the current user's saved tracks.
