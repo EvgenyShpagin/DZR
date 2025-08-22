@@ -124,7 +124,7 @@ internal interface TrackApi {
      * @param ids A comma-separated list of the Spotify IDs for the tracks. Maximum: 50.
      */
     @GET("me/tracks/contains")
-    suspend fun checkUsersSavedTracks(
+    suspend fun checkUserSavedTracks(
         @Query("ids") ids: String
     ): NetworkResponse<List<Boolean>>
 } 

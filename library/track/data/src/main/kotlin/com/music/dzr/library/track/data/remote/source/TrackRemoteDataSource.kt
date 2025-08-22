@@ -76,5 +76,5 @@ internal interface TrackRemoteDataSource {
      * @param ids List of Spotify IDs (maximum 50)
      * @return List of flags for each ID: true — saved, false — not saved
      */
-    suspend fun checkUsersSavedTracks(ids: List<String>): NetworkResponse<List<Boolean>>
+    suspend fun checkUserSavedTracks(ids: List<String>): NetworkResponse<List<Boolean>>
 }

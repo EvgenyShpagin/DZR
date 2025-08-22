@@ -48,8 +48,8 @@ internal class TrackRemoteDataSourceImpl(private val trackApi: TrackApi) : Track
         return trackApi.removeTracksForUser(ids = ids)
     }
 
-    override suspend fun checkUsersSavedTracks(ids: List<String>): NetworkResponse<List<Boolean>> {
+    override suspend fun checkUserSavedTracks(ids: List<String>): NetworkResponse<List<Boolean>> {
         val idsCsv = ids.joinToString(",")
-        return trackApi.checkUsersSavedTracks(ids = idsCsv)
+        return trackApi.checkUserSavedTracks(ids = idsCsv)
     }
 }

@@ -279,12 +279,12 @@ class AlbumApiTest {
     }
 
     @Test
-    fun checkUsersSavedAlbums_returnsData_on200CodeResponse() = runTest {
+    fun checkUserSavedAlbums_returnsData_on200CodeResponse() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/check-user-saved-albums.json")
 
         // Act
-        val response = api.checkUsersSavedAlbums(commaSeparatedIds)
+        val response = api.checkUserSavedAlbums(commaSeparatedIds)
 
         // Assert
         assertNull(response.error)
@@ -295,12 +295,12 @@ class AlbumApiTest {
     }
 
     @Test
-    fun checkUsersSavedAlbums_usesCorrectPathAndMethod_onRequest() = runTest {
+    fun checkUserSavedAlbums_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/check-user-saved-albums.json")
 
         // Act
-        api.checkUsersSavedAlbums(commaSeparatedIds)
+        api.checkUserSavedAlbums(commaSeparatedIds)
 
         // Assert
         val recordedRequest = server.takeRequest()

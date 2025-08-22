@@ -134,7 +134,7 @@ internal interface AlbumApi {
      * @param ids An id list of albums (comma-separated IDs, max 20)
      */
     @GET("me/albums/contains")
-    suspend fun checkUsersSavedAlbums(
+    suspend fun checkUserSavedAlbums(
         @Query("ids") ids: String
     ): NetworkResponse<List<Boolean>>
 

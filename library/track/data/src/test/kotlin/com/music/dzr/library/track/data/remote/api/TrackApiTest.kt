@@ -220,11 +220,11 @@ class TrackApiTest {
     }
 
     @Test
-    fun checkUsersSavedTracks_returnsData_on200CodeResponse() = runTest {
+    fun checkUserSavedTracks_returnsData_on200CodeResponse() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/check-user-saved-tracks.json")
         // Act
-        val response = api.checkUsersSavedTracks(commaSeparatedIds)
+        val response = api.checkUserSavedTracks(commaSeparatedIds)
         // Assert
         assertNull(response.error)
         assertNotNull(response.data)
@@ -232,11 +232,11 @@ class TrackApiTest {
     }
 
     @Test
-    fun checkUsersSavedTracks_usesCorrectPathAndMethod_onRequest() = runTest {
+    fun checkUserSavedTracks_usesCorrectPathAndMethod_onRequest() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/check-user-saved-tracks.json")
         // Act
-        api.checkUsersSavedTracks(commaSeparatedIds)
+        api.checkUserSavedTracks(commaSeparatedIds)
         // Assert
         val recordedRequest = server.takeRequest()
         assertEquals("/me/tracks/contains?ids=$encodedCommaSeparatedIds", recordedRequest.path)

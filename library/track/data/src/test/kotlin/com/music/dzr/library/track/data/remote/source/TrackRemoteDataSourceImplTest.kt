@@ -42,18 +42,18 @@ class TrackRemoteDataSourceImplTest {
     }
 
     @Test
-    fun checkUsersSavedTracks_joinsIdsWithComma() = runTest {
+    fun checkUserSavedTracks_joinsIdsWithComma() = runTest {
         // Arrange
         val ids = listOf("a", "b")
         val expected = NetworkResponse(data = listOf(true, false))
-        coEvery { api.checkUsersSavedTracks(ids = "a,b") } returns expected
+        coEvery { api.checkUserSavedTracks(ids = "a,b") } returns expected
 
         // Act
-        val actual = dataSource.checkUsersSavedTracks(ids)
+        val actual = dataSource.checkUserSavedTracks(ids)
 
         // Assert
         assertSame(expected, actual)
-        coVerify(exactly = 1) { api.checkUsersSavedTracks(ids = "a,b") }
+        coVerify(exactly = 1) { api.checkUserSavedTracks(ids = "a,b") }
     }
 
     @Test
