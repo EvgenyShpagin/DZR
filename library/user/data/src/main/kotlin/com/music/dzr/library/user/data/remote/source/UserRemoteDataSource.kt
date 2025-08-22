@@ -1,6 +1,10 @@
 package com.music.dzr.library.user.data.remote.source
 
-import com.music.dzr.core.network.dto.*
+import com.music.dzr.core.network.dto.Artist
+import com.music.dzr.core.network.dto.NetworkResponse
+import com.music.dzr.core.network.dto.PaginatedList
+import com.music.dzr.core.network.dto.PublicUser
+import com.music.dzr.core.network.dto.Track
 import com.music.dzr.library.user.data.remote.api.UserApi
 import com.music.dzr.library.user.data.remote.dto.CurrentUser
 import com.music.dzr.library.user.data.remote.dto.FollowedArtists
@@ -96,5 +100,3 @@ internal interface UserRemoteDataSource {
      */
     suspend fun checkIfUsersFollowPlaylist(playlistId: String): NetworkResponse<List<Boolean>>
 }
-
-
