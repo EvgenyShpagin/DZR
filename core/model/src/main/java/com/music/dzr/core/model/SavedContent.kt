@@ -1,4 +1,4 @@
-package com.music.dzr.library.user.domain.model
+package com.music.dzr.core.model
 
 import kotlin.time.Instant
 
