@@ -98,5 +98,5 @@ internal interface UserRemoteDataSource {
     /**
      * Check whether one or more users follow a playlist.
      */
-    suspend fun checkIfUsersFollowPlaylist(playlistId: String): NetworkResponse<List<Boolean>>
+    suspend fun checkIfUsersFollowPlaylist(playlistId: String): NetworkResponse<Boolean>
 }

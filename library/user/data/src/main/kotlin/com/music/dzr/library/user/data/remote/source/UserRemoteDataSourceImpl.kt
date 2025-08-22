@@ -104,7 +104,8 @@ internal class UserRemoteDataSourceImpl(
 
     override suspend fun checkIfUsersFollowPlaylist(
         playlistId: String
-    ): NetworkResponse<List<Boolean>> {
-        return userApi.checkIfUsersFollowPlaylist(playlistId = playlistId)
+    ): NetworkResponse<Boolean> {
+        val response = userApi.checkIfUsersFollowPlaylist(playlistId = playlistId)
+        return NetworkResponse(data = response.data?.single(), error = response.error)
     }
 }

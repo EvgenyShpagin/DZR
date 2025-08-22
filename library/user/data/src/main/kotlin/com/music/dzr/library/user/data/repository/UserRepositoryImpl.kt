@@ -156,7 +156,7 @@ internal class UserRepositoryImpl(
 
     override suspend fun checkIfUsersFollowPlaylist(
         playlistId: String
-    ): Result<List<Boolean>, AppError> {
+    ): Result<Boolean, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.checkIfUsersFollowPlaylist(playlistId).toResult()
         }

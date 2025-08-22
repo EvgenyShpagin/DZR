@@ -4,10 +4,10 @@ import com.music.dzr.core.error.AppError
 import com.music.dzr.core.model.Artist
 import com.music.dzr.core.model.Page
 import com.music.dzr.core.model.Track
+import com.music.dzr.core.model.User
 import com.music.dzr.core.result.Result
 import com.music.dzr.library.user.domain.model.CurrentUser
 import com.music.dzr.library.user.domain.model.TimeRange
-import com.music.dzr.core.model.User
 
 /**
  * Provides access to user-related data, such as profiles and follow status.
@@ -101,5 +101,5 @@ interface UserRepository {
     /**
      * Check if the current user follows a playlist.
      */
-    suspend fun checkIfUsersFollowPlaylist(playlistId: String): Result<List<Boolean>, AppError>
+    suspend fun checkIfUsersFollowPlaylist(playlistId: String): Result<Boolean, AppError>
 }
