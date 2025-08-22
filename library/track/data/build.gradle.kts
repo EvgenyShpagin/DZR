@@ -11,3 +11,7 @@ android {
         }
     }
 }
+
+dependencies {
+    implementation(projects.dzr.library.track.domain)
+}
