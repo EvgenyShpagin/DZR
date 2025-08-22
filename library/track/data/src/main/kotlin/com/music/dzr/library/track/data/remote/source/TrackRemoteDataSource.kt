@@ -5,7 +5,6 @@ import com.music.dzr.core.network.dto.PaginatedList
 import com.music.dzr.core.network.dto.Track
 import com.music.dzr.core.network.dto.Tracks
 import com.music.dzr.library.track.data.remote.api.TrackApi
-import com.music.dzr.library.track.data.remote.dto.SaveTracksTimestampedRequest
 import com.music.dzr.library.track.data.remote.dto.SavedTrack
 import com.music.dzr.library.track.data.remote.dto.TimestampedId
 
@@ -13,7 +12,7 @@ import com.music.dzr.library.track.data.remote.dto.TimestampedId
  * Remote data source for working with tracks.
  * Thin wrapper around [TrackApi] with convenient method signatures.
  */
-internal class TrackRemoteDataSource(private val trackApi: TrackApi) {
+internal interface TrackRemoteDataSource {
 
     /**
      * Fetch track information by its Spotify ID.
@@ -21,9 +20,7 @@ internal class TrackRemoteDataSource(private val trackApi: TrackApi) {
      * @param id Spotify track ID
      * @param market ISO 3166-1 alpha-2 country code (optional)
      */
-    suspend fun getTrack(id: String, market: String? = null): NetworkResponse<Track> {
-        return trackApi.getTrack(id = id, market = market)
-    }
+    suspend fun getTrack(id: String, market: String? = null): NetworkResponse<Track>
 
     /**
      * Fetch information for multiple tracks.
@@ -34,10 +31,7 @@ internal class TrackRemoteDataSource(private val trackApi: TrackApi) {
     suspend fun getMultipleTracks(
         ids: List<String>,
         market: String? = null
-    ): NetworkResponse<Tracks> {
-        val idsCsv = ids.joinToString(",")
-        return trackApi.getMultipleTracks(ids = idsCsv, market = market)
-    }
+    ): NetworkResponse<Tracks>
 
     /**
      * Get the current user's saved tracks.
@@ -50,19 +44,14 @@ internal class TrackRemoteDataSource(private val trackApi: TrackApi) {
         limit: Int? = null,
         offset: Int? = null,
         market: String? = null
-    ): NetworkResponse<PaginatedList<SavedTrack>> {
-        return trackApi.getUserSavedTracks(limit = limit, offset = offset, market = market)
-    }
+    ): NetworkResponse<PaginatedList<SavedTrack>>
 
     /**
      * Save one or more tracks to the user's library.
      *
      * @param ids List of Spotify IDs (maximum 50)
      */
-    suspend fun saveTracksForUser(ids: List<String>): NetworkResponse<Unit> {
-        val idsCsv = ids.joinToString(",")
-        return trackApi.saveTracksForUser(ids = idsCsv)
-    }
+    suspend fun saveTracksForUser(ids: List<String>): NetworkResponse<Unit>
 
     /**
      * Save one or more tracks to the user's library with timestamps (**Preferred method**).
@@ -72,20 +61,14 @@ internal class TrackRemoteDataSource(private val trackApi: TrackApi) {
      */
     suspend fun saveTracksForUserWithTimestamps(
         timestampedIds: List<TimestampedId>
-    ): NetworkResponse<Unit> {
-        return trackApi.saveTracksForUser(
-            request = SaveTracksTimestampedRequest(timestampedIds)
-        )
-    }
+    ): NetworkResponse<Unit>
 
     /**
      * Remove one or more tracks from the user's library.
      *
      * @param ids List of Spotify IDs (maximum 50)
      */
-    suspend fun removeTracksForUser(ids: List<String>): NetworkResponse<Unit> {
-        return trackApi.removeTracksForUser(ids = ids)
-    }
+    suspend fun removeTracksForUser(ids: List<String>): NetworkResponse<Unit>
 
     /**
      * Check whether the specified tracks are saved in the user's library.
@@ -93,8 +76,5 @@ internal class TrackRemoteDataSource(private val trackApi: TrackApi) {
      * @param ids List of Spotify IDs (maximum 50)
      * @return List of flags for each ID: true — saved, false — not saved
      */
-    suspend fun checkUsersSavedTracks(ids: List<String>): NetworkResponse<List<Boolean>> {
-        val idsCsv = ids.joinToString(",")
-        return trackApi.checkUsersSavedTracks(ids = idsCsv)
-    }
+    suspend fun checkUsersSavedTracks(ids: List<String>): NetworkResponse<List<Boolean>>
 }

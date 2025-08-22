@@ -14,15 +14,15 @@ import kotlin.test.Test
 import kotlin.test.assertSame
 import kotlin.time.Instant
 
-class TrackRemoteDataSourceTest {
+class TrackRemoteDataSourceImplTest {
 
-    private lateinit var dataSource: TrackRemoteDataSource
+    private lateinit var dataSource: TrackRemoteDataSourceImpl
     private lateinit var api: TrackApi
 
     @BeforeTest
     fun setup() {
         api = mockk()
-        dataSource = TrackRemoteDataSource(api)
+        dataSource = TrackRemoteDataSourceImpl(api)
     }
 
     @Test
