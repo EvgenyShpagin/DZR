@@ -37,7 +37,7 @@ interface TrackRepository {
      */
     suspend fun getMultipleTracks(
         ids: List<String>,
-        market: String? = null
+        market: Market? = null
     ): Result<List<Track>, AppError>
 
     /**
@@ -50,7 +50,7 @@ interface TrackRepository {
     suspend fun getUserSavedTracks(
         limit: Int? = null,
         offset: Int? = null,
-        market: String? = null
+        market: Market? = null
     ): Result<Page<SavedTrack>, AppError>
 
     /**
