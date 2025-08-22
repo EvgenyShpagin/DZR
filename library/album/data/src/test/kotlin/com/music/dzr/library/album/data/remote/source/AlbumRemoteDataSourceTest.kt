@@ -68,17 +68,17 @@ internal class AlbumRemoteDataSourceTest {
     }
 
     @Test
-    fun getUsersSavedAlbums_delegatesCall() = runTest {
+    fun getUserSavedAlbums_delegatesCall() = runTest {
         val limit = 20
         val offset = 10
         val market = "FR"
         val expected = NetworkResponse(data = mockk<PaginatedList<SavedAlbum>>())
-        coEvery { api.getUsersSavedAlbums(limit, offset, market) } returns expected
+        coEvery { api.getUserSavedAlbums(limit, offset, market) } returns expected
 
-        val actual = dataSource.getUsersSavedAlbums(limit, offset, market)
+        val actual = dataSource.getUserSavedAlbums(limit, offset, market)
 
         assertSame(expected, actual)
-        coVerify(exactly = 1) { api.getUsersSavedAlbums(limit, offset, market) }
+        coVerify(exactly = 1) { api.getUserSavedAlbums(limit, offset, market) }
     }
 
     @Test

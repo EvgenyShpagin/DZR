@@ -93,11 +93,11 @@ class TrackApiTest {
     }
 
     @Test
-    fun getUsersSavedTracks_returnsData_on200CodeResponse() = runTest {
+    fun getUserSavedTracks_returnsData_on200CodeResponse() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/user-saved-tracks.json")
         // Act
-        val response = api.getUsersSavedTracks()
+        val response = api.getUserSavedTracks()
         // Assert
         assertNull(response.error)
         with(assertNotNull(response.data)) {
@@ -110,11 +110,11 @@ class TrackApiTest {
     }
 
     @Test
-    fun getUsersSavedTracks_usesCorrectPathAndMethod_onResponseWithParams() = runTest {
+    fun getUserSavedTracks_usesCorrectPathAndMethod_onResponseWithParams() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/user-saved-tracks.json")
         // Act
-        api.getUsersSavedTracks(limit = 20, offset = 0, market = "FR")
+        api.getUserSavedTracks(limit = 20, offset = 0, market = "FR")
         // Assert
         val recordedRequest = server.takeRequest()
         assertEquals("/me/tracks?limit=20&offset=0&market=FR", recordedRequest.path)

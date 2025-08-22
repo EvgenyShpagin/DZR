@@ -27,7 +27,7 @@ interface UserRepository {
     /**
      * Get the current user's top artists.
      */
-    suspend fun getUsersTopArtists(
+    suspend fun getUserTopArtists(
         timeRange: TimeRange? = null,
         limit: Int? = null,
         offset: Int? = null
@@ -36,7 +36,7 @@ interface UserRepository {
     /**
      * Get the current user's top tracks.
      */
-    suspend fun getUsersTopTracks(
+    suspend fun getUserTopTracks(
         timeRange: TimeRange? = null,
         limit: Int? = null,
         offset: Int? = null

@@ -45,7 +45,7 @@ internal interface UserApi {
      * @param offset The index of the first entity to return.
      */
     @GET("me/top/artists")
-    suspend fun getUsersTopArtists(
+    suspend fun getUserTopArtists(
         @Query("time_range") timeRange: TimeRange? = null,
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null,
@@ -63,7 +63,7 @@ internal interface UserApi {
      * @param offset The index of the first entity to return. Default: 0
      */
     @GET("me/top/tracks")
-    suspend fun getUsersTopTracks(
+    suspend fun getUserTopTracks(
         @Query("time_range") timeRange: TimeRange? = null,
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null

@@ -48,11 +48,11 @@ class UserApiTest {
     }
 
     @Test
-    fun getUsersTopArtists_returnsData_whenServerRespondsWith200() = runTest {
+    fun getUserTopArtists_returnsData_whenServerRespondsWith200() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/top-artists.json")
         // Act
-        val response = api.getUsersTopArtists()
+        val response = api.getUserTopArtists()
         // Assert
         assertNull(response.error)
         val data = assertNotNull(response.data)
@@ -60,12 +60,12 @@ class UserApiTest {
     }
 
     @Test
-    fun getUsersTopTracks_usesCorrectPathAndMethod() = runTest {
+    fun getUserTopTracks_usesCorrectPathAndMethod() = runTest {
         // Arrange
         server.enqueueResponseFromAssets("responses/top-artists.json")
         val timeRange = TimeRange.ShortTerm
         // Act
-        api.getUsersTopTracks(limit = 10, offset = 5, timeRange = timeRange)
+        api.getUserTopTracks(limit = 10, offset = 5, timeRange = timeRange)
         // Assert
         val recordedRequest = server.takeRequest()
         assertEquals(

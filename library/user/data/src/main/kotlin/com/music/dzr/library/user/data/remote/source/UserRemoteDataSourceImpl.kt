@@ -19,24 +19,24 @@ internal class UserRemoteDataSourceImpl(
         return userApi.getCurrentUserProfile()
     }
 
-    override suspend fun getUsersTopArtists(
+    override suspend fun getUserTopArtists(
         timeRange: TimeRange?,
         limit: Int?,
         offset: Int?
     ): NetworkResponse<PaginatedList<Artist>> {
-        return userApi.getUsersTopArtists(
+        return userApi.getUserTopArtists(
             timeRange = timeRange,
             limit = limit,
             offset = offset
         )
     }
 
-    override suspend fun getUsersTopTracks(
+    override suspend fun getUserTopTracks(
         timeRange: TimeRange?,
         limit: Int?,
         offset: Int?
     ): NetworkResponse<PaginatedList<Track>> {
-        return userApi.getUsersTopTracks(
+        return userApi.getUserTopTracks(
             timeRange = timeRange,
             limit = limit,
             offset = offset

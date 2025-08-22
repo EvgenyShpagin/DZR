@@ -51,7 +51,7 @@ internal interface TrackApi {
      * @param market An ISO 3166-1 alpha-2 country code.
      */
     @GET("me/tracks")
-    suspend fun getUsersSavedTracks(
+    suspend fun getUserSavedTracks(
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null,
         @Query("market") market: String? = null

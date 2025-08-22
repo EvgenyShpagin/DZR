@@ -48,15 +48,15 @@ class UserRemoteDataSourceImplTest {
     }
 
     @Test
-    fun getUsersTopArtists_delegatesParams() = runTest {
+    fun getUserTopArtists_delegatesParams() = runTest {
         val expected: NetworkResponse<PaginatedList<com.music.dzr.core.network.dto.Artist>> =
             NetworkResponse(data = mockk())
-        coEvery { api.getUsersTopArtists(TimeRange.LongTerm, 50, 10) } returns expected
+        coEvery { api.getUserTopArtists(TimeRange.LongTerm, 50, 10) } returns expected
 
-        val actual = dataSource.getUsersTopArtists(TimeRange.LongTerm, 50, 10)
+        val actual = dataSource.getUserTopArtists(TimeRange.LongTerm, 50, 10)
 
         assertSame(expected, actual)
-        coVerify { api.getUsersTopArtists(TimeRange.LongTerm, 50, 10) }
+        coVerify { api.getUserTopArtists(TimeRange.LongTerm, 50, 10) }
     }
 
     @Test

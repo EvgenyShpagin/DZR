@@ -47,12 +47,12 @@ internal class AlbumRemoteDataSource(private val albumApi: AlbumApi) {
     /**
      * Retrieves a paginated list of albums saved in the current user’s library.
      */
-    suspend fun getUsersSavedAlbums(
+    suspend fun getUserSavedAlbums(
         limit: Int? = null,
         offset: Int? = null,
         market: String? = null
     ): NetworkResponse<PaginatedList<SavedAlbum>> {
-        return albumApi.getUsersSavedAlbums(limit, offset, market)
+        return albumApi.getUserSavedAlbums(limit, offset, market)
     }
 
     /**

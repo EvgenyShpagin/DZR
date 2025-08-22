@@ -71,7 +71,7 @@ internal interface AlbumApi {
      * @param market An ISO 3166-1 alpha-2 country code to filter album availability.
      */
     @GET("me/albums")
-    suspend fun getUsersSavedAlbums(
+    suspend fun getUserSavedAlbums(
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null,
         @Query("market") market: String? = null

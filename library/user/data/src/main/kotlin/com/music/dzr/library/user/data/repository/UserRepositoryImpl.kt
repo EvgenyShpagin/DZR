@@ -32,13 +32,13 @@ internal class UserRepositoryImpl(
         }
     }
 
-    override suspend fun getUsersTopArtists(
+    override suspend fun getUserTopArtists(
         timeRange: TimeRange?,
         limit: Int?,
         offset: Int?
     ): Result<OffsetPage<Artist>, AppError> {
         return withContext(dispatchers.io) {
-            remoteDataSource.getUsersTopArtists(
+            remoteDataSource.getUserTopArtists(
                 timeRange = timeRange?.toNetwork(),
                 limit = limit,
                 offset = offset
@@ -50,14 +50,14 @@ internal class UserRepositoryImpl(
         }
     }
 
-    override suspend fun getUsersTopTracks(
+    override suspend fun getUserTopTracks(
         timeRange: TimeRange?,
         limit: Int?,
         offset: Int?
     ): Result<OffsetPage<Track>, AppError> {
         return withContext(dispatchers.io) {
             val networkTimeRange = timeRange?.toNetwork()
-            remoteDataSource.getUsersTopTracks(
+            remoteDataSource.getUserTopTracks(
                 timeRange = networkTimeRange,
                 limit = limit,
                 offset = offset

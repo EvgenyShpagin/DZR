@@ -46,12 +46,12 @@ internal class TrackRemoteDataSource(private val trackApi: TrackApi) {
      * @param offset The index of the first item to return
      * @param market ISO 3166-1 alpha-2 country code (optional)
      */
-    suspend fun getUsersSavedTracks(
+    suspend fun getUserSavedTracks(
         limit: Int? = null,
         offset: Int? = null,
         market: String? = null
     ): NetworkResponse<PaginatedList<SavedTrack>> {
-        return trackApi.getUsersSavedTracks(limit = limit, offset = offset, market = market)
+        return trackApi.getUserSavedTracks(limit = limit, offset = offset, market = market)
     }
 
     /**

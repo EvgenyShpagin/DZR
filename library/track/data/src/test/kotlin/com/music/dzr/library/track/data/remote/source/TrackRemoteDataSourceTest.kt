@@ -118,16 +118,16 @@ class TrackRemoteDataSourceTest {
     }
 
     @Test
-    fun getUsersSavedTracks_delegatesAllOptionalParams() = runTest {
+    fun getUserSavedTracks_delegatesAllOptionalParams() = runTest {
         // Arrange
         coEvery {
-            api.getUsersSavedTracks(limit = 50, offset = 100, market = "DE")
+            api.getUserSavedTracks(limit = 50, offset = 100, market = "DE")
         } returns NetworkResponse(data = mockk())
 
         // Act
-        dataSource.getUsersSavedTracks(limit = 50, offset = 100, market = "DE")
+        dataSource.getUserSavedTracks(limit = 50, offset = 100, market = "DE")
 
         // Assert
-        coVerify(exactly = 1) { api.getUsersSavedTracks(limit = 50, offset = 100, market = "DE") }
+        coVerify(exactly = 1) { api.getUserSavedTracks(limit = 50, offset = 100, market = "DE") }
     }
 }
