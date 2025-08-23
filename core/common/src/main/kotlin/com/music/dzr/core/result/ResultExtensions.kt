@@ -42,3 +42,27 @@ inline fun <D, E : AppError> Result<D, E>.onFailure(
     }
     return this
 }
+
+/**
+ * Returns `true` if this instance represents a successful outcome.
+ * In this case [isFailure] returns `false`.
+ */
+fun <D, E : AppError> Result<D, E>.isSuccess(): Boolean {
+    contract {
+        returns(true) implies (this@isSuccess is Result.Success<D>)
+        returns(false) implies (this@isSuccess is Result.Failure<E>)
+    }
+    return this is Result.Success<D>
+}
+
+/**
+ * Returns `true` if this instance represents a failed outcome.
+ * In this case [isSuccess] returns `false`.
+ */
+fun <D, E : AppError> Result<D, E>.isFailure(): Boolean {
+    contract {
+        returns(true) implies (this@isFailure is Result.Failure<E>)
+        returns(false) implies (this@isFailure is Result.Success<D>)
+    }
+    return this is Result.Failure<E>
+}
