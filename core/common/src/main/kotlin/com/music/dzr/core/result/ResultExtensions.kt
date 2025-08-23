@@ -66,3 +66,18 @@ fun <D, E : AppError> Result<D, E>.isFailure(): Boolean {
     }
     return this is Result.Failure<E>
 }
+
+/**
+ * Returns the data if this is [Result.Success].
+ *
+ * @throws IllegalStateException if this is [Result.Failure].
+ */
+fun <D, E : AppError> Result<D, E>.requireData(): D {
+    contract {
+        returns() implies (this@requireData is Result.Success<D>)
+    }
+    return when (this) {
+        is Result.Success -> data
+        is Result.Failure -> error("Expected Success but was Failure: $error")
+    }
+}
