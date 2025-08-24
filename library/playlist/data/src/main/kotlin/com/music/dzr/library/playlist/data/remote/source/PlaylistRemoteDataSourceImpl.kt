@@ -15,7 +15,9 @@ import com.music.dzr.library.playlist.data.remote.dto.PlaylistFields
 import com.music.dzr.library.playlist.data.remote.dto.PlaylistItemsUpdate
 import com.music.dzr.library.playlist.data.remote.dto.TrackAdditions
 import com.music.dzr.library.playlist.data.remote.dto.TrackRemovals
-import okhttp3.RequestBody
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
+import kotlin.io.encoding.Base64
 
 internal class PlaylistRemoteDataSourceImpl(
     private val playlistApi: PlaylistApi
@@ -105,11 +107,12 @@ internal class PlaylistRemoteDataSourceImpl(
 
     override suspend fun uploadCustomPlaylistCover(
         playlistId: String,
-        encodedImageData: RequestBody
+        jpegImageData: ByteArray
     ): NetworkResponse<Unit> {
         return playlistApi.uploadCustomPlaylistCover(
             playlistId = playlistId,
-            encodedImageData = encodedImageData
+            encodedImageData = Base64.encode(jpegImageData)
+                .toRequestBody("image/jpeg".toMediaType())
         )
     }
 }

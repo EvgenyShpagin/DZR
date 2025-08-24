@@ -15,7 +15,6 @@ import com.music.dzr.library.playlist.data.remote.dto.PlaylistFields
 import com.music.dzr.library.playlist.data.remote.dto.PlaylistItemsUpdate
 import com.music.dzr.library.playlist.data.remote.dto.TrackAdditions
 import com.music.dzr.library.playlist.data.remote.dto.TrackRemovals
-import okhttp3.RequestBody
 
 /**
  * Remote data source for playlist-related operations.
@@ -77,6 +76,6 @@ internal interface PlaylistRemoteDataSource {
 
     suspend fun uploadCustomPlaylistCover(
         playlistId: String,
-        encodedImageData: RequestBody
+        jpegImageData: ByteArray
     ): NetworkResponse<Unit>
 }
