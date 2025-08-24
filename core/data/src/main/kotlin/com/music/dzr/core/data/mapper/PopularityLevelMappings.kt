@@ -3,7 +3,7 @@ package com.music.dzr.core.data.mapper
 import com.music.dzr.core.model.PopularityLevel
 
 
-fun PopularityLevel.Companion.parse(networkPopularity: Int): PopularityLevel {
+fun PopularityLevel.Companion.fromNetwork(networkPopularity: Int): PopularityLevel {
     return when {
         networkPopularity >= 75 -> PopularityLevel.VERY_HIGH
         networkPopularity >= 50 -> PopularityLevel.HIGH

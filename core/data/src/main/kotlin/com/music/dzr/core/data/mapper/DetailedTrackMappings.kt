@@ -20,7 +20,7 @@ fun NetworkTrack.toDomain(): DomainTrack {
         externalUrl = externalUrls.spotify,
         restriction = restrictions?.toDomain(),
         album = album.toDomain(),
-        popularity = PopularityLevel.parse(popularity),
+        popularity = PopularityLevel.fromNetwork(popularity),
         externalIds = externalIds.toDomain()
     )
 }

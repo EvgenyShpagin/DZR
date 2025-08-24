@@ -21,9 +21,9 @@ fun NetworkArtist.toDomain(): DomainArtist {
         id = id,
         name = name,
         externalUrl = externalUrls.spotify,
-        genres = genres.map { MusicGenre.parse(it) },
+        genres = genres.map { MusicGenre.fromNetwork(it) },
         images = images.map { it.toDomain() },
         followersCount = followers.total,
-        popularity = PopularityLevel.parse(popularity)
+        popularity = PopularityLevel.fromNetwork(popularity)
     )
 }
