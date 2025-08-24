@@ -7,4 +7,6 @@ package com.music.dzr.library.playlist.domain.model
 @JvmInline
 value class PlaylistVersion(
     private val versionId: String
-)
+) {
+    companion object
+}
