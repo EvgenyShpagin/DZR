@@ -30,8 +30,10 @@ internal class TrackRepositoryImpl(
         market: Market?
     ): Result<Track, AppError> {
         return withContext(dispatchers.io) {
-            remoteDataSource.getTrack(id, market?.toNetwork())
-                .toResult { it.toDomain() }
+            remoteDataSource.getTrack(
+                id = id,
+                market = market?.toNetwork()
+            ).toResult { it.toDomain() }
         }
     }
 
@@ -40,8 +42,10 @@ internal class TrackRepositoryImpl(
         market: Market?
     ): Result<List<Track>, AppError> {
         return withContext(dispatchers.io) {
-            remoteDataSource.getMultipleTracks(ids, market?.toNetwork())
-                .toResult { tracks -> tracks.map { it.toDomain() } }
+            remoteDataSource.getMultipleTracks(
+                ids = ids,
+                market = market?.toNetwork()
+            ).toResult { tracks -> tracks.map { it.toDomain() } }
         }
     }
 
@@ -51,12 +55,17 @@ internal class TrackRepositoryImpl(
         market: Market?
     ): Result<Page<SavedTrack>, AppError> {
         return withContext(dispatchers.io) {
-            remoteDataSource.getUserSavedTracks(limit, offset, market?.toNetwork())
-                .toResult { networkPage -> networkPage.toDomain { it.toDomain() } }
+            remoteDataSource.getUserSavedTracks(
+                limit = limit,
+                offset = offset,
+                market = market?.toNetwork()
+            ).toResult { networkPage -> networkPage.toDomain { it.toDomain() } }
         }
     }
 
-    override suspend fun saveTracksForUser(ids: List<String>): Result<Unit, AppError> {
+    override suspend fun saveTracksForUser(
+        ids: List<String>
+    ): Result<Unit, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 remoteDataSource.saveTracksForUser(ids).toResult()
@@ -76,7 +85,9 @@ internal class TrackRepositoryImpl(
         }
     }
 
-    override suspend fun removeTracksForUser(ids: List<String>): Result<Unit, AppError> {
+    override suspend fun removeTracksForUser(
+        ids: List<String>
+    ): Result<Unit, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 remoteDataSource.removeTracksForUser(ids).toResult()
@@ -84,7 +95,9 @@ internal class TrackRepositoryImpl(
         }
     }
 
-    override suspend fun checkUserSavedTracks(ids: List<String>): Result<List<Boolean>, AppError> {
+    override suspend fun checkUserSavedTracks(
+        ids: List<String>
+    ): Result<List<Boolean>, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.checkUserSavedTracks(ids).toResult()
         }
