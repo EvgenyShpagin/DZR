@@ -16,6 +16,6 @@ sealed class Playlist {
     abstract val images: List<Image>
     abstract val followersCount: Int?
     abstract val externalUrl: String
-    abstract val snapshotId: String
+    abstract val version: PlaylistVersion
     abstract val tracksCount: Int
 }

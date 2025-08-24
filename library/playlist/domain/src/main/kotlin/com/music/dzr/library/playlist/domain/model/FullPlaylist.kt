@@ -17,7 +17,7 @@ data class FullPlaylist(
     override val images: List<Image>,
     override val followersCount: Int?,
     override val externalUrl: String,
-    override val snapshotId: String,
+    override val version: PlaylistVersion,
     override val tracksCount: Int,
     val entries: List<PlaylistEntry>
 ) : Playlist()

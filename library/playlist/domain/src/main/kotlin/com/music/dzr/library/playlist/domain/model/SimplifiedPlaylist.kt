@@ -17,6 +17,6 @@ data class SimplifiedPlaylist(
     override val images: List<Image>,
     override val followersCount: Int?,
     override val externalUrl: String,
-    override val snapshotId: String,
+    override val version: PlaylistVersion,
     override val tracksCount: Int
 ) : Playlist()
