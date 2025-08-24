@@ -27,12 +27,12 @@ import kotlin.test.assertSame
 class PlaylistRemoteDataSourceTest {
 
     private lateinit var api: PlaylistApi
-    private lateinit var dataSource: PlaylistRemoteDataSource
+    private lateinit var dataSource: PlaylistRemoteDataSourceImpl
 
     @BeforeTest
     fun setUp() {
         api = mockk(relaxed = true)
-        dataSource = PlaylistRemoteDataSource(api)
+        dataSource = PlaylistRemoteDataSourceImpl(api)
     }
 
     @Test
