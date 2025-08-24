@@ -11,3 +11,9 @@ android {
         }
     }
 }
+
+dependencies {
+    api(projects.dzr.core.common)
+    api(projects.dzr.core.data)
+    api(projects.dzr.library.playlist.domain)
+}
