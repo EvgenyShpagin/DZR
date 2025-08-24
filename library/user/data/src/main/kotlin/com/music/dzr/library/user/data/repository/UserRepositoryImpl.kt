@@ -81,7 +81,10 @@ internal class UserRepositoryImpl(
     ): Result<Unit, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
-                remoteDataSource.followPlaylist(playlistId, asPublic).toResult()
+                remoteDataSource.followPlaylist(
+                    playlistId = playlistId,
+                    asPublic = asPublic
+                ).toResult()
             }.await()
         }
     }
@@ -99,14 +102,19 @@ internal class UserRepositoryImpl(
         after: String?
     ): Result<Page<Artist>, AppError> {
         return withContext(dispatchers.io) {
-            remoteDataSource.getFollowedArtists(limit, after).toResult { networkCursorPage ->
+            remoteDataSource.getFollowedArtists(
+                limit = limit,
+                after = after
+            ).toResult { networkCursorPage ->
                 val content = networkCursorPage.list
                 content.toDomain { it.toDomain() }
             }
         }
     }
 
-    override suspend fun followArtists(ids: List<String>): Result<Unit, AppError> {
+    override suspend fun followArtists(
+        ids: List<String>
+    ): Result<Unit, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 remoteDataSource.followArtists(ids).toResult()
@@ -114,7 +122,9 @@ internal class UserRepositoryImpl(
         }
     }
 
-    override suspend fun followUsers(ids: List<String>): Result<Unit, AppError> {
+    override suspend fun followUsers(
+        ids: List<String>
+    ): Result<Unit, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 remoteDataSource.followUsers(ids).toResult()
@@ -122,7 +132,9 @@ internal class UserRepositoryImpl(
         }
     }
 
-    override suspend fun unfollowArtists(ids: List<String>): Result<Unit, AppError> {
+    override suspend fun unfollowArtists(
+        ids: List<String>
+    ): Result<Unit, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 remoteDataSource.unfollowArtists(ids).toResult()
