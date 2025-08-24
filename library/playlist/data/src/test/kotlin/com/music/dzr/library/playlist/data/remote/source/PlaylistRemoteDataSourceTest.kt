@@ -19,7 +19,8 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import okhttp3.RequestBody
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertSame
@@ -85,14 +86,18 @@ class PlaylistRemoteDataSourceTest {
 
     @Test
     fun uploadCustomPlaylistCover_delegates() = runTest {
-        val body = mockk<RequestBody>()
+        val expectedImageRequestBody = ByteArray(0).toRequestBody("image/jpeg".toMediaType())
         val expected = NetworkResponse(data = Unit)
-        coEvery { api.uploadCustomPlaylistCover("pl", body) } returns expected
+        coEvery { api.uploadCustomPlaylistCover("pl", expectedImageRequestBody) } returns expected
 
-        val actual = dataSource.uploadCustomPlaylistCover("pl", body)
+        dataSource.uploadCustomPlaylistCover("pl", ByteArray(0))
 
-        assertSame(expected, actual)
-        coVerify { api.uploadCustomPlaylistCover("pl", body) }
+        coVerify {
+            api.uploadCustomPlaylistCover(
+                playlistId = "pl",
+                encodedImageData = any()
+            )
+        }
     }
 
     @Test
