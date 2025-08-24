@@ -3,7 +3,6 @@ package com.music.dzr.library.track.data.remote.source
 import com.music.dzr.core.network.dto.NetworkResponse
 import com.music.dzr.core.network.dto.PaginatedList
 import com.music.dzr.core.network.dto.Track
-import com.music.dzr.core.network.dto.Tracks
 import com.music.dzr.library.track.data.remote.api.TrackApi
 import com.music.dzr.library.track.data.remote.dto.SavedTrack
 import com.music.dzr.library.track.data.remote.dto.TimestampedId
@@ -31,7 +30,7 @@ internal interface TrackRemoteDataSource {
     suspend fun getMultipleTracks(
         ids: List<String>,
         market: String? = null
-    ): NetworkResponse<Tracks>
+    ): NetworkResponse<List<Track>>
 
     /**
      * Get the current user's saved tracks.

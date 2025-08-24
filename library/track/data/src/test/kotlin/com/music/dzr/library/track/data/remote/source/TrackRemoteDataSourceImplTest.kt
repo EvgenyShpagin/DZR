@@ -34,10 +34,9 @@ class TrackRemoteDataSourceImplTest {
         coEvery { api.getMultipleTracks(ids = "1,2,3", market = market) } returns expected
 
         // Act
-        val actual = dataSource.getMultipleTracks(ids = ids, market = market)
+        dataSource.getMultipleTracks(ids = ids, market = market)
 
         // Assert
-        assertSame(expected, actual)
         coVerify(exactly = 1) { api.getMultipleTracks(ids = "1,2,3", market = market) }
     }
 

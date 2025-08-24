@@ -41,7 +41,7 @@ internal class TrackRepositoryImpl(
     ): Result<List<Track>, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getMultipleTracks(ids, market?.toNetwork())
-                .toResult { tracks -> tracks.list.map { it.toDomain() } }
+                .toResult { tracks -> tracks.map { it.toDomain() } }
         }
     }
 

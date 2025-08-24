@@ -3,7 +3,6 @@ package com.music.dzr.library.track.data.remote.source
 import com.music.dzr.core.network.dto.NetworkResponse
 import com.music.dzr.core.network.dto.PaginatedList
 import com.music.dzr.core.network.dto.Track
-import com.music.dzr.core.network.dto.Tracks
 import com.music.dzr.library.track.data.remote.api.TrackApi
 import com.music.dzr.library.track.data.remote.dto.SaveTracksTimestampedRequest
 import com.music.dzr.library.track.data.remote.dto.SavedTrack
@@ -18,9 +17,10 @@ internal class TrackRemoteDataSourceImpl(private val trackApi: TrackApi) : Track
     override suspend fun getMultipleTracks(
         ids: List<String>,
         market: String?
-    ): NetworkResponse<Tracks> {
+    ): NetworkResponse<List<Track>> {
         val idsCsv = ids.joinToString(",")
-        return trackApi.getMultipleTracks(ids = idsCsv, market = market)
+        val tracks = trackApi.getMultipleTracks(ids = idsCsv, market = market)
+        return NetworkResponse(tracks.data?.list, tracks.error)
     }
 
     override suspend fun getUserSavedTracks(
