@@ -48,12 +48,12 @@ internal interface PlaylistRemoteDataSource {
 
     suspend fun addTracksToPlaylist(
         playlistId: String,
-        body: TrackAdditions
+        additions: TrackAdditions
     ): NetworkResponse<SnapshotId>
 
     suspend fun removePlaylistTracks(
         playlistId: String,
-        body: TrackRemovals
+        removals: TrackRemovals
     ): NetworkResponse<SnapshotId>
 
     suspend fun getCurrentUserPlaylists(

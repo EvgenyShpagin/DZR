@@ -67,16 +67,16 @@ internal class PlaylistRemoteDataSourceImpl(
 
     override suspend fun addTracksToPlaylist(
         playlistId: String,
-        body: TrackAdditions
+        additions: TrackAdditions
     ): NetworkResponse<SnapshotId> {
-        return playlistApi.addTracksToPlaylist(playlistId = playlistId, body = body)
+        return playlistApi.addTracksToPlaylist(playlistId = playlistId, body = additions)
     }
 
     override suspend fun removePlaylistTracks(
         playlistId: String,
-        body: TrackRemovals
+        removals: TrackRemovals
     ): NetworkResponse<SnapshotId> {
-        return playlistApi.removePlaylistTracks(playlistId = playlistId, body = body)
+        return playlistApi.removePlaylistTracks(playlistId = playlistId, body = removals)
     }
 
     override suspend fun getCurrentUserPlaylists(
