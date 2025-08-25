@@ -3,17 +3,12 @@ package com.music.dzr.library.track.data.repository
 import com.music.dzr.core.coroutine.ApplicationScope
 import com.music.dzr.core.model.Market
 import com.music.dzr.core.model.Page
-import com.music.dzr.core.network.dto.AlbumType
-import com.music.dzr.core.network.dto.ExternalIds
 import com.music.dzr.core.network.dto.ExternalUrls
-import com.music.dzr.core.network.dto.Image
-import com.music.dzr.core.network.dto.ReleaseDate
-import com.music.dzr.core.network.dto.ReleaseDatePrecision
 import com.music.dzr.core.network.dto.SimplifiedArtist
-import com.music.dzr.core.network.dto.TrackAlbum
 import com.music.dzr.core.result.Result
 import com.music.dzr.core.result.isSuccess
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
+import com.music.dzr.core.testing.data.networkDetailedTracksTestData
 import com.music.dzr.library.track.data.remote.source.FakeTrackRemoteDataSource
 import com.music.dzr.library.track.domain.model.SavedTrack
 import com.music.dzr.library.track.domain.model.TimestampedId
@@ -29,7 +24,6 @@ import kotlin.test.fail
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.Instant
 import com.music.dzr.core.error.NetworkError as DomainNetworkError
-import com.music.dzr.core.network.dto.Track as NetworkTrack
 import com.music.dzr.core.network.dto.error.NetworkError as NetworkErrorDto
 import com.music.dzr.core.network.dto.error.NetworkErrorType as NetworkErrorTypeDto
 
@@ -41,6 +35,8 @@ class TrackRepositoryImplTest {
     private val testScheduler = TestCoroutineScheduler()
     private val testDispatchers = TestDispatcherProvider(testScheduler)
     private val externalScope = ApplicationScope(testDispatchers)
+
+    private val testTrack = networkDetailedTracksTestData.first()
 
     @BeforeTest
     fun setUp() {
@@ -210,57 +206,5 @@ class TrackRepositoryImplTest {
             type = "artist",
             uri = "spotify:artist:artist_1"
         )
-    )
-
-    private val testTrack = NetworkTrack(
-        id = "track_1",
-        name = "Bohemian Rhapsody",
-        artists = testArtists,
-        album = TrackAlbum(
-            albumType = AlbumType.Album,
-            totalTracks = 12,
-            availableMarkets = listOf("US", "GB", "DE"),
-            externalUrls = ExternalUrls(spotify = "https://open.spotify.com/album/1GbtB4nxMcyF2VSqfAD0l8"),
-            href = "https://api.spotify.com/v1/albums/album_1",
-            id = "album_1",
-            images = listOf(
-                Image(
-                    url = "https://i.scdn.co/image/ab67616d0000b273ce4f1737e8c31a12bea4b2a3",
-                    height = 640,
-                    width = 640
-                )
-            ),
-            name = "A Night at the Opera",
-            releaseDate = ReleaseDate(year = 1975, month = 11, day = 21),
-            releaseDatePrecision = ReleaseDatePrecision.DAY,
-            restrictions = null,
-            type = "album",
-            uri = "spotify:album:album_1",
-            artists = testArtists,
-            copyrights = null,
-            externalIds = null,
-            genres = null,
-            label = null,
-            popularity = null
-        ),
-        availableMarkets = listOf("US", "GB", "DE"),
-        discNumber = 1,
-        durationMs = 355000, // 5:55 minutes
-        explicit = false,
-        externalIds = ExternalIds(
-            isrc = "GBUM71029601",
-            ean = "075678262526",
-            upc = "75678262526"
-        ),
-        externalUrls = ExternalUrls(spotify = "https://open.spotify.com/track/3z8h0TU7ReDPLIbEnYhWZb"),
-        href = "https://api.spotify.com/v1/tracks/track_1",
-        isPlayable = true,
-        linkedFrom = null,
-        restrictions = null,
-        popularity = 95,
-        trackNumber = 1,
-        type = "track",
-        uri = "spotify:track:track_1",
-        isLocal = false
     )
 }
