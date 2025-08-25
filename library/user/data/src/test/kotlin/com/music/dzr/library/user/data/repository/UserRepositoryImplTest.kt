@@ -61,7 +61,8 @@ internal class UserRepositoryImplTest {
     @Test
     fun getCurrentUserProfile_returnsError_whenRemoteFails() = runTest(testScheduler) {
         // Arrange
-        remoteDataSource.error = NetworkError(NetworkErrorType.Timeout, "Request Timeout", 408)
+        remoteDataSource.forcedError =
+            NetworkError(NetworkErrorType.Timeout, "Request Timeout", 408)
 
         // Act
         val result = repository.getCurrentUserProfile()
@@ -100,7 +101,7 @@ internal class UserRepositoryImplTest {
     @Test
     fun getUserTopArtists_returnsError_whenRemoteFails() = runTest(testScheduler) {
         // Arrange
-        remoteDataSource.error = NetworkError(NetworkErrorType.HttpException, "", 403)
+        remoteDataSource.forcedError = NetworkError(NetworkErrorType.HttpException, "", 403)
 
         // Act
         val result = repository.getUserTopArtists(limit = 1, offset = 0)
@@ -139,7 +140,7 @@ internal class UserRepositoryImplTest {
     @Test
     fun getUserTopTracks_returnsError_whenRemoteFails() = runTest(testScheduler) {
         // Arrange
-        remoteDataSource.error = NetworkError(NetworkErrorType.HttpException, "", 500)
+        remoteDataSource.forcedError = NetworkError(NetworkErrorType.HttpException, "", 500)
 
         // Act
         val result = repository.getUserTopTracks(limit = 1, offset = 0)
@@ -167,7 +168,7 @@ internal class UserRepositoryImplTest {
     @Test
     fun getUserProfile_returnsError_whenRemoteFails() = runTest(testScheduler) {
         // Arrange
-        remoteDataSource.error = NetworkError(NetworkErrorType.HttpException, "", 500)
+        remoteDataSource.forcedError = NetworkError(NetworkErrorType.HttpException, "", 500)
 
         // Act
         val result = repository.getUserProfile("non_existent_user")

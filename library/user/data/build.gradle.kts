@@ -15,4 +15,5 @@ android {
 dependencies {
     implementation(projects.dzr.core.data)
     implementation(projects.dzr.library.user.domain)
+    testImplementation(testFixtures(projects.core.data))
 }
