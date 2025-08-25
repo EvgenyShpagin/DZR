@@ -18,4 +18,6 @@ android {
 dependencies {
     api(projects.dzr.core.model)
     api(projects.dzr.core.common)
+
+    testFixturesApi(projects.dzr.core.network)
 }
