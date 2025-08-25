@@ -8,5 +8,7 @@ package com.music.dzr.library.playlist.domain.model
 value class PlaylistVersion(
     private val versionId: String
 ) {
+    override fun toString() = versionId
+
     companion object
 }
