@@ -1,5 +1,7 @@
 package com.music.dzr.library.track.data.remote.source
 
+import com.music.dzr.core.data.test.HasForcedNetworkError
+import com.music.dzr.core.data.test.respond
 import com.music.dzr.core.network.dto.NetworkResponse
 import com.music.dzr.core.network.dto.PaginatedList
 import com.music.dzr.core.network.dto.Track
@@ -9,9 +11,9 @@ import com.music.dzr.library.track.data.remote.dto.TimestampedId
 import kotlin.time.Clock
 import kotlin.time.Instant
 
-internal class FakeTrackRemoteDataSource : TrackRemoteDataSource {
+internal class FakeTrackRemoteDataSource : TrackRemoteDataSource, HasForcedNetworkError {
 
-    var forcedError: NetworkError? = null
+    override var forcedError: NetworkError? = null
     private val tracks = mutableMapOf<String, Track>()
     private val saved = linkedMapOf<String, Instant>()
     var saveTimestamp: Instant = Clock.System.now()
@@ -90,14 +92,6 @@ internal class FakeTrackRemoteDataSource : TrackRemoteDataSource {
         ids: List<String>
     ): NetworkResponse<List<Boolean>> = respond {
         ids.map { saved.containsKey(it) }
-    }
-
-    private inline fun <T> respond(block: () -> T): NetworkResponse<T> {
-        return if (forcedError != null) {
-            NetworkResponse(error = forcedError)
-        } else {
-            NetworkResponse(data = block())
-        }
     }
 
     fun seedTracks(vararg items: Track) {
