@@ -2,17 +2,13 @@ package com.music.dzr.library.user.data.repository
 
 import com.music.dzr.core.coroutine.ApplicationScope
 import com.music.dzr.core.error.ConnectivityError
-import com.music.dzr.core.network.dto.AlbumType
-import com.music.dzr.core.network.dto.ExternalIds
 import com.music.dzr.core.network.dto.Followers
 import com.music.dzr.core.network.dto.PaginatedList
-import com.music.dzr.core.network.dto.ReleaseDate
-import com.music.dzr.core.network.dto.ReleaseDatePrecision
-import com.music.dzr.core.network.dto.TrackAlbum
 import com.music.dzr.core.network.dto.error.NetworkError
 import com.music.dzr.core.network.dto.error.NetworkErrorType
 import com.music.dzr.core.result.Result
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
+import com.music.dzr.core.testing.data.networkDetailedTracksTestData
 import com.music.dzr.library.user.data.remote.source.FakeUserRemoteDataSource
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
@@ -24,7 +20,6 @@ import kotlin.test.assertTrue
 import com.music.dzr.core.error.NetworkError as CoreNetworkError
 import com.music.dzr.core.network.dto.Artist as NetworkArtist
 import com.music.dzr.core.network.dto.ExternalUrls as NetworkExternalUrls
-import com.music.dzr.core.network.dto.Track as NetworkTrack
 
 internal class UserRepositoryImplTest {
 
@@ -116,7 +111,7 @@ internal class UserRepositoryImplTest {
     fun getUserTopTracks_returnsMappedPage_whenRemoteSucceeds() = runTest(testScheduler) {
         // Arrange
         val paginatedList = PaginatedList(
-            items = listOf(networkTrack),
+            items = listOf(networkDetailedTracksTestData.first()),
             href = "",
             limit = 1,
             offset = 0,
@@ -133,8 +128,8 @@ internal class UserRepositoryImplTest {
         assertIs<Result.Success<*>>(result)
         val page = (result as Result.Success).data
         assertEquals(1, page.items.size)
-        assertEquals("track1", page.items[0].id)
-        assertEquals("Track 1", page.items[0].name)
+        assertEquals("track_1", page.items[0].id)
+        assertEquals("Bohemian Rhapsody", page.items[0].name)
     }
 
     @Test
@@ -297,46 +292,6 @@ internal class UserRepositoryImplTest {
         val follows = result.data
         assertEquals(false, follows) // Fake returns false
     }
-
-    private val networkTrack = NetworkTrack(
-        id = "track1",
-        name = "Track 1",
-        type = "track",
-        trackNumber = 1,
-        discNumber = 1,
-        durationMs = 1000,
-        explicit = false,
-        isPlayable = true,
-        artists = emptyList(),
-        album = TrackAlbum(
-            albumType = AlbumType.Album,
-            totalTracks = 1,
-            availableMarkets = emptyList(),
-            externalUrls = NetworkExternalUrls(""),
-            href = "",
-            id = "",
-            images = emptyList(),
-            name = "Album name",
-            releaseDate = ReleaseDate(2000, 5, 5),
-            releaseDatePrecision = ReleaseDatePrecision.DAY,
-            restrictions = null,
-            type = "album",
-            uri = "",
-            artists = emptyList(),
-            copyrights = emptyList(),
-            externalIds = null,
-            genres = emptyList(),
-            label = "Sony",
-            popularity = 100
-        ),
-        href = "",
-        uri = "",
-        externalUrls = NetworkExternalUrls(""),
-        availableMarkets = emptyList(),
-        externalIds = ExternalIds(null, null, null),
-        popularity = 0,
-        isLocal = false
-    )
 
     val networkArtist = NetworkArtist(
         id = "artist1",
