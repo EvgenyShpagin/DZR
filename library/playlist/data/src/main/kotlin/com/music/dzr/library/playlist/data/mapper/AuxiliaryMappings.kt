@@ -11,7 +11,7 @@ internal fun TrackAdditions.Companion.fromDomain(
     position: Int?
 ): TrackAdditions {
     return TrackAdditions(
-        uris = ids.map(::playlistIdToUri),
+        uris = ids.map(::trackIdToUri),
         position = position
     )
 }
@@ -21,7 +21,7 @@ internal fun TrackRemovals.Companion.fromDomain(
 ): TrackRemovals {
     return TrackRemovals(
         tracks = ids.map { trackId ->
-            TrackToRemove(playlistIdToUri(trackId))
+            TrackToRemove(trackIdToUri(trackId))
         }
     )
 }
@@ -31,7 +31,7 @@ internal fun PlaylistItemsUpdate.Companion.fromDomain(
     playlistVersion: PlaylistVersion?
 ): PlaylistItemsUpdate {
     return PlaylistItemsUpdate(
-        uris = newItemIds.map(::playlistIdToUri),
+        uris = newItemIds.map(::trackIdToUri),
         snapshotId = playlistVersion?.toNetwork()
     )
 }
@@ -50,6 +50,6 @@ internal fun PlaylistItemsUpdate.Companion.fromDomain(
     )
 }
 
-private fun playlistIdToUri(id: String): String {
-    return "spotify:playlist:$id"
+private fun trackIdToUri(id: String): String {
+    return "spotify:track:$id"
 }
