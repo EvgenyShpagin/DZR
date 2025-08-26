@@ -39,7 +39,10 @@ internal class PlaylistRemoteDataSourceImpl(
         playlistId: String,
         update: PlaylistDetailsUpdate
     ): NetworkResponse<Unit> {
-        return playlistApi.changePlaylistDetails(playlistId = playlistId, update = update)
+        return playlistApi.changePlaylistDetails(
+            playlistId = playlistId,
+            update = update
+        )
     }
 
     override suspend fun getPlaylistTracks(
@@ -62,28 +65,40 @@ internal class PlaylistRemoteDataSourceImpl(
         playlistId: String,
         update: PlaylistItemsUpdate
     ): NetworkResponse<SnapshotId> {
-        return playlistApi.updatePlaylistTracks(playlistId = playlistId, update = update)
+        return playlistApi.updatePlaylistTracks(
+            playlistId = playlistId,
+            update = update
+        )
     }
 
     override suspend fun addTracksToPlaylist(
         playlistId: String,
         additions: TrackAdditions
     ): NetworkResponse<SnapshotId> {
-        return playlistApi.addTracksToPlaylist(playlistId = playlistId, body = additions)
+        return playlistApi.addTracksToPlaylist(
+            playlistId = playlistId,
+            body = additions
+        )
     }
 
     override suspend fun removePlaylistTracks(
         playlistId: String,
         removals: TrackRemovals
     ): NetworkResponse<SnapshotId> {
-        return playlistApi.removePlaylistTracks(playlistId = playlistId, body = removals)
+        return playlistApi.removePlaylistTracks(
+            playlistId = playlistId,
+            body = removals
+        )
     }
 
     override suspend fun getCurrentUserPlaylists(
         limit: Int?,
         offset: Int?
     ): NetworkResponse<PaginatedList<PlaylistWithTracksInfo>> {
-        return playlistApi.getCurrentUserPlaylists(limit = limit, offset = offset)
+        return playlistApi.getCurrentUserPlaylists(
+            limit = limit,
+            offset = offset
+        )
     }
 
     override suspend fun getUserPlaylists(
@@ -91,18 +106,29 @@ internal class PlaylistRemoteDataSourceImpl(
         limit: Int?,
         offset: Int?
     ): NetworkResponse<PaginatedList<PlaylistWithTracks>> {
-        return playlistApi.getUserPlaylists(userId = userId, limit = limit, offset = offset)
+        return playlistApi.getUserPlaylists(
+            userId = userId,
+            limit = limit,
+            offset = offset
+        )
     }
 
     override suspend fun createPlaylist(
         userId: String,
         details: NewPlaylistDetails
     ): NetworkResponse<PlaylistWithPaginatedTracks> {
-        return playlistApi.createPlaylist(userId = userId, details = details)
+        return playlistApi.createPlaylist(
+            userId = userId,
+            details = details
+        )
     }
 
-    override suspend fun getPlaylistCoverImage(playlistId: String): NetworkResponse<List<Image>> {
-        return playlistApi.getPlaylistCoverImage(playlistId = playlistId)
+    override suspend fun getPlaylistCoverImage(
+        playlistId: String
+    ): NetworkResponse<List<Image>> {
+        return playlistApi.getPlaylistCoverImage(
+            playlistId = playlistId
+        )
     }
 
     override suspend fun uploadCustomPlaylistCover(
