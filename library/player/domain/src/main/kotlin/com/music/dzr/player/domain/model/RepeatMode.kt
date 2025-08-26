@@ -24,5 +24,7 @@ enum class RepeatMode {
      * Repeat disabled.
      * Playback will stop after the last track in the context is finished.
      */
-    Off
+    Off;
+
+    companion object
 }
