@@ -1,6 +1,7 @@
 package com.music.dzr.library.track.domain.repository
 
 import com.music.dzr.core.error.AppError
+import com.music.dzr.core.model.DetailedTrack
 import com.music.dzr.core.model.Market
 import com.music.dzr.core.model.Page
 import com.music.dzr.core.model.Track
@@ -27,7 +28,7 @@ interface TrackRepository {
     suspend fun getTrack(
         id: String,
         market: Market? = null
-    ): Result<Track, AppError>
+    ): Result<DetailedTrack, AppError>
 
     /**
      * Fetch information for multiple tracks.
@@ -38,7 +39,7 @@ interface TrackRepository {
     suspend fun getMultipleTracks(
         ids: List<String>,
         market: Market? = null
-    ): Result<List<Track>, AppError>
+    ): Result<List<DetailedTrack>, AppError>
 
     /**
      * Get the current user's saved tracks.

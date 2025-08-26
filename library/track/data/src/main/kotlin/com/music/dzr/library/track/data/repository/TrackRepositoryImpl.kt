@@ -6,9 +6,9 @@ import com.music.dzr.core.data.mapper.toDomain
 import com.music.dzr.core.data.mapper.toNetwork
 import com.music.dzr.core.data.mapper.toResult
 import com.music.dzr.core.error.AppError
+import com.music.dzr.core.model.DetailedTrack
 import com.music.dzr.core.model.Market
 import com.music.dzr.core.model.Page
-import com.music.dzr.core.model.Track
 import com.music.dzr.core.result.Result
 import com.music.dzr.library.track.data.mapper.toDomain
 import com.music.dzr.library.track.data.mapper.toNetwork
@@ -28,7 +28,7 @@ internal class TrackRepositoryImpl(
     override suspend fun getTrack(
         id: String,
         market: Market?
-    ): Result<Track, AppError> {
+    ): Result<DetailedTrack, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getTrack(
                 id = id,
@@ -40,7 +40,7 @@ internal class TrackRepositoryImpl(
     override suspend fun getMultipleTracks(
         ids: List<String>,
         market: Market?
-    ): Result<List<Track>, AppError> {
+    ): Result<List<DetailedTrack>, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getMultipleTracks(
                 ids = ids,
