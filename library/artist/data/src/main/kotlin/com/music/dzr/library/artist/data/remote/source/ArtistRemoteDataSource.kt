@@ -13,22 +13,21 @@ import com.music.dzr.library.artist.data.remote.dto.Artists
  * Remote data source for artist-related operations.
  * Thin wrapper around [ArtistApi] with convenient method signatures and parameter preparation.
  */
-internal class ArtistRemoteDataSource(private val artistApi: ArtistApi) {
+internal interface ArtistRemoteDataSource {
 
     /**
      * Get Spotify catalog information for a single artist.
      */
-    suspend fun getArtist(id: String): NetworkResponse<Artist> {
-        return artistApi.getArtist(id)
-    }
+    suspend fun getArtist(
+        id: String
+    ): NetworkResponse<Artist>
 
     /**
      * Get Spotify catalog information for several artists.
      */
-    suspend fun getMultipleArtists(ids: List<String>): NetworkResponse<Artists> {
-        val csv = ids.joinToString(",")
-        return artistApi.getMultipleArtists(csv)
-    }
+    suspend fun getMultipleArtists(
+        ids: List<String>
+    ): NetworkResponse<Artists>
 
     /**
      * Get Spotify catalog information about an artist's albums.
@@ -39,10 +38,7 @@ internal class ArtistRemoteDataSource(private val artistApi: ArtistApi) {
         market: String? = null,
         limit: Int? = null,
         offset: Int? = null
-    ): NetworkResponse<PaginatedList<ArtistAlbum>> {
-        val groupsCsv = includeGroups?.joinToString(",") { it.name.lowercase() }
-        return artistApi.getArtistAlbums(id, groupsCsv, market, limit, offset)
-    }
+    ): NetworkResponse<PaginatedList<ArtistAlbum>>
 
     /**
      * Get Spotify catalog information about an artist's top tracks by country.
@@ -50,7 +46,5 @@ internal class ArtistRemoteDataSource(private val artistApi: ArtistApi) {
     suspend fun getArtistTopTracks(
         id: String,
         market: String? = null
-    ): NetworkResponse<Tracks> {
-        return artistApi.getArtistTopTracks(id, market)
-    }
+    ): NetworkResponse<Tracks>
 }
