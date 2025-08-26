@@ -25,7 +25,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertSame
 
-class PlaylistRemoteDataSourceTest {
+class PlaylistRemoteDataSourceImplTest {
 
     private lateinit var api: PlaylistApi
     private lateinit var dataSource: PlaylistRemoteDataSourceImpl
