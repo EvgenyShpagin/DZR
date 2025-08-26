@@ -1,5 +1,6 @@
 package com.music.dzr.library.playlist.data.mapper
 
+import com.music.dzr.core.data.mapper.trackIdToUri
 import com.music.dzr.library.playlist.data.remote.dto.PlaylistItemsUpdate
 import com.music.dzr.library.playlist.data.remote.dto.TrackAdditions
 import com.music.dzr.library.playlist.data.remote.dto.TrackRemovals
@@ -48,8 +49,4 @@ internal fun PlaylistItemsUpdate.Companion.fromDomain(
         insertBefore = toIndex,
         snapshotId = playlistVersion?.toNetwork()
     )
-}
-
-private fun trackIdToUri(id: String): String {
-    return "spotify:track:$id"
 }
