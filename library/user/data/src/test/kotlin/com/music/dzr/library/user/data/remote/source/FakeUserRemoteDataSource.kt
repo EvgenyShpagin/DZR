@@ -17,6 +17,12 @@ import com.music.dzr.library.user.data.remote.dto.ExplicitContent
 import com.music.dzr.library.user.data.remote.dto.FollowedArtists
 import com.music.dzr.library.user.data.remote.dto.TimeRange
 
+/**
+ * In-memory Fake implementation of [UserRemoteDataSource].
+ *
+ * Mirrors the contract of the real remote source but keeps all state in memory so tests can
+ * deterministically set up scenarios and observe effects without network.
+ */
 internal class FakeUserRemoteDataSource : UserRemoteDataSource, HasForcedNetworkError {
 
     override var forcedError: NetworkError? = null
