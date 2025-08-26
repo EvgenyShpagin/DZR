@@ -13,7 +13,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertSame
 
-internal class PlayerRemoteDataSourceTest {
+internal class PlayerRemoteDataSourceImplTest {
 
     private lateinit var api: PlayerApi
     private lateinit var dataSource: PlayerRemoteDataSource
