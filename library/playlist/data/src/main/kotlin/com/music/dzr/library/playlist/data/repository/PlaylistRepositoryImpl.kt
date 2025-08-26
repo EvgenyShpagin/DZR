@@ -16,6 +16,7 @@ import com.music.dzr.library.playlist.data.remote.dto.PlaylistItemsUpdate
 import com.music.dzr.library.playlist.data.remote.dto.TrackAdditions
 import com.music.dzr.library.playlist.data.remote.dto.TrackRemovals
 import com.music.dzr.library.playlist.data.remote.source.PlaylistRemoteDataSource
+import com.music.dzr.library.playlist.domain.model.PagedPlaylist
 import com.music.dzr.library.playlist.domain.model.Playlist
 import com.music.dzr.library.playlist.domain.model.PlaylistDetails
 import com.music.dzr.library.playlist.domain.model.PlaylistEntry
@@ -34,7 +35,7 @@ internal class PlaylistRepositoryImpl(
     override suspend fun getPlaylist(
         playlistId: String,
         market: String?
-    ): Result<Playlist, AppError> {
+    ): Result<PagedPlaylist, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getPlaylist(
                 playlistId = playlistId,
