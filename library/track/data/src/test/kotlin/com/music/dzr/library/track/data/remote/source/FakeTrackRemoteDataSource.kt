@@ -11,6 +11,12 @@ import com.music.dzr.library.track.data.remote.dto.TimestampedId
 import kotlin.time.Clock
 import kotlin.time.Instant
 
+/**
+ * In-memory Fake implementation of [TrackRemoteDataSource].
+ *
+ * Mirrors the contract of the real remote source but keeps all state in memory so tests can
+ * deterministically set up scenarios and observe effects without network.
+ */
 internal class FakeTrackRemoteDataSource : TrackRemoteDataSource, HasForcedNetworkError {
 
     override var forcedError: NetworkError? = null
