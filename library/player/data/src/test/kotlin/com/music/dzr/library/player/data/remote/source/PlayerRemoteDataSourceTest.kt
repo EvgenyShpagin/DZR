@@ -26,65 +26,80 @@ internal class PlayerRemoteDataSourceTest {
 
     @Test
     fun getPlaybackState_delegatesCall() = runTest {
+        // Arrange
         val market = "US"
         val expected = NetworkResponse(data = mockk<PlaybackState>())
         coEvery { api.getPlaybackState(market) } returns expected
 
+        // Act
         val actual = dataSource.getPlaybackState(market)
 
+        // Assert
         assertSame(expected, actual)
         coVerify(exactly = 1) { api.getPlaybackState(market) }
     }
 
     @Test
     fun transferPlayback_buildsMap_andDelegates() = runTest {
+        // Arrange
         val deviceId = "test_device"
         val play = true
         val expected = NetworkResponse(data = Unit)
         val expectedDeviceIdsMap = mapOf("device_ids" to listOf(deviceId))
         coEvery { api.transferPlayback(expectedDeviceIdsMap, play) } returns expected
 
+        // Act
         val actual = dataSource.transferPlayback(deviceId, play)
 
+        // Assert
         assertSame(expected, actual)
         coVerify(exactly = 1) { api.transferPlayback(expectedDeviceIdsMap, play) }
     }
 
     @Test
     fun startOrResumePlayback_delegatesCall() = runTest {
+        // Arrange
         val deviceId = "test_device"
         val options: PlaybackOptions? = null
         val expected = NetworkResponse(data = Unit)
         coEvery { api.startOrResumePlayback(deviceId, options) } returns expected
 
+        // Act
         val actual = dataSource.startOrResumePlayback(deviceId, options)
 
+        // Assert
         assertSame(expected, actual)
         coVerify(exactly = 1) { api.startOrResumePlayback(deviceId, options) }
     }
 
     @Test
     fun setRepeatMode_delegatesCall() = runTest {
+        // Arrange
         val state = RepeatMode.Track
         val deviceId = "test_device"
         val expected = NetworkResponse(data = Unit)
         coEvery { api.setRepeatMode(state, deviceId) } returns expected
 
+        // Act
         val actual = dataSource.setRepeatMode(state, deviceId)
 
+        // Assert
         assertSame(expected, actual)
         coVerify(exactly = 1) { api.setRepeatMode(state, deviceId) }
     }
 
     @Test
     fun toggleShuffle_delegatesCall() = runTest {
+        // Arrange
         val state = true
         val deviceId = "test_device"
         val expected = NetworkResponse(data = Unit)
         coEvery { api.toggleShuffle(state, deviceId) } returns expected
 
+        // Act
         val actual = dataSource.toggleShuffle(state, deviceId)
 
+        // Assert
         assertSame(expected, actual)
         coVerify(exactly = 1) { api.toggleShuffle(state, deviceId) }
     }
