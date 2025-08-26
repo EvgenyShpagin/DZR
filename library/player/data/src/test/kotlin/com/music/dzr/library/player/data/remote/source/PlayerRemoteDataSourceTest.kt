@@ -21,7 +21,7 @@ internal class PlayerRemoteDataSourceTest {
     @BeforeTest
     fun setUp() {
         api = mockk(relaxed = true)
-        dataSource = PlayerRemoteDataSource(api)
+        dataSource = PlayerRemoteDataSourceImpl(api)
     }
 
     @Test
