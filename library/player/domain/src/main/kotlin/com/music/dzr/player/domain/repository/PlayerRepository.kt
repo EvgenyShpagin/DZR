@@ -9,6 +9,7 @@ import com.music.dzr.player.domain.model.PlayHistoryEntry
 import com.music.dzr.player.domain.model.PlaybackQueue
 import com.music.dzr.player.domain.model.PlaybackState
 import com.music.dzr.player.domain.model.RepeatMode
+import kotlin.time.Instant
 
 /**
  * Repository for player operations in the domain layer.
@@ -93,8 +94,8 @@ interface PlayerRepository {
      */
     suspend fun getRecentlyPlayed(
         limit: Int? = null,
-        after: Long? = null,
-        before: Long? = null
+        after: Instant? = null,
+        before: Instant? = null
     ): Result<CursorPage<PlayHistoryEntry>, AppError>
 
     /**

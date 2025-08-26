@@ -10,6 +10,7 @@ import com.music.dzr.library.player.data.remote.dto.PlaybackOptions
 import com.music.dzr.library.player.data.remote.dto.PlaybackState
 import com.music.dzr.library.player.data.remote.dto.Queue
 import com.music.dzr.library.player.data.remote.dto.RepeatMode
+import kotlin.time.Instant
 
 /**
  * Remote data source for player-related operations.
@@ -80,8 +81,8 @@ internal interface PlayerRemoteDataSource {
      */
     suspend fun getRecentlyPlayedTracks(
         limit: Int? = null,
-        after: Long? = null,
-        before: Long? = null
+        after: Instant? = null,
+        before: Instant? = null
     ): NetworkResponse<CursorPaginatedList<PlayHistory>>
 
     /**
