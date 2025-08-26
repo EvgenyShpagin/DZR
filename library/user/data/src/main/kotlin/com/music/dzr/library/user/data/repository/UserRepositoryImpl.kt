@@ -6,6 +6,8 @@ import com.music.dzr.core.data.mapper.toDomain
 import com.music.dzr.core.data.mapper.toResult
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.model.Artist
+import com.music.dzr.core.model.DetailedArtist
+import com.music.dzr.core.model.DetailedTrack
 import com.music.dzr.core.model.OffsetPage
 import com.music.dzr.core.model.Page
 import com.music.dzr.core.model.Track
@@ -36,7 +38,7 @@ internal class UserRepositoryImpl(
         timeRange: TimeRange?,
         limit: Int?,
         offset: Int?
-    ): Result<OffsetPage<Artist>, AppError> {
+    ): Result<OffsetPage<DetailedArtist>, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getUserTopArtists(
                 timeRange = timeRange?.toNetwork(),
@@ -54,7 +56,7 @@ internal class UserRepositoryImpl(
         timeRange: TimeRange?,
         limit: Int?,
         offset: Int?
-    ): Result<OffsetPage<Track>, AppError> {
+    ): Result<OffsetPage<DetailedTrack>, AppError> {
         return withContext(dispatchers.io) {
             val networkTimeRange = timeRange?.toNetwork()
             remoteDataSource.getUserTopTracks(
@@ -100,7 +102,7 @@ internal class UserRepositoryImpl(
     override suspend fun getFollowedArtists(
         limit: Int?,
         after: String?
-    ): Result<Page<Artist>, AppError> {
+    ): Result<Page<DetailedArtist>, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getFollowedArtists(
                 limit = limit,

@@ -1,9 +1,9 @@
 package com.music.dzr.library.user.domain.repository
 
 import com.music.dzr.core.error.AppError
-import com.music.dzr.core.model.Artist
+import com.music.dzr.core.model.DetailedArtist
+import com.music.dzr.core.model.DetailedTrack
 import com.music.dzr.core.model.Page
-import com.music.dzr.core.model.Track
 import com.music.dzr.core.model.User
 import com.music.dzr.core.result.Result
 import com.music.dzr.library.user.domain.model.CurrentUser
@@ -31,7 +31,7 @@ interface UserRepository {
         timeRange: TimeRange? = null,
         limit: Int? = null,
         offset: Int? = null
-    ): Result<Page<Artist>, AppError>
+    ): Result<Page<DetailedArtist>, AppError>
 
     /**
      * Get the current user's top tracks.
@@ -40,7 +40,7 @@ interface UserRepository {
         timeRange: TimeRange? = null,
         limit: Int? = null,
         offset: Int? = null
-    ): Result<Page<Track>, AppError>
+    ): Result<Page<DetailedTrack>, AppError>
 
     /**
      * Get public profile information about a Spotify user.
@@ -66,7 +66,7 @@ interface UserRepository {
     suspend fun getFollowedArtists(
         limit: Int? = null,
         after: String? = null
-    ): Result<Page<Artist>, AppError>
+    ): Result<Page<DetailedArtist>, AppError>
 
     /**
      * Follow one or more artists.
