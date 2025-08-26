@@ -38,63 +38,85 @@ class PlaylistRemoteDataSourceImplTest {
 
     @Test
     fun getPlaylist_delegatesAllParams() = runTest {
-        val expected = NetworkResponse<PlaylistWithPaginatedTracks>(data = mockk())
+        // Arrange
+        val playlistId = "pl"
+        val market = "US"
         val fields = PlaylistFields(listOf(PlaylistField.Id, PlaylistField.Name))
-        coEvery { api.getPlaylist("pl", "US", fields) } returns expected
+        val expected = NetworkResponse<PlaylistWithPaginatedTracks>(data = mockk())
+        coEvery { api.getPlaylist(playlistId, market, fields) } returns expected
 
-        val actual = dataSource.getPlaylist("pl", "US", fields)
+        // Act
+        val actual = dataSource.getPlaylist(playlistId, market, fields)
 
+        // Assert
         assertSame(expected, actual)
-        coVerify { api.getPlaylist("pl", "US", fields) }
+        coVerify { api.getPlaylist(playlistId, market, fields) }
     }
 
     @Test
     fun updatePlaylistTracks_delegates() = runTest {
+        // Arrange
+        val playlistId = "pl"
         val update = mockk<PlaylistItemsUpdate>()
         val expected = NetworkResponse(data = SnapshotId("snap"))
-        coEvery { api.updatePlaylistTracks("pl", update) } returns expected
+        coEvery { api.updatePlaylistTracks(playlistId, update) } returns expected
 
-        val actual = dataSource.updatePlaylistTracks("pl", update)
+        // Act
+        val actual = dataSource.updatePlaylistTracks(playlistId, update)
 
+        // Assert
         assertSame(expected, actual)
-        coVerify { api.updatePlaylistTracks("pl", update) }
+        coVerify { api.updatePlaylistTracks(playlistId, update) }
     }
 
     @Test
     fun addTracksToPlaylist_delegates() = runTest {
+        // Arrange
+        val playlistId = "pl"
         val additions = mockk<TrackAdditions>()
         val expected = NetworkResponse(data = SnapshotId("snap2"))
-        coEvery { api.addTracksToPlaylist("pl", additions) } returns expected
+        coEvery { api.addTracksToPlaylist(playlistId, additions) } returns expected
 
-        val actual = dataSource.addTracksToPlaylist("pl", additions)
+        // Act
+        val actual = dataSource.addTracksToPlaylist(playlistId, additions)
 
+        // Assert
         assertSame(expected, actual)
-        coVerify { api.addTracksToPlaylist("pl", additions) }
+        coVerify { api.addTracksToPlaylist(playlistId, additions) }
     }
 
     @Test
     fun getCurrentUserPlaylists_delegates() = runTest {
+        // Arrange
+        val limit = 20
+        val offset = 40
         val expected: NetworkResponse<PaginatedList<PlaylistWithTracksInfo>> =
             NetworkResponse(data = mockk())
-        coEvery { api.getCurrentUserPlaylists(limit = 20, offset = 40) } returns expected
+        coEvery { api.getCurrentUserPlaylists(limit = limit, offset = offset) } returns expected
 
-        val actual = dataSource.getCurrentUserPlaylists(limit = 20, offset = 40)
+        // Act
+        val actual = dataSource.getCurrentUserPlaylists(limit = limit, offset = offset)
 
+        // Assert
         assertSame(expected, actual)
-        coVerify { api.getCurrentUserPlaylists(limit = 20, offset = 40) }
+        coVerify { api.getCurrentUserPlaylists(limit = limit, offset = offset) }
     }
 
     @Test
     fun uploadCustomPlaylistCover_delegates() = runTest {
+        // Arrange
+        val playlistId = "pl"
         val expectedImageRequestBody = ByteArray(0).toRequestBody("image/jpeg".toMediaType())
         val expected = NetworkResponse(data = Unit)
-        coEvery { api.uploadCustomPlaylistCover("pl", expectedImageRequestBody) } returns expected
+        coEvery { api.uploadCustomPlaylistCover(playlistId, expectedImageRequestBody) } returns expected
 
-        dataSource.uploadCustomPlaylistCover("pl", ByteArray(0))
+        // Act
+        dataSource.uploadCustomPlaylistCover(playlistId, ByteArray(0))
 
+        // Assert
         coVerify {
             api.uploadCustomPlaylistCover(
-                playlistId = "pl",
+                playlistId = playlistId,
                 encodedImageData = any()
             )
         }
@@ -102,31 +124,43 @@ class PlaylistRemoteDataSourceImplTest {
 
     @Test
     fun removePlaylistTracks_delegates() = runTest {
+        // Arrange
+        val playlistId = "pl"
         val body = mockk<TrackRemovals>()
         val expected = NetworkResponse(data = SnapshotId("snap3"))
-        coEvery { api.removePlaylistTracks("pl", body) } returns expected
+        coEvery { api.removePlaylistTracks(playlistId, body) } returns expected
 
-        val actual = dataSource.removePlaylistTracks("pl", body)
+        // Act
+        val actual = dataSource.removePlaylistTracks(playlistId, body)
 
+        // Assert
         assertSame(expected, actual)
-        coVerify { api.removePlaylistTracks("pl", body) }
+        coVerify { api.removePlaylistTracks(playlistId, body) }
     }
 
     @Test
     fun createPlaylist_delegates() = runTest {
+        // Arrange
+        val userId = "user"
         val details = mockk<NewPlaylistDetails>()
         val expected: NetworkResponse<PlaylistWithPaginatedTracks> = NetworkResponse(data = mockk())
-        coEvery { api.createPlaylist("user", details) } returns expected
+        coEvery { api.createPlaylist(userId, details) } returns expected
 
-        val actual = dataSource.createPlaylist("user", details)
+        // Act
+        val actual = dataSource.createPlaylist(userId, details)
 
+        // Assert
         assertSame(expected, actual)
-        coVerify { api.createPlaylist("user", details) }
+        coVerify { api.createPlaylist(userId, details) }
     }
 
     @Test
     fun getPlaylistTracks_delegatesAllParams() = runTest {
-        val expected = NetworkResponse<PaginatedList<PlaylistTrack>>(data = mockk())
+        // Arrange
+        val playlistId = "pl"
+        val market = "DE"
+        val limit = 50
+        val offset = 100
         val fields = PlaylistFields.items(
             listOf(
                 PlaylistFields.group(
@@ -137,11 +171,13 @@ class PlaylistRemoteDataSourceImplTest {
                 )
             )
         )
-        coEvery { api.getPlaylistTracks("pl", "DE", fields, 50, 100) } returns expected
+        val expected = NetworkResponse<PaginatedList<PlaylistTrack>>(data = mockk())
+        coEvery { api.getPlaylistTracks(playlistId, market, fields, limit, offset) } returns expected
 
+        // Act
         val actual = dataSource.getPlaylistTracks(
-            "pl",
-            "DE",
+            playlistId,
+            market,
             PlaylistFields.items(
                 listOf(
                     PlaylistFields.group(
@@ -150,33 +186,44 @@ class PlaylistRemoteDataSourceImplTest {
                     )
                 )
             ),
-            50,
-            100
+            limit,
+            offset
         )
 
+        // Assert
         assertSame(expected, actual)
-        coVerify { api.getPlaylistTracks("pl", "DE", fields, 50, 100) }
+        coVerify { api.getPlaylistTracks(playlistId, market, fields, limit, offset) }
     }
 
     @Test
     fun getUserPlaylists_delegates() = runTest {
+        // Arrange
+        val userId = "user"
+        val limit = 10
+        val offset = 30
         val expected: NetworkResponse<PaginatedList<PlaylistWithTracks>> =
             NetworkResponse(data = mockk())
-        coEvery { api.getUserPlaylists("user", 10, 30) } returns expected
+        coEvery { api.getUserPlaylists(userId, limit, offset) } returns expected
 
-        val actual = dataSource.getUserPlaylists("user", 10, 30)
+        // Act
+        val actual = dataSource.getUserPlaylists(userId, limit, offset)
 
+        // Assert
         assertSame(expected, actual)
-        coVerify { api.getUserPlaylists("user", 10, 30) }
+        coVerify { api.getUserPlaylists(userId, limit, offset) }
     }
 
     @Test
     fun changePlaylistDetails_delegates() = runTest {
+        // Arrange
+        val playlistId = "pl"
         val body = mockk<PlaylistDetailsUpdate>()
-        coEvery { api.changePlaylistDetails("pl", body) } returns NetworkResponse(data = Unit)
+        coEvery { api.changePlaylistDetails(playlistId, body) } returns NetworkResponse(data = Unit)
 
-        dataSource.changePlaylistDetails("pl", body)
+        // Act
+        dataSource.changePlaylistDetails(playlistId, body)
 
-        coVerify { api.changePlaylistDetails("pl", body) }
+        // Assert
+        coVerify { api.changePlaylistDetails(playlistId, body) }
     }
 }
