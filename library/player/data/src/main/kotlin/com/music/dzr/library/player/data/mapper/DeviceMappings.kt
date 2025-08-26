@@ -2,6 +2,7 @@ package com.music.dzr.library.player.data.mapper
 
 import com.music.dzr.library.player.data.remote.dto.Device as NetworkDevice
 import com.music.dzr.library.player.data.remote.dto.DeviceType as NetworkDeviceType
+import com.music.dzr.library.player.data.remote.dto.Devices as NetworkDevices
 import com.music.dzr.player.domain.model.Device as DomainDevice
 import com.music.dzr.player.domain.model.DeviceType as DomainDeviceType
 
@@ -15,6 +16,10 @@ internal fun NetworkDevice.toDomain(): DomainDevice {
         volumePercent = volumePercent,
         supportsVolume = supportsVolume
     )
+}
+
+internal fun NetworkDevices.toDomain(): List<DomainDevice> {
+    return list.map(NetworkDevice::toDomain)
 }
 
 private fun NetworkDeviceType.toDomain(): DomainDeviceType {
