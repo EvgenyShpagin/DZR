@@ -15,37 +15,29 @@ import com.music.dzr.library.player.data.remote.dto.RepeatMode
  * Remote data source for player-related operations.
  * Thin wrapper around [PlayerApi] with convenient method signatures and parameter preparation.
  */
-internal class PlayerRemoteDataSource(private val playerApi: PlayerApi) {
+internal interface PlayerRemoteDataSource {
 
     /**
      * Get information about the user's current playback state.
      */
-    suspend fun getPlaybackState(market: String? = null): NetworkResponse<PlaybackState> {
-        return playerApi.getPlaybackState(market)
-    }
+    suspend fun getPlaybackState(market: String? = null): NetworkResponse<PlaybackState>
 
     /**
      * Transfer playback to a new device.
      */
-    suspend fun transferPlayback(deviceId: String, play: Boolean = false): NetworkResponse<Unit> {
-        return playerApi.transferPlayback(mapOf("device_ids" to listOf(deviceId)), play)
-    }
+    suspend fun transferPlayback(deviceId: String, play: Boolean = false): NetworkResponse<Unit>
 
     /**
      * Get information about a user's available devices.
      */
-    suspend fun getAvailableDevices(): NetworkResponse<Devices> {
-        return playerApi.getAvailableDevices()
-    }
+    suspend fun getAvailableDevices(): NetworkResponse<Devices>
 
     /**
      * Get the user's currently playing track.
      */
     suspend fun getCurrentlyPlayingTrack(
         market: String? = null
-    ): NetworkResponse<CurrentlyPlayingContext> {
-        return playerApi.getCurrentlyPlayingTrack(market)
-    }
+    ): NetworkResponse<CurrentlyPlayingContext>
 
     /**
      * Start a new context or resume current playback.
@@ -53,30 +45,22 @@ internal class PlayerRemoteDataSource(private val playerApi: PlayerApi) {
     suspend fun startOrResumePlayback(
         deviceId: String? = null,
         options: PlaybackOptions? = null
-    ): NetworkResponse<Unit> {
-        return playerApi.startOrResumePlayback(deviceId, options)
-    }
+    ): NetworkResponse<Unit>
 
     /**
      * Pause playback.
      */
-    suspend fun pausePlayback(deviceId: String? = null): NetworkResponse<Unit> {
-        return playerApi.pausePlayback(deviceId)
-    }
+    suspend fun pausePlayback(deviceId: String? = null): NetworkResponse<Unit>
 
     /**
      * Seek to the given position in the currently playing track.
      */
-    suspend fun seekToPosition(positionMs: Int, deviceId: String? = null): NetworkResponse<Unit> {
-        return playerApi.seekToPosition(positionMs, deviceId)
-    }
+    suspend fun seekToPosition(positionMs: Int, deviceId: String? = null): NetworkResponse<Unit>
 
     /**
      * Set the repeat mode for the user's playback.
      */
-    suspend fun setRepeatMode(state: RepeatMode, deviceId: String? = null): NetworkResponse<Unit> {
-        return playerApi.setRepeatMode(state, deviceId)
-    }
+    suspend fun setRepeatMode(state: RepeatMode, deviceId: String? = null): NetworkResponse<Unit>
 
     /**
      * Set the volume for the user's playback.
@@ -84,16 +68,12 @@ internal class PlayerRemoteDataSource(private val playerApi: PlayerApi) {
     suspend fun setPlaybackVolume(
         volumePercent: Int,
         deviceId: String? = null
-    ): NetworkResponse<Unit> {
-        return playerApi.setPlaybackVolume(volumePercent, deviceId)
-    }
+    ): NetworkResponse<Unit>
 
     /**
      * Toggle shuffle on or off for user's playback.
      */
-    suspend fun toggleShuffle(state: Boolean, deviceId: String? = null): NetworkResponse<Unit> {
-        return playerApi.toggleShuffle(state, deviceId)
-    }
+    suspend fun toggleShuffle(state: Boolean, deviceId: String? = null): NetworkResponse<Unit>
 
     /**
      * Get the current user's recently played tracks.
@@ -102,21 +82,15 @@ internal class PlayerRemoteDataSource(private val playerApi: PlayerApi) {
         limit: Int? = null,
         after: Long? = null,
         before: Long? = null
-    ): NetworkResponse<CursorPaginatedList<PlayHistory>> {
-        return playerApi.getRecentlyPlayed(limit, after, before)
-    }
+    ): NetworkResponse<CursorPaginatedList<PlayHistory>>
 
     /**
      * Get the user's queue.
      */
-    suspend fun getUserQueue(): NetworkResponse<Queue> {
-        return playerApi.getUserQueue()
-    }
+    suspend fun getUserQueue(): NetworkResponse<Queue>
 
     /**
      * Add an item to the end of the user's current playback queue.
      */
-    suspend fun addToQueue(uri: String, deviceId: String? = null): NetworkResponse<Unit> {
-        return playerApi.addToQueue(uri, deviceId)
-    }
+    suspend fun addToQueue(uri: String, deviceId: String? = null): NetworkResponse<Unit>
 }
