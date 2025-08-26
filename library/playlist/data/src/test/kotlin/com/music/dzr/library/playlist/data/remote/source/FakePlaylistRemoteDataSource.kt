@@ -24,6 +24,12 @@ import com.music.dzr.library.playlist.data.remote.dto.PlaylistItemsUpdate
 import com.music.dzr.library.playlist.data.remote.dto.TrackAdditions
 import com.music.dzr.library.playlist.data.remote.dto.TrackRemovals
 
+/**
+ * In-memory Fake implementation of [PlaylistRemoteDataSource].
+ *
+ * Mirrors the contract of the real remote source but keeps all state in memory so tests can
+ * deterministically set up scenarios and observe effects without network.
+ */
 internal class FakePlaylistRemoteDataSource : PlaylistRemoteDataSource, HasForcedNetworkError {
 
     override var forcedError: NetworkError? = null
