@@ -2,7 +2,7 @@ package com.music.dzr.library.track.data.repository
 
 import com.music.dzr.core.coroutine.ApplicationScope
 import com.music.dzr.core.model.Market
-import com.music.dzr.core.model.Page
+import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.network.dto.ExternalUrls
 import com.music.dzr.core.network.dto.SimplifiedArtist
 import com.music.dzr.core.result.Result

@@ -3,8 +3,7 @@ package com.music.dzr.library.track.domain.repository
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.model.DetailedTrack
 import com.music.dzr.core.model.Market
-import com.music.dzr.core.model.Page
-import com.music.dzr.core.model.Track
+import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.result.Result
 import com.music.dzr.library.track.domain.model.SavedTrack
 import com.music.dzr.library.track.domain.model.TimestampedId

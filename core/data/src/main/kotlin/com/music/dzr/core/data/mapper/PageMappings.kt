@@ -1,7 +1,7 @@
 package com.music.dzr.core.data.mapper
 
-import com.music.dzr.core.model.CursorPage
-import com.music.dzr.core.model.OffsetPage
+import com.music.dzr.core.pagination.CursorPage
+import com.music.dzr.core.pagination.OffsetPage
 import com.music.dzr.core.network.dto.CursorPaginatedList as NetworkCursorPage
 import com.music.dzr.core.network.dto.PaginatedList as NetworkOffsetPage
 

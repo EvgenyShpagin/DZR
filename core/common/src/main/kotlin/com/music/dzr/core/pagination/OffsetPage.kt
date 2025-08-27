@@ -1,4 +1,4 @@
-package com.music.dzr.core.model
+package com.music.dzr.core.pagination
 
 /**
  * Represents an offset-based pagination list of items [T].

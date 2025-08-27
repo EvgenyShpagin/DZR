@@ -1,4 +1,4 @@
-package com.music.dzr.core.model
+package com.music.dzr.core.pagination
 
 /**
  * Represents a page of items in a paginated data set.

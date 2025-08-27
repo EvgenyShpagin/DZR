@@ -1,7 +1,7 @@
 package com.music.dzr.player.domain.repository
 
 import com.music.dzr.core.error.AppError
-import com.music.dzr.core.model.CursorPage
+import com.music.dzr.core.pagination.CursorPage
 import com.music.dzr.core.model.Market
 import com.music.dzr.core.result.Result
 import com.music.dzr.player.domain.model.Device

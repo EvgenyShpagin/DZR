@@ -1,7 +1,7 @@
 package com.music.dzr.library.playlist.data.repository
 
 import com.music.dzr.core.coroutine.ApplicationScope
-import com.music.dzr.core.model.Page
+import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.network.dto.ExternalUrls
 import com.music.dzr.core.result.Result
 import com.music.dzr.core.result.isSuccess

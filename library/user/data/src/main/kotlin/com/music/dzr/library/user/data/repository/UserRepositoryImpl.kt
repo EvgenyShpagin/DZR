@@ -7,8 +7,8 @@ import com.music.dzr.core.data.mapper.toResult
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.model.DetailedArtist
 import com.music.dzr.core.model.DetailedTrack
-import com.music.dzr.core.model.OffsetPage
-import com.music.dzr.core.model.Page
+import com.music.dzr.core.pagination.OffsetPage
+import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.model.User
 import com.music.dzr.core.result.Result
 import com.music.dzr.library.user.data.mapper.toDomain

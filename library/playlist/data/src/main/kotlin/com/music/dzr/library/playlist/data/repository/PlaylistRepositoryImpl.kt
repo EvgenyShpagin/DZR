@@ -6,7 +6,7 @@ import com.music.dzr.core.data.mapper.toDomain
 import com.music.dzr.core.data.mapper.toResult
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.model.Image
-import com.music.dzr.core.model.Page
+import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.result.Result
 import com.music.dzr.library.playlist.data.mapper.fromDomain
 import com.music.dzr.library.playlist.data.mapper.toDomain

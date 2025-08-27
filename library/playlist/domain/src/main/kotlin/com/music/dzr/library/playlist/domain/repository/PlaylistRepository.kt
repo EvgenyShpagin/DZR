@@ -2,7 +2,7 @@ package com.music.dzr.library.playlist.domain.repository
 
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.model.Image
-import com.music.dzr.core.model.Page
+import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.result.Result
 import com.music.dzr.library.playlist.domain.model.PagedPlaylist
 import com.music.dzr.library.playlist.domain.model.Playlist
