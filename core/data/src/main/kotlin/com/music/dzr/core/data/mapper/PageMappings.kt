@@ -11,7 +11,8 @@ fun <I, O> NetworkOffsetPage<I>.toDomain(
 ): OffsetPage<O> {
     return OffsetPage(
         items = items.map(mapContent),
-        total = total
+        total = total,
+        offset = offset
     )
 }
 

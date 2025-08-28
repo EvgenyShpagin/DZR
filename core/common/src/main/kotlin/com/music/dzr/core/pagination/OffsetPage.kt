@@ -5,8 +5,9 @@ package com.music.dzr.core.pagination
  */
 data class OffsetPage<T>(
     override val items: List<T>,
+    val offset: Int,
     val total: Int
 ) : Page<T> {
     override val hasMore: Boolean
-        get() = items.size < total
+        get() = offset + items.size < total
 }
