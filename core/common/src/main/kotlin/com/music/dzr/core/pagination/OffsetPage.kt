@@ -1,7 +1,11 @@
 package com.music.dzr.core.pagination
 
 /**
- * Represents an offset-based pagination list of items [T].
+ * An offset-based page of items [T].
+ *
+ * @property offset The 0-based `offset` representing the index of the first item in this page
+ * within the full ordered set.
+ * @property total The total amount of items available in the full set.
  */
 data class OffsetPage<T>(
     override val items: List<T>,

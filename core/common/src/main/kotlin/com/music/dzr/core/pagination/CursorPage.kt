@@ -1,7 +1,9 @@
 package com.music.dzr.core.pagination
 
 /**
- * Represents a cursor-based pagination list of items [T].
+ * A cursor-based page of items [T].
+ *
+ * @property nextCursor A token returned by the data source to continue pagination.
  */
 data class CursorPage<T>(
     override val items: List<T>,
