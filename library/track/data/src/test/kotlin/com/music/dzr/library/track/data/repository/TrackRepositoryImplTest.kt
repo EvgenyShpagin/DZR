@@ -2,9 +2,10 @@ package com.music.dzr.library.track.data.repository
 
 import com.music.dzr.core.coroutine.ApplicationScope
 import com.music.dzr.core.model.Market
-import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.network.dto.ExternalUrls
 import com.music.dzr.core.network.dto.SimplifiedArtist
+import com.music.dzr.core.pagination.OffsetPageable
+import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.result.Result
 import com.music.dzr.core.result.isSuccess
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
@@ -12,6 +13,7 @@ import com.music.dzr.core.testing.data.networkDetailedTracksTestData
 import com.music.dzr.library.track.data.remote.source.FakeTrackRemoteDataSource
 import com.music.dzr.library.track.domain.model.SavedTrack
 import com.music.dzr.library.track.domain.model.TimestampedId
+import com.music.dzr.library.track.domain.repository.TrackRepository
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
 import kotlin.test.AfterTest
@@ -30,7 +32,7 @@ import com.music.dzr.core.network.dto.error.NetworkErrorType as NetworkErrorType
 class TrackRepositoryImplTest {
 
     private lateinit var remoteDataSource: FakeTrackRemoteDataSource
-    private lateinit var repository: TrackRepositoryImpl
+    private lateinit var repository: TrackRepository
 
     private val testScheduler = TestCoroutineScheduler()
     private val testDispatchers = TestDispatcherProvider(testScheduler)
@@ -75,7 +77,7 @@ class TrackRepositoryImplTest {
         remoteDataSource.seedTracks(a, b)
 
         // Act
-        val result = repository.getMultipleTracks(listOf("a", "b"), market = null)
+        val result = repository.getMultipleTracks(listOf("a", "b"), market = Market.Unspecified)
 
         // Assert
         assertTrue(result.isSuccess())
@@ -94,9 +96,10 @@ class TrackRepositoryImplTest {
             testTrack.copy(id = "3")
         )
         repository.saveTracksForUser(listOf("1", "2", "3"))
+        val pageable = OffsetPageable(limit = 2, offset = 1)
 
         // Act
-        val result = repository.getUserSavedTracks(limit = 2, offset = 1)
+        val result = repository.getUserSavedTracks(pageable)
 
         // Assert
         assertTrue(result.isSuccess())
@@ -144,7 +147,7 @@ class TrackRepositoryImplTest {
             )
         )
 
-        val getResult = repository.getUserSavedTracks(limit = null, offset = null, market = null)
+        val getResult = repository.getUserSavedTracks(market = Market.Unspecified)
 
         // Assert
         assertTrue(saveResult.isSuccess())
@@ -188,7 +191,7 @@ class TrackRepositoryImplTest {
         )
 
         // Act
-        val result = repository.getTrack("any", market = null)
+        val result = repository.getTrack("any", market = Market.Unspecified)
 
         // Assert
         assertIs<Result.Failure<DomainNetworkError>>(result)

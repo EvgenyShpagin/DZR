@@ -8,6 +8,7 @@ import com.music.dzr.core.data.mapper.toResult
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.model.DetailedTrack
 import com.music.dzr.core.model.Market
+import com.music.dzr.core.pagination.OffsetPageable
 import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.result.Result
 import com.music.dzr.library.track.data.mapper.toDomain
@@ -27,38 +28,37 @@ internal class TrackRepositoryImpl(
 
     override suspend fun getTrack(
         id: String,
-        market: Market?
+        market: Market
     ): Result<DetailedTrack, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getTrack(
                 id = id,
-                market = market?.toNetwork()
+                market = market.toNetwork()
             ).toResult { it.toDomain() }
         }
     }
 
     override suspend fun getMultipleTracks(
         ids: List<String>,
-        market: Market?
+        market: Market
     ): Result<List<DetailedTrack>, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getMultipleTracks(
                 ids = ids,
-                market = market?.toNetwork()
+                market = market.toNetwork()
             ).toResult { tracks -> tracks.map { it.toDomain() } }
         }
     }
 
     override suspend fun getUserSavedTracks(
-        limit: Int?,
-        offset: Int?,
-        market: Market?
+        pageable: OffsetPageable,
+        market: Market
     ): Result<Page<SavedTrack>, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getUserSavedTracks(
-                limit = limit,
-                offset = offset,
-                market = market?.toNetwork()
+                limit = pageable.limit,
+                offset = pageable.offset,
+                market = market.toNetwork()
             ).toResult { networkPage -> networkPage.toDomain { it.toDomain() } }
         }
     }

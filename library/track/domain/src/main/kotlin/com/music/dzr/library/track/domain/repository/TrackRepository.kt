@@ -3,6 +3,7 @@ package com.music.dzr.library.track.domain.repository
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.model.DetailedTrack
 import com.music.dzr.core.model.Market
+import com.music.dzr.core.pagination.OffsetPageable
 import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.result.Result
 import com.music.dzr.library.track.domain.model.SavedTrack
@@ -26,7 +27,7 @@ interface TrackRepository {
      */
     suspend fun getTrack(
         id: String,
-        market: Market? = null
+        market: Market = Market.Unspecified
     ): Result<DetailedTrack, AppError>
 
     /**
@@ -37,20 +38,18 @@ interface TrackRepository {
      */
     suspend fun getMultipleTracks(
         ids: List<String>,
-        market: Market? = null
+        market: Market = Market.Unspecified
     ): Result<List<DetailedTrack>, AppError>
 
     /**
      * Get the current user's saved tracks.
      *
-     * @param limit Maximum number of items to return (1..50)
-     * @param offset The index of the first item to return
+     * @param pageable Offset-based pagination parameters (limit and offset).
      * @param market The market to filter content by. Overridden by authenticated user's market.
      */
     suspend fun getUserSavedTracks(
-        limit: Int? = null,
-        offset: Int? = null,
-        market: Market? = null
+        pageable: OffsetPageable = OffsetPageable.Default,
+        market: Market = Market.Unspecified
     ): Result<Page<SavedTrack>, AppError>
 
     /**
