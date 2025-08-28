@@ -8,8 +8,8 @@ fun Markets.toDomain(): List<DomainMarket> {
     return list.map { code -> DomainMarket(code) }
 }
 
-fun DomainMarket.toNetwork(): String {
-    return code
+fun DomainMarket.toNetwork(): String? {
+    return if (this == DomainMarket.Unspecified) null else code
 }
 
 fun List<DomainMarket>.toNetwork(): Markets {
