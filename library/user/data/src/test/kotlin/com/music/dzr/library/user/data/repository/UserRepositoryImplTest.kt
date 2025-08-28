@@ -6,10 +6,13 @@ import com.music.dzr.core.network.dto.Followers
 import com.music.dzr.core.network.dto.PaginatedList
 import com.music.dzr.core.network.dto.error.NetworkError
 import com.music.dzr.core.network.dto.error.NetworkErrorType
+import com.music.dzr.core.pagination.CursorPageable
+import com.music.dzr.core.pagination.OffsetPageable
 import com.music.dzr.core.result.Result
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
 import com.music.dzr.core.testing.data.networkDetailedTracksTestData
 import com.music.dzr.library.user.data.remote.source.FakeUserRemoteDataSource
+import com.music.dzr.library.user.domain.repository.UserRepository
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
@@ -24,7 +27,7 @@ import com.music.dzr.core.network.dto.ExternalUrls as NetworkExternalUrls
 internal class UserRepositoryImplTest {
 
     private lateinit var remoteDataSource: FakeUserRemoteDataSource
-    private lateinit var repository: UserRepositoryImpl
+    private lateinit var repository: UserRepository
 
     private val testScheduler = TestCoroutineScheduler()
     private val testDispatchers = TestDispatcherProvider(testScheduler)
@@ -81,9 +84,10 @@ internal class UserRepositoryImplTest {
             total = 1
         )
         remoteDataSource.userTopArtists = paginatedList
+        val pageable = OffsetPageable(limit = 1, offset = 0)
 
         // Act
-        val result = repository.getUserTopArtists(limit = 1, offset = 0)
+        val result = repository.getUserTopArtists(pageable = pageable)
 
         // Assert
         assertIs<Result.Success<*>>(result)
@@ -97,9 +101,10 @@ internal class UserRepositoryImplTest {
     fun getUserTopArtists_returnsError_whenRemoteFails() = runTest(testScheduler) {
         // Arrange
         remoteDataSource.forcedError = NetworkError(NetworkErrorType.HttpException, "", 403)
+        val pageable = OffsetPageable(limit = 1, offset = 0)
 
         // Act
-        val result = repository.getUserTopArtists(limit = 1, offset = 0)
+        val result = repository.getUserTopArtists(pageable = pageable)
 
         // Assert
         assertIs<Result.Failure<*>>(result)
@@ -120,9 +125,10 @@ internal class UserRepositoryImplTest {
             total = 1
         )
         remoteDataSource.userTopTracks = paginatedList
+        val pageable = OffsetPageable(limit = 1, offset = 0)
 
         // Act
-        val result = repository.getUserTopTracks(limit = 1, offset = 0)
+        val result = repository.getUserTopTracks(pageable = pageable)
 
         // Assert
         assertIs<Result.Success<*>>(result)
@@ -136,9 +142,10 @@ internal class UserRepositoryImplTest {
     fun getUserTopTracks_returnsError_whenRemoteFails() = runTest(testScheduler) {
         // Arrange
         remoteDataSource.forcedError = NetworkError(NetworkErrorType.HttpException, "", 500)
+        val pageable = OffsetPageable(limit = 1, offset = 0)
 
         // Act
-        val result = repository.getUserTopTracks(limit = 1, offset = 0)
+        val result = repository.getUserTopTracks(pageable = pageable)
 
         // Assert
         assertIs<Result.Failure<*>>(result)
@@ -199,9 +206,10 @@ internal class UserRepositoryImplTest {
     @Test
     fun getFollowedArtists_returnsMappedPage_whenRemoteSucceeds() = runTest(testScheduler) {
         // Arrange
+        val pageable = CursorPageable(limit = 1, cursor = null)
 
         // Act
-        val result = repository.getFollowedArtists(limit = 1)
+        val result = repository.getFollowedArtists(pageable)
 
         // Assert
         assertIs<Result.Success<*>>(result)

@@ -7,9 +7,11 @@ import com.music.dzr.core.data.mapper.toResult
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.model.DetailedArtist
 import com.music.dzr.core.model.DetailedTrack
-import com.music.dzr.core.pagination.OffsetPage
-import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.model.User
+import com.music.dzr.core.pagination.CursorPageable
+import com.music.dzr.core.pagination.OffsetPage
+import com.music.dzr.core.pagination.OffsetPageable
+import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.result.Result
 import com.music.dzr.library.user.data.mapper.toDomain
 import com.music.dzr.library.user.data.mapper.toNetwork
@@ -33,15 +35,14 @@ internal class UserRepositoryImpl(
     }
 
     override suspend fun getUserTopArtists(
-        timeRange: TimeRange?,
-        limit: Int?,
-        offset: Int?
+        timeRange: TimeRange,
+        pageable: OffsetPageable
     ): Result<OffsetPage<DetailedArtist>, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getUserTopArtists(
-                timeRange = timeRange?.toNetwork(),
-                limit = limit,
-                offset = offset
+                timeRange = timeRange.toNetwork(),
+                limit = pageable.limit,
+                offset = pageable.offset
             ).toResult { networkPage ->
                 networkPage.toDomain { networkArtist ->
                     networkArtist.toDomain()
@@ -51,16 +52,15 @@ internal class UserRepositoryImpl(
     }
 
     override suspend fun getUserTopTracks(
-        timeRange: TimeRange?,
-        limit: Int?,
-        offset: Int?
+        timeRange: TimeRange,
+        pageable: OffsetPageable
     ): Result<OffsetPage<DetailedTrack>, AppError> {
         return withContext(dispatchers.io) {
-            val networkTimeRange = timeRange?.toNetwork()
+            val networkTimeRange = timeRange.toNetwork()
             remoteDataSource.getUserTopTracks(
                 timeRange = networkTimeRange,
-                limit = limit,
-                offset = offset
+                limit = pageable.limit,
+                offset = pageable.offset
             ).toResult { networkPage ->
                 networkPage.toDomain { networkTrack ->
                     networkTrack.toDomain()
@@ -98,13 +98,12 @@ internal class UserRepositoryImpl(
     }
 
     override suspend fun getFollowedArtists(
-        limit: Int?,
-        after: String?
+        pageable: CursorPageable
     ): Result<Page<DetailedArtist>, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getFollowedArtists(
-                limit = limit,
-                after = after
+                limit = pageable.limit,
+                after = pageable.cursor
             ).toResult { networkCursorPage ->
                 val content = networkCursorPage.list
                 content.toDomain { it.toDomain() }

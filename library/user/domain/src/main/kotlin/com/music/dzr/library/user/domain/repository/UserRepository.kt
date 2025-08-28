@@ -3,8 +3,10 @@ package com.music.dzr.library.user.domain.repository
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.model.DetailedArtist
 import com.music.dzr.core.model.DetailedTrack
-import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.model.User
+import com.music.dzr.core.pagination.CursorPageable
+import com.music.dzr.core.pagination.OffsetPageable
+import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.result.Result
 import com.music.dzr.library.user.domain.model.CurrentUser
 import com.music.dzr.library.user.domain.model.TimeRange
@@ -28,18 +30,16 @@ interface UserRepository {
      * Get the current user's top artists.
      */
     suspend fun getUserTopArtists(
-        timeRange: TimeRange? = null,
-        limit: Int? = null,
-        offset: Int? = null
+        timeRange: TimeRange = TimeRange(months = 6),
+        pageable: OffsetPageable = OffsetPageable.Default,
     ): Result<Page<DetailedArtist>, AppError>
 
     /**
      * Get the current user's top tracks.
      */
     suspend fun getUserTopTracks(
-        timeRange: TimeRange? = null,
-        limit: Int? = null,
-        offset: Int? = null
+        timeRange: TimeRange = TimeRange(months = 6),
+        pageable: OffsetPageable = OffsetPageable.Default,
     ): Result<Page<DetailedTrack>, AppError>
 
     /**
@@ -64,8 +64,7 @@ interface UserRepository {
      * Get the current user's followed artists.
      */
     suspend fun getFollowedArtists(
-        limit: Int? = null,
-        after: String? = null
+        pageable: CursorPageable = CursorPageable.Default,
     ): Result<Page<DetailedArtist>, AppError>
 
     /**
