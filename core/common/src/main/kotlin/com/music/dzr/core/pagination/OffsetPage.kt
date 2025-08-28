@@ -15,3 +15,11 @@ data class OffsetPage<T>(
     override val hasMore: Boolean
         get() = offset + items.size < total
 }
+
+/**
+ * Creates the next `OffsetPageable` when `hasMore` is true;
+ * otherwise returns `null` to signal there is no next page.
+ */
+fun <T> OffsetPage<T>.nextPageable(limit: Int): OffsetPageable? {
+    return if (hasMore) OffsetPageable(limit, offset + items.size) else null
+}
