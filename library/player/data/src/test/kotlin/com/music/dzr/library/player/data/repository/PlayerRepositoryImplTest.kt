@@ -8,7 +8,9 @@ import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
 import com.music.dzr.core.testing.data.networkDetailedTracksTestData
 import com.music.dzr.library.player.data.remote.dto.PlayHistory
 import com.music.dzr.library.player.data.remote.source.FakePlayerRemoteDataSource
+import com.music.dzr.player.domain.model.RecentlyPlayedFilter
 import com.music.dzr.player.domain.model.RepeatMode
+import com.music.dzr.player.domain.model.TargetDevice
 import com.music.dzr.player.domain.repository.PlayerRepository
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
@@ -44,7 +46,7 @@ class PlayerRepositoryImplTest {
     @Test
     fun getPlaybackState_returnsSuccess() = runTest(testScheduler) {
         // Arrange
-        val market: Market? = null
+        val market: Market = Market.Unspecified
 
         // Act
         val result = repository.getPlaybackState(market = market)
@@ -69,13 +71,13 @@ class PlayerRepositoryImplTest {
     @Test
     fun startPauseSeek_succeeds() = runTest(testScheduler) {
         // Arrange
-        val deviceId: String? = null
+        val device: TargetDevice = TargetDevice.Current
         val newPosition = 1_234
 
         // Act
-        val startRes = repository.startOrResumePlayback(deviceId = deviceId)
-        val pauseRes = repository.pausePlayback(deviceId = deviceId)
-        val seekRes = repository.seekToPosition(positionMs = newPosition, deviceId = deviceId)
+        val startRes = repository.startOrResumePlayback(device = device)
+        val pauseRes = repository.pausePlayback(device = device)
+        val seekRes = repository.seekToPosition(positionMs = newPosition, device = device)
 
         // Assert
         assertTrue(startRes.isSuccess())
@@ -86,15 +88,15 @@ class PlayerRepositoryImplTest {
     @Test
     fun setShuffleRepeatVolume_succeeds() = runTest(testScheduler) {
         // Arrange
-        val deviceId: String? = null
+        val device: TargetDevice = TargetDevice.Current
         val shuffleEnabled = true
         val repeat = RepeatMode.Off
         val volume = 75
 
         // Act
-        val shuffleRes = repository.setShuffle(enabled = shuffleEnabled, deviceId = deviceId)
-        val repeatRes = repository.setRepeatMode(mode = repeat, deviceId = deviceId)
-        val volumeRes = repository.setPlaybackVolume(volumePercent = volume, deviceId = deviceId)
+        val shuffleRes = repository.setShuffle(enabled = shuffleEnabled, device = device)
+        val repeatRes = repository.setRepeatMode(mode = repeat, device = device)
+        val volumeRes = repository.setPlaybackVolume(volumePercent = volume, device = device)
 
         // Assert
         assertTrue(shuffleRes.isSuccess())
@@ -113,16 +115,10 @@ class PlayerRepositoryImplTest {
                 context = null
             )
         )
-        val limit: Int? = null
-        val after: Instant? = null
-        val before: Instant? = null
+        val filter = RecentlyPlayedFilter.Default
 
         // Act
-        val result = repository.getRecentlyPlayed(
-            limit = limit,
-            after = after,
-            before = before
-        )
+        val result = repository.getRecentlyPlayed(filter)
 
         // Assert
         assertTrue(result.isSuccess())
@@ -146,13 +142,13 @@ class PlayerRepositoryImplTest {
     @Test
     fun addToQueue_succeeds() = runTest(testScheduler) {
         // Arrange
-        val deviceId: String? = null
+        val device: TargetDevice = TargetDevice.Current
         val trackId = "track_123"
 
         // Act
         val result = repository.addToQueue(
             trackId = trackId,
-            deviceId = deviceId
+            device = device
         )
 
         // Assert
@@ -168,7 +164,7 @@ class PlayerRepositoryImplTest {
             code = 401,
             reason = null
         )
-        val market: Market? = null
+        val market: Market = Market.Unspecified
 
         // Act
         val result = repository.getPlaybackState(market = market)

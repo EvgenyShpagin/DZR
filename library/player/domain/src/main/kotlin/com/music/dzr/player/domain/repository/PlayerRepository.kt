@@ -1,15 +1,16 @@
 package com.music.dzr.player.domain.repository
 
 import com.music.dzr.core.error.AppError
-import com.music.dzr.core.pagination.CursorPage
 import com.music.dzr.core.model.Market
+import com.music.dzr.core.pagination.CursorPage
 import com.music.dzr.core.result.Result
 import com.music.dzr.player.domain.model.Device
 import com.music.dzr.player.domain.model.PlayHistoryEntry
 import com.music.dzr.player.domain.model.PlaybackQueue
 import com.music.dzr.player.domain.model.PlaybackState
+import com.music.dzr.player.domain.model.RecentlyPlayedFilter
 import com.music.dzr.player.domain.model.RepeatMode
-import kotlin.time.Instant
+import com.music.dzr.player.domain.model.TargetDevice
 
 /**
  * Repository for player operations in the domain layer.
@@ -25,14 +26,14 @@ interface PlayerRepository {
      * Get information about the user's current playback state.
      */
     suspend fun getPlaybackState(
-        market: Market? = null
+        market: Market = Market.Unspecified
     ): Result<PlaybackState, AppError>
 
     /**
      * Transfer playback to a device.
      */
     suspend fun transferPlayback(
-        deviceId: String,
+        device: TargetDevice.Specific,
         play: Boolean = false
     ): Result<Unit, AppError>
 
@@ -43,18 +44,16 @@ interface PlayerRepository {
 
     /**
      * Start a new context or resume current playback.
-     *
-     * Domain keeps a simplified signature; specific context/options are handled by use-cases.
      */
     suspend fun startOrResumePlayback(
-        deviceId: String? = null
+        device: TargetDevice = TargetDevice.Current
     ): Result<Unit, AppError>
 
     /**
      * Pause playback.
      */
     suspend fun pausePlayback(
-        deviceId: String? = null
+        device: TargetDevice = TargetDevice.Current
     ): Result<Unit, AppError>
 
     /**
@@ -62,7 +61,7 @@ interface PlayerRepository {
      */
     suspend fun seekToPosition(
         positionMs: Int,
-        deviceId: String? = null
+        device: TargetDevice = TargetDevice.Current
     ): Result<Unit, AppError>
 
     /**
@@ -70,7 +69,7 @@ interface PlayerRepository {
      */
     suspend fun setRepeatMode(
         mode: RepeatMode,
-        deviceId: String? = null
+        device: TargetDevice = TargetDevice.Current
     ): Result<Unit, AppError>
 
     /**
@@ -78,7 +77,7 @@ interface PlayerRepository {
      */
     suspend fun setPlaybackVolume(
         volumePercent: Int,
-        deviceId: String? = null
+        device: TargetDevice = TargetDevice.Current
     ): Result<Unit, AppError>
 
     /**
@@ -86,16 +85,14 @@ interface PlayerRepository {
      */
     suspend fun setShuffle(
         enabled: Boolean,
-        deviceId: String? = null
+        device: TargetDevice = TargetDevice.Current
     ): Result<Unit, AppError>
 
     /**
      * Get the current user's recently played tracks.
      */
     suspend fun getRecentlyPlayed(
-        limit: Int? = null,
-        after: Instant? = null,
-        before: Instant? = null
+        filter: RecentlyPlayedFilter = RecentlyPlayedFilter.Default
     ): Result<CursorPage<PlayHistoryEntry>, AppError>
 
     /**
@@ -108,6 +105,6 @@ interface PlayerRepository {
      */
     suspend fun addToQueue(
         trackId: String,
-        deviceId: String? = null
+        device: TargetDevice = TargetDevice.Current
     ): Result<Unit, AppError>
 }

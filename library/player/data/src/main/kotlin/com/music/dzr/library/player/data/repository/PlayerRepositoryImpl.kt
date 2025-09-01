@@ -7,8 +7,8 @@ import com.music.dzr.core.data.mapper.toNetwork
 import com.music.dzr.core.data.mapper.toResult
 import com.music.dzr.core.data.mapper.trackIdToUri
 import com.music.dzr.core.error.AppError
-import com.music.dzr.core.pagination.CursorPage
 import com.music.dzr.core.model.Market
+import com.music.dzr.core.pagination.CursorPage
 import com.music.dzr.core.result.Result
 import com.music.dzr.library.player.data.mapper.toDomain
 import com.music.dzr.library.player.data.mapper.toNetwork
@@ -17,11 +17,12 @@ import com.music.dzr.player.domain.model.Device
 import com.music.dzr.player.domain.model.PlayHistoryEntry
 import com.music.dzr.player.domain.model.PlaybackQueue
 import com.music.dzr.player.domain.model.PlaybackState
+import com.music.dzr.player.domain.model.RecentlyPlayedFilter
 import com.music.dzr.player.domain.model.RepeatMode
+import com.music.dzr.player.domain.model.TargetDevice
 import com.music.dzr.player.domain.repository.PlayerRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
-import kotlin.time.Instant
 
 internal class PlayerRepositoryImpl(
     private val remoteDataSource: PlayerRemoteDataSource,
@@ -30,23 +31,23 @@ internal class PlayerRepositoryImpl(
 ) : PlayerRepository {
 
     override suspend fun getPlaybackState(
-        market: Market?
+        market: Market
     ): Result<PlaybackState, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getPlaybackState(
-                market = market?.toNetwork()
+                market = market.toNetwork()
             ).toResult { it.toDomain() }
         }
     }
 
     override suspend fun transferPlayback(
-        deviceId: String,
+        device: TargetDevice.Specific,
         play: Boolean
     ): Result<Unit, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 remoteDataSource.transferPlayback(
-                    deviceId = deviceId,
+                    deviceId = device.id,
                     play = play
                 ).toResult()
             }.await()
@@ -63,12 +64,12 @@ internal class PlayerRepositoryImpl(
     }
 
     override suspend fun startOrResumePlayback(
-        deviceId: String?
+        device: TargetDevice
     ): Result<Unit, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 remoteDataSource.startOrResumePlayback(
-                    deviceId = deviceId,
+                    deviceId = (device as? TargetDevice.Specific)?.id,
                     options = null
                 ).toResult()
             }.await()
@@ -76,12 +77,12 @@ internal class PlayerRepositoryImpl(
     }
 
     override suspend fun pausePlayback(
-        deviceId: String?
+        device: TargetDevice
     ): Result<Unit, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 remoteDataSource.pausePlayback(
-                    deviceId = deviceId
+                    deviceId = device.toNetwork()
                 ).toResult()
             }.await()
         }
@@ -89,13 +90,13 @@ internal class PlayerRepositoryImpl(
 
     override suspend fun seekToPosition(
         positionMs: Int,
-        deviceId: String?
+        device: TargetDevice
     ): Result<Unit, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 remoteDataSource.seekToPosition(
                     positionMs = positionMs,
-                    deviceId = deviceId
+                    deviceId = device.toNetwork()
                 ).toResult()
             }.await()
         }
@@ -103,13 +104,13 @@ internal class PlayerRepositoryImpl(
 
     override suspend fun setRepeatMode(
         mode: RepeatMode,
-        deviceId: String?
+        device: TargetDevice
     ): Result<Unit, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 remoteDataSource.setRepeatMode(
                     state = mode.toNetwork(),
-                    deviceId = deviceId
+                    deviceId = device.toNetwork()
                 ).toResult()
             }.await()
         }
@@ -117,13 +118,13 @@ internal class PlayerRepositoryImpl(
 
     override suspend fun setPlaybackVolume(
         volumePercent: Int,
-        deviceId: String?
+        device: TargetDevice
     ): Result<Unit, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 remoteDataSource.setPlaybackVolume(
                     volumePercent = volumePercent,
-                    deviceId = deviceId
+                    deviceId = device.toNetwork()
                 ).toResult()
             }.await()
         }
@@ -131,28 +132,26 @@ internal class PlayerRepositoryImpl(
 
     override suspend fun setShuffle(
         enabled: Boolean,
-        deviceId: String?
+        device: TargetDevice
     ): Result<Unit, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 remoteDataSource.toggleShuffle(
                     state = enabled,
-                    deviceId = deviceId
+                    deviceId = device.toNetwork()
                 ).toResult()
             }.await()
         }
     }
 
     override suspend fun getRecentlyPlayed(
-        limit: Int?,
-        after: Instant?,
-        before: Instant?
+        filter: RecentlyPlayedFilter
     ): Result<CursorPage<PlayHistoryEntry>, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getRecentlyPlayedTracks(
-                limit = limit,
-                after = after,
-                before = before
+                limit = filter.limit,
+                after = (filter as? RecentlyPlayedFilter.Since)?.time,
+                before = (filter as? RecentlyPlayedFilter.Until)?.time
             ).toResult { page ->
                 page.toDomain { it.toDomain() }
             }
@@ -167,13 +166,13 @@ internal class PlayerRepositoryImpl(
 
     override suspend fun addToQueue(
         trackId: String,
-        deviceId: String?
+        device: TargetDevice
     ): Result<Unit, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 remoteDataSource.addToQueue(
                     uri = trackIdToUri(trackId),
-                    deviceId = deviceId
+                    deviceId = device.toNetwork()
                 ).toResult()
             }.await()
         }

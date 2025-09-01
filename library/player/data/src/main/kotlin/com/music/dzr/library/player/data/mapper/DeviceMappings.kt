@@ -5,6 +5,7 @@ import com.music.dzr.library.player.data.remote.dto.DeviceType as NetworkDeviceT
 import com.music.dzr.library.player.data.remote.dto.Devices as NetworkDevices
 import com.music.dzr.player.domain.model.Device as DomainDevice
 import com.music.dzr.player.domain.model.DeviceType as DomainDeviceType
+import com.music.dzr.player.domain.model.TargetDevice as NetworkTargetDevice
 
 internal fun NetworkDevice.toDomain(): DomainDevice {
     return DomainDevice(
@@ -37,5 +38,12 @@ private fun NetworkDeviceType.toDomain(): DomainDeviceType {
         NetworkDeviceType.CastAudio -> DomainDeviceType.CastAudio
         NetworkDeviceType.Automobile -> DomainDeviceType.Automobile
         NetworkDeviceType.Unknown -> DomainDeviceType.Unknown
+    }
+}
+
+internal fun NetworkTargetDevice.toNetwork(): String? {
+    return when (this) {
+        NetworkTargetDevice.Current -> null
+        is NetworkTargetDevice.Specific -> id
     }
 }
