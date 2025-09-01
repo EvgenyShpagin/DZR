@@ -13,6 +13,7 @@ import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.result.Result
 import com.music.dzr.library.playlist.data.mapper.fromDomain
 import com.music.dzr.library.playlist.data.mapper.toDomain
+import com.music.dzr.library.playlist.data.mapper.toNetwork
 import com.music.dzr.library.playlist.data.mapper.toNetworkCreate
 import com.music.dzr.library.playlist.data.mapper.toNetworkUpdate
 import com.music.dzr.library.playlist.data.remote.dto.PlaylistItemsUpdate
@@ -128,7 +129,7 @@ internal class PlaylistRepositoryImpl(
                     playlistId = playlistId,
                     additions = TrackAdditions.fromDomain(
                         ids = trackIds,
-                        position = if (position is InsertPosition.At) position.index else null
+                        position = position.toNetwork()
                     )
                 ).toResult { it.toDomain() }
             }.await()

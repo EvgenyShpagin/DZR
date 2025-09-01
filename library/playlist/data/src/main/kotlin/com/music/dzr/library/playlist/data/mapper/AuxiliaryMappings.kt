@@ -5,6 +5,7 @@ import com.music.dzr.library.playlist.data.remote.dto.PlaylistItemsUpdate
 import com.music.dzr.library.playlist.data.remote.dto.TrackAdditions
 import com.music.dzr.library.playlist.data.remote.dto.TrackRemovals
 import com.music.dzr.library.playlist.data.remote.dto.TrackToRemove
+import com.music.dzr.library.playlist.domain.model.InsertPosition
 import com.music.dzr.library.playlist.domain.model.PlaylistVersion
 
 internal fun TrackAdditions.Companion.fromDomain(
@@ -49,4 +50,11 @@ internal fun PlaylistItemsUpdate.Companion.fromDomain(
         insertBefore = toIndex,
         snapshotId = playlistVersion?.toNetwork()
     )
+}
+
+internal fun InsertPosition.toNetwork(): Int? {
+    return when (this) {
+        InsertPosition.Append -> null
+        is InsertPosition.At -> index
+    }
 }
