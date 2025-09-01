@@ -16,5 +16,6 @@ dependencies {
     api(projects.core.common)
     api(projects.core.auth.domain)
     api(projects.core.network)
+    api(projects.core.model)
     api(libs.kotlinx.coroutines.test)
 }
