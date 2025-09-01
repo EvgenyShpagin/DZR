@@ -11,3 +11,9 @@ android {
         }
     }
 }
+
+dependencies {
+    implementation(projects.dzr.core.data)
+    implementation(projects.dzr.library.player.domain)
+    testImplementation(testFixtures(projects.dzr.core.data))
+}
