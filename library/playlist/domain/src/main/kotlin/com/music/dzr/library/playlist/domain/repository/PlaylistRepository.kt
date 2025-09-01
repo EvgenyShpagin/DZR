@@ -2,8 +2,11 @@ package com.music.dzr.library.playlist.domain.repository
 
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.model.Image
+import com.music.dzr.core.model.Market
+import com.music.dzr.core.pagination.OffsetPageable
 import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.result.Result
+import com.music.dzr.library.playlist.domain.model.InsertPosition
 import com.music.dzr.library.playlist.domain.model.PagedPlaylist
 import com.music.dzr.library.playlist.domain.model.Playlist
 import com.music.dzr.library.playlist.domain.model.PlaylistDetails
@@ -25,11 +28,11 @@ interface PlaylistRepository {
      * Get a playlist owned by a user.
      *
      * @param playlistId The ID of the playlist.
-     * @param market Optional. An ISO 3166-1 alpha-2 country code.
+     * @param market The market to filter content by. Overridden by authenticated user's market.
      */
     suspend fun getPlaylist(
         playlistId: String,
-        market: String? = null
+        market: Market = Market.Unspecified
     ): Result<PagedPlaylist, AppError>
 
     /**
@@ -47,15 +50,13 @@ interface PlaylistRepository {
      * Get full details of tracks in a playlist.
      *
      * @param playlistId The ID of the playlist.
-     * @param market Optional. ISO country code.
-     * @param limit Max number of items to return.
-     * @param offset Index of the first item to return.
+     * @param market The market to filter content by. Overridden by authenticated user's market.
+     * @param pageable Offset-based pagination parameters (limit and offset).
      */
     suspend fun getPlaylistTracks(
         playlistId: String,
-        market: String? = null,
-        limit: Int? = null,
-        offset: Int? = null
+        market: Market = Market.Unspecified,
+        pageable: OffsetPageable = OffsetPageable.Default,
     ): Result<Page<PlaylistEntry>, AppError>
 
     /**
@@ -64,7 +65,7 @@ interface PlaylistRepository {
     suspend fun replaceAll(
         playlistId: String,
         newItemIds: List<String>,
-        playlistVersion: PlaylistVersion? = null
+        playlistVersion: PlaylistVersion = PlaylistVersion.Unspecified,
     ): Result<PlaylistVersion, AppError>
 
     /**
@@ -75,7 +76,7 @@ interface PlaylistRepository {
         fromIndex: Int,
         length: Int,
         toIndex: Int,
-        playlistVersion: PlaylistVersion? = null
+        playlistVersion: PlaylistVersion = PlaylistVersion.Unspecified,
     ): Result<PlaylistVersion, AppError>
 
     /**
@@ -84,7 +85,7 @@ interface PlaylistRepository {
     suspend fun addTracksToPlaylist(
         playlistId: String,
         trackIds: List<String>,
-        position: Int? = null
+        position: InsertPosition = InsertPosition.Append
     ): Result<PlaylistVersion, AppError>
 
     /**
@@ -93,24 +94,26 @@ interface PlaylistRepository {
     suspend fun removePlaylistTracks(
         playlistId: String,
         trackIds: List<String>,
-        playlistVersion: PlaylistVersion? = null
+        playlistVersion: PlaylistVersion = PlaylistVersion.Unspecified,
     ): Result<PlaylistVersion, AppError>
 
     /**
      * Get the current user’s playlists.
+     *
+     * @param pageable Offset-based pagination parameters (limit and offset).
      */
     suspend fun getCurrentUserPlaylists(
-        limit: Int? = null,
-        offset: Int? = null
+        pageable: OffsetPageable = OffsetPageable.Default,
     ): Result<Page<SimplifiedPlaylist>, AppError>
 
     /**
      * Get public playlists for a user.
+     *
+     * @param pageable Offset-based pagination parameters (limit and offset).
      */
     suspend fun getUserPlaylists(
         userId: String,
-        limit: Int? = null,
-        offset: Int? = null
+        pageable: OffsetPageable = OffsetPageable.Default,
     ): Result<Page<Playlist>, AppError>
 
     /**

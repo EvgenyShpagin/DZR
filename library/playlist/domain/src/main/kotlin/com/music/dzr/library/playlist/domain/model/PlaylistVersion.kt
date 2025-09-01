@@ -10,5 +10,12 @@ value class PlaylistVersion(
 ) {
     override fun toString() = versionId
 
-    companion object
+    companion object {
+        /**
+         * Sentinel value representing an unspecified/unknown playlist version.
+         *
+         * This must be mapped to a null or omitted parameter in any external API call.
+         */
+        val Unspecified = PlaylistVersion("unspecified")
+    }
 }

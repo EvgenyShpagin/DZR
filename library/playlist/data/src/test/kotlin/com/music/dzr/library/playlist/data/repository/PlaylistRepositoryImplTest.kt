@@ -1,16 +1,19 @@
 package com.music.dzr.library.playlist.data.repository
 
 import com.music.dzr.core.coroutine.ApplicationScope
-import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.network.dto.ExternalUrls
+import com.music.dzr.core.pagination.OffsetPageable
+import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.result.Result
 import com.music.dzr.core.result.isSuccess
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
 import com.music.dzr.core.testing.data.networkDetailedTracksTestData
 import com.music.dzr.library.playlist.data.mapper.toNetwork
 import com.music.dzr.library.playlist.data.remote.source.FakePlaylistRemoteDataSource
+import com.music.dzr.library.playlist.domain.model.InsertPosition
 import com.music.dzr.library.playlist.domain.model.PlaylistDetails
 import com.music.dzr.library.playlist.domain.model.PlaylistVersion
+import com.music.dzr.library.playlist.domain.repository.PlaylistRepository
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
 import kotlin.test.AfterTest
@@ -30,7 +33,7 @@ import com.music.dzr.core.network.dto.error.NetworkErrorType as NetworkErrorType
 class PlaylistRepositoryImplTest {
 
     private lateinit var remoteDataSource: FakePlaylistRemoteDataSource
-    private lateinit var repository: PlaylistRepositoryImpl
+    private lateinit var repository: PlaylistRepository
 
     private val testScheduler = TestCoroutineScheduler()
     private val testDispatchers = TestDispatcherProvider(testScheduler)
@@ -101,7 +104,7 @@ class PlaylistRepositoryImplTest {
         )
 
         // Act
-        val result = repository.getPlaylist(playlistId = pid, market = null)
+        val result = repository.getPlaylist(pid)
 
         // Assert
         assertTrue(result.isSuccess())
@@ -130,7 +133,7 @@ class PlaylistRepositoryImplTest {
 
         // Assert
         assertTrue(result.isSuccess())
-        val getRes = repository.getPlaylist(pid, null)
+        val getRes = repository.getPlaylist(pid)
         assertTrue(getRes.isSuccess())
         assertEquals("New Name", getRes.data.name)
     }
@@ -146,9 +149,10 @@ class PlaylistRepositoryImplTest {
                 "spotify:track:track_3"
             )
         )
+        val pageable = OffsetPageable(limit = 2, offset = 1)
 
         // Act
-        val pageRes = repository.getPlaylistTracks(pid, market = null, limit = 2, offset = 1)
+        val pageRes = repository.getPlaylistTracks(pid, pageable = pageable)
 
         // Assert
         assertTrue(pageRes.isSuccess())
@@ -170,7 +174,6 @@ class PlaylistRepositoryImplTest {
         val result = repository.replaceAll(
             playlistId = pid,
             newItemIds = listOf("track_2"),
-            playlistVersion = null
         )
 
         // Assert
@@ -178,7 +181,7 @@ class PlaylistRepositoryImplTest {
         val version: PlaylistVersion = result.data
         assertEquals(remoteDataSource.snapshot.snapshotId, version.toNetwork())
 
-        val pageRes = repository.getPlaylistTracks(pid, null, limit = null, offset = null)
+        val pageRes = repository.getPlaylistTracks(pid)
         assertTrue(pageRes.isSuccess())
         assertEquals(1, pageRes.data.items.size)
     }
@@ -201,12 +204,11 @@ class PlaylistRepositoryImplTest {
             fromIndex = 0,
             length = 1,
             toIndex = 2,
-            playlistVersion = null
         )
 
         // Assert
         assertTrue(result.isSuccess())
-        val tracks = repository.getPlaylistTracks(pid, null, null, null)
+        val tracks = repository.getPlaylistTracks(pid)
         assertTrue(tracks.isSuccess())
         val uris = tracks.data.items.map { it.track.id }
         // After moving first to before index 2: order should be 2,1,3 by track ids
@@ -228,12 +230,12 @@ class PlaylistRepositoryImplTest {
         val result = repository.addTracksToPlaylist(
             playlistId = pid,
             trackIds = listOf("track_2", "track_1"),
-            position = 1
+            position = InsertPosition.At(1)
         )
 
         // Assert
         assertTrue(result.isSuccess())
-        val tracks = repository.getPlaylistTracks(pid, null, null, null)
+        val tracks = repository.getPlaylistTracks(pid)
         assertTrue(tracks.isSuccess())
         val uris = tracks.data.items.map { it.track.id }
         // Should be 1,2 (dedup keeps unique by uri, but we assert domain ids)
@@ -261,12 +263,11 @@ class PlaylistRepositoryImplTest {
         val result = repository.removePlaylistTracks(
             playlistId = pid,
             trackIds = listOf("track_1"),
-            playlistVersion = null
         )
 
         // Assert
         assertTrue(result.isSuccess())
-        val tracks = repository.getPlaylistTracks(pid, null, null, null)
+        val tracks = repository.getPlaylistTracks(pid)
         assertTrue(tracks.isSuccess())
         val uris = tracks.data.items.map { it.track.id }
         assertEquals(listOf("track_2"), uris)
@@ -277,9 +278,10 @@ class PlaylistRepositoryImplTest {
         // Arrange
         seedPlaylist("pl_u1", name = "U1", trackUris = listOf("spotify:track:track_1"))
         seedPlaylist("pl_u2", name = "U2", trackUris = emptyList())
+        val pageable = OffsetPageable(limit = 2, offset = 0)
 
         // Act
-        val result = repository.getCurrentUserPlaylists(limit = 2, offset = 0)
+        val result = repository.getCurrentUserPlaylists(pageable)
 
         // Assert
         assertTrue(result.isSuccess())
@@ -296,8 +298,6 @@ class PlaylistRepositoryImplTest {
         // Act
         val result = repository.getUserPlaylists(
             userId = remoteDataSource.owner.id,
-            limit = null,
-            offset = null
         )
 
         // Assert
@@ -348,7 +348,7 @@ class PlaylistRepositoryImplTest {
         )
 
         // Act
-        val result = repository.getCurrentUserPlaylists(limit = null, offset = null)
+        val result = repository.getCurrentUserPlaylists()
 
         // Assert
         assertIs<Result.Failure<DomainNetworkError>>(result)

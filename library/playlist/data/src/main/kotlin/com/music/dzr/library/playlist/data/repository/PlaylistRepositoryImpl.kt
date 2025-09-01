@@ -3,9 +3,12 @@ package com.music.dzr.library.playlist.data.repository
 import com.music.dzr.core.coroutine.ApplicationScope
 import com.music.dzr.core.coroutine.DispatcherProvider
 import com.music.dzr.core.data.mapper.toDomain
+import com.music.dzr.core.data.mapper.toNetwork
 import com.music.dzr.core.data.mapper.toResult
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.model.Image
+import com.music.dzr.core.model.Market
+import com.music.dzr.core.pagination.OffsetPageable
 import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.result.Result
 import com.music.dzr.library.playlist.data.mapper.fromDomain
@@ -16,6 +19,7 @@ import com.music.dzr.library.playlist.data.remote.dto.PlaylistItemsUpdate
 import com.music.dzr.library.playlist.data.remote.dto.TrackAdditions
 import com.music.dzr.library.playlist.data.remote.dto.TrackRemovals
 import com.music.dzr.library.playlist.data.remote.source.PlaylistRemoteDataSource
+import com.music.dzr.library.playlist.domain.model.InsertPosition
 import com.music.dzr.library.playlist.domain.model.PagedPlaylist
 import com.music.dzr.library.playlist.domain.model.Playlist
 import com.music.dzr.library.playlist.domain.model.PlaylistDetails
@@ -34,12 +38,12 @@ internal class PlaylistRepositoryImpl(
 
     override suspend fun getPlaylist(
         playlistId: String,
-        market: String?
+        market: Market
     ): Result<PagedPlaylist, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getPlaylist(
                 playlistId = playlistId,
-                market = market
+                market = market.toNetwork()
             ).toResult { it.toDomain() }
         }
     }
@@ -60,16 +64,15 @@ internal class PlaylistRepositoryImpl(
 
     override suspend fun getPlaylistTracks(
         playlistId: String,
-        market: String?,
-        limit: Int?,
-        offset: Int?
+        market: Market,
+        pageable: OffsetPageable
     ): Result<Page<PlaylistEntry>, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getPlaylistTracks(
                 playlistId = playlistId,
-                market = market,
-                limit = limit,
-                offset = offset
+                market = market.toNetwork(),
+                limit = pageable.limit,
+                offset = pageable.offset
             ).toResult { page -> page.toDomain { it.toDomain() } }
         }
     }
@@ -77,7 +80,7 @@ internal class PlaylistRepositoryImpl(
     override suspend fun replaceAll(
         playlistId: String,
         newItemIds: List<String>,
-        playlistVersion: PlaylistVersion?
+        playlistVersion: PlaylistVersion
     ): Result<PlaylistVersion, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
@@ -97,7 +100,7 @@ internal class PlaylistRepositoryImpl(
         fromIndex: Int,
         length: Int,
         toIndex: Int,
-        playlistVersion: PlaylistVersion?
+        playlistVersion: PlaylistVersion
     ): Result<PlaylistVersion, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
@@ -117,7 +120,7 @@ internal class PlaylistRepositoryImpl(
     override suspend fun addTracksToPlaylist(
         playlistId: String,
         trackIds: List<String>,
-        position: Int?
+        position: InsertPosition
     ): Result<PlaylistVersion, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
@@ -125,7 +128,7 @@ internal class PlaylistRepositoryImpl(
                     playlistId = playlistId,
                     additions = TrackAdditions.fromDomain(
                         ids = trackIds,
-                        position = position
+                        position = if (position is InsertPosition.At) position.index else null
                     )
                 ).toResult { it.toDomain() }
             }.await()
@@ -135,7 +138,7 @@ internal class PlaylistRepositoryImpl(
     override suspend fun removePlaylistTracks(
         playlistId: String,
         trackIds: List<String>,
-        playlistVersion: PlaylistVersion?
+        playlistVersion: PlaylistVersion
     ): Result<PlaylistVersion, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
@@ -148,27 +151,25 @@ internal class PlaylistRepositoryImpl(
     }
 
     override suspend fun getCurrentUserPlaylists(
-        limit: Int?,
-        offset: Int?
+        pageable: OffsetPageable
     ): Result<Page<SimplifiedPlaylist>, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getCurrentUserPlaylists(
-                limit = limit,
-                offset = offset
+                limit = pageable.limit,
+                offset = pageable.offset
             ).toResult { page -> page.toDomain { it.toDomain() } }
         }
     }
 
     override suspend fun getUserPlaylists(
         userId: String,
-        limit: Int?,
-        offset: Int?
+        pageable: OffsetPageable
     ): Result<Page<Playlist>, AppError> {
         return withContext(dispatchers.io) {
             remoteDataSource.getUserPlaylists(
                 userId = userId,
-                limit = limit,
-                offset = offset
+                limit = pageable.limit,
+                offset = pageable.offset
             ).toResult { page -> page.toDomain { it.toDomain() } }
         }
     }
