@@ -24,7 +24,7 @@ internal class ArtistRemoteDataSourceTest {
     @BeforeTest
     fun setUp() {
         api = mockk(relaxed = true)
-        dataSource = ArtistRemoteDataSource(api)
+        dataSource = ArtistRemoteDataSourceImpl(api)
     }
 
     @Test
