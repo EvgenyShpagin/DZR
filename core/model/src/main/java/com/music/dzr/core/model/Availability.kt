@@ -12,10 +12,6 @@ sealed interface TrackAvailability : Availability
 
 /**
  * Closed hierarchy of all availability states.
- *
- * When matching by type:
- * - Variables of type [AlbumAvailability] must handle [Available] and [Restricted].
- * - Variables of type [TrackAvailability] must handle [Available], [Restricted], [Relinked], and [Local].
  */
 sealed interface Availability {
 
