@@ -32,6 +32,13 @@ sealed interface Availability {
     ) : Availability, AlbumAvailability, TrackAvailability
 
     /**
+     * The availability is unresolved for the current context.
+     *
+     * Typically used when a market is not specified (or user context is unknown).
+     */
+    data object Unknown : Availability, AlbumAvailability, TrackAvailability
+
+    /**
      * The requested track has been relinked for the target market to another track with [linkedFromId].
      */
     data class Relinked(
