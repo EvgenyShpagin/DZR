@@ -10,6 +10,7 @@ package com.music.dzr.core.model
  */
 interface AudioContent {
     val id: String
+    val availability: Availability
 
     companion object {
         /**
@@ -18,6 +19,7 @@ interface AudioContent {
          */
         val Unknown = object : AudioContent {
             override val id = "unknown"
+            override val availability = Availability.Restricted(ContentRestriction.PRODUCT)
         }
     }
 }
