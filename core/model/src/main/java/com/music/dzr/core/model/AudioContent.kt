@@ -19,7 +19,7 @@ interface AudioContent {
          */
         val Unknown = object : AudioContent {
             override val id = "unknown"
-            override val availability = Availability.Restricted(ContentRestriction.PRODUCT)
+            override val availability = Availability.Unknown
         }
     }
 }
