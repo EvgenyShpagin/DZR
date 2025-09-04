@@ -7,16 +7,14 @@ import kotlin.time.Duration
  */
 data class DetailedTrack(
     override val id: String,
+    override val availability: TrackAvailability,
     override val name: String,
     override val artists: List<SimplifiedArtist>,
     override val duration: Duration,
     override val trackNumber: Int,
     override val discNumber: Int,
     override val isExplicit: Boolean,
-    override val isPlayable: Boolean,
-    override val isLocal: Boolean,
-    override val externalUrl: String,
-    override val restriction: ContentRestriction?,
+    override val externalUrl: String?,
     val album: AlbumOnTrack,
     val popularity: PopularityLevel,
     val externalIds: ExternalIdentifiers
