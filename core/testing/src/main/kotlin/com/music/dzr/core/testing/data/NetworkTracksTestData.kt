@@ -68,7 +68,8 @@ val networkDetailedTracksTestData: List<Track> = listOf(
             externalIds = null,
             genres = null,
             label = null,
-            popularity = null
+            popularity = null,
+            isPlayable = true
         ),
         availableMarkets = listOf("US", "GB", "DE"),
         discNumber = 1,
@@ -146,7 +147,8 @@ val networkDetailedTracksTestData: List<Track> = listOf(
             externalIds = null,
             genres = null,
             label = null,
-            popularity = null
+            popularity = null,
+            isPlayable = true
         ),
         availableMarkets = listOf("US", "GB", "CA"),
         discNumber = 1,
@@ -224,7 +226,8 @@ val networkDetailedTracksTestData: List<Track> = listOf(
             externalIds = null,
             genres = null,
             label = null,
-            popularity = null
+            popularity = null,
+            isPlayable = true
         ),
         availableMarkets = listOf("US", "GB", "JP"),
         discNumber = 1,
@@ -306,7 +309,8 @@ val networkDetailedTracksTestData: List<Track> = listOf(
             externalIds = null,
             genres = null,
             label = null,
-            popularity = null
+            popularity = null,
+            isPlayable = true
         ),
         availableMarkets = listOf("US", "GB", "DE"),
         discNumber = 1,
@@ -388,7 +392,8 @@ val networkDetailedTracksTestData: List<Track> = listOf(
             externalIds = null,
             genres = null,
             label = null,
-            popularity = null
+            popularity = null,
+            isPlayable = true
         ),
         availableMarkets = listOf("US", "GB", "CA"),
         discNumber = 1,

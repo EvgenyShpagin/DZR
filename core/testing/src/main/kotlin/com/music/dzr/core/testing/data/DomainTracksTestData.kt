@@ -1,9 +1,9 @@
 package com.music.dzr.core.testing.data
 
 import com.music.dzr.core.model.AlbumOnTrack
+import com.music.dzr.core.model.Availability
 import com.music.dzr.core.model.ExternalIdentifiers
 import com.music.dzr.core.model.Image
-import com.music.dzr.core.model.Market
 import com.music.dzr.core.model.PopularityLevel
 import com.music.dzr.core.model.ReleaseDate
 import com.music.dzr.core.model.ReleaseType
@@ -26,12 +26,11 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
         trackNumber = 1,
         discNumber = 1,
         isExplicit = false,
-        isPlayable = true,
-        isLocal = false,
+        availability = Availability.Available,
         externalUrl = "https://open.spotify.com/track/3z8h0TU7ReDPLIbEnYhWZb",
-        restriction = null,
         album = AlbumOnTrack(
             id = "album_1",
+            availability = Availability.Available,
             name = "A Night at the Opera",
             releaseType = ReleaseType.ALBUM,
             totalTracks = 12,
@@ -43,7 +42,6 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
                 )
             ),
             releaseDate = ReleaseDate(year = 1975, month = 11, day = 21),
-            availableMarkets = listOf(Market("US"), Market("GB"), Market("DE")),
             externalUrl = "https://open.spotify.com/album/1GbtB4nxMcyF2VSqfAD0l8",
             artists = listOf(
                 SimplifiedArtist(
@@ -52,7 +50,6 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
                     externalUrl = "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
                 )
             ),
-            restriction = null
         ),
         popularity = PopularityLevel.VERY_HIGH,
         externalIds = ExternalIdentifiers(
@@ -64,6 +61,7 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
 
     DomainDetailedTrack(
         id = "track_2",
+        availability = Availability.Available,
         name = "Hotel California",
         artists = listOf(
             SimplifiedArtist(
@@ -76,12 +74,10 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
         trackNumber = 1,
         discNumber = 1,
         isExplicit = false,
-        isPlayable = true,
-        isLocal = false,
         externalUrl = "https://open.spotify.com/track/40riOyOyWxJjGm1hYqaqqq",
-        restriction = null,
         album = AlbumOnTrack(
             id = "album_2",
+            availability = Availability.Available,
             name = "Hotel California",
             releaseType = ReleaseType.ALBUM,
             totalTracks = 9,
@@ -93,7 +89,6 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
                 )
             ),
             releaseDate = ReleaseDate(year = 1976, month = 12, day = 8),
-            availableMarkets = listOf(Market("US"), Market("GB"), Market("CA")),
             externalUrl = "https://open.spotify.com/album/2o7KjiY6AhGOwtQeRzuaing",
             artists = listOf(
                 SimplifiedArtist(
@@ -102,7 +97,6 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
                     externalUrl = "https://open.spotify.com/artist/0ECwFtbIWE7340Sf1q7ZmD"
                 )
             ),
-            restriction = null
         ),
         popularity = PopularityLevel.VERY_HIGH,
         externalIds = ExternalIdentifiers(
@@ -114,6 +108,7 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
 
     DomainDetailedTrack(
         id = "track_3",
+        availability = Availability.Available,
         name = "Imagine",
         artists = listOf(
             SimplifiedArtist(
@@ -126,12 +121,10 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
         trackNumber = 1,
         discNumber = 1,
         isExplicit = false,
-        isPlayable = true,
-        isLocal = false,
         externalUrl = "https://open.spotify.com/track/7pKfPomDEeI4TPT6EOYjn9",
-        restriction = null,
         album = AlbumOnTrack(
             id = "album_3",
+            availability = Availability.Available,
             name = "Imagine",
             releaseType = ReleaseType.ALBUM,
             totalTracks = 10,
@@ -143,7 +136,6 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
                 )
             ),
             releaseDate = ReleaseDate(year = 1971, month = 9, day = 9),
-            availableMarkets = listOf(Market("US"), Market("GB"), Market("JP")),
             externalUrl = "https://open.spotify.com/album/0XRFSzImai4hJDCLVLgrf6",
             artists = listOf(
                 SimplifiedArtist(
@@ -152,7 +144,6 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
                     externalUrl = "https://open.spotify.com/artist/4F4M0JqG0eLmby9TIpoRqa"
                 )
             ),
-            restriction = null
         ),
         popularity = PopularityLevel.HIGH,
         externalIds = ExternalIdentifiers(
@@ -164,6 +155,7 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
 
     DomainDetailedTrack(
         id = "track_4",
+        availability = Availability.Available,
         name = "Stairway to Heaven",
         artists = listOf(
             SimplifiedArtist(
@@ -176,12 +168,10 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
         trackNumber = 4,
         discNumber = 1,
         isExplicit = false,
-        isPlayable = true,
-        isLocal = false,
         externalUrl = "https://open.spotify.com/track/5CQ30WqJwcep0pYcV4AMNc",
-        restriction = null,
         album = AlbumOnTrack(
             id = "album_4",
+            availability = Availability.Available,
             name = "Led Zeppelin IV",
             releaseType = ReleaseType.ALBUM,
             totalTracks = 8,
@@ -193,7 +183,6 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
                 )
             ),
             releaseDate = ReleaseDate(year = 1971, month = 11, day = 8),
-            availableMarkets = listOf(Market("US"), Market("GB"), Market("DE")),
             externalUrl = "https://open.spotify.com/album/44Ig8dzqOkvkGDzaUof9lK",
             artists = listOf(
                 SimplifiedArtist(
@@ -202,7 +191,6 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
                     externalUrl = "https://open.spotify.com/artist/36QJpDe2go2KgaRleHCDTp"
                 )
             ),
-            restriction = null
         ),
         popularity = PopularityLevel.VERY_HIGH,
         externalIds = ExternalIdentifiers(
@@ -214,6 +202,7 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
 
     DomainDetailedTrack(
         id = "track_5",
+        availability = Availability.Available,
         name = "Like a Rolling Stone",
         artists = listOf(
             SimplifiedArtist(
@@ -226,12 +215,10 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
         trackNumber = 1,
         discNumber = 1,
         isExplicit = false,
-        isPlayable = true,
-        isLocal = false,
         externalUrl = "https://open.spotify.com/track/3AhXZa8sUQht0UEdBJgpGc",
-        restriction = null,
         album = AlbumOnTrack(
             id = "album_5",
+            availability = Availability.Available,
             name = "Highway 61 Revisited",
             releaseType = ReleaseType.ALBUM,
             totalTracks = 9,
@@ -243,7 +230,6 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
                 )
             ),
             releaseDate = ReleaseDate(year = 1965, month = 8, day = 30),
-            availableMarkets = listOf(Market("US"), Market("GB"), Market("CA")),
             externalUrl = "https://open.spotify.com/album/0vEwmp9ycQz2divuEzbONC",
             artists = listOf(
                 SimplifiedArtist(
@@ -252,7 +238,6 @@ val domainDetailedTracksTestData: List<DomainDetailedTrack> = listOf(
                     externalUrl = "https://open.spotify.com/artist/74ASZWbe4lXaubB36ztrGX"
                 )
             ),
-            restriction = null
         ),
         popularity = PopularityLevel.HIGH,
         externalIds = ExternalIdentifiers(
