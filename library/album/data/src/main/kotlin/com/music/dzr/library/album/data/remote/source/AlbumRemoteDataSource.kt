@@ -12,14 +12,15 @@ import com.music.dzr.library.album.data.remote.dto.SavedAlbum
  * Remote data source for album-related operations.
  * Thin wrapper around [AlbumApi] with convenient method signatures and parameter preparation.
  */
-internal class AlbumRemoteDataSource(private val albumApi: AlbumApi) {
+internal interface AlbumRemoteDataSource {
 
     /**
      * Retrieves detailed information about a single album.
      */
-    suspend fun getAlbum(id: String, market: String? = null): NetworkResponse<Album> {
-        return albumApi.getAlbum(id, market)
-    }
+    suspend fun getAlbum(
+        id: String,
+        market: String? = null
+    ): NetworkResponse<Album>
 
     /**
      * Retrieves detailed information for multiple albums.
@@ -27,10 +28,7 @@ internal class AlbumRemoteDataSource(private val albumApi: AlbumApi) {
     suspend fun getMultipleAlbums(
         ids: List<String>,
         market: String? = null
-    ): NetworkResponse<Albums> {
-        val csv = ids.joinToString(",")
-        return albumApi.getMultipleAlbums(csv, market)
-    }
+    ): NetworkResponse<Albums>
 
     /**
      * Retrieves a paginated list of tracks for a given album.
@@ -40,9 +38,7 @@ internal class AlbumRemoteDataSource(private val albumApi: AlbumApi) {
         market: String? = null,
         limit: Int? = null,
         offset: Int? = null
-    ): NetworkResponse<PaginatedList<AlbumTrack>> {
-        return albumApi.getAlbumTracks(id, market, limit, offset)
-    }
+    ): NetworkResponse<PaginatedList<AlbumTrack>>
 
     /**
      * Retrieves a paginated list of albums saved in the current user’s library.
@@ -51,23 +47,15 @@ internal class AlbumRemoteDataSource(private val albumApi: AlbumApi) {
         limit: Int? = null,
         offset: Int? = null,
         market: String? = null
-    ): NetworkResponse<PaginatedList<SavedAlbum>> {
-        return albumApi.getUserSavedAlbums(limit, offset, market)
-    }
+    ): NetworkResponse<PaginatedList<SavedAlbum>>
 
     /**
      * Save one or more albums to the current user’s library.
      */
-    suspend fun saveAlbumsForUser(ids: List<String>): NetworkResponse<Unit> {
-        val csv = ids.joinToString(",")
-        return albumApi.saveAlbumsForUser(ids = csv)
-    }
+    suspend fun saveAlbumsForUser(ids: List<String>): NetworkResponse<Unit>
 
     /**
      * Remove one or more albums from the current user’s library.
      */
-    suspend fun removeAlbumsForUser(ids: List<String>): NetworkResponse<Unit> {
-        val csv = ids.joinToString(",")
-        return albumApi.removeAlbumsForUser(ids = csv)
-    }
+    suspend fun removeAlbumsForUser(ids: List<String>): NetworkResponse<Unit>
 }

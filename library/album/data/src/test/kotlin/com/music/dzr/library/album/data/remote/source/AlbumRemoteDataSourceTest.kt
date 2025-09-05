@@ -23,7 +23,7 @@ internal class AlbumRemoteDataSourceTest {
     @BeforeTest
     fun setUp() {
         api = mockk(relaxed = true)
-        dataSource = AlbumRemoteDataSource(api)
+        dataSource = AlbumRemoteDataSourceImpl(api)
     }
 
     @Test
