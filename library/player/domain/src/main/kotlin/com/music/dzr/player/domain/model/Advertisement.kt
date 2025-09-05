@@ -1,6 +1,7 @@
 package com.music.dzr.player.domain.model
 
 import com.music.dzr.core.model.AudioContent
+import com.music.dzr.core.model.Availability
 
 /**
  * Represents an advertisement that can be played in the player.
@@ -14,4 +15,6 @@ import com.music.dzr.core.model.AudioContent
  */
 data class Advertisement(
     override val id: String
-) : AudioContent
+) : AudioContent {
+    override val availability = Availability.Available
+}
