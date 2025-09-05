@@ -45,4 +45,6 @@ sealed interface Availability {
      * The track is a local file stored on the user's device. Not streamable from the network.
      */
     data object Local : Availability, TrackAvailability
+
+    companion object
 }
