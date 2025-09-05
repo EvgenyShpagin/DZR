@@ -1,12 +1,12 @@
 package com.music.dzr.library.album.data.remote.dto
 
-import com.music.dzr.core.network.dto.SimplifiedArtist
 import com.music.dzr.core.network.dto.Copyright
 import com.music.dzr.core.network.dto.ExternalIds
 import com.music.dzr.core.network.dto.ExternalUrls
 import com.music.dzr.core.network.dto.Image
 import com.music.dzr.core.network.dto.PaginatedList
 import com.music.dzr.core.network.dto.Restrictions
+import com.music.dzr.core.network.dto.SimplifiedArtist
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -26,6 +26,7 @@ internal data class Album(
     @SerialName("release_date") val releaseDate: ReleaseDate,
     @SerialName("release_date_precision") val releaseDatePrecision: ReleaseDatePrecision,
     val restrictions: Restrictions? = null,
+    val isPlayable: Boolean? = null,
     val type: String,
     val uri: String,
     val artists: List<SimplifiedArtist>,
