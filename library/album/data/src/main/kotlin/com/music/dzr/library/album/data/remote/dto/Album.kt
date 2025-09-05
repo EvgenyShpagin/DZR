@@ -1,10 +1,13 @@
 package com.music.dzr.library.album.data.remote.dto
 
+import com.music.dzr.core.network.dto.AlbumType
 import com.music.dzr.core.network.dto.Copyright
 import com.music.dzr.core.network.dto.ExternalIds
 import com.music.dzr.core.network.dto.ExternalUrls
 import com.music.dzr.core.network.dto.Image
 import com.music.dzr.core.network.dto.PaginatedList
+import com.music.dzr.core.network.dto.ReleaseDate
+import com.music.dzr.core.network.dto.ReleaseDatePrecision
 import com.music.dzr.core.network.dto.Restrictions
 import com.music.dzr.core.network.dto.SimplifiedArtist
 import kotlinx.serialization.SerialName
