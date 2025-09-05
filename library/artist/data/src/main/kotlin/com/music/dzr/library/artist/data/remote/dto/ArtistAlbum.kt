@@ -18,7 +18,6 @@ import kotlinx.serialization.Serializable
 internal data class ArtistAlbum(
     @SerialName("album_type") val albumType: AlbumType,
     @SerialName("total_tracks") val totalTracks: Int,
-    @SerialName("available_markets") val availableMarkets: List<String>,
     @SerialName("external_urls") val externalUrls: ExternalUrls,
     val href: String,
     val id: String,
@@ -26,6 +25,8 @@ internal data class ArtistAlbum(
     val name: String,
     @SerialName("release_date") val releaseDate: ReleaseDate,
     @SerialName("release_date_precision") val releaseDatePrecision: ReleaseDatePrecision,
+    @SerialName("available_markets") val availableMarkets: List<String>? = null,
+    @SerialName("is_playable") val isPlayable: Boolean? = null,
     val restrictions: Restrictions? = null,
     val type: String,
     val uri: String,
