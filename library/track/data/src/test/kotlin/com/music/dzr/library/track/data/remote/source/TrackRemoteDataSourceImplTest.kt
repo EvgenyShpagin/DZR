@@ -32,6 +32,7 @@ class TrackRemoteDataSourceImplTest {
         val market = "US"
         val expected = NetworkResponse(data = mockk<Tracks>())
         coEvery { api.getMultipleTracks(ids = "1,2,3", market = market) } returns expected
+        coEvery { expected.data!!.list } returns emptyList()
 
         // Act
         dataSource.getMultipleTracks(ids = ids, market = market)
