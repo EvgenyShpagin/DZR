@@ -27,12 +27,6 @@ internal val httpClientModule = module {
         TokenAuthenticator(tokenRepository = get())
     }
 
-    single(AuthClientQualifier) {
-        OkHttpClient.Builder()
-            .addInterceptor(get<HttpLoggingInterceptor>())
-            .build()
-    }
-
     single(ApiClientQualifier) {
         OkHttpClient.Builder()
             .authenticator(get<Authenticator>())
@@ -41,4 +35,4 @@ internal val httpClientModule = module {
             .addNetworkInterceptor(get<RateLimitInterceptor>())
             .build()
     }
-} 
+}

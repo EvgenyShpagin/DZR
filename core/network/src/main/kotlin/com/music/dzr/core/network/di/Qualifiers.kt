@@ -5,7 +5,6 @@ import org.koin.core.qualifier.named
 val ApiRetrofitQualifier = named("ApiRetrofit")
 
 internal val ApiClientQualifier = named("ApiOkHttpClient")
-val AuthClientQualifier = named("AuthOkHttpClient")
 
 // AuthInterceptor is provided by another Koin module
 val AuthInterceptorQualifier = named("AuthInterceptor")
