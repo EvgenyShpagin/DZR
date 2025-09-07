@@ -2,16 +2,13 @@ package com.music.dzr.core.network.di
 
 import org.koin.core.qualifier.named
 
-val ApiRetrofitQualifier = named("ApiRetrofit")
-
 internal val ApiClientQualifier = named("ApiOkHttpClient")
 
-// AuthInterceptor is provided by another Koin module
-val AuthInterceptorQualifier = named("AuthInterceptor")
-
-// Authenticator is provided by another Koin module
-val AuthenticatorQualifier = named("Authenticator")
-
+// Public qualifiers (for consumers of core:network)
+val ApiRetrofitQualifier = named("ApiRetrofit")
 val JsonConverterFactoryQualifier = named("JsonConverterFactory")
-internal val UrlParamConverterFactoryQualifier = named("UrlParamConverterFactory")
 val NetworkResponseCallAdapterFactoryQualifier = named("NetworkResponseCallAdapterFactory")
+
+// Qualifiers expected to be provided by external modules (e.g., core:auth)
+val AuthInterceptorQualifier = named("AuthInterceptor")
+val AuthenticatorQualifier = named("Authenticator")
