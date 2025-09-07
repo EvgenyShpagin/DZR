@@ -6,13 +6,9 @@ import com.music.dzr.core.network.retrofit.NetworkResponseCallAdapterFactory
 import com.music.dzr.core.network.retrofit.UrlParameterConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
-
-private val JsonConverterFactoryQualifier = named("JsonConverterFactory")
-private val UrlParamConverterFactoryQualifier = named("UrlParamConverterFactory")
 
 internal val retrofitModule = module {
 
@@ -20,7 +16,9 @@ internal val retrofitModule = module {
 
     single { NetworkErrorResponseParser(get()) }
 
-    single { NetworkResponseCallAdapterFactory(get()) }
+    single(NetworkResponseCallAdapterFactoryQualifier) {
+        NetworkResponseCallAdapterFactory(get())
+    }
 
     single(JsonConverterFactoryQualifier) {
         get<Json>().asConverterFactory("application/json".toMediaType())
@@ -30,22 +28,13 @@ internal val retrofitModule = module {
         UrlParameterConverterFactory()
     }
 
-    single(AuthRetrofitQualifier) {
-        Retrofit.Builder()
-            .baseUrl(BuildConfig.SPOTIFY_ACCOUNTS_URL)
-            .client(get(AuthClientQualifier))
-            .addConverterFactory(get(JsonConverterFactoryQualifier))
-            .addCallAdapterFactory(get<NetworkResponseCallAdapterFactory>())
-            .build()
-    }
-
     single(ApiRetrofitQualifier) {
         Retrofit.Builder()
             .baseUrl(BuildConfig.SPOTIFY_API_URL)
             .client(get(ApiClientQualifier))
             .addConverterFactory(get(UrlParamConverterFactoryQualifier))
             .addConverterFactory(get(JsonConverterFactoryQualifier))
-            .addCallAdapterFactory(get<NetworkResponseCallAdapterFactory>())
+            .addCallAdapterFactory(get(NetworkResponseCallAdapterFactoryQualifier))
             .build()
     }
 }
