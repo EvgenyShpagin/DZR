@@ -7,11 +7,7 @@ import com.music.dzr.core.network.http.TokenAuthenticator
 import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
-
-internal const val API_CLIENT = "ApiOkHttpClient"
-internal const val AUTH_CLIENT = "AuthOkHttpClient"
 
 internal val httpClientModule = module {
 
@@ -33,13 +29,13 @@ internal val httpClientModule = module {
         TokenAuthenticator(tokenRepository = get())
     }
 
-    single(named(AUTH_CLIENT)) {
+    single(AuthClientQualifier) {
         OkHttpClient.Builder()
             .addInterceptor(get<HttpLoggingInterceptor>())
             .build()
     }
 
-    single(named(API_CLIENT)) {
+    single(ApiClientQualifier) {
         OkHttpClient.Builder()
             .authenticator(get<Authenticator>())
             .addInterceptor(get<AuthInterceptor>())
