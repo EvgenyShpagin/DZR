@@ -9,6 +9,9 @@ internal val ApiClientQualifier = named("ApiOkHttpClient")
 // AuthInterceptor is provided by another Koin module
 val AuthInterceptorQualifier = named("AuthInterceptor")
 
+// Authenticator is provided by another Koin module
+val AuthenticatorQualifier = named("Authenticator")
+
 val JsonConverterFactoryQualifier = named("JsonConverterFactory")
 internal val UrlParamConverterFactoryQualifier = named("UrlParamConverterFactory")
 val NetworkResponseCallAdapterFactoryQualifier = named("NetworkResponseCallAdapterFactory")

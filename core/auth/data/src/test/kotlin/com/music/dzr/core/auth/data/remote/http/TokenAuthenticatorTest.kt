@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.http
+package com.music.dzr.core.auth.data.remote.http
 
 import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
@@ -6,6 +6,7 @@ import com.music.dzr.core.auth.domain.util.getAccessToken
 import com.music.dzr.core.auth.domain.util.getRefreshToken
 import com.music.dzr.core.testing.repository.FakeTokenRepository
 import kotlinx.coroutines.test.runTest
+import okhttp3.Protocol
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
@@ -110,7 +111,7 @@ class TokenAuthenticatorTest {
         // New tokens which shouldn't be used
         tokenRepository.refreshShouldSucceed = true
         tokenRepository.tokenAfterRefresh =
-            FakeTokenRepository.NonNullAuthToken.copy(accessToken = "will_not_be_used")
+            FakeTokenRepository.Companion.NonNullAuthToken.copy(accessToken = "will_not_be_used")
         // The imitation of updating the token in another thread
         tokenRepository.setTokens(refreshedToken, "any_refresh_token")
 
@@ -130,7 +131,7 @@ class TokenAuthenticatorTest {
             .build()
         return Response.Builder()
             .request(request)
-            .protocol(okhttp3.Protocol.HTTP_1_1)
+            .protocol(Protocol.HTTP_1_1)
             .code(401)
             .message("Unauthorized")
             .build()

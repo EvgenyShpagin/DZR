@@ -11,7 +11,7 @@ import okhttp3.Response
  *
  * This interceptor is responsible for adding the "Authorization: Bearer <token>" header
  * to all outgoing requests.
- * The actual handling of 401 Unauthorized responses is done by [com.music.dzr.core.network.http.TokenAuthenticator].
+ * The actual handling of 401 Unauthorized responses is done by [TokenAuthenticator].
  *
  * @param tokenRepository A repository for getting the access token.
  */

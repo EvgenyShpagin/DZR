@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.http
+package com.music.dzr.core.auth.data.remote.http
 
 import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
 import com.music.dzr.core.auth.domain.util.getAccessToken
@@ -48,4 +48,4 @@ internal class TokenAuthenticator(
                 .build()
         }
     }
-} 
+}

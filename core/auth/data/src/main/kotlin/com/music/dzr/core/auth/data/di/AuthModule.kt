@@ -1,8 +1,10 @@
 package com.music.dzr.core.auth.data.di
 
 import com.music.dzr.core.auth.data.remote.http.AuthInterceptor
+import com.music.dzr.core.auth.data.remote.http.TokenAuthenticator
 import com.music.dzr.core.network.BuildConfig
 import com.music.dzr.core.network.di.AuthInterceptorQualifier
+import com.music.dzr.core.network.di.AuthenticatorQualifier
 import com.music.dzr.core.network.di.JsonConverterFactoryQualifier
 import com.music.dzr.core.network.di.NetworkResponseCallAdapterFactoryQualifier
 import okhttp3.OkHttpClient
@@ -21,6 +23,10 @@ val authModule = module {
         OkHttpClient.Builder()
             .addInterceptor(get<HttpLoggingInterceptor>())
             .build()
+    }
+
+    single(AuthenticatorQualifier) {
+        TokenAuthenticator(tokenRepository = get())
     }
 
     single(AuthRetrofitQualifier) {
