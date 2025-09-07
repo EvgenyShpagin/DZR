@@ -10,5 +10,5 @@ internal val ApiClientQualifier = named("ApiOkHttpClient")
 val AuthInterceptorQualifier = named("AuthInterceptor")
 
 val JsonConverterFactoryQualifier = named("JsonConverterFactory")
-val UrlParamConverterFactoryQualifier = named("UrlParamConverterFactory")
+internal val UrlParamConverterFactoryQualifier = named("UrlParamConverterFactory")
 val NetworkResponseCallAdapterFactoryQualifier = named("NetworkResponseCallAdapterFactory")
