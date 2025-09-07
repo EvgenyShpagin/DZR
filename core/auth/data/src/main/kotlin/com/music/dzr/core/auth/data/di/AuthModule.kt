@@ -39,5 +39,10 @@ val authModule = module {
             .build()
     }
 
-    single { AuthorizationUrlBuilder(BuildConfig.SPOTIFY_CLIENT_ID) }
+    single {
+        AuthorizationUrlBuilder(
+            clientId = BuildConfig.SPOTIFY_CLIENT_ID,
+            authBaseUrl = BuildConfig.SPOTIFY_ACCOUNTS_URL,
+        )
+    }
 }

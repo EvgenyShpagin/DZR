@@ -1,6 +1,5 @@
 package com.music.dzr.core.auth.data.remote.oauth
 
-import com.music.dzr.core.network.BuildConfig
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import java.net.URL
 import kotlin.test.Test
@@ -14,12 +13,13 @@ class AuthorizationUrlBuilderTest {
     private val state = "a_random_state_string_for_security"
     private val codeChallenge = "a_pkce_generated_code_challenge"
 
-    private val urlBuilder = AuthorizationUrlBuilder(clientId)
+    private val authBaseUrl = "https://accounts.spotify.com/"
+    private val urlBuilder = AuthorizationUrlBuilder(clientId, authBaseUrl)
 
     @Test
     fun build_constructsCorrectUrl() {
         // Arrange
-        val baseUrl = URL(BuildConfig.SPOTIFY_ACCOUNTS_URL)
+        val baseUrl = URL(authBaseUrl)
 
         // Act
         val urlString = urlBuilder.build(

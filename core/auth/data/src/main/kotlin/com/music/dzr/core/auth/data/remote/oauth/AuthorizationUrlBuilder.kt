@@ -1,6 +1,5 @@
 package com.music.dzr.core.auth.data.remote.oauth
 
-import com.music.dzr.core.network.BuildConfig
 import okhttp3.HttpUrl.Companion.toHttpUrl
 
 /**
@@ -15,10 +14,9 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
  * The [clientId] is provided via DI and is encapsulated within this class.
  */
 class AuthorizationUrlBuilder(
-    private val clientId: String
+    private val clientId: String,
+    private val authBaseUrl: String
 ) {
-
-    private val authUrl = "${BuildConfig.SPOTIFY_ACCOUNTS_URL}authorize"
     private val responseType = "code"
     private val codeChallengeMethod = "S256"
 
@@ -45,8 +43,9 @@ class AuthorizationUrlBuilder(
         state: String,
         codeChallenge: String
     ): String {
-        return authUrl.toHttpUrl()
+        return authBaseUrl.toHttpUrl()
             .newBuilder()
+            .addPathSegment("authorize")
             .addQueryParameter("response_type", responseType)
             .addQueryParameter("client_id", clientId)
             .addQueryParameter("scope", scope)
