@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.http
+package com.music.dzr.core.auth.data.remote.http
 
 import com.music.dzr.core.testing.repository.FakeTokenRepository
 import okhttp3.OkHttpClient

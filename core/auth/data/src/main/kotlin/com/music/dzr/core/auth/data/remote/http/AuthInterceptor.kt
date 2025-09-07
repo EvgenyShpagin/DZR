@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.http
+package com.music.dzr.core.auth.data.remote.http
 
 import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
 import com.music.dzr.core.auth.domain.util.getAccessToken
@@ -6,13 +6,12 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 
-
 /**
  * An Interceptor that adds the Authorization header to Spotify API requests.
  *
  * This interceptor is responsible for adding the "Authorization: Bearer <token>" header
  * to all outgoing requests.
- * The actual handling of 401 Unauthorized responses is done by [TokenAuthenticator].
+ * The actual handling of 401 Unauthorized responses is done by [com.music.dzr.core.network.http.TokenAuthenticator].
  *
  * @param tokenRepository A repository for getting the access token.
  */
@@ -32,4 +31,4 @@ internal class AuthInterceptor(
 
         return chain.proceed(requestWithHeader)
     }
-} 
+}
