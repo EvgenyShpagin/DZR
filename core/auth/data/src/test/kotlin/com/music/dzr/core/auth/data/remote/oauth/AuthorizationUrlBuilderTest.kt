@@ -1,4 +1,4 @@
-package com.music.dzr.core.network.util
+package com.music.dzr.core.auth.data.remote.oauth
 
 import com.music.dzr.core.network.BuildConfig
 import okhttp3.HttpUrl.Companion.toHttpUrl
@@ -46,4 +46,4 @@ class AuthorizationUrlBuilderTest {
         assertEquals("S256", httpUrl.queryParameter("code_challenge_method"))
         assertEquals(codeChallenge, httpUrl.queryParameter("code_challenge"))
     }
-} 
+}
