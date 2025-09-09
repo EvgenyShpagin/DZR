@@ -1,7 +1,7 @@
 package com.music.dzr.core.auth.data.di
 
 import com.music.dzr.core.auth.data.remote.http.AuthInterceptor
-import com.music.dzr.core.auth.data.remote.http.TokenAuthenticator
+import com.music.dzr.core.auth.data.remote.http.AuthTokenAuthenticator
 import com.music.dzr.core.auth.data.remote.oauth.AuthorizationUrlBuilder
 import com.music.dzr.core.network.BuildConfig
 import com.music.dzr.core.network.di.AuthInterceptorQualifier
@@ -27,7 +27,7 @@ val authModule = module {
     }
 
     single(AuthenticatorQualifier) {
-        TokenAuthenticator(tokenRepository = get())
+        AuthTokenAuthenticator(tokenRepository = get())
     }
 
     single(AuthRetrofitQualifier) {

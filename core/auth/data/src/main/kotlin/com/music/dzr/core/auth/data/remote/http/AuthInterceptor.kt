@@ -11,7 +11,7 @@ import okhttp3.Response
  *
  * This interceptor is responsible for adding the "Authorization: Bearer <token>" header
  * to all outgoing requests.
- * The actual handling of 401 Unauthorized responses is done by [TokenAuthenticator].
+ * The actual handling of 401 Unauthorized responses is done by [AuthTokenAuthenticator].
  *
  * @param tokenRepository A repository for getting the access token.
  */

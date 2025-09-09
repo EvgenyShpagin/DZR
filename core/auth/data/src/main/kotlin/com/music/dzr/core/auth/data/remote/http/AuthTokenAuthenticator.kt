@@ -14,7 +14,7 @@ import okhttp3.Route
  *
  * @param tokenRepository A repository to get and update tokens.
  */
-internal class TokenAuthenticator(
+internal class AuthTokenAuthenticator(
     private val tokenRepository: AuthTokenRepository
 ) : Authenticator {
 

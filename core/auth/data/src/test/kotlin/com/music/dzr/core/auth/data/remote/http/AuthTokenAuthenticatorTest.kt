@@ -17,17 +17,17 @@ import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
-class TokenAuthenticatorTest {
+class AuthTokenAuthenticatorTest {
 
     private lateinit var tokenRepository: FakeTokenRepository
-    private lateinit var authenticator: TokenAuthenticator
+    private lateinit var authenticator: AuthTokenAuthenticator
 
     private val mockRoute: Route? = null
 
     @BeforeTest
     fun setUp() {
         tokenRepository = FakeTokenRepository()
-        authenticator = TokenAuthenticator(tokenRepository)
+        authenticator = AuthTokenAuthenticator(tokenRepository)
     }
 
     @Test
