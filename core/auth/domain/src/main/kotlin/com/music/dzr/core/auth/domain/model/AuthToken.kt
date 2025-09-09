@@ -22,7 +22,7 @@ data class AuthToken(
     val tokenType: String,
     val expiresInSeconds: Int,
     val refreshToken: String?,
-    val scopes: List<AuthScope>?,
+    val scopes: List<AuthScope>,
     val expiresAtMillis: Long = calculateExpiryTimeMs(expiresInSeconds)
 ) {
     init {

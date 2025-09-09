@@ -20,7 +20,7 @@ internal data class AuthToken(
     val refreshToken: String,
     @SerialName("expires_in")
     val expiresIn: Int,
-    val scope: String,
+    val scope: String?,
     @SerialName("token_type")
     val tokenType: String
 )
