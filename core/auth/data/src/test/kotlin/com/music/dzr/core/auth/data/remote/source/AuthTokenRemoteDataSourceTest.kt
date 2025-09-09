@@ -11,15 +11,15 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertSame
 
-internal class AuthRemoteDataSourceTest {
+internal class AuthTokenRemoteDataSourceTest {
 
     private lateinit var api: AuthApi
-    private lateinit var dataSource: AuthRemoteDataSource
+    private lateinit var dataSource: AuthTokenRemoteDataSource
 
     @BeforeTest
     fun setUp() {
         api = mockk(relaxed = true)
-        dataSource = AuthRemoteDataSource(api)
+        dataSource = AuthTokenRemoteDataSource(api)
     }
 
     @Test

@@ -8,7 +8,7 @@ import com.music.dzr.core.network.dto.NetworkResponse
  * Remote data source for authentication-related operations.
  * Thin wrapper around [AuthApi] for handling token requests.
  */
-internal class AuthRemoteDataSource(private val authApi: AuthApi) {
+internal class AuthTokenRemoteDataSource(private val authApi: AuthApi) {
 
     /**
      * Exchanges an authorization code for an access token.
