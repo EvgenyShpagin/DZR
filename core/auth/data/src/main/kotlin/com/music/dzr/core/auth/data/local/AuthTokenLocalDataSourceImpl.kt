@@ -50,11 +50,7 @@ internal class AuthTokenLocalDataSourceImpl(
     override suspend fun clearTokens(): Boolean {
         return try {
             dataStore.edit { prefs ->
-                prefs.remove(Keys.ACCESS_TOKEN)
-                prefs.remove(Keys.REFRESH_TOKEN)
-                prefs.remove(Keys.EXPIRES_IN)
-                prefs.remove(Keys.SCOPE)
-                prefs.remove(Keys.TOKEN_TYPE)
+                prefs.clear()
             }
             true
         } catch (_: Exception) {
