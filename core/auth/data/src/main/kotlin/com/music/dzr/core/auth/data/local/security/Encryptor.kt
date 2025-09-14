@@ -1,4 +1,4 @@
-package com.music.dzr.core.auth.data.security
+package com.music.dzr.core.auth.data.local.security
 
 /**
  * Abstraction for encrypting/decrypting short text values to be stored in local storage.

@@ -1,4 +1,4 @@
-package com.music.dzr.core.auth.data.security
+package com.music.dzr.core.auth.data.local.security
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties

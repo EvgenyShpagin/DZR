@@ -1,7 +1,7 @@
 package com.music.dzr.core.auth.data.local.source
 
 import com.music.dzr.core.auth.data.remote.dto.AuthToken
-import com.music.dzr.core.auth.data.security.FakeEncryptor
+import com.music.dzr.core.auth.data.local.security.FakeEncryptor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest

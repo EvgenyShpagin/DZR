@@ -1,4 +1,4 @@
-package com.music.dzr.core.auth.data.security
+package com.music.dzr.core.auth.data.local.security
 
 /**
  * Simple fake Encryptor for unit tests (AAA-friendly, no framework needed)

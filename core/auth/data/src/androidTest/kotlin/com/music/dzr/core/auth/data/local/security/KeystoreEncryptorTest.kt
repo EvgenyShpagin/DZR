@@ -1,6 +1,7 @@
-package com.music.dzr.core.auth.data.security
+package com.music.dzr.core.auth.data.local.security
 
 import android.util.Base64
+import com.music.dzr.core.auth.data.local.security.KeystoreEncryptor
 import kotlin.experimental.xor
 import kotlin.test.Test
 import kotlin.test.assertEquals

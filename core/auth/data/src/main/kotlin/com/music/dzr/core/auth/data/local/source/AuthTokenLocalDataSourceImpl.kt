@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.music.dzr.core.auth.data.remote.dto.AuthToken
-import com.music.dzr.core.auth.data.security.Encryptor
+import com.music.dzr.core.auth.data.local.security.Encryptor
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
