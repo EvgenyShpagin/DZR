@@ -1,4 +1,4 @@
-package com.music.dzr.core.auth.data.local
+package com.music.dzr.core.auth.data.local.source
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

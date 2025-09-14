@@ -1,4 +1,4 @@
-package com.music.dzr.core.auth.data.local
+package com.music.dzr.core.auth.data.local.source
 
 import com.music.dzr.core.auth.data.remote.dto.AuthToken
 import com.music.dzr.core.auth.data.security.FakeEncryptor
