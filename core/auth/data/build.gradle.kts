@@ -9,4 +9,6 @@ android {
 dependencies {
     implementation(projects.core.auth.domain)
     implementation(libs.okhttp.logging)
+    implementation(libs.androidx.datastore.preferences)
+    androidTestImplementation(libs.androidx.junit)
 }
