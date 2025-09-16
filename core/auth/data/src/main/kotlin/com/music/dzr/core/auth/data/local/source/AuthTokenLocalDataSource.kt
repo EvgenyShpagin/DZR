@@ -9,6 +9,13 @@ import com.music.dzr.core.result.Result
  */
 internal interface AuthTokenLocalDataSource {
     /**
+     * Read the stored token payload.
+     *
+     * @return [Result.Success] with token when present or [Result.Failure] with a [AuthStorageError].
+     */
+    suspend fun getToken(): Result<AuthToken, AuthStorageError>
+
+    /**
      * Persist the provided token payload.
      *
      * @param token Network DTO with access token information to be stored.
