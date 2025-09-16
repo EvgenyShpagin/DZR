@@ -28,7 +28,47 @@ internal class AuthTokenLocalDataSourceImpl(
     private val encryptor: Encryptor
 ) : AuthTokenLocalDataSource {
 
-    override suspend fun saveToken(token: AuthToken): Boolean {
+    override suspend fun getToken(): Result<AuthToken, AuthStorageError> {
+        val encryptedToken = try {
+            val prefs = dataStore.data.first()
+            if (!prefs.contains(Keys.ACCESS_TOKEN)) {
+                return Result.Failure(AuthStorageError.NotFound)
+            }
+            AuthToken(
+                accessToken = prefs[Keys.ACCESS_TOKEN]!!,
+                refreshToken = prefs[Keys.REFRESH_TOKEN],
+                expiresIn = prefs[Keys.EXPIRES_IN]!!,
+                scope = prefs[Keys.SCOPE],
+                tokenType = prefs[Keys.TOKEN_TYPE]!!
+            )
+        } catch (exception: Exception) {
+            currentCoroutineContext().ensureActive()
+            return Result.Failure(exception.toReadError())
+        }
+
+        val token = try {
+            encryptedToken.decrypt()
+        } catch (exception: Exception) {
+            currentCoroutineContext().ensureActive()
+            return Result.Failure(exception.toCryptoError())
+        }
+        return Result.Success(token)
+    }
+
+    private fun Throwable.toReadError(): AuthStorageError = when (this) {
+        is IOException, is IllegalStateException -> AuthStorageError.ReadFailed(this)
+        is NullPointerException -> AuthStorageError.DataCorrupted(null)
+        else -> AuthStorageError.Unknown(this)
+    }
+
+    override suspend fun saveToken(token: AuthToken): Result<Unit, AuthStorageError> {
+        val encryptedToken = try {
+            token.encrypt()
+        } catch (exception: Exception) {
+            currentCoroutineContext().ensureActive()
+            return Result.Failure(exception.toCryptoError())
+        }
+
         return try {
             dataStore.edit { prefs ->
                 prefs[Keys.ACCESS_TOKEN] = encryptedToken.accessToken
