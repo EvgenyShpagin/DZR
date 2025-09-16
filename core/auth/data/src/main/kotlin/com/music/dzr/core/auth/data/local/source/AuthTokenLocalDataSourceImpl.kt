@@ -1,14 +1,22 @@
 package com.music.dzr.core.auth.data.local.source
 
+import android.security.keystore.KeyPermanentlyInvalidatedException
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.music.dzr.core.auth.data.remote.dto.AuthToken
+import com.music.dzr.core.auth.data.local.error.AuthStorageError
 import com.music.dzr.core.auth.data.local.security.Encryptor
+import com.music.dzr.core.auth.data.remote.dto.AuthToken
+import com.music.dzr.core.result.Result
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
+import java.io.IOException
+import java.security.GeneralSecurityException
+import javax.crypto.AEADBadTagException
+import javax.crypto.BadPaddingException
 
 /**
  * Local storage for OAuth tokens backed by Preferences DataStore with AES/GCM encryption.
@@ -22,41 +30,65 @@ internal class AuthTokenLocalDataSourceImpl(
 
     override suspend fun saveToken(token: AuthToken): Boolean {
         return try {
-            val existingRefreshToken = dataStore.data
-                .map { prefs -> prefs[Keys.REFRESH_TOKEN]?.let { encryptor.decrypt(it) } }
-                .first()
-
             dataStore.edit { prefs ->
-                prefs[Keys.ACCESS_TOKEN] = encryptor.encrypt(token.accessToken)
-                // Preserve old refresh token if new one is null
-                val refreshToPersist = token.refreshToken ?: existingRefreshToken
-                if (refreshToPersist != null) {
-                    prefs[Keys.REFRESH_TOKEN] = encryptor.encrypt(refreshToPersist)
+                prefs[Keys.ACCESS_TOKEN] = encryptedToken.accessToken
+                // Preserve old refresh token if new one is null (reuse encrypted blob)
+                if (encryptedToken.refreshToken != null) {
+                    prefs[Keys.REFRESH_TOKEN] = encryptedToken.refreshToken
                 }
                 prefs[Keys.EXPIRES_IN] = token.expiresIn
-                token.scope?.let { scope ->
-                    prefs[Keys.SCOPE] = encryptor.encrypt(scope)
-                } ?: run {
-                    prefs.remove(Keys.SCOPE)
+                if (encryptedToken.scope != null) {
+                    prefs[Keys.SCOPE] = encryptedToken.scope
+                } else {
+                    prefs -= Keys.SCOPE
                 }
-                prefs[Keys.TOKEN_TYPE] = encryptor.encrypt(token.tokenType)
+                prefs[Keys.TOKEN_TYPE] = encryptedToken.tokenType
             }
-            true
-        } catch (_: Exception) {
-            false
+            Result.Success(Unit)
+        } catch (exception: Exception) {
+            currentCoroutineContext().ensureActive()
+            Result.Failure(exception.toWriteError())
         }
     }
 
-    override suspend fun clearTokens(): Boolean {
+    override suspend fun clearTokens(): Result<Unit, AuthStorageError> {
         return try {
             dataStore.edit { prefs ->
                 prefs.clear()
             }
-            true
-        } catch (_: Exception) {
-            false
+            Result.Success(Unit)
+        } catch (exception: Exception) {
+            currentCoroutineContext().ensureActive()
+            Result.Failure(exception.toWriteError())
         }
     }
+
+    private fun Throwable.toWriteError(): AuthStorageError = when (this) {
+        is IOException, is IllegalStateException -> AuthStorageError.WriteFailed(this)
+        else -> AuthStorageError.Unknown(this)
+    }
+
+    private fun Throwable.toCryptoError(): AuthStorageError = when (this) {
+        is IllegalArgumentException -> AuthStorageError.DataCorrupted(this)
+        is AEADBadTagException, is BadPaddingException -> AuthStorageError.IntegrityCheckFailed(this)
+        is KeyPermanentlyInvalidatedException -> AuthStorageError.KeyInvalidated
+        is GeneralSecurityException, is IllegalStateException -> AuthStorageError.CryptoFailure(this)
+        else -> AuthStorageError.Unknown(this)
+    }
+
+    private fun AuthToken.encrypt(): AuthToken = copy(
+        accessToken = encryptor.encrypt(accessToken),
+        tokenType = encryptor.encrypt(tokenType),
+        scope = scope?.let { encryptor.encrypt(it) },
+        refreshToken = refreshToken?.let { encryptor.encrypt(it) }
+    )
+
+    private fun AuthToken.decrypt(): AuthToken = copy(
+        accessToken = encryptor.decrypt(accessToken),
+        tokenType = encryptor.decrypt(tokenType),
+        scope = scope?.let { encryptor.decrypt(it) },
+        refreshToken = refreshToken?.let { encryptor.decrypt(it) }
+    )
 
     private object Keys {
         val ACCESS_TOKEN = stringPreferencesKey("access_token")
