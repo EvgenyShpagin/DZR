@@ -3,7 +3,6 @@ package com.music.dzr.core.auth.data.di
 import com.music.dzr.core.auth.data.remote.http.AuthInterceptor
 import com.music.dzr.core.auth.data.remote.http.AuthTokenAuthenticator
 import com.music.dzr.core.auth.data.remote.oauth.AuthorizationUrlBuilder
-import com.music.dzr.core.network.BuildConfig
 import com.music.dzr.core.network.di.AuthInterceptorQualifier
 import com.music.dzr.core.network.di.AuthenticatorQualifier
 import com.music.dzr.core.network.di.JsonConverterFactoryQualifier
@@ -13,6 +12,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import com.music.dzr.core.auth.data.BuildConfig as AuthBuildConfig
+import com.music.dzr.core.network.BuildConfig as NetworkBuildConfig
 
 private val AuthRetrofitQualifier = named("AuthRetrofit")
 private val AuthClientQualifier = named("AuthOkHttpClient")
@@ -32,7 +33,7 @@ val authModule = module {
 
     single(AuthRetrofitQualifier) {
         Retrofit.Builder()
-            .baseUrl(BuildConfig.SPOTIFY_ACCOUNTS_URL)
+            .baseUrl(AuthBuildConfig.SPOTIFY_ACCOUNTS_URL)
             .client(get(AuthClientQualifier))
             .addConverterFactory(get(JsonConverterFactoryQualifier))
             .addCallAdapterFactory(get(NetworkResponseCallAdapterFactoryQualifier))
@@ -41,8 +42,8 @@ val authModule = module {
 
     single {
         AuthorizationUrlBuilder(
-            clientId = BuildConfig.SPOTIFY_CLIENT_ID,
-            authBaseUrl = BuildConfig.SPOTIFY_ACCOUNTS_URL,
+            clientId = NetworkBuildConfig.SPOTIFY_CLIENT_ID,
+            authBaseUrl = AuthBuildConfig.SPOTIFY_ACCOUNTS_URL,
         )
     }
 }

@@ -4,6 +4,14 @@ plugins {
 
 android {
     namespace = "com.music.dzr.core.auth.data"
+
+    defaultConfig {
+        buildConfigField("String", "SPOTIFY_ACCOUNTS_URL", "\"https://accounts.spotify.com/\"")
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {

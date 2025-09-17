@@ -10,7 +10,6 @@ android {
 
     defaultConfig {
         buildConfigField("String", "SPOTIFY_API_URL", "\"https://api.spotify.com/v1/\"")
-        buildConfigField("String", "SPOTIFY_ACCOUNTS_URL", "\"https://accounts.spotify.com/\"")
     }
 
     buildTypes {
