@@ -13,7 +13,7 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
  *
  * The [clientId] is provided via DI and is encapsulated within this class.
  */
-class AuthorizationUrlBuilder(
+internal class AuthorizationUrlBuilder(
     private val clientId: String,
     private val authBaseUrl: String
 ) {
