@@ -33,7 +33,7 @@ val authModule = module {
 
     single(AuthRetrofitQualifier) {
         Retrofit.Builder()
-            .baseUrl(AuthBuildConfig.SPOTIFY_ACCOUNTS_URL)
+            .baseUrl(AuthBuildConfig.SPOTIFY_AUTH_BASE_URL)
             .client(get(AuthClientQualifier))
             .addConverterFactory(get(JsonConverterFactoryQualifier))
             .addCallAdapterFactory(get(NetworkResponseCallAdapterFactoryQualifier))
@@ -43,7 +43,7 @@ val authModule = module {
     single {
         AuthorizationUrlBuilder(
             clientId = NetworkBuildConfig.SPOTIFY_CLIENT_ID,
-            authBaseUrl = AuthBuildConfig.SPOTIFY_ACCOUNTS_URL,
+            authBaseUrl = AuthBuildConfig.SPOTIFY_AUTH_BASE_URL,
         )
     }
 }
