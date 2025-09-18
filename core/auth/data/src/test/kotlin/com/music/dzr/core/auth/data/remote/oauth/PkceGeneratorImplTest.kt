@@ -1,13 +1,12 @@
-package com.music.dzr.core.auth.data.pkce
+package com.music.dzr.core.auth.data.remote.oauth
 
-import com.music.dzr.core.auth.data.remote.oauth.PkceGenerator
-import com.music.dzr.core.auth.data.remote.oauth.PkceGeneratorImpl
 import java.security.MessageDigest
 import java.util.Base64
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
+
 
 class PkceGeneratorImplTest {
 
