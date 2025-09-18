@@ -27,19 +27,10 @@ internal class PkceGeneratorImpl : PkceGenerator {
         }
     }
 
-    override fun generateCodeChallenge(
-        verifier: String,
-        method: CodeChallengeMethod
-    ): String {
-        return when (method) {
-            CodeChallengeMethod.S256 -> {
-                val algorithm = MessageDigest.getInstance("SHA-256")
-                val hash = algorithm.digest(verifier.toByteArray(Charsets.US_ASCII))
-                Base64.getUrlEncoder().withoutPadding().encodeToString(hash)
-            }
-
-            CodeChallengeMethod.Plain -> verifier
-        }
+    override fun generateCodeChallenge(verifier: String): String {
+        val algorithm = MessageDigest.getInstance("SHA-256")
+        val hash = algorithm.digest(verifier.toByteArray(Charsets.US_ASCII))
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(hash)
     }
 
     override fun generateState(bytes: Int): String {
