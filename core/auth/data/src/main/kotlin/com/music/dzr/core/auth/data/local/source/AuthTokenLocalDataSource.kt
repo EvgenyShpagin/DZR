@@ -6,13 +6,19 @@ import com.music.dzr.core.data.error.StorageError
 import com.music.dzr.core.result.Result
 
 /**
- * Abstraction for persisting OAuth token payload locally.
+ * Local persistence of OAuth token payload.
+ *
+ * Notes:
+ * - Suspend, non-throwing API.
+ *   Failures: [Result.Failure] with [StorageError] (incl. [AuthStorageError]).
+ * - Writes should be atomic.
  */
 internal interface AuthTokenLocalDataSource {
     /**
      * Read the stored token payload.
      *
-     * @return [Result.Success] with token when present or [Result.Failure] with a [AuthStorageError].
+     * @return [Result.Success] with token when present or [Result.Failure]
+     * with an [AuthStorageError] or base [StorageError].
      */
     suspend fun getToken(): Result<AuthToken, StorageError>
 
@@ -20,14 +26,16 @@ internal interface AuthTokenLocalDataSource {
      * Persist the provided token payload.
      *
      * @param token Network DTO with access token information to be stored.
-     * @return [Result.Success] on success, or [Result.Failure] with a [AuthStorageError] on failure.
+     * @return [Result.Success] on success, or [Result.Failure]
+     * with an [AuthStorageError] or base [StorageError].
      */
     suspend fun saveToken(token: AuthToken): Result<Unit, StorageError>
 
     /**
      * Remove any stored token-related data from the local storage.
      *
-     * @return [Result.Success] on success, or [Result.Failure] with a [AuthStorageError] on failure.
+     * @return [Result.Success] on success, or [Result.Failure]
+     * with an [AuthStorageError] or base [StorageError].
      */
     suspend fun clearTokens(): Result<Unit, StorageError>
 }
