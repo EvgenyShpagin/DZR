@@ -33,10 +33,11 @@ internal class PkceGeneratorImpl : PkceGenerator {
     ): String {
         return when (method) {
             CodeChallengeMethod.S256 -> {
-                val algorithm = MessageDigest.getInstance(method.toDigestAlgorithm())
+                val algorithm = MessageDigest.getInstance("SHA-256")
                 val hash = algorithm.digest(verifier.toByteArray(Charsets.US_ASCII))
                 Base64.getUrlEncoder().withoutPadding().encodeToString(hash)
             }
+
             CodeChallengeMethod.Plain -> verifier
         }
     }
@@ -45,13 +46,6 @@ internal class PkceGeneratorImpl : PkceGenerator {
         val buffer = ByteArray(bytes)
         secureRandom.nextBytes(buffer)
         return Base64.getUrlEncoder().withoutPadding().encodeToString(buffer)
-    }
-
-    private fun CodeChallengeMethod.toDigestAlgorithm(): String {
-        return when (this) {
-            CodeChallengeMethod.S256 -> "SHA-256"
-            else -> throw IllegalArgumentException("$this method is not supported.")
-        }
     }
 
     private companion object {
