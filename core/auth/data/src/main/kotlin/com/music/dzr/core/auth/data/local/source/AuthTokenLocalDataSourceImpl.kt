@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.music.dzr.core.auth.data.local.error.AuthStorageError
 import com.music.dzr.core.auth.data.local.security.Encryptor
 import com.music.dzr.core.auth.data.remote.dto.AuthToken
+import com.music.dzr.core.data.error.StorageError
 import com.music.dzr.core.result.Result
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -28,11 +29,11 @@ internal class AuthTokenLocalDataSourceImpl(
     private val encryptor: Encryptor
 ) : AuthTokenLocalDataSource {
 
-    override suspend fun getToken(): Result<AuthToken, AuthStorageError> {
+    override suspend fun getToken(): Result<AuthToken, StorageError> {
         val encryptedToken = try {
             val prefs = dataStore.data.first()
             if (!prefs.contains(Keys.ACCESS_TOKEN)) {
-                return Result.Failure(AuthStorageError.NotFound)
+                return Result.Failure(StorageError.NotFound)
             }
             AuthToken(
                 accessToken = prefs[Keys.ACCESS_TOKEN]!!,
@@ -55,13 +56,13 @@ internal class AuthTokenLocalDataSourceImpl(
         return Result.Success(token)
     }
 
-    private fun Throwable.toReadError(): AuthStorageError = when (this) {
-        is IOException, is IllegalStateException -> AuthStorageError.ReadFailed(this)
-        is NullPointerException -> AuthStorageError.DataCorrupted(null)
-        else -> AuthStorageError.Unknown(this)
+    private fun Throwable.toReadError(): StorageError = when (this) {
+        is IOException, is IllegalStateException -> StorageError.ReadFailed(this)
+        is NullPointerException -> StorageError.DataCorrupted(null)
+        else -> StorageError.Unknown(this)
     }
 
-    override suspend fun saveToken(token: AuthToken): Result<Unit, AuthStorageError> {
+    override suspend fun saveToken(token: AuthToken): Result<Unit, StorageError> {
         val encryptedToken = try {
             token.encrypt()
         } catch (exception: Exception) {
@@ -91,7 +92,7 @@ internal class AuthTokenLocalDataSourceImpl(
         }
     }
 
-    override suspend fun clearTokens(): Result<Unit, AuthStorageError> {
+    override suspend fun clearTokens(): Result<Unit, StorageError> {
         return try {
             dataStore.edit { prefs ->
                 prefs.clear()
@@ -103,17 +104,17 @@ internal class AuthTokenLocalDataSourceImpl(
         }
     }
 
-    private fun Throwable.toWriteError(): AuthStorageError = when (this) {
-        is IOException, is IllegalStateException -> AuthStorageError.WriteFailed(this)
-        else -> AuthStorageError.Unknown(this)
+    private fun Throwable.toWriteError(): StorageError = when (this) {
+        is IOException, is IllegalStateException -> StorageError.WriteFailed(this)
+        else -> StorageError.Unknown(this)
     }
 
-    private fun Throwable.toCryptoError(): AuthStorageError = when (this) {
-        is IllegalArgumentException -> AuthStorageError.DataCorrupted(this)
+    private fun Throwable.toCryptoError(): StorageError = when (this) {
+        is IllegalArgumentException -> StorageError.DataCorrupted(this)
         is AEADBadTagException, is BadPaddingException -> AuthStorageError.IntegrityCheckFailed(this)
         is KeyPermanentlyInvalidatedException -> AuthStorageError.KeyInvalidated
         is GeneralSecurityException, is IllegalStateException -> AuthStorageError.CryptoFailure(this)
-        else -> AuthStorageError.Unknown(this)
+        else -> StorageError.Unknown(this)
     }
 
     private fun AuthToken.encrypt(): AuthToken = copy(
