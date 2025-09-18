@@ -1,7 +1,8 @@
 package com.music.dzr.core.auth.data.local.source
 
-import com.music.dzr.core.auth.data.remote.dto.AuthToken
 import com.music.dzr.core.auth.data.local.security.FakeEncryptor
+import com.music.dzr.core.auth.data.remote.dto.AuthToken
+import com.music.dzr.core.result.isSuccess
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -45,10 +46,10 @@ class AuthTokenLocalDataSourceImplTest {
         )
 
         // Act
-        val isSaved = dataSource.saveToken(token)
+        val saveResult = dataSource.saveToken(token)
 
         // Assert
-        assertTrue(isSaved)
+        assertTrue(saveResult.isSuccess())
 
         assertEquals(encryptor.encrypt("acc"), dataStore.getAccessToken())
         assertEquals(encryptor.encrypt("ref"), dataStore.getRefreshToken())
@@ -78,10 +79,10 @@ class AuthTokenLocalDataSourceImplTest {
         )
 
         // Act
-        val isSaved = dataSource.saveToken(updated)
+        val saveResult = dataSource.saveToken(updated)
 
         // Assert
-        assertTrue(isSaved)
+        assertTrue(saveResult.isSuccess())
         assertEquals(encryptor.encrypt("acc2"), dataStore.getAccessToken())
         assertEquals(encryptor.encrypt("ref1"), dataStore.getRefreshToken())
         assertEquals(2000, dataStore.getTokenExpiresIn())
@@ -110,10 +111,10 @@ class AuthTokenLocalDataSourceImplTest {
         )
 
         // Act
-        val isSaved = dataSource.saveToken(withoutScope)
+        val saveResult = dataSource.saveToken(withoutScope)
 
         // Assert
-        assertTrue(isSaved)
+        assertTrue(saveResult.isSuccess())
         assertNull(dataStore.getTokenScope()) // removed
         assertEquals(20, dataStore.getTokenExpiresIn())
     }
@@ -131,10 +132,10 @@ class AuthTokenLocalDataSourceImplTest {
         dataSource.saveToken(token)
 
         // Act
-        val isCleared = dataSource.clearTokens()
+        val clearResult = dataSource.clearTokens()
 
         // Assert
-        assertTrue(isCleared)
+        assertTrue(clearResult.isSuccess())
         assertNull(dataStore.getAccessToken())
         assertNull(dataStore.getRefreshToken())
         assertNull(dataStore.getTokenExpiresIn())
@@ -155,9 +156,9 @@ class AuthTokenLocalDataSourceImplTest {
         )
 
         // Act
-        val isSaved = dataSource.saveToken(token)
+        val saveResult = dataSource.saveToken(token)
 
         // Assert
-        assertFalse(isSaved)
+        assertFalse(saveResult.isSuccess())
     }
 }
