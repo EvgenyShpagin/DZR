@@ -8,9 +8,9 @@ import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
 
-class PkceGeneratorImplTest {
+class OAuthSecurityProviderImplTest {
 
-    private val generator: PkceGenerator = PkceGeneratorImpl()
+    private val provider: OAuthSecurityProvider = OAuthSecurityProviderImpl()
 
     @Test
     fun generateCodeVerifier_returnsRequestedLengthAndAllowedCharset() {
@@ -19,7 +19,7 @@ class PkceGeneratorImplTest {
         val allowed = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~".toSet()
 
         // Act
-        val verifier = generator.generateCodeVerifier(length)
+        val verifier = provider.generateCodeVerifier(length)
 
         // Assert
         assertEquals(length, verifier.length)
@@ -33,14 +33,14 @@ class PkceGeneratorImplTest {
         val tooLong = 1024
 
         // Act + Assert
-        assertFailsWith<IllegalArgumentException> { generator.generateCodeVerifier(tooShort) }
-        assertFailsWith<IllegalArgumentException> { generator.generateCodeVerifier(tooLong) }
+        assertFailsWith<IllegalArgumentException> { provider.generateCodeVerifier(tooShort) }
+        assertFailsWith<IllegalArgumentException> { provider.generateCodeVerifier(tooLong) }
     }
 
     @Test
     fun generateCodeChallenge_matchesHashOfVerifier() {
         // Arrange
-        val verifier = generator.generateCodeVerifier(64)
+        val verifier = provider.generateCodeVerifier(64)
         val expected = run {
             val sha256 = MessageDigest.getInstance("SHA-256")
             val hash = sha256.digest(verifier.toByteArray(Charsets.US_ASCII))
@@ -48,7 +48,7 @@ class PkceGeneratorImplTest {
         }
 
         // Act
-        val challenge = generator.generateCodeChallenge(verifier)
+        val challenge = provider.deriveCodeChallengeS256(verifier)
 
         // Assert
         assertEquals(expected, challenge)
@@ -60,7 +60,7 @@ class PkceGeneratorImplTest {
         val bytes = 32
 
         // Act
-        val state = generator.generateState(bytes)
+        val state = provider.generateCsrfState(bytes)
 
         // Assert
         assertTrue(state.isNotBlank())
@@ -77,7 +77,7 @@ class PkceGeneratorImplTest {
         val expectedChallenge = "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM"
 
         // Act
-        val actual = generator.generateCodeChallenge(verifier)
+        val actual = provider.deriveCodeChallengeS256(verifier)
 
         // Assert
         assertEquals(expectedChallenge, actual)

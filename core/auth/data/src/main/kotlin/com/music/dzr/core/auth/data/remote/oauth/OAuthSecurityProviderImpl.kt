@@ -5,12 +5,12 @@ import java.security.SecureRandom
 import java.util.Base64
 
 /**
- * A production-grade implementation of [PkceGenerator] that uses [SecureRandom] for
+ * A production-grade implementation of [OAuthSecurityProvider] that uses [SecureRandom] for
  * cryptographic randomness and [MessageDigest] for hashing.
  *
  * This implementation is thread-safe.
  */
-internal class PkceGeneratorImpl : PkceGenerator {
+internal class OAuthSecurityProviderImpl : OAuthSecurityProvider {
 
     private val secureRandom = SecureRandom()
 
@@ -27,13 +27,13 @@ internal class PkceGeneratorImpl : PkceGenerator {
         }
     }
 
-    override fun generateCodeChallenge(verifier: String): String {
+    override fun deriveCodeChallengeS256(verifier: String): String {
         val algorithm = MessageDigest.getInstance("SHA-256")
         val hash = algorithm.digest(verifier.toByteArray(Charsets.US_ASCII))
         return Base64.getUrlEncoder().withoutPadding().encodeToString(hash)
     }
 
-    override fun generateState(bytes: Int): String {
+    override fun generateCsrfState(bytes: Int): String {
         val buffer = ByteArray(bytes)
         secureRandom.nextBytes(buffer)
         return Base64.getUrlEncoder().withoutPadding().encodeToString(buffer)
