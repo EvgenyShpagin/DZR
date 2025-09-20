@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.dzr.android.library.network.data)
+    alias(libs.plugins.protobuf)
 }
 
 android {
@@ -20,5 +21,6 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore)
+    implementation(libs.protobuf.kotlin.lite)
     androidTestImplementation(libs.androidx.junit)
 }
