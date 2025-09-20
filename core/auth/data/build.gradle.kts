@@ -15,6 +15,12 @@ android {
     }
 }
 
+protobuf {
+    protoc {
+        artifact = libs.protobuf.protoc.get().toString()
+    }
+}
+
 dependencies {
     implementation(projects.core.auth.domain)
     implementation(projects.dzr.core.data)
