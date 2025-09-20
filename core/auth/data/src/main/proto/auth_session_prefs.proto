@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "com.music.dzr.core.auth.data";
+
+message AuthSessionPrefs {
+  string code_verifier = 1;
+  string csrf_state = 2;
+  int64 created_at_millis = 3;
+}

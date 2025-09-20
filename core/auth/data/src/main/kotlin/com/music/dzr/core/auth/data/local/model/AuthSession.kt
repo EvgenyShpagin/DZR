@@ -6,6 +6,9 @@ package com.music.dzr.core.auth.data.local.model
  *
  * This model is persisted so the app can recover from process death between
  * initiating the authorization request and handling the redirect callback.
+ *
+ * Storage:
+ * The fields map to the `auth_session_prefs.proto` schema in `core/auth/data/src/main/proto/`.
  */
 data class AuthSession(
     /**
