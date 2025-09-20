@@ -22,6 +22,7 @@ serialization = "1.9.0"
 kotlinxCoroutines = "1.10.2"
 retrofit = "3.0.0"
 okhttp = "5.1.0"
+protobufPlugin = "0.9.5"
 koin-bom = "4.1.0"
 screenshot = "0.0.1-alpha10"
 secrets = "2.0.1"
@@ -91,6 +92,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot" }
 secrets-gradle = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 # Base Convention Plugins
 dzr-android-application = { id = "dzr.android.application" }
 dzr-android-library = { id = "dzr.android.library" }
