@@ -1,11 +1,23 @@
 syntax = "proto3";
 
-option java_package = "com.music.dzr.core.auth.data";
+option java_package = "com.music.dzr.core.auth.data.local.model";
 option java_outer_classname = "AuthSessionPrefsProto";
 option java_multiple_files = true;
 
+/**
+ * AuthSessionPrefs stores ephemeral PKCE/state values used during OAuth authorization flow.
+ * SECURITY: Fields `code_verifier` and `csrf_state` are secrets and MUST be stored encrypted.
+ * TTL: Consumers should treat sessions older than 10 minutes as expired.
+ *
+ * NOTE: This proto is a storage schema only — do not expose these secrets in logs or telemetry.
+ */
 message AuthSessionPrefs {
+  // PKCE code_verifier (RFC 7636 §4.1) — secret.
   string code_verifier = 1;
+
+  // OAuth2 state (RFC 6749 §10.12) — secret.
   string csrf_state = 2;
+
+  // Creation time in epoch millis; use for TTL/expiration checks.
   int64 created_at_millis = 3;
 }
