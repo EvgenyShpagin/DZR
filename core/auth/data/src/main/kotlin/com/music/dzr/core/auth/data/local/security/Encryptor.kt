@@ -5,5 +5,7 @@ package com.music.dzr.core.auth.data.local.security
  */
 internal interface Encryptor {
     fun encrypt(plainText: String): String
+    fun encrypt(plainBytes: ByteArray): ByteArray
     fun decrypt(cipherText: String): String
+    fun decrypt(cipherBytes: ByteArray): ByteArray
 }
