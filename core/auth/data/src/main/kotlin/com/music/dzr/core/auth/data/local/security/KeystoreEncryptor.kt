@@ -25,9 +25,9 @@ internal class KeystoreEncryptor(private val keyAlias: String) : Encryptor {
         return Base64.encodeToString(payload, Base64.NO_WRAP)
     }
 
-    override fun decrypt(encoded: String): String {
+    override fun decrypt(cipherText: String): String {
         val key = getOrCreateKey()
-        val payload = Base64.decode(encoded, Base64.NO_WRAP)
+        val payload = Base64.decode(cipherText, Base64.NO_WRAP)
         require(payload.size > IV_SIZE) { "Corrupted encrypted payload" }
         val iv = payload.copyOfRange(0, IV_SIZE)
         val cipherText = payload.copyOfRange(IV_SIZE, payload.size)

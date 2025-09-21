@@ -12,8 +12,8 @@ internal class FakeEncryptor : Encryptor {
         return "enc:$plainText"
     }
 
-    override fun decrypt(encoded: String): String {
+    override fun decrypt(cipherText: String): String {
         if (failOnDecrypt) throw RuntimeException("decrypt failed")
-        return encoded.removePrefix("enc:")
+        return cipherText.removePrefix("enc:")
     }
 }
