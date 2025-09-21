@@ -16,26 +16,35 @@ import javax.crypto.spec.GCMParameterSpec
 internal class KeystoreEncryptor(private val keyAlias: String) : Encryptor {
 
     override fun encrypt(plainText: String): String {
+        val plainBytes = plainText.toByteArray(Charsets.UTF_8)
+        val cipherBytes = encrypt(plainBytes)
+        return Base64.encodeToString(cipherBytes, Base64.NO_WRAP)
+    }
+
+    override fun encrypt(plainBytes: ByteArray): ByteArray {
         val key = getOrCreateKey()
         val cipher = Cipher.getInstance(TRANSFORMATION)
         cipher.init(Cipher.ENCRYPT_MODE, key)
         val iv = cipher.iv
-        val cipherText = cipher.doFinal(plainText.toByteArray(Charsets.UTF_8))
-        val payload = iv + cipherText
-        return Base64.encodeToString(payload, Base64.NO_WRAP)
+        val cipherBytes = cipher.doFinal(plainBytes)
+        return iv + cipherBytes
     }
 
     override fun decrypt(cipherText: String): String {
+        val cipherBytes = Base64.decode(cipherText, Base64.NO_WRAP)
+        val plainBytes = decrypt(cipherBytes)
+        return plainBytes.toString(Charsets.UTF_8)
+    }
+
+    override fun decrypt(cipherBytes: ByteArray): ByteArray {
+        require(cipherBytes.size >= IV_SIZE + GCM_TAG_LENGTH_BYTES) { "Corrupted encrypted payload" }
+        val iv = cipherBytes.copyOfRange(0, IV_SIZE)
+        val cipherBytes = cipherBytes.copyOfRange(IV_SIZE, cipherBytes.size)
         val key = getOrCreateKey()
-        val payload = Base64.decode(cipherText, Base64.NO_WRAP)
-        require(payload.size > IV_SIZE) { "Corrupted encrypted payload" }
-        val iv = payload.copyOfRange(0, IV_SIZE)
-        val cipherText = payload.copyOfRange(IV_SIZE, payload.size)
         val cipher = Cipher.getInstance(TRANSFORMATION)
         val spec = GCMParameterSpec(GCM_TAG_LENGTH_BITS, iv)
         cipher.init(Cipher.DECRYPT_MODE, key, spec)
-        val plain = cipher.doFinal(cipherText)
-        return String(plain, Charsets.UTF_8)
+        return cipher.doFinal(cipherBytes)
     }
 
     private fun getOrCreateKey(): SecretKey {
@@ -61,5 +70,6 @@ internal class KeystoreEncryptor(private val keyAlias: String) : Encryptor {
         private const val TRANSFORMATION = "AES/GCM/NoPadding"
         private const val IV_SIZE = 12 // GCM standard IV length
         private const val GCM_TAG_LENGTH_BITS = 128
+        private const val GCM_TAG_LENGTH_BYTES = GCM_TAG_LENGTH_BITS / 8
     }
 }
