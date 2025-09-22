@@ -3,6 +3,7 @@ package com.music.dzr.core.auth.data.local.model
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
 import com.google.protobuf.InvalidProtocolBufferException
+import com.music.dzr.core.auth.data.local.security.Encryptor
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -26,23 +27,30 @@ import java.io.OutputStream
  * - [AuthSession.createdAtMillis]: Epoch milliseconds when this session snapshot
  *   was created. Can be used to enforce an upper lifetime if needed.
  *
- * Note: Although this serializer itself does not perform encryption, it is intended
- * to be used in conjunction with an encrypted DataStore to ensure sensitive fields
- * remain protected at rest.
+ * This serializer uses the provided [encryptor] to encrypt data before writing to disk
+ * and decrypt it when reading. The encryption ensures sensitive OAuth parameters like
+ * code verifiers and CSRF tokens remain protected at rest.
  */
-internal object AuthSessionSerializer : Serializer<AuthSession> {
+internal class AuthSessionSerializer(
+    private val encryptor: Encryptor
+) : Serializer<AuthSession> {
     override val defaultValue: AuthSession = AuthSession.getDefaultInstance()
 
+    // readFrom is already called on the data store background thread
     override suspend fun readFrom(input: InputStream): AuthSession {
         try {
-            return AuthSession.parseFrom(input)
+            val encryptedInput = input.readBytes()
+            val decryptedInput = encryptor.decrypt(encryptedInput)
+            return AuthSession.parseFrom(decryptedInput)
         } catch (exception: InvalidProtocolBufferException) {
             throw CorruptionException("Cannot read proto.", exception)
         }
     }
 
-    override suspend fun writeTo(
-        t: AuthSession,
-        output: OutputStream
-    ) = t.writeTo(output)
+    // writeTo is already called on the data store background thread
+    override suspend fun writeTo(t: AuthSession, output: OutputStream) {
+        val plainBytes = t.toByteArray()
+        val encryptedBytes = encryptor.encrypt(plainBytes)
+        output.write(encryptedBytes)
+    }
 }
