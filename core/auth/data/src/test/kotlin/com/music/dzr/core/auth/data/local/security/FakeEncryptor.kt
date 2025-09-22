@@ -12,8 +12,26 @@ internal class FakeEncryptor : Encryptor {
         return "enc:$plainText"
     }
 
+    override fun encrypt(plainBytes: ByteArray): ByteArray {
+        if (failOnEncrypt) throw RuntimeException("encrypt failed")
+        val prefix = "enc:".toByteArray(Charsets.UTF_8)
+        return prefix + plainBytes
+    }
+
     override fun decrypt(cipherText: String): String {
         if (failOnDecrypt) throw RuntimeException("decrypt failed")
         return cipherText.removePrefix("enc:")
     }
+
+    override fun decrypt(cipherBytes: ByteArray): ByteArray {
+        if (failOnDecrypt) throw RuntimeException("decrypt failed")
+        val prefix = "enc:".toByteArray(Charsets.UTF_8)
+        return if (cipherBytes.startsWith(prefix))
+            cipherBytes.drop(prefix.size).toByteArray()
+        else
+            cipherBytes
+    }
+
+    private fun ByteArray.startsWith(prefix: ByteArray): Boolean =
+        size >= prefix.size && copyOfRange(0, prefix.size).contentEquals(prefix)
 }
