@@ -37,8 +37,8 @@ class AndroidLibraryProtoDataConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
-                implementation(libs.findLibrary("androidx.datastore"))
-                implementation(libs.findLibrary("protobuf.kotlin.lite"))
+                implementation(libs.findLibrary("androidx.datastore").get())
+                implementation(libs.findLibrary("protobuf.kotlin.lite").get())
             }
         }
     }
