@@ -84,6 +84,7 @@ compose-screenshot-gradlePlugin = { module = "com.android.compose.screenshot:com
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 compose-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+protobuf-gradlePlugin = { module = "com.google.protobuf:protobuf-gradle-plugin", version.ref = "protobufPlugin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
