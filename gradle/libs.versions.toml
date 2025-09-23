@@ -110,3 +110,4 @@ dzr-screenshot = { id = "dzr.screenshot" }
 dzr-android-feature = { id = "dzr.android.feature" }
 dzr-android-library-data = { id = "dzr.android.library.data" }
 dzr-android-library-network-data = { id = "dzr.android.library.network.data" }
+dzr-android-library-proto-data = { id = "dzr.android.library.proto.data" }
