@@ -1,9 +1,11 @@
+import com.android.build.gradle.LibraryExtension
 import com.music.dzr.implementation
 import com.music.dzr.libs
 import com.music.dzr.testImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
 /**
@@ -15,6 +17,10 @@ class AndroidLibraryNetworkDataConventionPlugin : Plugin<Project> {
         with(target) {
             apply(plugin = "dzr.android.library.data")
             apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
+
+            extensions.configure<LibraryExtension> {
+                testOptions.unitTests.isIncludeAndroidResources = true
+            }
 
             dependencies {
                 implementation(libs.findLibrary("retrofit.core").get())
