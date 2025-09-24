@@ -21,7 +21,7 @@ internal fun configureGradleManagedDevices(
     // Defines the list of virtual devices to be used for testing.
     val devices = listOf(
         DeviceConfig("Pixel 9", 35, "aosp-atd"),
-        DeviceConfig("Small Phone", 24, "aosp-atd"),
+        DeviceConfig(device = "Pixel 4", apiLevel = 28, systemImageSource = "google"),
     )
 
     commonExtension.testOptions {
@@ -60,4 +60,4 @@ private data class DeviceConfig(
         append(apiLevel.toString())
         append(systemImageSource.replace("-", ""))
     }
-} 
+}
