@@ -1,4 +1,5 @@
 import com.google.protobuf.gradle.ProtobufExtension
+import com.music.dzr.androidTestImplementation
 import com.music.dzr.implementation
 import com.music.dzr.libs
 import org.gradle.api.Plugin
@@ -39,6 +40,11 @@ class AndroidLibraryProtoDataConventionPlugin : Plugin<Project> {
             dependencies {
                 implementation(libs.findLibrary("androidx.datastore").get())
                 implementation(libs.findLibrary("protobuf.kotlin.lite").get())
+
+                androidTestImplementation(project(":core:testing"))
+                androidTestImplementation(libs.findLibrary("junit").get())
+                androidTestImplementation(libs.findLibrary("kotlinx.coroutines.test").get())
+                androidTestImplementation(libs.findLibrary("androidx-test-core-ktx").get())
             }
         }
     }
