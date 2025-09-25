@@ -26,7 +26,7 @@ internal class AuthTokenLocalDataSourceImpl(
     private val encryptor: Encryptor
 ) : AuthTokenLocalDataSource {
 
-    override suspend fun getToken(): Result<AuthToken, StorageError> {
+    override suspend fun get(): Result<AuthToken, StorageError> {
         val encryptedToken = try {
             val prefs = dataStore.data.first()
             if (!prefs.contains(Keys.ACCESS_TOKEN)) {
@@ -53,7 +53,7 @@ internal class AuthTokenLocalDataSourceImpl(
         return Result.Success(token)
     }
 
-    override suspend fun saveToken(token: AuthToken): Result<Unit, StorageError> {
+    override suspend fun save(token: AuthToken): Result<Unit, StorageError> {
         val encryptedToken = try {
             token.encrypt()
         } catch (exception: Exception) {
@@ -83,7 +83,7 @@ internal class AuthTokenLocalDataSourceImpl(
         }
     }
 
-    override suspend fun clearTokens(): Result<Unit, StorageError> {
+    override suspend fun clear(): Result<Unit, StorageError> {
         return try {
             dataStore.edit { prefs ->
                 prefs.clear()

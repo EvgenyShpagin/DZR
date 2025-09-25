@@ -35,7 +35,7 @@ class AuthTokenLocalDataSourceImplTest {
     }
 
     @Test
-    fun saveToken_savesAndEncryptsAllFields() = runTest(testDispatcher) {
+    fun save_savesAndEncryptsAllFields() = runTest(testDispatcher) {
         // Arrange
         val token = AuthToken(
             accessToken = "acc",
@@ -46,7 +46,7 @@ class AuthTokenLocalDataSourceImplTest {
         )
 
         // Act
-        val saveResult = dataSource.saveToken(token)
+        val saveResult = dataSource.save(token)
 
         // Assert
         assertTrue(saveResult.isSuccess())
@@ -59,7 +59,7 @@ class AuthTokenLocalDataSourceImplTest {
     }
 
     @Test
-    fun saveToken_preservesOldRefreshTokenWhenNull() = runTest(testDispatcher) {
+    fun save_preservesOldRefreshTokenWhenNull() = runTest(testDispatcher) {
         // Arrange
         val initial = AuthToken(
             accessToken = "acc1",
@@ -68,7 +68,7 @@ class AuthTokenLocalDataSourceImplTest {
             refreshToken = "ref1",
             scope = null
         )
-        dataSource.saveToken(initial)
+        dataSource.save(initial)
 
         val updated = AuthToken(
             accessToken = "acc2",
@@ -79,7 +79,7 @@ class AuthTokenLocalDataSourceImplTest {
         )
 
         // Act
-        val saveResult = dataSource.saveToken(updated)
+        val saveResult = dataSource.save(updated)
 
         // Assert
         assertTrue(saveResult.isSuccess())
@@ -91,7 +91,7 @@ class AuthTokenLocalDataSourceImplTest {
     }
 
     @Test
-    fun saveToken_removesScopeWhenNull() = runTest(testDispatcher) {
+    fun save_removesScopeWhenNull() = runTest(testDispatcher) {
         // Arrange: set a scope first
         val withScope = AuthToken(
             accessToken = "acc",
@@ -100,7 +100,7 @@ class AuthTokenLocalDataSourceImplTest {
             refreshToken = "ref",
             scope = "prev-scope"
         )
-        dataSource.saveToken(withScope)
+        dataSource.save(withScope)
 
         val withoutScope = AuthToken(
             accessToken = "acc",
@@ -111,7 +111,7 @@ class AuthTokenLocalDataSourceImplTest {
         )
 
         // Act
-        val saveResult = dataSource.saveToken(withoutScope)
+        val saveResult = dataSource.save(withoutScope)
 
         // Assert
         assertTrue(saveResult.isSuccess())
@@ -120,7 +120,7 @@ class AuthTokenLocalDataSourceImplTest {
     }
 
     @Test
-    fun clearTokens_removesAllKeys() = runTest(testDispatcher) {
+    fun clear_removesAllKeys() = runTest(testDispatcher) {
         // Arrange
         val token = AuthToken(
             accessToken = "acc",
@@ -129,10 +129,10 @@ class AuthTokenLocalDataSourceImplTest {
             refreshToken = "ref",
             scope = "sc"
         )
-        dataSource.saveToken(token)
+        dataSource.save(token)
 
         // Act
-        val clearResult = dataSource.clearTokens()
+        val clearResult = dataSource.clear()
 
         // Assert
         assertTrue(clearResult.isSuccess())
@@ -144,7 +144,7 @@ class AuthTokenLocalDataSourceImplTest {
     }
 
     @Test
-    fun saveToken_returnsFalseOnEncryptorException() = runTest(testDispatcher) {
+    fun save_returnsFalseOnEncryptorException() = runTest(testDispatcher) {
         // Arrange
         encryptor.failOnEncrypt = true
         val token = AuthToken(
@@ -156,7 +156,7 @@ class AuthTokenLocalDataSourceImplTest {
         )
 
         // Act
-        val saveResult = dataSource.saveToken(token)
+        val saveResult = dataSource.save(token)
 
         // Assert
         assertFalse(saveResult.isSuccess())

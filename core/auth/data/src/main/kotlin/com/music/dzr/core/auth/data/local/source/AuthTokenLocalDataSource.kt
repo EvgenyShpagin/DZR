@@ -20,7 +20,7 @@ internal interface AuthTokenLocalDataSource {
      * @return [Result.Success] with token when present or [Result.Failure]
      * with an [AuthStorageError] or base [StorageError].
      */
-    suspend fun getToken(): Result<AuthToken, StorageError>
+    suspend fun get(): Result<AuthToken, StorageError>
 
     /**
      * Persist the provided token payload.
@@ -29,7 +29,7 @@ internal interface AuthTokenLocalDataSource {
      * @return [Result.Success] on success, or [Result.Failure]
      * with an [AuthStorageError] or base [StorageError].
      */
-    suspend fun saveToken(token: AuthToken): Result<Unit, StorageError>
+    suspend fun save(token: AuthToken): Result<Unit, StorageError>
 
     /**
      * Remove any stored token-related data from the local storage.
@@ -37,5 +37,5 @@ internal interface AuthTokenLocalDataSource {
      * @return [Result.Success] on success, or [Result.Failure]
      * with an [AuthStorageError] or base [StorageError].
      */
-    suspend fun clearTokens(): Result<Unit, StorageError>
+    suspend fun clear(): Result<Unit, StorageError>
 }
