@@ -20,5 +20,4 @@ dependencies {
     implementation(projects.dzr.core.data)
     implementation(libs.okhttp.logging)
     implementation(libs.androidx.datastore.preferences)
-    androidTestImplementation(libs.androidx.junit)
 }
