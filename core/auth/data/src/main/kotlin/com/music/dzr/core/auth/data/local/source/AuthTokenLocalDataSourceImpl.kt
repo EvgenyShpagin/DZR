@@ -12,8 +12,7 @@ import com.music.dzr.core.auth.data.local.security.Encryptor
 import com.music.dzr.core.auth.data.remote.dto.AuthToken
 import com.music.dzr.core.data.error.StorageError
 import com.music.dzr.core.result.Result
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
 
 /**
@@ -40,14 +39,14 @@ internal class AuthTokenLocalDataSourceImpl(
                 tokenType = prefs[Keys.TOKEN_TYPE]!!
             )
         } catch (exception: Exception) {
-            currentCoroutineContext().ensureActive()
+            if (exception is CancellationException) throw exception
             return Result.Failure(exception.toReadError())
         }
 
         val token = try {
             encryptedToken.decrypt()
         } catch (exception: Exception) {
-            currentCoroutineContext().ensureActive()
+            if (exception is CancellationException) throw exception
             return Result.Failure(exception.toCryptoError())
         }
         return Result.Success(token)
@@ -57,7 +56,7 @@ internal class AuthTokenLocalDataSourceImpl(
         val encryptedToken = try {
             token.encrypt()
         } catch (exception: Exception) {
-            currentCoroutineContext().ensureActive()
+            if (exception is CancellationException) throw exception
             return Result.Failure(exception.toCryptoError())
         }
 
@@ -78,7 +77,7 @@ internal class AuthTokenLocalDataSourceImpl(
             }
             Result.Success(Unit)
         } catch (exception: Exception) {
-            currentCoroutineContext().ensureActive()
+            if (exception is CancellationException) throw exception
             Result.Failure(exception.toWriteError())
         }
     }
@@ -90,7 +89,7 @@ internal class AuthTokenLocalDataSourceImpl(
             }
             Result.Success(Unit)
         } catch (exception: Exception) {
-            currentCoroutineContext().ensureActive()
+            if (exception is CancellationException) throw exception
             Result.Failure(exception.toWriteError())
         }
     }

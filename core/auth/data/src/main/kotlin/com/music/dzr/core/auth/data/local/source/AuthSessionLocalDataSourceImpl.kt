@@ -6,15 +6,14 @@ import com.music.dzr.core.auth.data.local.error.toWriteError
 import com.music.dzr.core.auth.data.local.model.AuthSession
 import com.music.dzr.core.data.error.StorageError
 import com.music.dzr.core.result.Result
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
 
 /**
  * DataStore-backed implementation of [AuthSessionLocalDataSource] with a suspend,
  * non-throwing Result-based API. Performs atomic writes via updateData,
  * maps read/write errors to [StorageError], treats absent data as NotFound,
- * and propagates cancellation via [ensureActive].
+ * and propagates cancellation via rethrow.
  */
 internal class AuthSessionLocalDataSourceImpl(
     private val dataStore: DataStore<AuthSession>,
@@ -25,7 +24,7 @@ internal class AuthSessionLocalDataSourceImpl(
             dataStore.updateData { authSession }
             Result.Success(Unit)
         } catch (exception: Exception) {
-            currentCoroutineContext().ensureActive()
+            if (exception is CancellationException) throw exception
             Result.Failure(exception.toWriteError())
         }
     }
@@ -38,7 +37,7 @@ internal class AuthSessionLocalDataSourceImpl(
             }
             Result.Success(data)
         } catch (exception: Exception) {
-            currentCoroutineContext().ensureActive()
+            if (exception is CancellationException) throw exception
             return Result.Failure(exception.toReadError())
         }
     }
@@ -48,7 +47,7 @@ internal class AuthSessionLocalDataSourceImpl(
             dataStore.updateData { EmptySession }
             Result.Success(Unit)
         } catch (exception: Exception) {
-            currentCoroutineContext().ensureActive()
+            if (exception is CancellationException) throw exception
             Result.Failure(exception.toWriteError())
         }
     }
