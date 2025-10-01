@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_package = "com.music.dzr.core.auth.data.local.model";
+option java_outer_classname = "AuthTokenProto";
+option java_multiple_files = true;
+
+/**
+ * AuthToken defines the storage schema for the OAuth 2.0 token response.
+ * The application persists these values locally to enable recovery across process death.
+ * SECURITY: `access_token` and `refresh_token` are secrets and MUST be stored encrypted at rest.
+ * PRESENCE: `refresh_token` and `scope` may be absent depending on the token endpoint response.
+ *           Use field presence to distinguish "not provided" from empty values.
+ *
+ * NOTE: This proto defines a storage schema only — do not expose token values in logs or telemetry.
+ */
+message AuthToken {
+  // The access token to be used for API calls.
+  string access_token = 1;
+
+  // A token that can be used to obtain a new access token.
+  optional string refresh_token = 2;
+
+  // The time period in seconds for which the access token is valid.
+  int32 expires_in = 3;
+
+  // A space-separated list of scopes which have been granted.
+  optional string scope = 4;
+
+  // How the access token may be used, always "Bearer".
+  string token_type = 5;
+}
