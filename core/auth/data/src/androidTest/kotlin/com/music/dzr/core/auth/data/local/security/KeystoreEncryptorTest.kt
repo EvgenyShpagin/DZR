@@ -1,16 +1,15 @@
 package com.music.dzr.core.auth.data.local.security
 
-import android.util.Base64
-import com.music.dzr.core.auth.data.local.security.KeystoreEncryptor
 import kotlin.experimental.xor
+import kotlin.random.Random
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotEquals
+import kotlin.test.assertContentEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertNotEquals
 
 class KeystoreEncryptorTest {
 
-    private fun newEncryptor(
+    private fun createEncryptor(
         aliasSuffix: String = System.nanoTime().toString()
     ): KeystoreEncryptor {
         // Use a unique alias per test to avoid cross-test interference
@@ -20,108 +19,96 @@ class KeystoreEncryptorTest {
     @Test
     fun encryptDecrypt_roundTrip_returnsOriginal() {
         // Arrange
-        val encryptor = newEncryptor()
-        val original = "hello-Ωauth-🚀-${System.currentTimeMillis()}"
+        val encryptor = createEncryptor()
+        val plain = "hello-Ωauth-🚀1.5".toByteArray()
         // Act
-        val encoded = encryptor.encrypt(original)
-        val decoded = encryptor.decrypt(encoded)
+        val cipher = encryptor.encrypt(plain)
+        val decrypted = encryptor.decrypt(cipher)
         // Assert
-        assertEquals(original, decoded)
+        assertContentEquals(plain, decrypted)
     }
 
     @Test
     fun encrypt_usesRandomIv_producesDifferentCiphertexts() {
         // Arrange
-        val encryptor = newEncryptor()
-        val original = "same-input"
+        val encryptor = createEncryptor()
+        val plain = "same-input".toByteArray()
         // Act
-        val c1 = encryptor.encrypt(original)
-        val c2 = encryptor.encrypt(original)
+        val cipher1 = encryptor.encrypt(plain)
+        val cipher2 = encryptor.encrypt(plain)
         // Assert
-        assertNotEquals(c1, c2, "Ciphertexts should differ due to random IV")
-        assertEquals(original, encryptor.decrypt(c1))
-        assertEquals(original, encryptor.decrypt(c2))
+        assertNotEquals(
+            cipher1.toList(),
+            cipher2.toList(),
+            "Ciphertexts should differ due to random IV"
+        )
     }
 
     @Test
-    fun decrypt_withCorruptedPayload_throws() {
+    fun decrypt_withRandomBytes_throws() {
         // Arrange
-        val encryptor = newEncryptor()
-        val original = "payload-to-corrupt"
-        val encoded = encryptor.encrypt(original)
-        // Act: make it invalid Base64 by trimming
-        val corrupted = encoded.dropLast(4)
+        val encryptor = createEncryptor()
+        val plain = Random.nextBytes(32) // With correct length
         // Assert
-        assertFailsWith<Exception> { encryptor.decrypt(corrupted) }
+        assertFailsWith<EncryptorException.Decryption> { encryptor.decrypt(plain) }
     }
 
     @Test
     fun decrypt_withDifferentAlias_throws() {
         // Arrange
-        val e1 = newEncryptor("a")
-        val e2 = newEncryptor("b")
-        val original = "cross-alias"
-        val c = e1.encrypt(original)
+        val encryptor1 = createEncryptor("a")
+        val encryptor2 = createEncryptor("b")
+        val plain = "cross-alias".toByteArray()
+        val cipher = encryptor1.encrypt(plain)
         // Act + Assert
-        assertFailsWith<Exception> { e2.decrypt(c) }
+        assertFailsWith<EncryptorException.Decryption> { encryptor2.decrypt(cipher) }
     }
 
     @Test
     fun encryptDecrypt_emptyString_supported() {
         // Arrange
-        val encryptor = newEncryptor()
-        val original = ""
+        val encryptor = createEncryptor()
+        val plain = "".toByteArray()
         // Act
-        val enc = encryptor.encrypt(original)
-        val dec = encryptor.decrypt(enc)
+        val cipher = encryptor.encrypt(plain)
+        val decrypted = encryptor.decrypt(cipher)
         // Assert
-        assertEquals(original, dec)
+        assertContentEquals(plain, decrypted)
     }
 
     @Test
     fun encryptDecrypt_longUnicode_supported() {
         // Arrange
-        val encryptor = newEncryptor()
-        val original = "😀🚀✨ — длинная строка — ".repeat(100)
+        val encryptor = createEncryptor()
+        val plain = "😀🚀✨ — long string — ".repeat(100).toByteArray()
         // Act
-        val enc = encryptor.encrypt(original)
-        val dec = encryptor.decrypt(enc)
+        val cipher = encryptor.encrypt(plain)
+        val decrypted = encryptor.decrypt(cipher)
         // Assert
-        assertEquals(original, dec)
-    }
-
-    @Test
-    fun decrypt_invalidBase64_throws() {
-        // Arrange
-        val encryptor = newEncryptor()
-        val invalid = "not_base64!!"
-        // Act + Assert
-        assertFailsWith<Exception> { encryptor.decrypt(invalid) }
+        assertContentEquals(plain, decrypted)
     }
 
     @Test
     fun decrypt_shortPayload_throws() {
         // Arrange
-        val encryptor = newEncryptor()
-        // Payload shorter than IV size will fail the size check
-        val short = Base64.encodeToString(ByteArray(8) { 0 }, Base64.NO_WRAP)
+        val encryptor = createEncryptor()
+        val short = ByteArray(8) // Payload shorter than IV + tag size
         // Act + Assert
-        assertFailsWith<IllegalArgumentException> { encryptor.decrypt(short) }
+        assertFailsWith<EncryptorException.Decryption> { encryptor.decrypt(short) }
     }
 
     @Test
     fun decrypt_tamperedCiphertext_throws() {
         // Arrange
-        val encryptor = newEncryptor()
-        val original = "tamper-me"
-        val enc = encryptor.encrypt(original)
-        val bytes = Base64.decode(enc, Base64.NO_WRAP)
+        val encryptor = createEncryptor()
+        val plainBytes = "tamper-me".toByteArray()
+        val enc = encryptor.encrypt(plainBytes)
+        val modifiedBytes = enc.copyOf()
         // Flip a bit in ciphertext portion (after IV)
-        if (bytes.size > 16) {
-            bytes[bytes.lastIndex] = (bytes.last() xor 0x01.toByte())
+        if (modifiedBytes.size > 16) {
+            modifiedBytes[modifiedBytes.lastIndex] = (modifiedBytes.last() xor 0x01.toByte())
         }
-        val tampered = Base64.encodeToString(bytes, Base64.NO_WRAP)
         // Act + Assert — AES-GCM should fail authentication
-        assertFailsWith<Exception> { encryptor.decrypt(tampered) }
+        assertFailsWith<EncryptorException.Decryption> { encryptor.decrypt(modifiedBytes) }
     }
 }
