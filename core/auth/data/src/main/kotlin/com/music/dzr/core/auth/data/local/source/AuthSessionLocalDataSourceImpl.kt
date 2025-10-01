@@ -1,8 +1,8 @@
 package com.music.dzr.core.auth.data.local.source
 
 import androidx.datastore.core.DataStore
-import com.music.dzr.core.auth.data.local.error.toReadError
-import com.music.dzr.core.auth.data.local.error.toWriteError
+import com.music.dzr.core.auth.data.local.error.toStorageErrorOnRead
+import com.music.dzr.core.auth.data.local.error.toStorageErrorOnUpdate
 import com.music.dzr.core.auth.data.local.model.AuthSession
 import com.music.dzr.core.data.error.StorageError
 import com.music.dzr.core.result.Result
@@ -25,7 +25,7 @@ internal class AuthSessionLocalDataSourceImpl(
             Result.Success(Unit)
         } catch (exception: Exception) {
             if (exception is CancellationException) throw exception
-            Result.Failure(exception.toWriteError())
+            Result.Failure(exception.toStorageErrorOnUpdate())
         }
     }
 
@@ -38,7 +38,7 @@ internal class AuthSessionLocalDataSourceImpl(
             Result.Success(data)
         } catch (exception: Exception) {
             if (exception is CancellationException) throw exception
-            return Result.Failure(exception.toReadError())
+            return Result.Failure(exception.toStorageErrorOnRead())
         }
     }
 
@@ -48,7 +48,7 @@ internal class AuthSessionLocalDataSourceImpl(
             Result.Success(Unit)
         } catch (exception: Exception) {
             if (exception is CancellationException) throw exception
-            Result.Failure(exception.toWriteError())
+            Result.Failure(exception.toStorageErrorOnUpdate())
         }
     }
 
