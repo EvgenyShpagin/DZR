@@ -1,6 +1,6 @@
 package com.music.dzr.core.auth.data.local.source
 
-import com.music.dzr.core.auth.data.local.error.AuthStorageError
+import com.music.dzr.core.auth.data.local.error.SecureStorageError
 import com.music.dzr.core.auth.data.local.model.AuthSession
 import com.music.dzr.core.data.error.StorageError
 import com.music.dzr.core.result.Result
@@ -22,7 +22,7 @@ internal interface AuthSessionLocalDataSource {
      *
      * @param authSession The [AuthSession] containing the authorization data to be stored.
      * @return [Result.Success] on successful save, or [Result.Failure]
-     *  with an [AuthStorageError] or a base [StorageError] if an error occurs.
+     *  with a [SecureStorageError] or a base [StorageError] if an error occurs.
      */
     suspend fun save(authSession: AuthSession): Result<Unit, StorageError>
 
@@ -31,7 +31,7 @@ internal interface AuthSessionLocalDataSource {
      *
      * @return [Result.Success] with the [AuthSession] if found, or [Result.Failure]
      *  with an [StorageError.NotFound] if no session is stored, or another
-     *  [AuthStorageError]/[StorageError] if a different error occurs.
+     *  [SecureStorageError]/[StorageError] if a different error occurs.
      */
     suspend fun get(): Result<AuthSession, StorageError>
 
@@ -39,7 +39,7 @@ internal interface AuthSessionLocalDataSource {
      * Clears any stored authorization session data.
      *
      * @return [Result.Success] on successful deletion, or [Result.Failure]
-     *  with an [AuthStorageError] or a base [StorageError] if an error occurs.
+     *  with a [SecureStorageError] or a base [StorageError] if an error occurs.
      */
     suspend fun clear(): Result<Unit, StorageError>
 }
