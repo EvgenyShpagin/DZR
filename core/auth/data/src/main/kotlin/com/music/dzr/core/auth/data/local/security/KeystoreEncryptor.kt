@@ -14,7 +14,7 @@ import kotlin.coroutines.cancellation.CancellationException
 
 /**
  * AES/GCM encryptor backed by Android Keystore.
- * Stores payload as Base64(iv || ciphertext), with a random IV per encryption.
+ * Stores payload as iv || ciphertext, with a random IV per encryption.
  */
 internal class KeystoreEncryptor(private val keyAlias: String) : Encryptor {
 
