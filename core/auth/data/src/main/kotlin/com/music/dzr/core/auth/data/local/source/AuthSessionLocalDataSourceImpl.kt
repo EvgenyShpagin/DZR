@@ -1,6 +1,7 @@
 package com.music.dzr.core.auth.data.local.source
 
 import androidx.datastore.core.DataStore
+import com.music.dzr.core.auth.data.local.error.SecureStorageError
 import com.music.dzr.core.auth.data.local.error.toStorageErrorOnRead
 import com.music.dzr.core.auth.data.local.error.toStorageErrorOnUpdate
 import com.music.dzr.core.auth.data.local.model.AuthSession
@@ -12,8 +13,8 @@ import kotlinx.coroutines.flow.first
 /**
  * DataStore-backed implementation of [AuthSessionLocalDataSource] with a suspend,
  * non-throwing Result-based API. Performs atomic writes via updateData,
- * maps read/write errors to [StorageError], treats absent data as NotFound,
- * and propagates cancellation via rethrow.
+ * maps read/write errors to [StorageError] (and [SecureStorageError]),
+ * treats absent data as NotFound, and propagates cancellation via rethrow.
  */
 internal class AuthSessionLocalDataSourceImpl(
     private val dataStore: DataStore<AuthSession>,
@@ -33,9 +34,10 @@ internal class AuthSessionLocalDataSourceImpl(
         return try {
             val data = dataStore.data.first()
             if (data == EmptySession) {
-                return Result.Failure(StorageError.NotFound)
+                Result.Failure(StorageError.NotFound)
+            } else {
+                Result.Success(data)
             }
-            Result.Success(data)
         } catch (exception: Exception) {
             if (exception is CancellationException) throw exception
             return Result.Failure(exception.toStorageErrorOnRead())
@@ -43,13 +45,7 @@ internal class AuthSessionLocalDataSourceImpl(
     }
 
     override suspend fun clear(): Result<Unit, StorageError> {
-        return try {
-            dataStore.updateData { EmptySession }
-            Result.Success(Unit)
-        } catch (exception: Exception) {
-            if (exception is CancellationException) throw exception
-            Result.Failure(exception.toStorageErrorOnUpdate())
-        }
+        return save(EmptySession)
     }
 
     companion object {
