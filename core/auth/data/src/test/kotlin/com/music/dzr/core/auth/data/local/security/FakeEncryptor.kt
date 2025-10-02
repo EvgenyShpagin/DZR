@@ -7,20 +7,10 @@ internal class FakeEncryptor : Encryptor {
     var failOnEncrypt: Boolean = false
     var failOnDecrypt: Boolean = false
 
-    override fun encrypt(plainText: String): String {
-        if (failOnEncrypt) throw RuntimeException("encrypt failed")
-        return "enc:$plainText"
-    }
-
     override fun encrypt(plainBytes: ByteArray): ByteArray {
         if (failOnEncrypt) throw RuntimeException("encrypt failed")
         val prefix = "enc:".toByteArray(Charsets.UTF_8)
         return prefix + plainBytes
-    }
-
-    override fun decrypt(cipherText: String): String {
-        if (failOnDecrypt) throw RuntimeException("decrypt failed")
-        return cipherText.removePrefix("enc:")
     }
 
     override fun decrypt(cipherBytes: ByteArray): ByteArray {

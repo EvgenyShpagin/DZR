@@ -2,7 +2,6 @@ package com.music.dzr.core.auth.data.local.security
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
-import android.util.Base64
 import com.music.dzr.core.auth.data.local.security.EncryptorException.Decryption
 import com.music.dzr.core.auth.data.local.security.EncryptorException.Encryption
 import com.music.dzr.core.auth.data.local.security.EncryptorException.Initialization
@@ -19,12 +18,6 @@ import kotlin.coroutines.cancellation.CancellationException
  */
 internal class KeystoreEncryptor(private val keyAlias: String) : Encryptor {
 
-    override fun encrypt(plainText: String): String {
-        val plainBytes = plainText.toByteArray(Charsets.UTF_8)
-        val cipherBytes = encrypt(plainBytes)
-        return Base64.encodeToString(cipherBytes, Base64.NO_WRAP)
-    }
-
     override fun encrypt(plainBytes: ByteArray): ByteArray = wrapExceptionsIn(::Encryption) {
         val key = getOrCreateKey()
         val cipher = Cipher.getInstance(TRANSFORMATION)
@@ -32,12 +25,6 @@ internal class KeystoreEncryptor(private val keyAlias: String) : Encryptor {
         val iv = cipher.iv
         val cipherBytes = cipher.doFinal(plainBytes)
         return iv + cipherBytes
-    }
-
-    override fun decrypt(cipherText: String): String {
-        val cipherBytes = Base64.decode(cipherText, Base64.NO_WRAP)
-        val plainBytes = decrypt(cipherBytes)
-        return plainBytes.toString(Charsets.UTF_8)
     }
 
     override fun decrypt(cipherBytes: ByteArray): ByteArray = wrapExceptionsIn(::Decryption) {
