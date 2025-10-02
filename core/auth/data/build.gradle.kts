@@ -17,6 +17,6 @@ android {
 
 dependencies {
     implementation(projects.core.auth.domain)
-    implementation(projects.dzr.core.data)
+    implementation(projects.dzr.core.storage)
     implementation(libs.okhttp.logging)
 }

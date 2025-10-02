@@ -2,8 +2,8 @@ package com.music.dzr.core.auth.data.local.source
 
 import com.music.dzr.core.auth.data.local.error.SecureStorageError
 import com.music.dzr.core.auth.data.local.model.AuthSession
-import com.music.dzr.core.data.error.StorageError
 import com.music.dzr.core.result.Result
+import com.music.dzr.core.storage.error.StorageError
 
 /**
  * A data source for managing a short-lived authorization session, which includes

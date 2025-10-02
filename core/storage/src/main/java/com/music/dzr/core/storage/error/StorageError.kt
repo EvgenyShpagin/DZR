@@ -1,4 +1,4 @@
-package com.music.dzr.core.data.error
+package com.music.dzr.core.storage.error
 
 import com.music.dzr.core.error.AppError
 

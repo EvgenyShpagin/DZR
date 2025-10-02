@@ -1,7 +1,7 @@
 package com.music.dzr.core.auth.data.local.error
 
 import com.music.dzr.core.auth.data.local.security.EncryptorException
-import com.music.dzr.core.data.error.StorageError
+import com.music.dzr.core.storage.error.StorageError
 import java.io.IOException
 
 /**

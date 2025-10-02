@@ -11,9 +11,9 @@ import com.music.dzr.core.auth.data.local.model.AuthSession
 import com.music.dzr.core.auth.data.local.model.AuthSessionSerializer
 import com.music.dzr.core.auth.data.local.model.authSession
 import com.music.dzr.core.auth.data.local.security.KeystoreEncryptor
-import com.music.dzr.core.data.error.StorageError
 import com.music.dzr.core.result.isFailure
 import com.music.dzr.core.result.isSuccess
+import com.music.dzr.core.storage.error.StorageError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob

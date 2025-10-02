@@ -5,8 +5,8 @@ import com.music.dzr.core.auth.data.local.error.SecureStorageError
 import com.music.dzr.core.auth.data.local.error.toStorageErrorOnRead
 import com.music.dzr.core.auth.data.local.error.toStorageErrorOnUpdate
 import com.music.dzr.core.auth.data.local.model.AuthToken
-import com.music.dzr.core.data.error.StorageError
 import com.music.dzr.core.result.Result
+import com.music.dzr.core.storage.error.StorageError
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
 
