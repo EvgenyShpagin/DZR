@@ -1,9 +1,8 @@
-package com.music.dzr.core.auth.domain.util
+package com.music.dzr.core.auth.domain.repository
 
 import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
 import com.music.dzr.core.auth.domain.model.isExpired
-import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.result.Result
 import com.music.dzr.core.result.isSuccess
