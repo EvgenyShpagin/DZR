@@ -6,6 +6,7 @@ import com.music.dzr.core.error.NetworkError
 import com.music.dzr.core.network.dto.NetworkResponse
 import com.music.dzr.core.network.dto.error.NetworkErrorType
 import com.music.dzr.core.result.Result
+import com.music.dzr.core.network.dto.error.NetworkError as NetworkErrorDto
 
 
 /**
@@ -53,27 +54,7 @@ private fun <I, O> NetworkResponse<I>.dataAsResult(
  * Requires error to be non-null.
  */
 private fun NetworkResponse<*>.errorAsResult(): Result.Failure<AppError> {
-    val error = error!!
-    val appError = when (error.type) {
-        NetworkErrorType.Timeout -> ConnectivityError.Timeout
-        NetworkErrorType.UnknownHost -> ConnectivityError.NoInternet
-        NetworkErrorType.UnreachableHost,
-        NetworkErrorType.SomeConnectionError,
-        NetworkErrorType.SslException -> ConnectivityError.HostUnreachable
-
-        NetworkErrorType.HttpException -> when (error.code) {
-            401 -> NetworkError.Unauthorized
-            403 -> NetworkError.InsufficientPermissions
-            404 -> NetworkError.NotFound
-            in 500..599 -> NetworkError.ServerError
-            else -> NetworkError.Unknown(description = error.toString())
-        }
-
-        // Serialization and Unknown are mapped to a generic Unknown,
-        // as they represent unexpected issues.
-        NetworkErrorType.SerializationError,
-        NetworkErrorType.Unknown -> NetworkError.Unknown(description = error.toString())
-    }
-
+    val error = requireNotNull(error)
+    val appError = error.toDomain()
     return Result.Failure(appError)
 }
