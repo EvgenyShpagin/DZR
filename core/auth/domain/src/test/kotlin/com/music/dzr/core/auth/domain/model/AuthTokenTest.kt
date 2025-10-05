@@ -1,6 +1,5 @@
 package com.music.dzr.core.auth.domain.model
 
-import com.music.dzr.core.auth.domain.util.isExpired
 import java.util.concurrent.TimeUnit
 import kotlin.test.DefaultAsserter.assertTrue
 import kotlin.test.Test

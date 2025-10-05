@@ -1,6 +1,4 @@
-package com.music.dzr.core.auth.domain.util
-
-import com.music.dzr.core.auth.domain.model.AuthToken
+package com.music.dzr.core.auth.domain.model
 
 /**
  * Checks if the access token has expired.
