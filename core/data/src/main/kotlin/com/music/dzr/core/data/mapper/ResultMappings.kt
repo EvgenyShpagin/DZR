@@ -19,8 +19,10 @@ fun <I, O> NetworkResponse<I>.toResult(
     // A null `data` in a success scenario might indicate a problem.
     return if (error == null && data != null) {
         dataAsResult(map = mapContent)
-    } else {
+    } else if (error != null) {
         errorAsResult()
+    } else {
+        Result.Failure(NetworkError.Unknown(description = "Data and error are null"))
     }
 }
 
