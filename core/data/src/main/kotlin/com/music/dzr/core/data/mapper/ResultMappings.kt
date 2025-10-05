@@ -50,6 +50,7 @@ private fun <I, O> NetworkResponse<I>.dataAsResult(
 
 /**
  * Creates a [Result.Failure] from the [NetworkResponse.error] field.
+ * Requires error to be non-null.
  */
 private fun NetworkResponse<*>.errorAsResult(): Result.Failure<AppError> {
     val error = error!!
