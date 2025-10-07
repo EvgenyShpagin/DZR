@@ -37,7 +37,11 @@ internal class AuthTokenRepositoryImpl(
         return withContext(dispatchers.io) {
             when (val result = localDataSource.get()) {
                 is Result.Success -> Result.Success(result.data.toDomain())
-                is Result.Failure -> Result.Failure(result.error.toDomain())
+                is Result.Failure -> Result.Failure(
+                    result.error
+                        .also { it.clearTokensIfDataCorrupted() }
+                        .toDomain()
+                )
             }
         }
     }
@@ -52,7 +56,11 @@ internal class AuthTokenRepositoryImpl(
                             is Result.Success -> data.takeIf { it.hasRefreshToken() }?.refreshToken
                             is Result.Failure -> when (error) {
                                 StorageError.NotFound -> null
-                                else -> return@async Result.Failure(error.toDomain())
+                                else -> return@async Result.Failure(
+                                    error
+                                        .also { it.clearTokensIfDataCorrupted() }
+                                        .toDomain()
+                                )
                             }
                         }
                     }
@@ -60,7 +68,11 @@ internal class AuthTokenRepositoryImpl(
 
                 when (val save = localDataSource.save(mergedToken.toLocal())) {
                     is Result.Success -> Result.Success(Unit)
-                    is Result.Failure -> Result.Failure(save.error.toDomain())
+                    is Result.Failure -> Result.Failure(
+                        save.error
+                            .also { it.clearTokensIfDataCorrupted() }
+                            .toDomain()
+                    )
                 }
             }.await()
         }
@@ -116,6 +128,14 @@ internal class AuthTokenRepositoryImpl(
      */
     private suspend fun AuthError.clearTokensIfInvalidGrant() {
         if (this == AuthError.InvalidGrant) clearTokens()
+    }
+
+    /**
+     * Clears tokens on a `DataCorrupted` error.
+     * This error indicates that the data stored in the local storage is corrupted.
+     */
+    private suspend fun AppError.clearTokensIfDataCorrupted() {
+        if (this is StorageError.DataCorrupted) clearTokens()
     }
 
     private companion object {
