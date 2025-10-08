@@ -24,22 +24,23 @@ open class StorageError : AppError {
     /**
      * Stored data is malformed or inconsistent (e.g., invalid format, missing required fields).
      */
-    data class DataCorrupted(override val cause: Throwable?) : StorageError()
+    data class DataCorrupted(override val cause: Throwable) : StorageError()
 
     /**
      * Reading from the underlying storage failed due to IO/state issues
      * (e.g., file access error, DataStore/DB read exception).
      */
-    data class ReadFailed(override val cause: Throwable?) : StorageError()
+    data class ReadFailed(override val cause: Throwable) : StorageError()
 
     /**
      * Writing to the underlying storage failed due to IO/state issues
      * (e.g., disk full, permission error, DataStore/DB write exception).
      */
-    data class WriteFailed(override val cause: Throwable?) : StorageError()
+    data class WriteFailed(override val cause: Throwable) : StorageError()
 
     /**
      * Fallback for unexpected cases. Inspect [cause] for details.
      */
-    data class Unknown(override val cause: Throwable?) : StorageError()
+
+    data class Unknown(override val cause: Throwable) : StorageError()
 }
