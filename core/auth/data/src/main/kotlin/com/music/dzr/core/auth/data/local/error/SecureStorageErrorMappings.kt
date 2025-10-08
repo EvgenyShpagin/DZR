@@ -1,5 +1,6 @@
 package com.music.dzr.core.auth.data.local.error
 
+import androidx.datastore.core.CorruptionException
 import com.music.dzr.core.auth.data.local.security.EncryptorException
 import com.music.dzr.core.storage.error.StorageError
 import java.io.IOException
@@ -23,6 +24,7 @@ internal fun Exception.toStorageErrorOnRead(): StorageError {
     return when (this) {
         is EncryptorException.Initialization -> SecureStorageError.InitializationFailed(this)
         is EncryptorException.Decryption -> SecureStorageError.DecryptionFailed(this)
+        is CorruptionException -> StorageError.DataCorrupted(this)
         is IOException -> StorageError.ReadFailed(this)
         else -> StorageError.Unknown(this)
     }
