@@ -3,6 +3,7 @@ package com.music.dzr.core.auth.domain.repository
 import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
 import com.music.dzr.core.error.AppError
+import com.music.dzr.core.error.PersistenceError
 import com.music.dzr.core.result.Result
 
 /**
@@ -18,8 +19,7 @@ interface AuthTokenRepository {
      *
      * @return The current [AuthToken] wrapped in a [Result], or one of these errors on failure:
      * - [com.music.dzr.core.auth.domain.error.AuthError],
-     * - [com.music.dzr.core.error.ConnectivityError],
-     * - [com.music.dzr.core.error.NetworkError]
+     * - [com.music.dzr.core.error.PersistenceError].
      */
     suspend fun getToken(): Result<AuthToken, AppError>
 
@@ -32,8 +32,7 @@ interface AuthTokenRepository {
      * @param token The [AuthToken] domain model to save.
      * @return A [Result] indicating success, or one of these errors on failure:
      * - [com.music.dzr.core.auth.domain.error.AuthError],
-     * - [com.music.dzr.core.error.ConnectivityError],
-     * - [com.music.dzr.core.error.NetworkError]
+     * - [com.music.dzr.core.error.PersistenceError].
      */
     suspend fun saveToken(token: AuthToken): Result<Unit, AppError>
 
