@@ -50,11 +50,9 @@ interface AuthTokenRepository {
     /**
      * Clears all stored tokens, effectively logging the user out.
      *
-     * @return A [Result] indicating success, or one of these errors on failure:
-     * - [com.music.dzr.core.auth.domain.error.AuthError],
-     * - [com.music.dzr.core.error.ConnectivityError],
-     * - [com.music.dzr.core.error.NetworkError]
+     * This operation is idempotent: if tokens are already absent, it still returns success.
+     *
+     * @return A [Result] indicating success, or a [PersistenceError] on failure.
      */
-    suspend fun clearTokens(): Result<Unit, AppError>
-
+    suspend fun clearTokens(): Result<Unit, PersistenceError>
 }
