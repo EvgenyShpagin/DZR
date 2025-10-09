@@ -1,5 +1,6 @@
 package com.music.dzr.core.auth.data.repository
 
+import com.music.dzr.core.auth.data.local.model.authSession
 import com.music.dzr.core.auth.data.local.source.AuthSessionLocalDataSource
 import com.music.dzr.core.auth.data.local.source.AuthTokenLocalDataSource
 import com.music.dzr.core.auth.data.mapper.toDomain
@@ -8,6 +9,7 @@ import com.music.dzr.core.auth.data.remote.oauth.AuthorizationUrlBuilder
 import com.music.dzr.core.auth.data.remote.oauth.OAuthSecurityProvider
 import com.music.dzr.core.auth.data.remote.source.AuthTokenRemoteDataSource
 import com.music.dzr.core.auth.domain.error.AuthError
+import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
 import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
 import com.music.dzr.core.auth.domain.repository.getRefreshToken
@@ -17,6 +19,7 @@ import com.music.dzr.core.error.AppError
 import com.music.dzr.core.error.PersistenceError
 import com.music.dzr.core.result.Result
 import com.music.dzr.core.result.isFailure
+import com.music.dzr.core.result.onFailure
 import com.music.dzr.core.storage.error.StorageError
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
@@ -121,6 +124,35 @@ internal class AuthTokenRepositoryImpl(
                         else Result.Failure(clearResult.error.toDomain() as PersistenceError)
                     }
                 }
+            }.await()
+        }
+    }
+
+    override suspend fun initiateAuthorization(scopes: List<AuthScope>): Result<String, AppError> {
+        return withContext(dispatchers.io) {
+            externalScope.async {
+                val codeVerifier = securityProvider.generateCodeVerifier()
+                val codeChallenge = securityProvider.deriveCodeChallengeS256(codeVerifier)
+                val state = securityProvider.generateCsrfState()
+
+                // Persist ephemeral session (PKCE/state)
+                authSessionDataSource.save(
+                    authSession {
+                        this.codeVerifier = codeVerifier
+                        this.csrfState = state
+                        this.createdAtMillis = System.currentTimeMillis()
+                    }
+                ).onFailure { error ->
+                    return@async Result.Failure(error.toDomain())
+                }
+
+                val url = authUrlBuilder.build(
+                    redirectUri = redirectUri,
+                    scopes = scopes,
+                    state = state,
+                    codeChallenge = codeChallenge
+                )
+                Result.Success(url)
             }.await()
         }
     }
