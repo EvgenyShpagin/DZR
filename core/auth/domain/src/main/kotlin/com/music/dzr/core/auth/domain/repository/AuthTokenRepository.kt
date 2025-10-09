@@ -55,4 +55,31 @@ interface AuthTokenRepository {
      * @return A [Result] indicating success, or a [PersistenceError] on failure.
      */
     suspend fun clearTokens(): Result<Unit, PersistenceError>
+
+    /**
+     * Starts Authorization Code flow with PKCE and returns an authorization URL to open in a browser.
+     *
+     * @param scopes The list of authorization scopes to request from the authorization server.
+     * @return [Result] containing the authorization URL as [String] on success,
+     * or one of these errors on failure:
+     * - [com.music.dzr.core.auth.domain.error.AuthError],
+     * - [com.music.dzr.core.error.PersistenceError].
+     */
+    suspend fun initiateAuthorization(scopes: List<AuthScope>): Result<String, AppError>
+
+    /**
+     * Completes the PKCE flow by processing the OAuth redirect URL returned after user authorization.
+     *
+     * The repository parses [redirectUrl], validates the CSRF `state` against the previously
+     * generated value, handles RFC 6749 error responses, exchanges a valid `code` for tokens,
+     * and persists the tokens on success.
+     *
+     * @param redirectUrl The full redirect URL (deep link) received from the authorization server.
+     * @return A [Result] indicating success, or one of these errors on failure:
+     * - [com.music.dzr.core.auth.domain.error.AuthError],
+     * - [com.music.dzr.core.error.ConnectivityError],
+     * - [com.music.dzr.core.error.NetworkError],
+     * - [com.music.dzr.core.error.PersistenceError].
+     */
+    suspend fun completeAuthorization(redirectUrl: String): Result<Unit, AppError>
 }
