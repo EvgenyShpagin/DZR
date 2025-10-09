@@ -10,10 +10,11 @@ import com.music.dzr.core.auth.data.remote.source.AuthTokenRemoteDataSource
 import com.music.dzr.core.auth.domain.error.AuthError
 import com.music.dzr.core.auth.domain.model.AuthToken
 import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
-import com.music.dzr.core.auth.domain.util.getRefreshToken
+import com.music.dzr.core.auth.domain.repository.getRefreshToken
 import com.music.dzr.core.coroutine.ApplicationScope
 import com.music.dzr.core.coroutine.DispatcherProvider
 import com.music.dzr.core.error.AppError
+import com.music.dzr.core.error.PersistenceError
 import com.music.dzr.core.result.Result
 import com.music.dzr.core.result.isFailure
 import com.music.dzr.core.storage.error.StorageError
@@ -110,12 +111,15 @@ internal class AuthTokenRepositoryImpl(
         }
     }
 
-    override suspend fun clearTokens(): Result<Unit, AppError> {
+    override suspend fun clearTokens(): Result<Unit, PersistenceError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 when (val clearResult = localDataSource.clear()) {
                     is Result.Success -> Result.Success(Unit)
-                    is Result.Failure -> Result.Failure(clearResult.error.toDomain())
+                    is Result.Failure -> {
+                        if (clearResult.error == StorageError.NotFound) Result.Success(Unit)
+                        else Result.Failure(clearResult.error.toDomain() as PersistenceError)
+                    }
                 }
             }.await()
         }
@@ -126,7 +130,7 @@ internal class AuthTokenRepositoryImpl(
      * This error indicates that the authorization grant (e.g., authorization code or refresh token)
      * is invalid, expired, or revoked.
      */
-    private suspend fun AuthError.clearTokensIfInvalidGrant() {
+    private suspend fun AppError.clearTokensIfInvalidGrant() {
         if (this == AuthError.InvalidGrant) clearTokens()
     }
 
