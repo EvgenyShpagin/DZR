@@ -1,12 +1,16 @@
 package com.music.dzr.core.auth.data.repository
 
+import com.music.dzr.core.auth.data.local.model.AuthSession
 import com.music.dzr.core.auth.data.local.model.authSession
 import com.music.dzr.core.auth.data.local.source.AuthSessionLocalDataSource
 import com.music.dzr.core.auth.data.local.source.AuthTokenLocalDataSource
 import com.music.dzr.core.auth.data.mapper.toDomain
 import com.music.dzr.core.auth.data.mapper.toLocal
+import com.music.dzr.core.auth.data.remote.model.RedirectUriParams
+import com.music.dzr.core.auth.data.remote.model.requireState
 import com.music.dzr.core.auth.data.remote.oauth.AuthorizationUrlBuilder
 import com.music.dzr.core.auth.data.remote.oauth.OAuthSecurityProvider
+import com.music.dzr.core.auth.data.remote.oauth.parseRedirectUriParams
 import com.music.dzr.core.auth.data.remote.source.AuthTokenRemoteDataSource
 import com.music.dzr.core.auth.domain.error.AuthError
 import com.music.dzr.core.auth.domain.model.AuthScope
@@ -154,6 +158,82 @@ internal class AuthTokenRepositoryImpl(
                 )
                 Result.Success(url)
             }.await()
+        }
+    }
+
+    override suspend fun completeAuthorization(responseRedirectUri: String): Result<Unit, AppError> {
+        return withContext(dispatchers.io) {
+            externalScope.async {
+                val uriParams = responseRedirectUri.parseRedirectUriParams()
+                if (uriParams is RedirectUriParams.Invalid) {
+                    return@async Result.Failure(AuthError.InvalidRequest)
+                }
+                val session = getAndValidateSession(uriParams)
+
+                when (session) {
+                    is Result.Success -> handleAuthorizationResponse(uriParams, session.data)
+                    is Result.Failure -> session
+                }
+            }.await()
+        }
+    }
+
+    private suspend fun getAndValidateSession(
+        redirectUriParams: RedirectUriParams
+    ): Result<AuthSession, AppError> {
+        val sessionResult = authSessionDataSource.get()
+        authSessionDataSource.clear()
+
+        if (sessionResult.isFailure()) {
+            val error = when (sessionResult.error) {
+                StorageError.NotFound -> AuthError.SessionExpired
+                else -> sessionResult.error.toDomain()
+            }
+            return Result.Failure(error)
+        }
+
+        val session = sessionResult.data
+
+        if (System.currentTimeMillis() - session.createdAtMillis > SessionTtlMillis) {
+            return Result.Failure(AuthError.SessionExpired)
+        }
+
+        if (session.csrfState != redirectUriParams.requireState()) {
+            return Result.Failure(AuthError.StateMismatch)
+        }
+
+        return Result.Success(session)
+    }
+
+    private suspend fun handleAuthorizationResponse(
+        redirectUriParams: RedirectUriParams,
+        session: AuthSession
+    ): Result<Unit, AppError> {
+        return when (redirectUriParams) {
+            is RedirectUriParams.Error -> {
+                val mappedError = redirectUriParams.toDomain()
+                Result.Failure(mappedError)
+            }
+
+            is RedirectUriParams.Success -> {
+                val tokenResponse = remoteDataSource.getToken(
+                    code = redirectUriParams.code,
+                    redirectUri = redirectUri,
+                    clientId = clientId,
+                    codeVerifier = session.codeVerifier
+                )
+
+                val newToken = tokenResponse.data
+                if (tokenResponse.error == null && newToken != null) {
+                    saveToken(newToken.toDomain())
+                } else {
+                    val mappedError = tokenResponse.error?.toDomain() ?: AuthError.Unexpected
+                    mappedError.clearTokensIfInvalidGrant()
+                    Result.Failure(mappedError)
+                }
+            }
+
+            is RedirectUriParams.Invalid -> Result.Failure(AuthError.InvalidRequest)
         }
     }
 

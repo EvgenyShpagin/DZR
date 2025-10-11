@@ -1,5 +1,6 @@
 package com.music.dzr.core.auth.data.mapper
 
+import com.music.dzr.core.auth.data.remote.model.RedirectUriParams
 import com.music.dzr.core.auth.domain.error.AuthError
 import com.music.dzr.core.data.mapper.toDomain
 import com.music.dzr.core.error.AppError
@@ -38,7 +39,7 @@ internal fun NetworkError.toDomain(): AppError {
  * [RFC 6749, Section 4.1.2.1](https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.2.1),
  * and are passed as a `error` query parameter in the redirect URI.
  */
-internal fun AuthError.Companion.fromRedirectError(error: String): AuthError {
+internal fun RedirectUriParams.Error.toDomain(): AuthError {
     return when (error) {
         "invalid_request",
         "unsupported_response_type" -> AuthError.InvalidRequest
