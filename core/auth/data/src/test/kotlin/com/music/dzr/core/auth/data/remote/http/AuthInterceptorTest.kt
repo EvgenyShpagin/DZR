@@ -62,4 +62,22 @@ class AuthInterceptorTest {
         val recordedRequest = server.takeRequest()
         assertNull(recordedRequest.getHeader("Authorization"))
     }
+
+    @Test
+    fun doesNotAddAuthorizationHeader_whenAlreadyAdded() {
+        // Arrange
+        val accessToken = "test_access_token"
+        tokenRepository.setTokens(accessToken, "any_refresh_token")
+        server.enqueue(MockResponse())
+        val request = Request.Builder().url(server.url("/"))
+            .header("Authorization", "Bearer test_access_token")
+            .build()
+
+        // Act
+        client.newCall(request).execute()
+
+        // Assert
+        val recordedRequest = server.takeRequest()
+        assertEquals("Bearer $accessToken", recordedRequest.getHeader("Authorization"))
+    }
 }
