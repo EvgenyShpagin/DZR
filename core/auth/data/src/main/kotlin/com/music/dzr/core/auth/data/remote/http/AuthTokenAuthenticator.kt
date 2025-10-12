@@ -1,5 +1,6 @@
 package com.music.dzr.core.auth.data.remote.http
 
+import androidx.annotation.VisibleForTesting
 import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
 import com.music.dzr.core.auth.domain.repository.getAccessToken
 import com.music.dzr.core.result.isFailure
@@ -26,6 +27,9 @@ internal class AuthTokenAuthenticator(
         // As the Authenticator is a synchronous component,
         // a blocking call is necessary to execute the suspend functions.
         return runBlocking {
+            // Prevent potential infinite retry loops on repeated 401s
+            if (response.priorResponseCount() >= MAX_RETRIES) return@runBlocking null
+
             val currentToken = tokenRepository.getAccessToken()
             if (currentToken.isFailure()) return@runBlocking null
             val failedRequestToken = response.request.header("Authorization")
@@ -50,5 +54,20 @@ internal class AuthTokenAuthenticator(
                 .header("Authorization", "Bearer ${newToken.data}")
                 .build()
         }
+    }
+
+    private fun Response.priorResponseCount(): Int {
+        var result = 1
+        var prior = priorResponse
+        while (prior != null) {
+            result++
+            prior = prior.priorResponse
+        }
+        return result
+    }
+
+    companion object {
+        @VisibleForTesting
+        const val MAX_RETRIES = 2
     }
 }
