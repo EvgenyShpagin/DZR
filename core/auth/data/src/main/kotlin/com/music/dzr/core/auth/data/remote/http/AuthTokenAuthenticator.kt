@@ -1,7 +1,9 @@
 package com.music.dzr.core.auth.data.remote.http
 
 import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
-import com.music.dzr.core.auth.domain.util.getAccessToken
+import com.music.dzr.core.auth.domain.repository.getAccessToken
+import com.music.dzr.core.result.isFailure
+import com.music.dzr.core.result.onFailure
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
@@ -25,26 +27,27 @@ internal class AuthTokenAuthenticator(
         // a blocking call is necessary to execute the suspend functions.
         return runBlocking {
             val currentToken = tokenRepository.getAccessToken()
+            if (currentToken.isFailure()) return@runBlocking null
             val failedRequestToken = response.request.header("Authorization")
                 ?.substringAfter("Bearer ")
 
             // If the token has already been refreshed by another thread, retry with the new token.
-            if (failedRequestToken != null && failedRequestToken != currentToken) {
+            if (failedRequestToken != null && failedRequestToken != currentToken.data) {
                 return@runBlocking response.request.newBuilder()
-                    .header("Authorization", "Bearer $currentToken")
+                    .header("Authorization", "Bearer ${currentToken.data}")
                     .build()
             }
-            val isSuccessful = tokenRepository.refreshToken()
-
-            if (!isSuccessful) {
+            tokenRepository.refreshToken().onFailure {
                 // For any refresh error, fail the original request.
                 return@runBlocking null
             }
 
             val newToken = tokenRepository.getAccessToken()
+            if (newToken.isFailure()) return@runBlocking null
+
             // Retry the request with the new token.
             return@runBlocking response.request.newBuilder()
-                .header("Authorization", "Bearer $newToken")
+                .header("Authorization", "Bearer ${newToken.data}")
                 .build()
         }
     }
