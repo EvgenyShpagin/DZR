@@ -1,9 +1,13 @@
 package com.music.dzr.core.auth.data.remote.http
 
+import com.music.dzr.core.auth.domain.error.AuthError
 import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
-import com.music.dzr.core.auth.domain.util.getAccessToken
-import com.music.dzr.core.auth.domain.util.getRefreshToken
+import com.music.dzr.core.auth.domain.repository.getAccessToken
+import com.music.dzr.core.auth.domain.repository.getRefreshToken
+import com.music.dzr.core.error.ConnectivityError
+import com.music.dzr.core.result.isFailure
+import com.music.dzr.core.result.requireData
 import com.music.dzr.core.testing.repository.FakeTokenRepository
 import kotlinx.coroutines.test.runTest
 import okhttp3.Protocol
@@ -16,6 +20,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class AuthTokenAuthenticatorTest {
 
@@ -44,7 +49,6 @@ class AuthTokenAuthenticatorTest {
         val mockResponse = mockResponseWithHeader("Bearer $oldToken")
         tokenRepository.setTokens(oldToken, "refresh_token")
 
-        tokenRepository.refreshShouldSucceed = true
         tokenRepository.tokenAfterRefresh = newToken
 
         // Act
@@ -53,8 +57,10 @@ class AuthTokenAuthenticatorTest {
         // Assert
         assertNotNull(newRequest)
         assertEquals("Bearer ${newToken.accessToken}", newRequest.header("Authorization"))
-        assertEquals(newToken.accessToken, tokenRepository.getAccessToken())
-        assertEquals(newToken.refreshToken, tokenRepository.getRefreshToken())
+        val accessToken = tokenRepository.getAccessToken()
+        val refreshToken = tokenRepository.getRefreshToken()
+        assertEquals(newToken.accessToken, accessToken.requireData())
+        assertEquals(newToken.refreshToken, refreshToken.requireData())
     }
 
     @Test
@@ -71,35 +77,74 @@ class AuthTokenAuthenticatorTest {
     }
 
     @Test
-    fun returnsNullAndClearsTokens_onInvalidGrantError() = runTest {
+    fun returnsNullAndClearsTokens_onInvalidGrant() = runTest {
         // Arrange
         val mockResponse = mockResponseWithHeader("Bearer old_token")
         tokenRepository.setTokens("old_token", "refresh_token")
-        tokenRepository.refreshShouldSucceed = false
+        tokenRepository.forcedError = AuthError.InvalidGrant
 
         // Act
         val newRequest = authenticator.authenticate(mockRoute, mockResponse)
 
         // Assert
         assertNull(newRequest)
-        assertNull(tokenRepository.getAccessToken())
-        assertNull(tokenRepository.getRefreshToken())
+        assertTrue(tokenRepository.getAccessToken().isFailure())
+        assertTrue(tokenRepository.getRefreshToken().isFailure())
     }
 
     @Test
-    fun returnsNullAndKeepsSession_onTransientRefreshError() = runTest {
+    fun doesNotRetryAndKeepsToken_whenRefreshFailsNonFatal() = runTest {
         // Arrange
         val mockResponse = mockResponseWithHeader("Bearer old_token")
         tokenRepository.setTokens("old_token", "refresh_token")
-        tokenRepository.clearTokensOnRefreshFailure = false
-        tokenRepository.refreshShouldSucceed = false
+        tokenRepository.forcedError = ConnectivityError.HostUnreachable
+
+        // Act
+        val newRequest = authenticator.authenticate(mockRoute, mockResponse)
+        tokenRepository.forcedError = null
+
+        // Assert
+        assertNull(newRequest)
+        val accessToken = tokenRepository.getAccessToken()
+        assertEquals("old_token", accessToken.requireData())
+    }
+
+    @Test
+    fun returnsNull_whenNoTokensAtAll() = runTest {
+        // Arrange
+        val mockResponse = mockResponseWithHeader("Bearer any")
+        tokenRepository.resetTokens()
 
         // Act
         val newRequest = authenticator.authenticate(mockRoute, mockResponse)
 
         // Assert
         assertNull(newRequest)
-        assertEquals("old_token", tokenRepository.getAccessToken())
+        assertTrue(tokenRepository.getAccessToken().isFailure())
+    }
+
+    @Test
+    fun returnsNull_whenAuthRetryLimitReached() = runTest {
+        // Arrange: create a response with a prior 401 to simulate retry chain
+        val mockResponse = mockResponseWithMaxPriorResponses()
+        tokenRepository.setTokens("token", "refresh_token")
+
+        // Act
+        val newRequest = authenticator.authenticate(mockRoute, mockResponse)
+
+        // Assert: guard triggers on >= 2 attempts
+        assertNull(newRequest)
+        val accessToken = tokenRepository.getAccessToken()
+        assertEquals("token", accessToken.requireData())
+    }
+
+    private fun mockResponseWithMaxPriorResponses(): Response {
+        val base = mockResponseWithHeader("Bearer token")
+        var withPriors = base
+        repeat(AuthTokenAuthenticator.MAX_RETRIES - 1) {
+            withPriors = withPriors.newBuilder().priorResponse(base).build()
+        }
+        return withPriors
     }
 
     @Test
@@ -109,9 +154,8 @@ class AuthTokenAuthenticatorTest {
         val refreshedToken = "refreshed_token"
         val mockResponse = mockResponseWithHeader("Bearer $failedRequestToken")
         // New tokens which shouldn't be used
-        tokenRepository.refreshShouldSucceed = true
         tokenRepository.tokenAfterRefresh =
-            FakeTokenRepository.Companion.NonNullAuthToken.copy(accessToken = "will_not_be_used")
+            FakeTokenRepository.NonNullAuthToken.copy(accessToken = "will_not_be_used")
         // The imitation of updating the token in another thread
         tokenRepository.setTokens(refreshedToken, "any_refresh_token")
 
@@ -121,7 +165,8 @@ class AuthTokenAuthenticatorTest {
         // Assert
         assertNotNull(newRequest)
         assertEquals("Bearer $refreshedToken", newRequest.header("Authorization"))
-        assertNotEquals(tokenRepository.tokenAfterRefresh, tokenRepository.getToken())
+        val token = tokenRepository.getToken()
+        assertNotEquals(tokenRepository.tokenAfterRefresh, token.requireData())
     }
 
     private fun mockResponseWithHeader(authHeader: String): Response {
