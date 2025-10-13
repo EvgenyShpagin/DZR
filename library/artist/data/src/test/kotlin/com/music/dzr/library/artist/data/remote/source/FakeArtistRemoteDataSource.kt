@@ -1,7 +1,7 @@
 package com.music.dzr.library.artist.data.remote.source
 
-import com.music.dzr.core.data.test.HasForcedNetworkError
-import com.music.dzr.core.data.test.respond
+import com.music.dzr.core.data.test.HasForcedError
+import com.music.dzr.core.data.test.runUnlessForcedError
 import com.music.dzr.core.data.test.toPaginatedList
 import com.music.dzr.core.network.dto.AlbumGroup
 import com.music.dzr.core.network.dto.Artist
@@ -20,7 +20,7 @@ import kotlinx.serialization.json.Json
  * Mirrors the contract of the real remote source but keeps all state in memory so tests can
  * deterministically set up scenarios and observe effects without network.
  */
-internal class FakeArtistRemoteDataSource : ArtistRemoteDataSource, HasForcedNetworkError {
+internal class FakeArtistRemoteDataSource : ArtistRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
 
@@ -31,13 +31,13 @@ internal class FakeArtistRemoteDataSource : ArtistRemoteDataSource, HasForcedNet
 
     override suspend fun getArtist(
         id: String
-    ): NetworkResponse<Artist> = respond {
+    ): NetworkResponse<Artist> = runUnlessForcedError {
         artists.find { it.id == id }!!
     }
 
     override suspend fun getMultipleArtists(
         ids: List<String>
-    ): NetworkResponse<Artists> = respond {
+    ): NetworkResponse<Artists> = runUnlessForcedError {
         Artists(list = artists.filter { it.id in ids })
     }
 
@@ -47,7 +47,7 @@ internal class FakeArtistRemoteDataSource : ArtistRemoteDataSource, HasForcedNet
         market: String?,
         limit: Int?,
         offset: Int?
-    ): NetworkResponse<PaginatedList<ArtistAlbum>> = respond {
+    ): NetworkResponse<PaginatedList<ArtistAlbum>> = runUnlessForcedError {
         artistAlbums
             .filter { market == null || it.availableMarkets == null || market in it.availableMarkets }
             .filter { includeGroups == null || it.albumGroup in includeGroups }
@@ -57,7 +57,7 @@ internal class FakeArtistRemoteDataSource : ArtistRemoteDataSource, HasForcedNet
     override suspend fun getArtistTopTracks(
         id: String,
         market: String?
-    ): NetworkResponse<Tracks> = respond {
+    ): NetworkResponse<Tracks> = runUnlessForcedError {
         Tracks(
             list = artistTopTracks.takeIf { market == null }
                 ?: artistTopTracks.filter { market in it.availableMarkets }

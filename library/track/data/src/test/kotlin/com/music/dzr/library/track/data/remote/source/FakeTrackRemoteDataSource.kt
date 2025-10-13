@@ -1,7 +1,7 @@
 package com.music.dzr.library.track.data.remote.source
 
-import com.music.dzr.core.data.test.HasForcedNetworkError
-import com.music.dzr.core.data.test.respond
+import com.music.dzr.core.data.test.HasForcedError
+import com.music.dzr.core.data.test.runUnlessForcedError
 import com.music.dzr.core.network.dto.NetworkResponse
 import com.music.dzr.core.network.dto.PaginatedList
 import com.music.dzr.core.network.dto.Track
@@ -17,21 +17,21 @@ import kotlin.time.Instant
  * Mirrors the contract of the real remote source but keeps all state in memory so tests can
  * deterministically set up scenarios and observe effects without network.
  */
-internal class FakeTrackRemoteDataSource : TrackRemoteDataSource, HasForcedNetworkError {
+internal class FakeTrackRemoteDataSource : TrackRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
     private val tracks = mutableMapOf<String, Track>()
     private val saved = linkedMapOf<String, Instant>()
     var saveTimestamp: Instant = Clock.System.now()
 
-    override suspend fun getTrack(id: String, market: String?): NetworkResponse<Track> = respond {
+    override suspend fun getTrack(id: String, market: String?) = runUnlessForcedError {
         tracks[id] ?: error("Fake: track '$id' is not seeded. Seed it before calling getTrack()")
     }
 
     override suspend fun getMultipleTracks(
         ids: List<String>,
         market: String?
-    ): NetworkResponse<List<Track>> = respond {
+    ): NetworkResponse<List<Track>> = runUnlessForcedError {
         val list = ids.map { id ->
             tracks[id] ?: error(
                 "Fake: track '$id' is not seeded. Seed it before calling getMultipleTracks()"
@@ -44,7 +44,7 @@ internal class FakeTrackRemoteDataSource : TrackRemoteDataSource, HasForcedNetwo
         limit: Int?,
         offset: Int?,
         market: String?
-    ): NetworkResponse<PaginatedList<SavedTrack>> = respond {
+    ): NetworkResponse<PaginatedList<SavedTrack>> = runUnlessForcedError {
         val items = saved
             .entries
             .sortedByDescending { it.value }
@@ -74,7 +74,7 @@ internal class FakeTrackRemoteDataSource : TrackRemoteDataSource, HasForcedNetwo
         )
     }
 
-    override suspend fun saveTracksForUser(ids: List<String>): NetworkResponse<Unit> = respond {
+    override suspend fun saveTracksForUser(ids: List<String>) = runUnlessForcedError {
         ids.forEach { id ->
             check(tracks.containsKey(id)) { "Fake: cannot save unknown track '$id'. Seed it first." }
             saved[id] = saveTimestamp
@@ -83,20 +83,20 @@ internal class FakeTrackRemoteDataSource : TrackRemoteDataSource, HasForcedNetwo
 
     override suspend fun saveTracksForUserWithTimestamps(
         timestampedIds: List<TimestampedId>
-    ): NetworkResponse<Unit> = respond {
+    ): NetworkResponse<Unit> = runUnlessForcedError {
         timestampedIds.forEach { (id, ts) ->
             check(tracks.containsKey(id)) { "Fake: cannot save unknown track '$id'. Seed it first." }
             saved[id] = ts
         }
     }
 
-    override suspend fun removeTracksForUser(ids: List<String>): NetworkResponse<Unit> = respond {
+    override suspend fun removeTracksForUser(ids: List<String>) = runUnlessForcedError {
         ids.forEach { saved.remove(it) }
     }
 
     override suspend fun checkUserSavedTracks(
         ids: List<String>
-    ): NetworkResponse<List<Boolean>> = respond {
+    ): NetworkResponse<List<Boolean>> = runUnlessForcedError {
         ids.map { saved.containsKey(it) }
     }
 

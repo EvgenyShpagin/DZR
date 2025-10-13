@@ -1,7 +1,7 @@
 package com.music.dzr.library.player.data.remote.source
 
-import com.music.dzr.core.data.test.HasForcedNetworkError
-import com.music.dzr.core.data.test.respond
+import com.music.dzr.core.data.test.HasForcedError
+import com.music.dzr.core.data.test.runUnlessForcedError
 import com.music.dzr.core.data.test.toCursorPaginatedList
 import com.music.dzr.core.network.dto.CursorPaginatedList
 import com.music.dzr.core.network.dto.NetworkResponse
@@ -27,7 +27,7 @@ import kotlin.time.Instant
  * Mirrors the contract of the real remote source but keeps all state in memory so tests can
  * deterministically set up scenarios and observe effects without network.
  */
-internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedNetworkError {
+internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
 
@@ -40,14 +40,14 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedNet
 
     override suspend fun getPlaybackState(
         market: String?
-    ): NetworkResponse<PlaybackState> = respond {
+    ): NetworkResponse<PlaybackState> = runUnlessForcedError {
         playbackState.copy(timestamp = currentTimestamp())
     }
 
     override suspend fun transferPlayback(
         deviceId: String,
         play: Boolean
-    ): NetworkResponse<Unit> = respond {
+    ): NetworkResponse<Unit> = runUnlessForcedError {
         // Mark active device
         devices = devices.map { it.copy(isActive = it.id == deviceId) }.toMutableList()
         val active = devices.firstOrNull { it.isActive } ?: devices.first()
@@ -63,20 +63,20 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedNet
         )
     }
 
-    override suspend fun getAvailableDevices(): NetworkResponse<Devices> = respond {
+    override suspend fun getAvailableDevices(): NetworkResponse<Devices> = runUnlessForcedError {
         Devices(list = devices.toList())
     }
 
     override suspend fun getCurrentlyPlayingTrack(
         market: String?
-    ): NetworkResponse<CurrentlyPlayingContext> = respond {
+    ): NetworkResponse<CurrentlyPlayingContext> = runUnlessForcedError {
         currentlyPlaying.copy(timestamp = currentTimestamp())
     }
 
     override suspend fun startOrResumePlayback(
         deviceId: String?,
         options: PlaybackOptions?
-    ): NetworkResponse<Unit> = respond {
+    ): NetworkResponse<Unit> = runUnlessForcedError {
         // Optionally switch device
         if (deviceId != null) {
             devices = devices.map { it.copy(isActive = it.id == deviceId) }.toMutableList()
@@ -94,7 +94,7 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedNet
 
     override suspend fun pausePlayback(
         deviceId: String?
-    ): NetworkResponse<Unit> = respond {
+    ): NetworkResponse<Unit> = runUnlessForcedError {
         // Optionally ensure device context (no-op for position)
         deviceId?.let { id ->
             devices = devices.map { it.copy(isActive = it.id == id) }.toMutableList()
@@ -107,7 +107,7 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedNet
     override suspend fun seekToPosition(
         positionMs: Int,
         deviceId: String?
-    ): NetworkResponse<Unit> = respond {
+    ): NetworkResponse<Unit> = runUnlessForcedError {
         deviceId?.let { id ->
             devices = devices.map { it.copy(isActive = it.id == id) }.toMutableList()
             playbackState = playbackState.copy(device = devices.firstOrDefaultActive())
@@ -125,7 +125,7 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedNet
     override suspend fun setRepeatMode(
         state: RepeatMode,
         deviceId: String?
-    ): NetworkResponse<Unit> = respond {
+    ): NetworkResponse<Unit> = runUnlessForcedError {
         deviceId?.let { id ->
             devices = devices.map { it.copy(isActive = it.id == id) }.toMutableList()
             playbackState = playbackState.copy(device = devices.firstOrDefaultActive())
@@ -140,7 +140,7 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedNet
     override suspend fun setPlaybackVolume(
         volumePercent: Int,
         deviceId: String?
-    ): NetworkResponse<Unit> = respond {
+    ): NetworkResponse<Unit> = runUnlessForcedError {
         val targetId = deviceId ?: devices.firstOrDefaultActive().id
         devices = devices.map {
             if (it.id == targetId) it.copy(volumePercent = volumePercent) else it
@@ -151,7 +151,7 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedNet
     override suspend fun toggleShuffle(
         state: Boolean,
         deviceId: String?
-    ): NetworkResponse<Unit> = respond {
+    ): NetworkResponse<Unit> = runUnlessForcedError {
         deviceId?.let { id ->
             devices = devices.map { it.copy(isActive = it.id == id) }.toMutableList()
             playbackState = playbackState.copy(device = devices.firstOrDefaultActive())
@@ -166,7 +166,7 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedNet
         limit: Int?,
         after: Instant?,
         before: Instant?
-    ): NetworkResponse<CursorPaginatedList<PlayHistory>> = respond {
+    ): NetworkResponse<CursorPaginatedList<PlayHistory>> = runUnlessForcedError {
         // Simple in-memory filtering/slicing by timestamp
         val items = recentlyPlayed
             .sortedByDescending { it.playedAt }
@@ -178,14 +178,14 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedNet
         items.toCursorPaginatedList()
     }
 
-    override suspend fun getUserQueue(): NetworkResponse<Queue> = respond {
+    override suspend fun getUserQueue(): NetworkResponse<Queue> = runUnlessForcedError {
         Queue(currentlyPlaying = currentlyPlaying.item, queue = queueTracks.toList())
     }
 
     override suspend fun addToQueue(
         uri: String,
         deviceId: String?
-    ): NetworkResponse<Unit> = respond {
+    ): NetworkResponse<Unit> = runUnlessForcedError {
         // This fake does not resolve URIs to Tracks; tests can directly mutate [queueTracks]
         // We still switch active device if requested
         deviceId?.let { id ->

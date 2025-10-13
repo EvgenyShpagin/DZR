@@ -1,7 +1,7 @@
 package com.music.dzr.library.user.data.remote.source
 
-import com.music.dzr.core.data.test.HasForcedNetworkError
-import com.music.dzr.core.data.test.respond
+import com.music.dzr.core.data.test.HasForcedError
+import com.music.dzr.core.data.test.runUnlessForcedError
 import com.music.dzr.core.network.dto.Artist
 import com.music.dzr.core.network.dto.Cursor
 import com.music.dzr.core.network.dto.CursorPaginatedList
@@ -23,7 +23,7 @@ import com.music.dzr.library.user.data.remote.dto.TimeRange
  * Mirrors the contract of the real remote source but keeps all state in memory so tests can
  * deterministically set up scenarios and observe effects without network.
  */
-internal class FakeUserRemoteDataSource : UserRemoteDataSource, HasForcedNetworkError {
+internal class FakeUserRemoteDataSource : UserRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
     var publicUser = createFakePublicUser()
@@ -31,39 +31,37 @@ internal class FakeUserRemoteDataSource : UserRemoteDataSource, HasForcedNetwork
     var userTopArtists = PaginatedList("", emptyList<Artist>(), 0, "", 0, "", 0)
     var userTopTracks = PaginatedList("", emptyList<Track>(), 0, "", 0, "", 0)
 
-    override suspend fun getCurrentUserProfile(): NetworkResponse<CurrentUser> = respond {
-        currentUser
-    }
+    override suspend fun getCurrentUserProfile() = runUnlessForcedError { currentUser }
 
     override suspend fun getUserTopArtists(
         timeRange: TimeRange?,
         limit: Int?,
         offset: Int?
-    ): NetworkResponse<PaginatedList<Artist>> = respond { userTopArtists }
+    ): NetworkResponse<PaginatedList<Artist>> = runUnlessForcedError { userTopArtists }
 
     override suspend fun getUserTopTracks(
         timeRange: TimeRange?,
         limit: Int?,
         offset: Int?
-    ): NetworkResponse<PaginatedList<Track>> = respond { userTopTracks }
+    ): NetworkResponse<PaginatedList<Track>> = runUnlessForcedError { userTopTracks }
 
     override suspend fun getUserProfile(
         userId: String
-    ): NetworkResponse<PublicUser> = respond { publicUser }
+    ): NetworkResponse<PublicUser> = runUnlessForcedError { publicUser }
 
     override suspend fun followPlaylist(
         playlistId: String,
         asPublic: Boolean
-    ): NetworkResponse<Unit> = respond { }
+    ): NetworkResponse<Unit> = runUnlessForcedError { }
 
     override suspend fun unfollowPlaylist(
         playlistId: String
-    ): NetworkResponse<Unit> = respond { }
+    ): NetworkResponse<Unit> = runUnlessForcedError { }
 
     override suspend fun getFollowedArtists(
         limit: Int?,
         after: String?
-    ): NetworkResponse<FollowedArtists> = respond {
+    ): NetworkResponse<FollowedArtists> = runUnlessForcedError {
         val paginatedList = CursorPaginatedList<Artist>(
             items = emptyList(),
             href = "",
@@ -75,26 +73,26 @@ internal class FakeUserRemoteDataSource : UserRemoteDataSource, HasForcedNetwork
         FollowedArtists(paginatedList)
     }
 
-    override suspend fun followArtists(ids: List<String>) = respond { }
-    override suspend fun followUsers(ids: List<String>) = respond { }
-    override suspend fun unfollowArtists(ids: List<String>) = respond { }
-    override suspend fun unfollowUsers(ids: List<String>) = respond { }
+    override suspend fun followArtists(ids: List<String>) = runUnlessForcedError { }
+    override suspend fun followUsers(ids: List<String>) = runUnlessForcedError { }
+    override suspend fun unfollowArtists(ids: List<String>) = runUnlessForcedError { }
+    override suspend fun unfollowUsers(ids: List<String>) = runUnlessForcedError { }
 
     override suspend fun checkIfUserFollowsArtists(
         ids: List<String>
-    ): NetworkResponse<List<Boolean>> = respond {
+    ): NetworkResponse<List<Boolean>> = runUnlessForcedError {
         ids.map { false }
     }
 
     override suspend fun checkIfUserFollowsUsers(
         ids: List<String>
-    ): NetworkResponse<List<Boolean>> = respond {
+    ): NetworkResponse<List<Boolean>> = runUnlessForcedError {
         ids.map { false }
     }
 
     override suspend fun checkIfUsersFollowPlaylist(
         playlistId: String
-    ): NetworkResponse<Boolean> = respond { false }
+    ): NetworkResponse<Boolean> = runUnlessForcedError { false }
 }
 
 private fun createFakeCurrentUser() = CurrentUser(

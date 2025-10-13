@@ -1,7 +1,7 @@
 package com.music.dzr.library.album.data.remote.source
 
-import com.music.dzr.core.data.test.HasForcedNetworkError
-import com.music.dzr.core.data.test.respond
+import com.music.dzr.core.data.test.HasForcedError
+import com.music.dzr.core.data.test.runUnlessForcedError
 import com.music.dzr.core.data.test.toPaginatedList
 import com.music.dzr.core.network.dto.NetworkResponse
 import com.music.dzr.core.network.dto.PaginatedList
@@ -19,7 +19,7 @@ import kotlin.time.Instant
  *
  * Loads default data from JSON assets and exposes minimal mutable state for saved albums.
  */
-internal class FakeAlbumRemoteDataSource : AlbumRemoteDataSource, HasForcedNetworkError {
+internal class FakeAlbumRemoteDataSource : AlbumRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
 
@@ -42,14 +42,14 @@ internal class FakeAlbumRemoteDataSource : AlbumRemoteDataSource, HasForcedNetwo
     val albumTracks: List<AlbumTrack> = defaultAlbumTracks
     val userSavedAlbums: MutableList<SavedAlbum> = defaultUserSaved.items.toMutableList()
 
-    override suspend fun getAlbum(id: String, market: String?): NetworkResponse<Album> = respond {
+    override suspend fun getAlbum(id: String, market: String?) = runUnlessForcedError {
         albums.find { it.id == id } ?: defaultAlbum
     }
 
     override suspend fun getMultipleAlbums(
         ids: List<String>,
         market: String?
-    ): NetworkResponse<Albums> = respond {
+    ): NetworkResponse<Albums> = runUnlessForcedError {
         Albums(albums.filter { it.id in ids })
     }
 
@@ -58,7 +58,7 @@ internal class FakeAlbumRemoteDataSource : AlbumRemoteDataSource, HasForcedNetwo
         market: String?,
         limit: Int?,
         offset: Int?
-    ): NetworkResponse<PaginatedList<AlbumTrack>> = respond {
+    ): NetworkResponse<PaginatedList<AlbumTrack>> = runUnlessForcedError {
         albumTracks.toPaginatedList(limit, offset)
     }
 
@@ -66,11 +66,11 @@ internal class FakeAlbumRemoteDataSource : AlbumRemoteDataSource, HasForcedNetwo
         limit: Int?,
         offset: Int?,
         market: String?
-    ): NetworkResponse<PaginatedList<SavedAlbum>> = respond {
+    ): NetworkResponse<PaginatedList<SavedAlbum>> = runUnlessForcedError {
         userSavedAlbums.toList().toPaginatedList(limit, offset)
     }
 
-    override suspend fun saveAlbumsForUser(ids: List<String>): NetworkResponse<Unit> = respond {
+    override suspend fun saveAlbumsForUser(ids: List<String>) = runUnlessForcedError {
         ids.forEach { id ->
             val album = albums.find { it.id == id }
             if (album != null) {
@@ -81,9 +81,8 @@ internal class FakeAlbumRemoteDataSource : AlbumRemoteDataSource, HasForcedNetwo
         }
     }
 
-    override suspend fun removeAlbumsForUser(ids: List<String>): NetworkResponse<Unit> = respond {
-        userSavedAlbums.removeAll { it.album.id in ids }
-    }
+    override suspend fun removeAlbumsForUser(ids: List<String>): NetworkResponse<Unit> =
+        runUnlessForcedError { userSavedAlbums.removeAll { it.album.id in ids } }
 }
 
 private val json = Json { ignoreUnknownKeys = true }

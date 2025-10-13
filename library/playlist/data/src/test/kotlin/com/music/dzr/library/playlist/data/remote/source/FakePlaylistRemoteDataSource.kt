@@ -1,7 +1,7 @@
 package com.music.dzr.library.playlist.data.remote.source
 
-import com.music.dzr.core.data.test.HasForcedNetworkError
-import com.music.dzr.core.data.test.respond
+import com.music.dzr.core.data.test.HasForcedError
+import com.music.dzr.core.data.test.runUnlessForcedError
 import com.music.dzr.core.data.test.toPaginatedList
 import com.music.dzr.core.network.dto.ExternalUrls
 import com.music.dzr.core.network.dto.Followers
@@ -30,7 +30,9 @@ import com.music.dzr.library.playlist.data.remote.dto.TrackRemovals
  * Mirrors the contract of the real remote source but keeps all state in memory so tests can
  * deterministically set up scenarios and observe effects without network.
  */
-internal class FakePlaylistRemoteDataSource : PlaylistRemoteDataSource, HasForcedNetworkError {
+internal class FakePlaylistRemoteDataSource :
+    PlaylistRemoteDataSource,
+    HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
 
@@ -68,7 +70,7 @@ internal class FakePlaylistRemoteDataSource : PlaylistRemoteDataSource, HasForce
         playlistId: String,
         market: String?,
         fields: PlaylistFields?
-    ): NetworkResponse<PlaylistWithPaginatedTracks> = respond {
+    ): NetworkResponse<PlaylistWithPaginatedTracks> = runUnlessForcedError {
         val playlist = playlists[playlistId] ?: errorNoPlaylist(playlistId)
 
         playlist.withTracks { list ->
@@ -100,7 +102,7 @@ internal class FakePlaylistRemoteDataSource : PlaylistRemoteDataSource, HasForce
     override suspend fun changePlaylistDetails(
         playlistId: String,
         update: PlaylistDetailsUpdate
-    ): NetworkResponse<Unit> = respond {
+    ): NetworkResponse<Unit> = runUnlessForcedError {
         val playlist = playlists[playlistId] ?: errorNoPlaylist(playlistId)
         val updated = playlist.copy(
             name = update.name ?: playlist.name,
@@ -117,7 +119,7 @@ internal class FakePlaylistRemoteDataSource : PlaylistRemoteDataSource, HasForce
         fields: PlaylistFields?,
         limit: Int?,
         offset: Int?
-    ): NetworkResponse<PaginatedList<PlaylistTrack>> = respond {
+    ): NetworkResponse<PaginatedList<PlaylistTrack>> = runUnlessForcedError {
         val playlist = playlists[playlistId] ?: errorNoPlaylist(playlistId)
         playlist.tracks.toPaginatedList(limit, offset)
     }
@@ -125,7 +127,7 @@ internal class FakePlaylistRemoteDataSource : PlaylistRemoteDataSource, HasForce
     override suspend fun updatePlaylistTracks(
         playlistId: String,
         update: PlaylistItemsUpdate
-    ): NetworkResponse<SnapshotId> = respond {
+    ): NetworkResponse<SnapshotId> = runUnlessForcedError {
         val playlist = playlists[playlistId] ?: errorNoPlaylist(playlistId)
 
         val updatedTracks = when {
@@ -168,7 +170,7 @@ internal class FakePlaylistRemoteDataSource : PlaylistRemoteDataSource, HasForce
     override suspend fun addTracksToPlaylist(
         playlistId: String,
         additions: TrackAdditions
-    ): NetworkResponse<SnapshotId> = respond {
+    ): NetworkResponse<SnapshotId> = runUnlessForcedError {
         val playlist = playlists[playlistId] ?: errorNoPlaylist(playlistId)
         val tracksToAdd = additions.uris.map {
             tracks[it] ?: errorNoTrack(it)
@@ -185,7 +187,7 @@ internal class FakePlaylistRemoteDataSource : PlaylistRemoteDataSource, HasForce
     override suspend fun removePlaylistTracks(
         playlistId: String,
         removals: TrackRemovals
-    ): NetworkResponse<SnapshotId> = respond {
+    ): NetworkResponse<SnapshotId> = runUnlessForcedError {
         val playlist = playlists[playlistId] ?: errorNoPlaylist(playlistId)
         val urisToRemove = removals.tracks.map { it.uri }.toSet()
         val updatedTracks = playlist.tracks.filter { it.track.uri !in urisToRemove }
@@ -196,7 +198,7 @@ internal class FakePlaylistRemoteDataSource : PlaylistRemoteDataSource, HasForce
     override suspend fun getCurrentUserPlaylists(
         limit: Int?,
         offset: Int?
-    ): NetworkResponse<PaginatedList<PlaylistWithTracksInfo>> = respond {
+    ): NetworkResponse<PaginatedList<PlaylistWithTracksInfo>> = runUnlessForcedError {
         val items = playlists.values.map { playlist ->
             playlist.withTracks { tracks ->
                 PlaylistTracksInfo(href = "", total = tracks.count())
@@ -209,7 +211,7 @@ internal class FakePlaylistRemoteDataSource : PlaylistRemoteDataSource, HasForce
         userId: String,
         limit: Int?,
         offset: Int?
-    ): NetworkResponse<PaginatedList<PlaylistWithTracks>> = respond {
+    ): NetworkResponse<PaginatedList<PlaylistWithTracks>> = runUnlessForcedError {
         val items = playlists.values
             .filter { it.owner.id == userId }
         items.toPaginatedList(limit, offset)
@@ -218,7 +220,7 @@ internal class FakePlaylistRemoteDataSource : PlaylistRemoteDataSource, HasForce
     override suspend fun createPlaylist(
         userId: String,
         details: NewPlaylistDetails
-    ): NetworkResponse<PlaylistWithPaginatedTracks> = respond {
+    ): NetworkResponse<PlaylistWithPaginatedTracks> = runUnlessForcedError {
         val playlistId = "fakePlaylist_${nextPlaylistId++}"
         val newPlaylist = Playlist<List<PlaylistTrack>>(
             id = playlistId,
@@ -242,7 +244,7 @@ internal class FakePlaylistRemoteDataSource : PlaylistRemoteDataSource, HasForce
 
     override suspend fun getPlaylistCoverImage(
         playlistId: String
-    ): NetworkResponse<List<Image>> = respond {
+    ): NetworkResponse<List<Image>> = runUnlessForcedError {
         val playlist = playlists[playlistId] ?: errorNoPlaylist(playlistId)
         playlist.images
     }
@@ -250,7 +252,7 @@ internal class FakePlaylistRemoteDataSource : PlaylistRemoteDataSource, HasForce
     override suspend fun uploadCustomPlaylistCover(
         playlistId: String,
         jpegImageData: ByteArray
-    ): NetworkResponse<Unit> = respond {
+    ): NetworkResponse<Unit> = runUnlessForcedError {
         val playlist = playlists[playlistId]
             ?: errorNoPlaylist(playlistId)
         val updated = playlist.copy(
