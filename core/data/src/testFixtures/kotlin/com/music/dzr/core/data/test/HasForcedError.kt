@@ -12,7 +12,7 @@ interface HasForcedError<E> {
     /**
      * The error to be returned by the test double instead of the normal data.
      *
-     * When this is non-null, helper functions like [respond] should return this error
+     * When this is non-null, helper functions like [runUnlessForcedError] should return this error
      * instead of executing the normal logic.
      */
     var forcedError: E?
@@ -35,8 +35,8 @@ inline fun <D, E : AppError> HasForcedError<AppError>.runUnlessForcedError(
 }
 
 /**
- * Wraps a computation in a [Result], returning [HasForcedError.forcedError]
- * if it's present, or the computed data otherwise.
+ * Wraps a computation into a [NetworkResponse], returning [HasForcedError.forcedError]
+ * when it is present or the computed data otherwise.
  */
 inline fun <T> HasForcedError<NetworkError>.runUnlessForcedError(
     block: () -> T
