@@ -1,6 +1,7 @@
 package com.music.dzr.library.album.data.remote.source
 
 import com.music.dzr.core.data.test.HasForcedError
+import com.music.dzr.core.data.test.TestJson
 import com.music.dzr.core.data.test.runUnlessForcedError
 import com.music.dzr.core.data.test.toPaginatedList
 import com.music.dzr.core.network.dto.NetworkResponse
@@ -11,7 +12,6 @@ import com.music.dzr.library.album.data.remote.dto.Album
 import com.music.dzr.library.album.data.remote.dto.AlbumTrack
 import com.music.dzr.library.album.data.remote.dto.Albums
 import com.music.dzr.library.album.data.remote.dto.SavedAlbum
-import kotlinx.serialization.json.Json
 import kotlin.time.Instant
 
 /**
@@ -24,16 +24,16 @@ internal class FakeAlbumRemoteDataSource : AlbumRemoteDataSource, HasForcedError
     override var forcedError: NetworkError? = null
 
     // Default data loaded from assets
-    private val defaultAlbum: Album = json.decodeFromString(
+    private val defaultAlbum: Album = TestJson.decodeFromString(
         getJsonBodyAsset("responses/album.json")
     )
-    private val defaultAlbums: List<Album> = json.decodeFromString<Albums>(
+    private val defaultAlbums: List<Album> = TestJson.decodeFromString<Albums>(
         getJsonBodyAsset("responses/multiple-albums.json")
     ).list
-    private val defaultAlbumTracks = json.decodeFromString<PaginatedList<AlbumTrack>>(
+    private val defaultAlbumTracks = TestJson.decodeFromString<PaginatedList<AlbumTrack>>(
         getJsonBodyAsset("responses/album-tracks.json")
     ).items
-    private val defaultUserSaved: PaginatedList<SavedAlbum> = json.decodeFromString(
+    private val defaultUserSaved: PaginatedList<SavedAlbum> = TestJson.decodeFromString(
         getJsonBodyAsset("responses/user-saved-albums.json")
     )
 
@@ -84,5 +84,3 @@ internal class FakeAlbumRemoteDataSource : AlbumRemoteDataSource, HasForcedError
     override suspend fun removeAlbumsForUser(ids: List<String>): NetworkResponse<Unit> =
         runUnlessForcedError { userSavedAlbums.removeAll { it.album.id in ids } }
 }
-
-private val json = Json { ignoreUnknownKeys = true }

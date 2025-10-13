@@ -1,6 +1,7 @@
 package com.music.dzr.library.artist.data.remote.source
 
 import com.music.dzr.core.data.test.HasForcedError
+import com.music.dzr.core.data.test.TestJson
 import com.music.dzr.core.data.test.runUnlessForcedError
 import com.music.dzr.core.data.test.toPaginatedList
 import com.music.dzr.core.network.dto.AlbumGroup
@@ -12,7 +13,6 @@ import com.music.dzr.core.network.dto.error.NetworkError
 import com.music.dzr.core.network.test.getJsonBodyAsset
 import com.music.dzr.library.artist.data.remote.dto.ArtistAlbum
 import com.music.dzr.library.artist.data.remote.dto.Artists
-import kotlinx.serialization.json.Json
 
 /**
  * In-memory Fake implementation of [ArtistRemoteDataSource].
@@ -65,16 +65,14 @@ internal class FakeArtistRemoteDataSource : ArtistRemoteDataSource, HasForcedErr
     }
 }
 
-private val json = Json { ignoreUnknownKeys = true }
-
-private val defaultArtists = json.decodeFromString<Artists>(
+private val defaultArtists = TestJson.decodeFromString<Artists>(
     getJsonBodyAsset("responses/multiple-artists.json")
 ).list
 
-private val defaultArtistAlbums = json.decodeFromString<PaginatedList<ArtistAlbum>>(
+private val defaultArtistAlbums = TestJson.decodeFromString<PaginatedList<ArtistAlbum>>(
     getJsonBodyAsset("responses/artist-albums.json")
 ).items
 
-private val defaultArtistTopTracks = json.decodeFromString<Tracks>(
+private val defaultArtistTopTracks = TestJson.decodeFromString<Tracks>(
     getJsonBodyAsset("responses/artist-top-tracks.json")
 ).list
