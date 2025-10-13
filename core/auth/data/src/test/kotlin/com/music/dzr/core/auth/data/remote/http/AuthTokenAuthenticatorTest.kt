@@ -1,5 +1,6 @@
 package com.music.dzr.core.auth.data.remote.http
 
+import com.music.dzr.core.auth.data.repository.TestTokenRepository
 import com.music.dzr.core.auth.domain.error.AuthError
 import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
@@ -8,7 +9,6 @@ import com.music.dzr.core.auth.domain.repository.getRefreshToken
 import com.music.dzr.core.error.ConnectivityError
 import com.music.dzr.core.result.isFailure
 import com.music.dzr.core.result.requireData
-import com.music.dzr.core.testing.repository.FakeTokenRepository
 import kotlinx.coroutines.test.runTest
 import okhttp3.Protocol
 import okhttp3.Request
@@ -24,14 +24,14 @@ import kotlin.test.assertTrue
 
 class AuthTokenAuthenticatorTest {
 
-    private lateinit var tokenRepository: FakeTokenRepository
+    private lateinit var tokenRepository: TestTokenRepository
     private lateinit var authenticator: AuthTokenAuthenticator
 
     private val mockRoute: Route? = null
 
     @BeforeTest
     fun setUp() {
-        tokenRepository = FakeTokenRepository()
+        tokenRepository = TestTokenRepository()
         authenticator = AuthTokenAuthenticator(tokenRepository)
     }
 
@@ -155,7 +155,7 @@ class AuthTokenAuthenticatorTest {
         val mockResponse = mockResponseWithHeader("Bearer $failedRequestToken")
         // New tokens which shouldn't be used
         tokenRepository.tokenAfterRefresh =
-            FakeTokenRepository.NonNullAuthToken.copy(accessToken = "will_not_be_used")
+            TestTokenRepository.NonNullAuthToken.copy(accessToken = "will_not_be_used")
         // The imitation of updating the token in another thread
         tokenRepository.setTokens(refreshedToken, "any_refresh_token")
 

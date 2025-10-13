@@ -1,6 +1,6 @@
 package com.music.dzr.core.auth.data.remote.http
 
-import com.music.dzr.core.testing.repository.FakeTokenRepository
+import com.music.dzr.core.auth.data.repository.TestTokenRepository
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.mockwebserver.MockResponse
@@ -15,13 +15,13 @@ class AuthInterceptorTest {
 
     private lateinit var server: MockWebServer
     private lateinit var client: OkHttpClient
-    private lateinit var tokenRepository: FakeTokenRepository
+    private lateinit var tokenRepository: TestTokenRepository
 
     @BeforeTest
     fun setUp() {
         server = MockWebServer()
         server.start()
-        tokenRepository = FakeTokenRepository()
+        tokenRepository = TestTokenRepository()
         client = OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(tokenRepository))
             .build()
