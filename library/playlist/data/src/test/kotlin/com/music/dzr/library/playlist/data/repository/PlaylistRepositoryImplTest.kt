@@ -9,14 +9,13 @@ import com.music.dzr.core.result.isSuccess
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
 import com.music.dzr.core.testing.data.networkDetailedTracksTestData
 import com.music.dzr.library.playlist.data.mapper.toNetwork
-import com.music.dzr.library.playlist.data.remote.source.FakePlaylistRemoteDataSource
+import com.music.dzr.library.playlist.data.remote.source.TestPlaylistRemoteDataSource
 import com.music.dzr.library.playlist.domain.model.InsertPosition
 import com.music.dzr.library.playlist.domain.model.PlaylistDetails
 import com.music.dzr.library.playlist.domain.model.PlaylistVersion
 import com.music.dzr.library.playlist.domain.repository.PlaylistRepository
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
-import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -32,7 +31,7 @@ import com.music.dzr.core.network.dto.error.NetworkErrorType as NetworkErrorType
 
 class PlaylistRepositoryImplTest {
 
-    private lateinit var remoteDataSource: FakePlaylistRemoteDataSource
+    private lateinit var remoteDataSource: TestPlaylistRemoteDataSource
     private lateinit var repository: PlaylistRepository
 
     private val testScheduler = TestCoroutineScheduler()
@@ -41,17 +40,12 @@ class PlaylistRepositoryImplTest {
 
     @BeforeTest
     fun setUp() {
-        remoteDataSource = FakePlaylistRemoteDataSource()
+        remoteDataSource = TestPlaylistRemoteDataSource()
         repository = PlaylistRepositoryImpl(
             remoteDataSource = remoteDataSource,
             dispatchers = testDispatchers,
             externalScope = externalScope
         )
-    }
-
-    @AfterTest
-    fun tearDown() {
-        remoteDataSource.clearAll()
     }
 
     private fun buildPlaylistTrack(

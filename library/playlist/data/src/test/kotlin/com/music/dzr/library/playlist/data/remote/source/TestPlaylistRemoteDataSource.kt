@@ -25,33 +25,24 @@ import com.music.dzr.library.playlist.data.remote.dto.TrackAdditions
 import com.music.dzr.library.playlist.data.remote.dto.TrackRemovals
 
 /**
- * In-memory Fake implementation of [PlaylistRemoteDataSource].
+ * Configurable in-memory test implementation of [PlaylistRemoteDataSource] with default data.
  *
- * Mirrors the contract of the real remote source but keeps all state in memory so tests can
- * deterministically set up scenarios and observe effects without network.
+ * State is set via constructor or direct property assignment; data that must satisfy relationships
+ * or ordering is prepared with a seed method that preserves invariants.
+ * Set [forcedError] to return failures.
+ *
+ * Not thread-safe.
  */
-internal class FakePlaylistRemoteDataSource :
-    PlaylistRemoteDataSource,
-    HasForcedError<NetworkError> {
+internal class TestPlaylistRemoteDataSource(
+    var owner: PublicUser = defaultOwner,
+    var snapshot: SnapshotId = defaultSnapshot
+) : PlaylistRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
 
     private val playlists = mutableMapOf<String, Playlist<List<PlaylistTrack>>>()
     private val tracks = mutableMapOf<String, PlaylistTrack>()
     private var nextPlaylistId = 0
-
-    val owner: PublicUser = PublicUser(
-        id = "test-user",
-        displayName = "Fake User",
-        uri = "spotify:user:test-user",
-        type = "user",
-        images = emptyList(),
-        href = "https://api.spotify.com/v1/test-user",
-        followers = Followers("", 0),
-        externalUrls = ExternalUrls("https://open.spotify.com/test-user")
-    )
-
-    var snapshot: SnapshotId = SnapshotId("PresetSnapshot")
 
     fun seedPlaylists(vararg items: Playlist<List<PlaylistTrack>>) {
         items.forEach { playlist ->
@@ -274,11 +265,17 @@ internal class FakePlaylistRemoteDataSource :
     private fun errorNoTrack(uri: String): Nothing {
         error("Fake: track with uri '$uri' is not seeded")
     }
-
-    fun clearAll() {
-        tracks.clear()
-        playlists.clear()
-        forcedError = null
-        nextPlaylistId = 0
-    }
 }
+
+private val defaultOwner = PublicUser(
+    id = "test-user",
+    displayName = "Fake User",
+    uri = "spotify:user:test-user",
+    type = "user",
+    images = emptyList(),
+    href = "https://api.spotify.com/v1/test-user",
+    followers = Followers("", 0),
+    externalUrls = ExternalUrls("https://open.spotify.com/test-user")
+)
+
+private val defaultSnapshot = SnapshotId("PresetSnapshot")
