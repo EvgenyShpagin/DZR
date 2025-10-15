@@ -8,6 +8,7 @@ import com.music.dzr.core.network.dto.AlbumGroup
 import com.music.dzr.core.network.dto.Artist
 import com.music.dzr.core.network.dto.NetworkResponse
 import com.music.dzr.core.network.dto.PaginatedList
+import com.music.dzr.core.network.dto.Track
 import com.music.dzr.core.network.dto.Tracks
 import com.music.dzr.core.network.dto.error.NetworkError
 import com.music.dzr.core.network.test.getJsonBodyAsset
@@ -15,19 +16,19 @@ import com.music.dzr.library.artist.data.remote.dto.ArtistAlbum
 import com.music.dzr.library.artist.data.remote.dto.Artists
 
 /**
- * In-memory Fake implementation of [ArtistRemoteDataSource].
+ * Configurable in-memory test implementation of [ArtistRemoteDataSource] with default data.
  *
- * Mirrors the contract of the real remote source but keeps all state in memory so tests can
- * deterministically set up scenarios and observe effects without network.
+ * State is set via constructor or direct property assignment. Set [forcedError] to return failures.
+ *
+ * Not thread-safe.
  */
-internal class FakeArtistRemoteDataSource : ArtistRemoteDataSource, HasForcedError<NetworkError> {
+internal class TestArtistRemoteDataSource(
+    var artists: List<Artist> = defaultArtists,
+    var artistAlbums: List<ArtistAlbum> = defaultArtistAlbums,
+    var artistTopTracks: List<Track> = defaultArtistTopTracks
+) : ArtistRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
-
-    // In-memory state
-    val artists = defaultArtists.toMutableList()
-    val artistAlbums = defaultArtistAlbums.toMutableList()
-    val artistTopTracks = defaultArtistTopTracks.toMutableList()
 
     override suspend fun getArtist(
         id: String

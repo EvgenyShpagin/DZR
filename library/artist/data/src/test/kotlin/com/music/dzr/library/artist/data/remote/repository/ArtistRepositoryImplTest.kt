@@ -9,7 +9,7 @@ import com.music.dzr.core.result.isFailure
 import com.music.dzr.core.result.isSuccess
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
 import com.music.dzr.library.artist.data.remote.source.ArtistRemoteDataSource
-import com.music.dzr.library.artist.data.remote.source.FakeArtistRemoteDataSource
+import com.music.dzr.library.artist.data.remote.source.TestArtistRemoteDataSource
 import com.music.dzr.library.artist.data.repository.ArtistRepositoryImpl
 import com.music.dzr.library.artist.domain.repository.ArtistRepository
 import kotlinx.coroutines.test.TestCoroutineScheduler
@@ -29,7 +29,7 @@ class ArtistRepositoryImplTest {
 
     @BeforeTest
     fun setUp() {
-        remoteDataSource = FakeArtistRemoteDataSource()
+        remoteDataSource = TestArtistRemoteDataSource()
         repository = ArtistRepositoryImpl(
             remoteDataSource = remoteDataSource,
             dispatchers = dispatchers
@@ -120,7 +120,7 @@ class ArtistRepositoryImplTest {
     fun getArtistAlbums_appliesPagination_limitAndOffset() = runTest(testScheduler) {
         // Arrange
         val artistId = "57dN52uHvrHOxijzpIgu3E"
-        val fake = remoteDataSource as FakeArtistRemoteDataSource
+        val fake = remoteDataSource as TestArtistRemoteDataSource
         // Ensure we have at least 2 items from defaults
         assertTrue(fake.artistAlbums.size >= 2)
         val expectedSecondId = fake.artistAlbums[1].id
@@ -157,7 +157,7 @@ class ArtistRepositoryImplTest {
     fun getArtistAlbums_filtersByMarket_whenSpecified() = runTest(testScheduler) {
         // Arrange
         val artistId = "57dN52uHvrHOxijzpIgu3E"
-        val fake = remoteDataSource as FakeArtistRemoteDataSource
+        val fake = remoteDataSource as TestArtistRemoteDataSource
         // Compute expected count using the same predicate as FakeArtistRemoteDataSource
         val market = Market("US")
         val expectedCount = fake.artistAlbums
@@ -178,7 +178,7 @@ class ArtistRepositoryImplTest {
     @Test
     fun getArtist_returnsConnectivityTimeout_onTimeoutError() = runTest(testScheduler) {
         // Arrange
-        val fake = remoteDataSource as FakeArtistRemoteDataSource
+        val fake = remoteDataSource as TestArtistRemoteDataSource
         fake.forcedError = NetworkError(
             type = NetworkErrorType.Timeout,
             message = "timeout",
@@ -197,7 +197,7 @@ class ArtistRepositoryImplTest {
     @Test
     fun getMultipleArtists_returnsUnauthorized_onHttp401() = runTest(testScheduler) {
         // Arrange
-        val fake = remoteDataSource as FakeArtistRemoteDataSource
+        val fake = remoteDataSource as TestArtistRemoteDataSource
         fake.forcedError = NetworkError(
             type = NetworkErrorType.HttpException,
             message = "unauthorized",
