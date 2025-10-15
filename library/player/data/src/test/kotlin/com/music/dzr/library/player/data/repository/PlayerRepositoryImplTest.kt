@@ -7,7 +7,7 @@ import com.music.dzr.core.result.isSuccess
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
 import com.music.dzr.core.testing.data.networkDetailedTracksTestData
 import com.music.dzr.library.player.data.remote.dto.PlayHistory
-import com.music.dzr.library.player.data.remote.source.FakePlayerRemoteDataSource
+import com.music.dzr.library.player.data.remote.source.TestPlayerRemoteDataSource
 import com.music.dzr.player.domain.model.RecentlyPlayedFilter
 import com.music.dzr.player.domain.model.RepeatMode
 import com.music.dzr.player.domain.model.TargetDevice
@@ -26,7 +26,7 @@ import com.music.dzr.core.network.dto.error.NetworkErrorType as NetworkErrorType
 
 class PlayerRepositoryImplTest {
 
-    private lateinit var remoteDataSource: FakePlayerRemoteDataSource
+    private lateinit var remoteDataSource: TestPlayerRemoteDataSource
     private lateinit var repository: PlayerRepository
 
     private val testScheduler = TestCoroutineScheduler()
@@ -35,7 +35,7 @@ class PlayerRepositoryImplTest {
 
     @BeforeTest
     fun setUp() {
-        remoteDataSource = FakePlayerRemoteDataSource()
+        remoteDataSource = TestPlayerRemoteDataSource()
         repository = PlayerRepositoryImpl(
             remoteDataSource = remoteDataSource,
             dispatchers = testDispatchers,

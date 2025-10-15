@@ -22,21 +22,38 @@ import kotlin.time.Clock
 import kotlin.time.Instant
 
 /**
- * In-memory Fake implementation of [PlayerRemoteDataSource].
+ * Configurable in-memory test implementation of [PlayerRemoteDataSource] with default data.
  *
- * Mirrors the contract of the real remote source but keeps all state in memory so tests can
- * deterministically set up scenarios and observe effects without network.
+ * State is set via constructor or direct property assignment; data that must satisfy relationships
+ * or ordering is prepared with a seed method that preserves invariants.
+ * Set [forcedError] to return failures.
+ *
+ * Not thread-safe.
  */
-internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedError<NetworkError> {
+internal class TestPlayerRemoteDataSource(
+    val queueTracks: MutableList<Track> = mutableListOf(),
+    val recentlyPlayed: MutableList<PlayHistory> = mutableListOf()
+) : PlayerRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
 
     // In-memory state
-    var devices: MutableList<Device> = mutableListOf(defaultDevice())
-    var playbackState: PlaybackState = defaultPlaybackState(devices.first())
-    var currentlyPlaying: CurrentlyPlayingContext = defaultCurrentlyPlaying()
-    var queueTracks: MutableList<Track> = mutableListOf()
-    var recentlyPlayed: MutableList<PlayHistory> = mutableListOf()
+    private var devices: List<Device> = listOf(defaultDevice)
+    private var playbackState: PlaybackState = defaultPlaybackState
+    private var currentlyPlaying: CurrentlyPlayingContext = defaultCurrentlyPlaying
+
+    /**
+     * Replace available devices and optionally choose an active one.
+     * Keeps [PlaybackState.device] in sync.
+     */
+    fun seedDevices(newDevices: List<Device>) {
+        require(newDevices.isNotEmpty()) { "newDevices must be non-empty" }
+        devices = newDevices
+        playbackState = playbackState.copy(
+            device = devices.firstOrDefaultActive(),
+            timestamp = currentTimestamp()
+        )
+    }
 
     override suspend fun getPlaybackState(
         market: String?
@@ -49,7 +66,7 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedErr
         play: Boolean
     ): NetworkResponse<Unit> = runUnlessForcedError {
         // Mark active device
-        devices = devices.map { it.copy(isActive = it.id == deviceId) }.toMutableList()
+        devices = devices.map { it.copy(isActive = it.id == deviceId) }
         val active = devices.firstOrNull { it.isActive } ?: devices.first()
         // Move playback to the active device and set playing state
         playbackState = playbackState.copy(
@@ -64,7 +81,7 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedErr
     }
 
     override suspend fun getAvailableDevices(): NetworkResponse<Devices> = runUnlessForcedError {
-        Devices(list = devices.toList())
+        Devices(list = devices)
     }
 
     override suspend fun getCurrentlyPlayingTrack(
@@ -79,7 +96,7 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedErr
     ): NetworkResponse<Unit> = runUnlessForcedError {
         // Optionally switch device
         if (deviceId != null) {
-            devices = devices.map { it.copy(isActive = it.id == deviceId) }.toMutableList()
+            devices = devices.map { it.copy(isActive = it.id == deviceId) }
             playbackState = playbackState.copy(device = devices.firstOrDefaultActive())
         }
         // Apply options: we don't synthesize Tracks; we only update position and flags
@@ -97,7 +114,7 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedErr
     ): NetworkResponse<Unit> = runUnlessForcedError {
         // Optionally ensure device context (no-op for position)
         deviceId?.let { id ->
-            devices = devices.map { it.copy(isActive = it.id == id) }.toMutableList()
+            devices = devices.map { it.copy(isActive = it.id == id) }
             playbackState = playbackState.copy(device = devices.firstOrDefaultActive())
         }
         playbackState = playbackState.copy(isPlaying = false, timestamp = currentTimestamp())
@@ -109,7 +126,7 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedErr
         deviceId: String?
     ): NetworkResponse<Unit> = runUnlessForcedError {
         deviceId?.let { id ->
-            devices = devices.map { it.copy(isActive = it.id == id) }.toMutableList()
+            devices = devices.map { it.copy(isActive = it.id == id) }
             playbackState = playbackState.copy(device = devices.firstOrDefaultActive())
         }
         playbackState = playbackState.copy(
@@ -127,7 +144,7 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedErr
         deviceId: String?
     ): NetworkResponse<Unit> = runUnlessForcedError {
         deviceId?.let { id ->
-            devices = devices.map { it.copy(isActive = it.id == id) }.toMutableList()
+            devices = devices.map { it.copy(isActive = it.id == id) }
             playbackState = playbackState.copy(device = devices.firstOrDefaultActive())
         }
 
@@ -144,7 +161,7 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedErr
         val targetId = deviceId ?: devices.firstOrDefaultActive().id
         devices = devices.map {
             if (it.id == targetId) it.copy(volumePercent = volumePercent) else it
-        }.toMutableList()
+        }
         playbackState = playbackState.copy(device = devices.firstOrDefaultActive())
     }
 
@@ -153,7 +170,7 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedErr
         deviceId: String?
     ): NetworkResponse<Unit> = runUnlessForcedError {
         deviceId?.let { id ->
-            devices = devices.map { it.copy(isActive = it.id == id) }.toMutableList()
+            devices = devices.map { it.copy(isActive = it.id == id) }
             playbackState = playbackState.copy(device = devices.firstOrDefaultActive())
         }
         playbackState = playbackState.copy(
@@ -189,14 +206,13 @@ internal class FakePlayerRemoteDataSource : PlayerRemoteDataSource, HasForcedErr
         // This fake does not resolve URIs to Tracks; tests can directly mutate [queueTracks]
         // We still switch active device if requested
         deviceId?.let { id ->
-            devices = devices.map { it.copy(isActive = it.id == id) }.toMutableList()
+            devices = devices.map { it.copy(isActive = it.id == id) }
             playbackState = playbackState.copy(device = devices.firstOrDefaultActive())
         }
     }
 }
 
-private fun List<Device>.firstOrDefaultActive(): Device =
-    this.firstOrNull { it.isActive } ?: this.first()
+private fun List<Device>.firstOrDefaultActive(): Device = firstOrNull { it.isActive } ?: first()
 
 private fun RepeatMode.toApiString(): String = when (this) {
     RepeatMode.Track -> "track"
@@ -206,7 +222,7 @@ private fun RepeatMode.toApiString(): String = when (this) {
 
 private fun currentTimestamp(): Long = Clock.System.now().toEpochMilliseconds()
 
-private fun defaultDevice(): Device = Device(
+private val defaultDevice = Device(
     id = "fake-device",
     isActive = true,
     isPrivateSession = false,
@@ -217,10 +233,10 @@ private fun defaultDevice(): Device = Device(
     supportsVolume = true
 )
 
-private fun defaultActions(): Actions = Actions()
+private val defaultActions = Actions()
 
-private fun defaultPlaybackState(device: Device): PlaybackState = PlaybackState(
-    device = device,
+private val defaultPlaybackState = PlaybackState(
+    device = defaultDevice,
     repeatState = "off",
     shuffleState = false,
     context = null,
@@ -229,15 +245,15 @@ private fun defaultPlaybackState(device: Device): PlaybackState = PlaybackState(
     isPlaying = false,
     item = null,
     currentlyPlayingType = CurrentlyPlayingType.Unknown,
-    actions = defaultActions()
+    actions = defaultActions
 )
 
-private fun defaultCurrentlyPlaying(): CurrentlyPlayingContext = CurrentlyPlayingContext(
+private val defaultCurrentlyPlaying = CurrentlyPlayingContext(
     context = null,
     timestamp = currentTimestamp(),
     progressMs = 0,
     isPlaying = false,
     item = null,
     currentlyPlayingType = CurrentlyPlayingType.Unknown,
-    actions = defaultActions()
+    actions = defaultActions
 )
