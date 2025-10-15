@@ -21,5 +21,5 @@ sealed interface NetworkError : AppError {
      * An unexpected or unhandled server-side error.
      * It may contain a description for debugging purposes.
      */
-    data class Unknown(val description: String? = null) : NetworkError
+    data class Unexpected(val description: String? = null) : NetworkError
 }

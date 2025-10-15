@@ -4,9 +4,7 @@ import com.music.dzr.core.error.AppError
 import com.music.dzr.core.error.ConnectivityError
 import com.music.dzr.core.error.NetworkError
 import com.music.dzr.core.network.dto.NetworkResponse
-import com.music.dzr.core.network.dto.error.NetworkErrorType
 import com.music.dzr.core.result.Result
-import com.music.dzr.core.network.dto.error.NetworkError as NetworkErrorDto
 
 
 /**
@@ -23,7 +21,7 @@ fun <I, O> NetworkResponse<I>.toResult(
     } else if (error != null) {
         errorAsResult()
     } else {
-        Result.Failure(NetworkError.Unknown(description = "Data and error are null"))
+        Result.Failure(NetworkError.Unexpected(description = "Data and error are null"))
     }
 }
 
