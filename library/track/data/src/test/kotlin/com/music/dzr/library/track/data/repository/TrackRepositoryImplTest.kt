@@ -10,13 +10,12 @@ import com.music.dzr.core.result.Result
 import com.music.dzr.core.result.isSuccess
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
 import com.music.dzr.core.testing.data.networkDetailedTracksTestData
-import com.music.dzr.library.track.data.remote.source.FakeTrackRemoteDataSource
+import com.music.dzr.library.track.data.remote.source.TestTrackRemoteDataSource
 import com.music.dzr.library.track.domain.model.SavedTrack
 import com.music.dzr.library.track.domain.model.TimestampedId
 import com.music.dzr.library.track.domain.repository.TrackRepository
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
-import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -31,7 +30,7 @@ import com.music.dzr.core.network.dto.error.NetworkErrorType as NetworkErrorType
 
 class TrackRepositoryImplTest {
 
-    private lateinit var remoteDataSource: FakeTrackRemoteDataSource
+    private lateinit var remoteDataSource: TestTrackRemoteDataSource
     private lateinit var repository: TrackRepository
 
     private val testScheduler = TestCoroutineScheduler()
@@ -42,17 +41,12 @@ class TrackRepositoryImplTest {
 
     @BeforeTest
     fun setUp() {
-        remoteDataSource = FakeTrackRemoteDataSource()
+        remoteDataSource = TestTrackRemoteDataSource()
         repository = TrackRepositoryImpl(
             remoteDataSource = remoteDataSource,
             dispatchers = testDispatchers,
             externalScope = externalScope
         )
-    }
-
-    @AfterTest
-    fun tearDown() {
-        remoteDataSource.clearAll()
     }
 
     @Test

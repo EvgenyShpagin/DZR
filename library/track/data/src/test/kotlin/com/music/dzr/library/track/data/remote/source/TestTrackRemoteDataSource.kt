@@ -12,17 +12,25 @@ import kotlin.time.Clock
 import kotlin.time.Instant
 
 /**
- * In-memory Fake implementation of [TrackRemoteDataSource].
+ * Configurable in-memory test implementation of [TrackRemoteDataSource] with default data.
  *
- * Mirrors the contract of the real remote source but keeps all state in memory so tests can
- * deterministically set up scenarios and observe effects without network.
+ * State is set via constructor or direct property assignment; data that must satisfy relationships
+ * or ordering is prepared with a seed method that preserves invariants.
+ * Set [forcedError] to return failures.
+ *
+ * Not thread-safe.
  */
-internal class FakeTrackRemoteDataSource : TrackRemoteDataSource, HasForcedError<NetworkError> {
+internal class TestTrackRemoteDataSource(
+    var saveTimestamp: Instant = Clock.System.now()
+) : TrackRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
     private val tracks = mutableMapOf<String, Track>()
     private val saved = linkedMapOf<String, Instant>()
-    var saveTimestamp: Instant = Clock.System.now()
+
+    fun seedTracks(vararg items: Track) {
+        items.forEach { tracks[it.id] = it }
+    }
 
     override suspend fun getTrack(id: String, market: String?) = runUnlessForcedError {
         tracks[id] ?: error("Fake: track '$id' is not seeded. Seed it before calling getTrack()")
@@ -98,16 +106,5 @@ internal class FakeTrackRemoteDataSource : TrackRemoteDataSource, HasForcedError
         ids: List<String>
     ): NetworkResponse<List<Boolean>> = runUnlessForcedError {
         ids.map { saved.containsKey(it) }
-    }
-
-    fun seedTracks(vararg items: Track) {
-        items.forEach { tracks[it.id] = it }
-    }
-
-    fun clearAll() {
-        tracks.clear()
-        saved.clear()
-        forcedError = null
-        saveTimestamp = Clock.System.now()
     }
 }
