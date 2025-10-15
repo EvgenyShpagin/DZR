@@ -13,6 +13,10 @@ internal val httpClientModule = module {
 
     single {
         HttpLoggingInterceptor(get()).apply {
+            redactHeader("Authorization")
+            redactHeader("Cookie")
+            redactHeader("Set-Cookie")
+
             if (BuildConfig.DEBUG) {
                 level = HttpLoggingInterceptor.Level.BODY
             }
