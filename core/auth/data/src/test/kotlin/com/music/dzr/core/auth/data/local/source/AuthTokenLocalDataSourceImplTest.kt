@@ -59,7 +59,7 @@ class AuthTokenLocalDataSourceImplTest {
     }
 
     @Test
-    fun save_onUnexpectedException_returnsUnknown() = runTest {
+    fun save_onUnexpectedException_returnsUnexpected() = runTest {
         // Arrange
         dataStore.exceptionToThrow = RuntimeException("boom")
 
@@ -68,7 +68,7 @@ class AuthTokenLocalDataSourceImplTest {
 
         // Assert
         assertTrue(result.isFailure())
-        assertIs<StorageError.Unknown>(result.error)
+        assertIs<StorageError.Unexpected>(result.error)
     }
 
     @Test
@@ -182,7 +182,7 @@ class AuthTokenLocalDataSourceImplTest {
     }
 
     @Test
-    fun get_onUnexpectedException_returnsUnknown() = runTest {
+    fun get_onUnexpectedException_returnsUnexpected() = runTest {
         // Arrange
         dataStore.exceptionToThrow = RuntimeException("boom")
 
@@ -191,7 +191,7 @@ class AuthTokenLocalDataSourceImplTest {
 
         // Assert
         assertTrue(result.isFailure())
-        assertIs<StorageError.Unknown>(result.error)
+        assertIs<StorageError.Unexpected>(result.error)
     }
 
     @Test
@@ -238,7 +238,7 @@ class AuthTokenLocalDataSourceImplTest {
     }
 
     @Test
-    fun clear_onUnexpectedException_returnsUnknown() = runTest {
+    fun clear_onUnexpectedException_returnsUnexpected() = runTest {
         // Arrange
         dataStore.exceptionToThrow = RuntimeException("boom")
 
@@ -247,7 +247,7 @@ class AuthTokenLocalDataSourceImplTest {
 
         // Assert
         assertTrue(result.isFailure())
-        assertIs<StorageError.Unknown>(result.error)
+        assertIs<StorageError.Unexpected>(result.error)
     }
 
     @Test

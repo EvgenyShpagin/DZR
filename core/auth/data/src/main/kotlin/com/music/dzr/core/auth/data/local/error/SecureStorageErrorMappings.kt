@@ -13,7 +13,7 @@ internal fun Exception.toStorageErrorOnUpdate(): StorageError {
         is EncryptorException.Initialization -> SecureStorageError.InitializationFailed(this)
         is EncryptorException.Encryption -> SecureStorageError.EncryptionFailed(this)
         is IOException -> StorageError.WriteFailed(this)
-        else -> StorageError.Unknown(this)
+        else -> StorageError.Unexpected(this)
     }
 }
 
@@ -26,6 +26,6 @@ internal fun Exception.toStorageErrorOnRead(): StorageError {
         is EncryptorException.Decryption -> SecureStorageError.DecryptionFailed(this)
         is CorruptionException -> StorageError.DataCorrupted(this)
         is IOException -> StorageError.ReadFailed(this)
-        else -> StorageError.Unknown(this)
+        else -> StorageError.Unexpected(this)
     }
 }

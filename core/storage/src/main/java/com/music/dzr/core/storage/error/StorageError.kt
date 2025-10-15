@@ -42,5 +42,5 @@ open class StorageError : AppError {
      * Fallback for unexpected cases. Inspect [cause] for details.
      */
 
-    data class Unknown(override val cause: Throwable) : StorageError()
+    data class Unexpected(override val cause: Throwable) : StorageError()
 }
