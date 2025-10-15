@@ -30,9 +30,9 @@ import kotlinx.coroutines.withContext
 import kotlin.time.Duration.Companion.minutes
 
 internal class AuthTokenRepositoryImpl(
-    private val localDataSource: AuthTokenLocalDataSource,
-    private val authSessionDataSource: AuthSessionLocalDataSource,
-    private val remoteDataSource: AuthTokenRemoteDataSource,
+    private val tokenLocalDataSource: AuthTokenLocalDataSource,
+    private val tokenRemoteDataSource: AuthTokenRemoteDataSource,
+    private val sessionDataSource: AuthSessionLocalDataSource,
     private val dispatchers: DispatcherProvider,
     private val externalScope: ApplicationScope,
     private val clientId: String,
@@ -43,7 +43,7 @@ internal class AuthTokenRepositoryImpl(
 
     override suspend fun getToken(): Result<AuthToken, AppError> {
         return withContext(dispatchers.io) {
-            when (val result = localDataSource.get()) {
+            when (val result = tokenLocalDataSource.get()) {
                 is Result.Success -> Result.Success(result.data.toDomain())
                 is Result.Failure -> Result.Failure(
                     result.error
@@ -59,7 +59,7 @@ internal class AuthTokenRepositoryImpl(
             externalScope.async {
                 // Preserve existing refresh token if the new one is absent
                 val mergedToken = token.copy(
-                    refreshToken = token.refreshToken ?: localDataSource.get().run {
+                    refreshToken = token.refreshToken ?: tokenLocalDataSource.get().run {
                         when (this) {
                             is Result.Success -> data.takeIf { it.hasRefreshToken() }?.refreshToken
                             is Result.Failure -> when (error) {
@@ -74,7 +74,7 @@ internal class AuthTokenRepositoryImpl(
                     }
                 )
 
-                when (val save = localDataSource.save(mergedToken.toLocal())) {
+                when (val save = tokenLocalDataSource.save(mergedToken.toLocal())) {
                     is Result.Success -> Result.Success(Unit)
                     is Result.Failure -> Result.Failure(
                         save.error
@@ -97,7 +97,7 @@ internal class AuthTokenRepositoryImpl(
                 val refreshToken = refreshTokenResult.data
                     ?: return@async Result.Failure(AuthError.NotAuthenticated)
 
-                val tokenResponse = remoteDataSource.refreshToken(
+                val tokenResponse = tokenRemoteDataSource.refreshToken(
                     refreshToken = refreshToken,
                     clientId = clientId
                 )
@@ -121,7 +121,7 @@ internal class AuthTokenRepositoryImpl(
     override suspend fun clearTokens(): Result<Unit, PersistenceError> {
         return withContext(dispatchers.io) {
             externalScope.async {
-                when (val clearResult = localDataSource.clear()) {
+                when (val clearResult = tokenLocalDataSource.clear()) {
                     is Result.Success -> Result.Success(Unit)
                     is Result.Failure -> {
                         if (clearResult.error == StorageError.NotFound) Result.Success(Unit)
@@ -140,7 +140,7 @@ internal class AuthTokenRepositoryImpl(
                 val state = securityProvider.generateCsrfState()
 
                 // Persist ephemeral session (PKCE/state)
-                authSessionDataSource.save(
+                sessionDataSource.save(
                     authSession {
                         this.codeVerifier = codeVerifier
                         this.csrfState = state
@@ -181,8 +181,8 @@ internal class AuthTokenRepositoryImpl(
     private suspend fun getAndValidateSession(
         redirectUriParams: RedirectUriParams
     ): Result<AuthSession, AppError> {
-        val sessionResult = authSessionDataSource.get()
-        authSessionDataSource.clear()
+        val sessionResult = sessionDataSource.get()
+        sessionDataSource.clear()
 
         if (sessionResult.isFailure()) {
             val error = when (sessionResult.error) {
@@ -216,7 +216,7 @@ internal class AuthTokenRepositoryImpl(
             }
 
             is RedirectUriParams.Success -> {
-                val tokenResponse = remoteDataSource.getToken(
+                val tokenResponse = tokenRemoteDataSource.getToken(
                     code = redirectUriParams.code,
                     redirectUri = redirectUri,
                     clientId = clientId,
