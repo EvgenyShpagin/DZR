@@ -3,7 +3,7 @@ package com.music.dzr.library.album.data.repository
 import com.music.dzr.core.result.isSuccess
 import com.music.dzr.core.result.isFailure
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
-import com.music.dzr.library.album.data.remote.source.FakeAlbumRemoteDataSource
+import com.music.dzr.library.album.data.remote.source.TestAlbumRemoteDataSource
 import com.music.dzr.library.album.domain.repository.AlbumRepository
 import com.music.dzr.core.model.Market
 import com.music.dzr.core.pagination.OffsetPageable
@@ -20,13 +20,13 @@ import kotlin.test.assertTrue
 class AlbumRepositoryImplTest {
 
     private lateinit var repository: AlbumRepository
-    private lateinit var remoteDataSource: FakeAlbumRemoteDataSource
+    private lateinit var remoteDataSource: TestAlbumRemoteDataSource
     private val testScheduler = TestCoroutineScheduler()
     private val dispatchers = TestDispatcherProvider(testScheduler)
 
     @BeforeTest
     fun setUp() {
-        remoteDataSource = FakeAlbumRemoteDataSource()
+        remoteDataSource = TestAlbumRemoteDataSource()
         repository = AlbumRepositoryImpl(
             remoteDataSource = remoteDataSource,
             dispatchers = dispatchers

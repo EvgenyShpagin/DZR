@@ -15,32 +15,19 @@ import com.music.dzr.library.album.data.remote.dto.SavedAlbum
 import kotlin.time.Instant
 
 /**
- * Asset-backed Fake implementation of [AlbumRemoteDataSource] for repository tests.
+ * Configurable in-memory test implementation of [AlbumRemoteDataSource] with default data.
  *
- * Loads default data from JSON assets and exposes minimal mutable state for saved albums.
+ * State is set via constructor or direct property assignment. Set [forcedError] to return failures.
+ *
+ * Not thread-safe.
  */
-internal class FakeAlbumRemoteDataSource : AlbumRemoteDataSource, HasForcedError<NetworkError> {
+internal class TestAlbumRemoteDataSource(
+    var albums: List<Album> = listOf(defaultAlbum) + defaultAlbums,
+    var albumTracks: List<AlbumTrack> = defaultAlbumTracks,
+    var userSavedAlbums: MutableList<SavedAlbum> = defaultUserSaved.items.toMutableList()
+) : AlbumRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
-
-    // Default data loaded from assets
-    private val defaultAlbum: Album = TestJson.decodeFromString(
-        getJsonBodyAsset("responses/album.json")
-    )
-    private val defaultAlbums: List<Album> = TestJson.decodeFromString<Albums>(
-        getJsonBodyAsset("responses/multiple-albums.json")
-    ).list
-    private val defaultAlbumTracks = TestJson.decodeFromString<PaginatedList<AlbumTrack>>(
-        getJsonBodyAsset("responses/album-tracks.json")
-    ).items
-    private val defaultUserSaved: PaginatedList<SavedAlbum> = TestJson.decodeFromString(
-        getJsonBodyAsset("responses/user-saved-albums.json")
-    )
-
-    // Minimal in-memory state (only for saved albums; others are static from assets)
-    val albums: List<Album> = listOf(defaultAlbum) + defaultAlbums
-    val albumTracks: List<AlbumTrack> = defaultAlbumTracks
-    val userSavedAlbums: MutableList<SavedAlbum> = defaultUserSaved.items.toMutableList()
 
     override suspend fun getAlbum(id: String, market: String?) = runUnlessForcedError {
         albums.find { it.id == id } ?: defaultAlbum
@@ -84,3 +71,19 @@ internal class FakeAlbumRemoteDataSource : AlbumRemoteDataSource, HasForcedError
     override suspend fun removeAlbumsForUser(ids: List<String>): NetworkResponse<Unit> =
         runUnlessForcedError { userSavedAlbums.removeAll { it.album.id in ids } }
 }
+
+private val defaultAlbum: Album = TestJson.decodeFromString(
+    getJsonBodyAsset("responses/album.json")
+)
+
+private val defaultAlbums: List<Album> = TestJson.decodeFromString<Albums>(
+    getJsonBodyAsset("responses/multiple-albums.json")
+).list
+
+private val defaultAlbumTracks = TestJson.decodeFromString<PaginatedList<AlbumTrack>>(
+    getJsonBodyAsset("responses/album-tracks.json")
+).items
+
+private val defaultUserSaved: PaginatedList<SavedAlbum> = TestJson.decodeFromString(
+    getJsonBodyAsset("responses/user-saved-albums.json")
+)
