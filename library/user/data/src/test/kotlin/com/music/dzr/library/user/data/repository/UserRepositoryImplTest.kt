@@ -11,7 +11,7 @@ import com.music.dzr.core.pagination.OffsetPageable
 import com.music.dzr.core.result.Result
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
 import com.music.dzr.core.testing.data.networkDetailedTracksTestData
-import com.music.dzr.library.user.data.remote.source.FakeUserRemoteDataSource
+import com.music.dzr.library.user.data.remote.source.TestUserRemoteDataSource
 import com.music.dzr.library.user.domain.repository.UserRepository
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
@@ -26,7 +26,7 @@ import com.music.dzr.core.network.dto.ExternalUrls as NetworkExternalUrls
 
 internal class UserRepositoryImplTest {
 
-    private lateinit var remoteDataSource: FakeUserRemoteDataSource
+    private lateinit var remoteDataSource: TestUserRemoteDataSource
     private lateinit var repository: UserRepository
 
     private val testScheduler = TestCoroutineScheduler()
@@ -34,7 +34,7 @@ internal class UserRepositoryImplTest {
 
     @BeforeTest
     fun setUp() {
-        remoteDataSource = FakeUserRemoteDataSource()
+        remoteDataSource = TestUserRemoteDataSource()
         repository = UserRepositoryImpl(
             remoteDataSource = remoteDataSource,
             dispatchers = testDispatchers,

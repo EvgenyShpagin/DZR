@@ -18,18 +18,20 @@ import com.music.dzr.library.user.data.remote.dto.FollowedArtists
 import com.music.dzr.library.user.data.remote.dto.TimeRange
 
 /**
- * In-memory Fake implementation of [UserRemoteDataSource].
+ * Configurable in-memory test implementation of [UserRemoteDataSource] with default data.
  *
- * Mirrors the contract of the real remote source but keeps all state in memory so tests can
- * deterministically set up scenarios and observe effects without network.
+ * State is set via constructor or direct property assignment. Set [forcedError] to return failures.
+ *
+ * Not thread-safe.
  */
-internal class FakeUserRemoteDataSource : UserRemoteDataSource, HasForcedError<NetworkError> {
+internal class TestUserRemoteDataSource(
+    var publicUser: PublicUser = defaultPublicUser,
+    var currentUser: CurrentUser = defaultCurrentUser,
+    var userTopArtists: PaginatedList<Artist> = defaultUserTopArtists,
+    var userTopTracks: PaginatedList<Track> = defaultUserTopTracks
+) : UserRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
-    var publicUser = createFakePublicUser()
-    var currentUser = createFakeCurrentUser()
-    var userTopArtists = PaginatedList("", emptyList<Artist>(), 0, "", 0, "", 0)
-    var userTopTracks = PaginatedList("", emptyList<Track>(), 0, "", 0, "", 0)
 
     override suspend fun getCurrentUserProfile() = runUnlessForcedError { currentUser }
 
@@ -95,7 +97,7 @@ internal class FakeUserRemoteDataSource : UserRemoteDataSource, HasForcedError<N
     ): NetworkResponse<Boolean> = runUnlessForcedError { false }
 }
 
-private fun createFakeCurrentUser() = CurrentUser(
+private val defaultCurrentUser = CurrentUser(
     id = "test_user",
     displayName = "Test User",
     email = "test@example.com",
@@ -110,7 +112,7 @@ private fun createFakeCurrentUser() = CurrentUser(
     uri = "uri",
 )
 
-private fun createFakePublicUser() = PublicUser(
+private val defaultPublicUser = PublicUser(
     id = "public_user_123",
     displayName = "Public User",
     followers = Followers(total = 5, href = ""),
@@ -120,3 +122,6 @@ private fun createFakePublicUser() = PublicUser(
     type = "user",
     uri = "uri",
 )
+
+private val defaultUserTopArtists = PaginatedList("", emptyList<Artist>(), 0, "", 0, "", 0)
+private val defaultUserTopTracks = PaginatedList("", emptyList<Track>(), 0, "", 0, "", 0)
