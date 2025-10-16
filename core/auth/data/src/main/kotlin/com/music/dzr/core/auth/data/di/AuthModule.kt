@@ -22,6 +22,7 @@ import com.music.dzr.core.auth.data.remote.oauth.AuthorizationUrlBuilder
 import com.music.dzr.core.auth.data.remote.oauth.OAuthSecurityProvider
 import com.music.dzr.core.auth.data.remote.oauth.OAuthSecurityProviderImpl
 import com.music.dzr.core.auth.data.remote.source.AuthTokenRemoteDataSource
+import com.music.dzr.core.auth.data.remote.source.AuthTokenRemoteDataSourceImpl
 import com.music.dzr.core.coroutine.ApplicationScope
 import com.music.dzr.core.coroutine.DispatcherProvider
 import com.music.dzr.core.network.di.AuthInterceptorQualifier
@@ -83,7 +84,7 @@ val authModule = module {
     }
 
     single<AuthTokenRemoteDataSource> {
-        AuthTokenRemoteDataSource(authApi = get())
+        AuthTokenRemoteDataSourceImpl(authApi = get())
     }
 
     single<OAuthSecurityProvider> { OAuthSecurityProviderImpl() }

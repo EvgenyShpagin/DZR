@@ -8,7 +8,7 @@ import com.music.dzr.core.network.dto.NetworkResponse
  * Remote data source for authentication-related operations.
  * Thin wrapper around [AuthApi] for handling token requests.
  */
-internal class AuthTokenRemoteDataSource(private val authApi: AuthApi) {
+internal interface AuthTokenRemoteDataSource {
 
     /**
      * Exchanges an authorization code for an access token.
@@ -18,14 +18,7 @@ internal class AuthTokenRemoteDataSource(private val authApi: AuthApi) {
         redirectUri: String,
         clientId: String,
         codeVerifier: String
-    ): NetworkResponse<AuthToken> {
-        return authApi.getToken(
-            code = code,
-            redirectUri = redirectUri,
-            clientId = clientId,
-            codeVerifier = codeVerifier
-        )
-    }
+    ): NetworkResponse<AuthToken>
 
     /**
      * Refreshes an expired access token using a refresh token.
@@ -33,10 +26,5 @@ internal class AuthTokenRemoteDataSource(private val authApi: AuthApi) {
     suspend fun refreshToken(
         refreshToken: String,
         clientId: String
-    ): NetworkResponse<AuthToken> {
-        return authApi.refreshToken(
-            refreshToken = refreshToken,
-            clientId = clientId
-        )
-    }
+    ): NetworkResponse<AuthToken>
 }
