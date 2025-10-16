@@ -21,7 +21,7 @@ fun <I, O> NetworkResponse<I>.toResult(
     } else if (error != null) {
         errorAsResult()
     } else {
-        Result.Failure(NetworkError.Unexpected(description = "Data and error are null"))
+        Result.Failure(NetworkError.Unexpected)
     }
 }
 

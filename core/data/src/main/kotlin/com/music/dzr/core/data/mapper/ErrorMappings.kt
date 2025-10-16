@@ -29,13 +29,13 @@ fun NetworkErrorDto.toDomain(): AppError {
             403 -> NetworkError.InsufficientPermissions
             404 -> NetworkError.NotFound
             in 500..599 -> NetworkError.ServerError
-            else -> NetworkError.Unexpected(description = this.toString())
+            else -> NetworkError.Unexpected
         }
 
         // Serialization and Unknown are mapped to a generic Unknown,
         // as they represent unexpected issues.
         NetworkErrorType.SerializationError,
-        NetworkErrorType.Unknown -> NetworkError.Unexpected(description = this.toString())
+        NetworkErrorType.Unknown -> NetworkError.Unexpected
     }
 }
 
