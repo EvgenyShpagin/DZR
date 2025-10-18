@@ -6,6 +6,7 @@ import com.music.dzr.configureKotlinAndroid
 import com.music.dzr.disableEmptyAndroidTests
 import com.music.dzr.libs
 import com.music.dzr.testImplementation
+import com.music.dzr.versionInt
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -20,7 +21,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 35
+                defaultConfig.targetSdk = libs.versionInt("targetSdk")
                 defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 // Disable animations during instrumented tests run from the command line
                 testOptions.animationsDisabled = true

@@ -7,3 +7,6 @@ import org.gradle.kotlin.dsl.getByType
 
 val Project.libs: VersionCatalog
     get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
+fun VersionCatalog.versionInt(name: String): Int =
+    findVersion(name).get().requiredVersion.toInt()
