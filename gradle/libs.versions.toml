@@ -1,9 +1,9 @@
 [versions]
-androidDesugarJdkLibs = "2.1.5"
 compileSdk = "35"
-datastore = "1.1.7"
 minSdk = "24"
 targetSdk = "35"
+androidDesugarJdkLibs = "2.1.5"
+datastore = "1.1.7"
 agp = "8.11.1"
 androidxLifecycle = "2.9.2"
 androidxNavigation = "2.9.3"
