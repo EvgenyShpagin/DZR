@@ -17,8 +17,6 @@ sealed interface NetworkError : AppError {
     /** A server-side error occurred (e.g., HTTP 5xx). */
     data object ServerError : NetworkError
 
-    /**
-     * An unexpected or unhandled server-side error.
-     */
+    /** An unexpected or unhandled server-side error. */
     data object Unexpected : NetworkError
 }
