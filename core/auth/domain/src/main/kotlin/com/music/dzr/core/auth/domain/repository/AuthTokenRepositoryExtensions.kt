@@ -13,8 +13,7 @@ import com.music.dzr.core.result.isSuccess
  * @return [Result] containing the access token as [String] on success,
  * or one of these errors on failure:
  * - [com.music.dzr.core.auth.domain.error.AuthError],
- * - [com.music.dzr.core.error.ConnectivityError],
- * - [com.music.dzr.core.error.NetworkError]
+ * - [com.music.dzr.core.error.PersistenceError].
  */
 suspend fun AuthTokenRepository.getAccessToken() = getToken().mapSuccess { it.accessToken }
 
@@ -24,8 +23,7 @@ suspend fun AuthTokenRepository.getAccessToken() = getToken().mapSuccess { it.ac
  * @return [Result] containing the token type as [String] on success,
  * or one of these errors on failure:
  * - [com.music.dzr.core.auth.domain.error.AuthError],
- * - [com.music.dzr.core.error.ConnectivityError],
- * - [com.music.dzr.core.error.NetworkError]
+ * - [com.music.dzr.core.error.PersistenceError].
  */
 suspend fun AuthTokenRepository.getTokenType() = getToken().mapSuccess { it.tokenType }
 
@@ -36,8 +34,7 @@ suspend fun AuthTokenRepository.getTokenType() = getToken().mapSuccess { it.toke
  * refresh token may legitimately be `null` in a successful result when the provider
  * does not return it (e.g., on subsequent refreshes). On failure, returns one of:
  * - [com.music.dzr.core.auth.domain.error.AuthError],
- * - [com.music.dzr.core.error.ConnectivityError],
- * - [com.music.dzr.core.error.NetworkError]
+ * - [com.music.dzr.core.error.PersistenceError].
  */
 suspend fun AuthTokenRepository.getRefreshToken() = getToken().mapSuccess { it.refreshToken }
 
@@ -47,8 +44,7 @@ suspend fun AuthTokenRepository.getRefreshToken() = getToken().mapSuccess { it.r
  * @return [Result] containing a list of [AuthScope] representing the authorized scopes on success,
  * or one of these errors on failure:
  * - [com.music.dzr.core.auth.domain.error.AuthError],
- * - [com.music.dzr.core.error.ConnectivityError],
- * - [com.music.dzr.core.error.NetworkError]
+ * - [com.music.dzr.core.error.PersistenceError].
  */
 suspend fun AuthTokenRepository.getScopes() = getToken().mapSuccess { it.scopes }
 
@@ -59,8 +55,7 @@ suspend fun AuthTokenRepository.getScopes() = getToken().mapSuccess { it.scopes 
  * @return [Result] containing `true` if the access token has expired, `false` otherwise,
  * or one of these errors on failure:
  * - [com.music.dzr.core.auth.domain.error.AuthError],
- * - [com.music.dzr.core.error.ConnectivityError],
- * - [com.music.dzr.core.error.NetworkError]
+ * - [com.music.dzr.core.error.PersistenceError].
  */
 suspend fun AuthTokenRepository.isAccessTokenExpired(
     safetyBufferSeconds: Int = 30
