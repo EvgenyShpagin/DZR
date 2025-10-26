@@ -20,7 +20,7 @@ internal fun configureGradleManagedDevices(
 ) {
     // Defines the list of virtual devices to be used for testing.
     val devices = listOf(
-        DeviceConfig("Pixel 9", 35, "google"),
+        DeviceConfig("Pixel 9", 36, "google"),
         DeviceConfig("Pixel 4", 28, "google"),
     )
 
