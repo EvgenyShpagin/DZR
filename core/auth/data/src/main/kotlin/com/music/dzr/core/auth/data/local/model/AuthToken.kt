@@ -19,6 +19,8 @@ import java.io.OutputStream
  * - [AuthToken.accessToken]: Access token for API requests.
  * - [AuthToken.refreshToken]: Optional; may be absent in responses. Used to obtain new access tokens.
  * - [AuthToken.expiresIn]: Lifetime in seconds. Persist acquisition time alongside to compute expiry.
+ * - [AuthToken.createdAtCurrentTimeMs]: Acquisition time (wall clock) in ms since Unix epoch.
+ * - [AuthToken.createdAtElapsedRealtimeMs]: Acquisition time (monotonic, since boot) for robust expiry.
  * - [AuthToken.scope]: Optional space-separated list of granted scopes; may be absent.
  * - [AuthToken.tokenType]: Token type, typically "Bearer".
  *
