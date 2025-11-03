@@ -5,8 +5,8 @@ import com.music.dzr.core.model.Market
 import com.music.dzr.core.network.dto.error.NetworkError
 import com.music.dzr.core.network.dto.error.NetworkErrorType
 import com.music.dzr.core.pagination.OffsetPageable
-import com.music.dzr.core.result.isFailure
-import com.music.dzr.core.result.isSuccess
+import com.music.dzr.core.testing.assertion.assertFailureEquals
+import com.music.dzr.core.testing.assertion.assertSuccess
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
 import com.music.dzr.library.artist.data.remote.source.ArtistRemoteDataSource
 import com.music.dzr.library.artist.data.remote.source.TestArtistRemoteDataSource
@@ -45,7 +45,7 @@ class ArtistRepositoryImplTest {
         val result = repository.getArtist(artistId)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
     }
 
     @Test
@@ -57,7 +57,7 @@ class ArtistRepositoryImplTest {
         val result = repository.getMultipleArtists(artistIds)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
 
         val resultArtistIds = result.data.map { it.id }
         assertEquals(
@@ -75,7 +75,7 @@ class ArtistRepositoryImplTest {
         val result = repository.getMultipleArtists(artistIds)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         assertTrue(result.data.isEmpty())
     }
 
@@ -94,7 +94,7 @@ class ArtistRepositoryImplTest {
         val result = repository.getArtistTopTracks(artistId)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
 
         val resultTrackIds = result.data.map { it.id }
         assertEquals(
@@ -112,7 +112,7 @@ class ArtistRepositoryImplTest {
         val result = repository.getArtistAlbums(id = artistId)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         assertTrue(result.data.items.isNotEmpty())
     }
 
@@ -132,7 +132,7 @@ class ArtistRepositoryImplTest {
         )
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         assertEquals(1, result.data.items.size)
         assertEquals(expectedSecondId, result.data.items.first().id)
     }
@@ -149,7 +149,7 @@ class ArtistRepositoryImplTest {
         )
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         assertTrue(result.data.items.none { it.justAppearsOn })
     }
 
@@ -171,7 +171,7 @@ class ArtistRepositoryImplTest {
         )
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         assertEquals(expectedCount, result.data.items.size)
     }
 
@@ -189,9 +189,7 @@ class ArtistRepositoryImplTest {
         val result = repository.getArtist("any")
 
         // Assert
-        assertTrue(result.isFailure())
-        val error = result.error
-        assertTrue(error is ConnectivityError.Timeout)
+        assertFailureEquals(ConnectivityError.Timeout, result)
     }
 
     @Test
@@ -208,8 +206,6 @@ class ArtistRepositoryImplTest {
         val result = repository.getMultipleArtists(listOf("doesn't", "matter"))
 
         // Assert
-        assertTrue(result.isFailure())
-        val error = result.error
-        assertTrue(error is AppNetworkError.Unauthorized)
+        assertFailureEquals(AppNetworkError.Unauthorized, result)
     }
 }
