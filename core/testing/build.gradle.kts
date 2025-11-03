@@ -17,4 +17,5 @@ dependencies {
     api(projects.core.network)
     api(projects.core.model)
     api(libs.kotlinx.coroutines.test)
+    api(libs.kotlin.test)
 }
