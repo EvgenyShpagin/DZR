@@ -8,7 +8,9 @@ import com.music.dzr.core.network.dto.error.NetworkError
 import com.music.dzr.core.network.dto.error.NetworkErrorType
 import com.music.dzr.core.pagination.CursorPageable
 import com.music.dzr.core.pagination.OffsetPageable
-import com.music.dzr.core.result.Result
+import com.music.dzr.core.testing.assertion.assertFailureEquals
+import com.music.dzr.core.testing.assertion.assertSuccess
+import com.music.dzr.core.testing.assertion.assertSuccessEquals
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
 import com.music.dzr.core.testing.data.networkDetailedTracksTestData
 import com.music.dzr.library.user.data.remote.source.TestUserRemoteDataSource
@@ -18,7 +20,6 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertIs
 import kotlin.test.assertTrue
 import com.music.dzr.core.error.NetworkError as CoreNetworkError
 import com.music.dzr.core.network.dto.Artist as NetworkArtist
@@ -50,10 +51,9 @@ internal class UserRepositoryImplTest {
         val result = repository.getCurrentUserProfile()
 
         // Assert
-        assertIs<Result.Success<*>>(result)
-        val user = (result as Result.Success).data
-        assertEquals("test_user", user.id)
-        assertEquals("Test User", user.displayName)
+        assertSuccess(result)
+        assertEquals("test_user", result.data.id)
+        assertEquals("Test User", result.data.displayName)
     }
 
     @Test
@@ -66,9 +66,7 @@ internal class UserRepositoryImplTest {
         val result = repository.getCurrentUserProfile()
 
         // Assert
-        assertIs<Result.Failure<*>>(result)
-        val appError = result.error
-        assertEquals(ConnectivityError.Timeout, appError)
+        assertFailureEquals(ConnectivityError.Timeout, result)
     }
 
     @Test
@@ -90,11 +88,10 @@ internal class UserRepositoryImplTest {
         val result = repository.getUserTopArtists(pageable = pageable)
 
         // Assert
-        assertIs<Result.Success<*>>(result)
-        val page = (result as Result.Success).data
-        assertEquals(1, page.items.size)
-        assertEquals("artist1", page.items[0].id)
-        assertEquals("Artist 1", page.items[0].name)
+        assertSuccess(result)
+        assertEquals(1, result.data.items.size)
+        assertEquals("artist1", result.data.items[0].id)
+        assertEquals("Artist 1", result.data.items[0].name)
     }
 
     @Test
@@ -107,9 +104,7 @@ internal class UserRepositoryImplTest {
         val result = repository.getUserTopArtists(pageable = pageable)
 
         // Assert
-        assertIs<Result.Failure<*>>(result)
-        val appError = result.error
-        assertEquals(CoreNetworkError.InsufficientPermissions, appError)
+        assertFailureEquals(CoreNetworkError.InsufficientPermissions, result)
     }
 
     @Test
@@ -131,11 +126,10 @@ internal class UserRepositoryImplTest {
         val result = repository.getUserTopTracks(pageable = pageable)
 
         // Assert
-        assertIs<Result.Success<*>>(result)
-        val page = (result as Result.Success).data
-        assertEquals(1, page.items.size)
-        assertEquals("track_1", page.items[0].id)
-        assertEquals("Bohemian Rhapsody", page.items[0].name)
+        assertSuccess(result)
+        assertEquals(1, result.data.items.size)
+        assertEquals("track_1", result.data.items[0].id)
+        assertEquals("Bohemian Rhapsody", result.data.items[0].name)
     }
 
     @Test
@@ -148,9 +142,7 @@ internal class UserRepositoryImplTest {
         val result = repository.getUserTopTracks(pageable = pageable)
 
         // Assert
-        assertIs<Result.Failure<*>>(result)
-        val appError = result.error
-        assertEquals(CoreNetworkError.ServerError, appError)
+        assertFailureEquals(CoreNetworkError.ServerError, result)
     }
 
     @Test
@@ -161,10 +153,9 @@ internal class UserRepositoryImplTest {
         val result = repository.getUserProfile("public_user_123")
 
         // Assert
-        assertIs<Result.Success<*>>(result)
-        val user = (result as Result.Success).data
-        assertEquals("public_user_123", user.id)
-        assertEquals("Public User", user.displayName)
+        assertSuccess(result)
+        assertEquals("public_user_123", result.data.id)
+        assertEquals("Public User", result.data.displayName)
     }
 
     @Test
@@ -176,9 +167,7 @@ internal class UserRepositoryImplTest {
         val result = repository.getUserProfile("non_existent_user")
 
         // Assert
-        assertIs<Result.Failure<*>>(result)
-        val appError = result.error
-        assertEquals(CoreNetworkError.ServerError, appError)
+        assertFailureEquals(CoreNetworkError.ServerError, result)
     }
 
     @Test
@@ -189,7 +178,7 @@ internal class UserRepositoryImplTest {
         val result = repository.followPlaylist("playlist1", true)
 
         // Assert
-        assertIs<Result.Success<*>>(result)
+        assertSuccess(result)
     }
 
     @Test
@@ -200,7 +189,7 @@ internal class UserRepositoryImplTest {
         val result = repository.unfollowPlaylist("playlist1")
 
         // Assert
-        assertIs<Result.Success<*>>(result)
+        assertSuccess(result)
     }
 
     @Test
@@ -212,9 +201,8 @@ internal class UserRepositoryImplTest {
         val result = repository.getFollowedArtists(pageable)
 
         // Assert
-        assertIs<Result.Success<*>>(result)
-        val page = (result as Result.Success).data
-        assertTrue(page.items.isEmpty()) // Fake returns an empty list
+        assertSuccess(result)
+        assertTrue(result.data.items.isEmpty()) // Fake returns an empty list
     }
 
     @Test
@@ -225,7 +213,7 @@ internal class UserRepositoryImplTest {
         val result = repository.followArtists(listOf("artist1"))
 
         // Assert
-        assertIs<Result.Success<*>>(result)
+        assertSuccess(result)
     }
 
     @Test
@@ -236,7 +224,7 @@ internal class UserRepositoryImplTest {
         val result = repository.unfollowArtists(listOf("artist1"))
 
         // Assert
-        assertIs<Result.Success<*>>(result)
+        assertSuccess(result)
     }
 
     @Test
@@ -247,9 +235,7 @@ internal class UserRepositoryImplTest {
         val result = repository.checkIfUserFollowsArtists(listOf("artist1", "artist2"))
 
         // Assert
-        assertIs<Result.Success<*>>(result)
-        val follows = (result as Result.Success).data
-        assertEquals(listOf(false, false), follows) // Fake returns false for all ids
+        assertSuccessEquals(listOf(false, false), result) // Fake returns false for all ids;
     }
 
     @Test
@@ -260,7 +246,7 @@ internal class UserRepositoryImplTest {
         val result = repository.followUsers(listOf("user1"))
 
         // Assert
-        assertIs<Result.Success<*>>(result)
+        assertSuccess(result)
     }
 
     @Test
@@ -271,7 +257,7 @@ internal class UserRepositoryImplTest {
         val result = repository.unfollowUsers(listOf("user1"))
 
         // Assert
-        assertIs<Result.Success<*>>(result)
+        assertSuccess(result)
     }
 
     @Test
@@ -283,9 +269,7 @@ internal class UserRepositoryImplTest {
         val result = repository.checkIfUserFollowsUsers(listOf("user1", "user2"))
 
         // Assert
-        assertIs<Result.Success<*>>(result)
-        val follows = (result as Result.Success).data
-        assertEquals(listOf(false, false), follows) // Fake returns false for all ids
+        assertSuccessEquals(listOf(false, false), result) // Fake returns false for all ids
     }
 
     @Test
@@ -296,9 +280,7 @@ internal class UserRepositoryImplTest {
         val result = repository.checkIfUsersFollowPlaylist("playlist1")
 
         // Assert
-        assertIs<Result.Success<Boolean>>(result)
-        val follows = result.data
-        assertEquals(false, follows) // Fake returns false
+        assertSuccessEquals(false, result) // Fake returns false
     }
 
     val networkArtist = NetworkArtist(
