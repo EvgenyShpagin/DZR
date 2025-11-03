@@ -22,16 +22,18 @@ interface HasForcedError<E> {
  * Wraps a computation in a [Result], returning [HasForcedError.forcedError]
  * if it's present, or the computed data otherwise.
  */
-inline fun <D, E : AppError> HasForcedError<AppError>.runUnlessForcedError(
-    block: () -> Result<D, E>
-): Result<D, E> {
+inline fun <D, E : AppError, EE : E> HasForcedError<E>.runUnlessForcedError(
+    block: () -> Result<D, EE>
+): Result<D, EE> {
     val error = forcedError
-    return if (error != null) {
-        @Suppress("UNCHECKED_CAST")
-        Result.Failure(error as E)
+    val result = if (error != null) {
+        forcedError = null
+        Result.Failure(error)
     } else {
         block()
     }
+    @Suppress("UNCHECKED_CAST")
+    return result as Result<D, EE>
 }
 
 /**
