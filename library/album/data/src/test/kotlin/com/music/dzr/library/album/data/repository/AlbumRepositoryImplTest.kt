@@ -1,21 +1,23 @@
 package com.music.dzr.library.album.data.repository
 
+import com.music.dzr.core.model.Market
+import com.music.dzr.core.network.dto.error.NetworkError
+import com.music.dzr.core.network.dto.error.NetworkErrorType
+import com.music.dzr.core.pagination.OffsetPageable
 import com.music.dzr.core.result.isSuccess
-import com.music.dzr.core.result.isFailure
+import com.music.dzr.core.testing.assertion.assertFailureEquals
+import com.music.dzr.core.testing.assertion.assertSuccess
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
 import com.music.dzr.library.album.data.remote.source.TestAlbumRemoteDataSource
 import com.music.dzr.library.album.domain.repository.AlbumRepository
-import com.music.dzr.core.model.Market
-import com.music.dzr.core.pagination.OffsetPageable
-import com.music.dzr.core.error.NetworkError as AppNetworkError
-import com.music.dzr.core.network.dto.error.NetworkError
-import com.music.dzr.core.network.dto.error.NetworkErrorType
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import com.music.dzr.core.error.NetworkError as AppNetworkError
 
 class AlbumRepositoryImplTest {
 
@@ -44,7 +46,7 @@ class AlbumRepositoryImplTest {
         val result = repository.getAlbum(album.id)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         val a = result.data
         assertEquals(album.id, a.id)
         assertEquals(album.name, a.name)
@@ -62,7 +64,7 @@ class AlbumRepositoryImplTest {
         val result = repository.getMultipleAlbums(ids)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         val list = result.data
         assertEquals(ids, list.take(2).map { it.id })
     }
@@ -77,7 +79,7 @@ class AlbumRepositoryImplTest {
         val result = repository.getAlbumTracks(id = album.id, pageable = pageable)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         val page = result.data
         assertEquals(2, page.items.size)
         val all = remoteDataSource.albumTracks
@@ -96,14 +98,14 @@ class AlbumRepositoryImplTest {
         assertTrue(saveRes.isSuccess())
 
         val savedRes = repository.getUserSavedAlbums()
-        assertTrue(savedRes.isSuccess())
+        assertSuccess(savedRes)
         assertTrue(savedRes.data.items.map { it.id }.containsAll(listOf(a1.id, a2.id)))
 
         val removeRes = repository.removeAlbumsForUser(listOf(a1.id))
-        assertTrue(removeRes.isSuccess())
+        assertSuccess(removeRes)
 
         val savedRes2 = repository.getUserSavedAlbums()
-        assertTrue(savedRes2.isSuccess())
+        assertSuccess(savedRes2)
         assertEquals(listOf(a2.id), savedRes2.data.items.map { it.id })
     }
 
@@ -118,7 +120,7 @@ class AlbumRepositoryImplTest {
         val result = repository.getUserSavedAlbums(pageable = pageable)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         assertEquals(2, result.data.items.size)
     }
 
@@ -135,8 +137,6 @@ class AlbumRepositoryImplTest {
         val result = repository.getAlbum("does_not_matter", market = Market.Unspecified)
 
         // Assert
-        assertTrue(result.isFailure())
-        val error = result.error
-        assertEquals(AppNetworkError.Unauthorized, error)
+        assertFailureEquals(AppNetworkError.Unauthorized, result)
     }
 }
