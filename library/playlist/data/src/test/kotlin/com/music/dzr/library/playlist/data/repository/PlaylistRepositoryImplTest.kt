@@ -4,8 +4,8 @@ import com.music.dzr.core.coroutine.ApplicationScope
 import com.music.dzr.core.network.dto.ExternalUrls
 import com.music.dzr.core.pagination.OffsetPageable
 import com.music.dzr.core.pagination.Page
-import com.music.dzr.core.result.Result
-import com.music.dzr.core.result.isSuccess
+import com.music.dzr.core.testing.assertion.assertFailureEquals
+import com.music.dzr.core.testing.assertion.assertSuccess
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
 import com.music.dzr.core.testing.data.networkDetailedTracksTestData
 import com.music.dzr.library.playlist.data.mapper.toNetwork
@@ -19,7 +19,6 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertIs
 import kotlin.test.assertTrue
 import kotlin.time.Instant
 import com.music.dzr.core.error.NetworkError as DomainNetworkError
@@ -101,7 +100,7 @@ class PlaylistRepositoryImplTest {
         val result = repository.getPlaylist(pid)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         val p = result.data
         assertEquals(pid, p.id)
         assertEquals("My Playlist", p.name)
@@ -126,9 +125,9 @@ class PlaylistRepositoryImplTest {
         )
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         val getRes = repository.getPlaylist(pid)
-        assertTrue(getRes.isSuccess())
+        assertSuccess(getRes)
         assertEquals("New Name", getRes.data.name)
     }
 
@@ -149,7 +148,7 @@ class PlaylistRepositoryImplTest {
         val pageRes = repository.getPlaylistTracks(pid, pageable = pageable)
 
         // Assert
-        assertTrue(pageRes.isSuccess())
+        assertSuccess(pageRes)
         val page: Page<*> = pageRes.data
         assertEquals(2, page.items.size)
     }
@@ -171,12 +170,12 @@ class PlaylistRepositoryImplTest {
         )
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         val version: PlaylistVersion = result.data
         assertEquals(remoteDataSource.snapshot.snapshotId, version.toNetwork())
 
         val pageRes = repository.getPlaylistTracks(pid)
-        assertTrue(pageRes.isSuccess())
+        assertSuccess(pageRes)
         assertEquals(1, pageRes.data.items.size)
     }
 
@@ -201,9 +200,9 @@ class PlaylistRepositoryImplTest {
         )
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         val tracks = repository.getPlaylistTracks(pid)
-        assertTrue(tracks.isSuccess())
+        assertSuccess(tracks)
         val uris = tracks.data.items.map { it.track.id }
         // After moving first to before index 2: order should be 2,1,3 by track ids
         assertEquals(listOf("track_2", "track_1", "track_3"), uris)
@@ -228,9 +227,9 @@ class PlaylistRepositoryImplTest {
         )
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         val tracks = repository.getPlaylistTracks(pid)
-        assertTrue(tracks.isSuccess())
+        assertSuccess(tracks)
         val uris = tracks.data.items.map { it.track.id }
         // Should be 1,2 (dedup keeps unique by uri, but we assert domain ids)
         assertEquals(listOf("track_1", "track_2"), uris)
@@ -260,9 +259,9 @@ class PlaylistRepositoryImplTest {
         )
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         val tracks = repository.getPlaylistTracks(pid)
-        assertTrue(tracks.isSuccess())
+        assertSuccess(tracks)
         val uris = tracks.data.items.map { it.track.id }
         assertEquals(listOf("track_2"), uris)
     }
@@ -278,7 +277,7 @@ class PlaylistRepositoryImplTest {
         val result = repository.getCurrentUserPlaylists(pageable)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         val page = result.data
         assertEquals(2, page.items.size)
     }
@@ -295,7 +294,7 @@ class PlaylistRepositoryImplTest {
         )
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         assertTrue(result.data.items.size >= 2)
     }
 
@@ -312,11 +311,11 @@ class PlaylistRepositoryImplTest {
             )
         )
 
-        assertTrue(createRes.isSuccess())
+        assertSuccess(createRes)
         val created = createRes.data
 
         val coverRes = repository.getPlaylistCoverImage(created.id)
-        assertTrue(coverRes.isSuccess())
+        assertSuccess(coverRes)
         // initially empty
         assertEquals(0, coverRes.data.size)
 
@@ -324,10 +323,9 @@ class PlaylistRepositoryImplTest {
             playlistId = created.id,
             jpegImage = byteArrayOf(1, 2, 3)
         )
-        assertTrue(uploadRes.isSuccess())
-
+        assertSuccess(uploadRes)
         val coverRes2 = repository.getPlaylistCoverImage(created.id)
-        assertTrue(coverRes2.isSuccess())
+        assertSuccess(coverRes2)
         assertEquals(1, coverRes2.data.size)
     }
 
@@ -345,7 +343,6 @@ class PlaylistRepositoryImplTest {
         val result = repository.getCurrentUserPlaylists()
 
         // Assert
-        assertIs<Result.Failure<DomainNetworkError>>(result)
-        assertEquals(DomainNetworkError.Unauthorized, result.error)
+        assertFailureEquals(DomainNetworkError.Unauthorized, result)
     }
 }
