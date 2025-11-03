@@ -191,17 +191,4 @@ class TrackRepositoryImplTest {
         assertIs<Result.Failure<DomainNetworkError>>(result)
         assertEquals(DomainNetworkError.Unauthorized, result.error)
     }
-
-    private val testArtists = listOf(
-        SimplifiedArtist(
-            externalUrls = ExternalUrls(
-                spotify = "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
-            ),
-            href = "https://api.spotify.com/v1/artists/artist_1",
-            id = "artist_1",
-            name = "Queen",
-            type = "artist",
-            uri = "spotify:artist:artist_1"
-        )
-    )
 }
