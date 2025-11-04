@@ -8,6 +8,7 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
+import kotlin.test.assertNotEquals
 
 
 /**
@@ -32,6 +33,23 @@ fun <D, E : AppError> assertSuccessEquals(
         expected = expectedData,
         actual = actual.data,
         message = message ?: "Expected data to be $expectedData, but was ${actual.data}"
+    )
+}
+
+/**
+ * Asserts that [actual] is [Result.Success] with data not equal to [illegal].
+ */
+fun <D, E : AppError> assertSuccessNotEquals(
+    illegal: D,
+    actual: Result<D, E>,
+    message: String? = null
+) {
+    contract { returns() implies (actual is Result.Success<D>) }
+    assertSuccess(actual, message)
+    assertNotEquals(
+        illegal = illegal,
+        actual = actual.data,
+        message = message ?: "Expected data to be not $illegal, but was ${actual.data}"
     )
 }
 
