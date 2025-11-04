@@ -20,6 +20,7 @@ internal class TestAuthTokenRemoteDataSource(
 ) : AuthTokenRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
+    override var isStickyForcedError: Boolean = false
 
     override suspend fun getToken(
         code: String,

@@ -29,6 +29,7 @@ internal class TestArtistRemoteDataSource(
 ) : ArtistRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
+    override var isStickyForcedError: Boolean = false
 
     override suspend fun getArtist(
         id: String

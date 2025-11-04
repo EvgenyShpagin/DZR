@@ -32,6 +32,7 @@ internal class TestUserRemoteDataSource(
 ) : UserRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
+    override var isStickyForcedError: Boolean = false
 
     override suspend fun getCurrentUserProfile() = runUnlessForcedError { currentUser }
 

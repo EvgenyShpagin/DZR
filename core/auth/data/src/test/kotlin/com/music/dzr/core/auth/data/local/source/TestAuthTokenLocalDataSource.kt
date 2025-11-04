@@ -18,6 +18,7 @@ class TestAuthTokenLocalDataSource : AuthTokenLocalDataSource, HasForcedError<St
 
     private val tokenStore = AtomicReference<AuthToken>()
     override var forcedError: StorageError? = null
+    override var isStickyForcedError: Boolean = false
 
     override suspend fun get(): Result<AuthToken, StorageError> = runUnlessForcedError {
         return when (val token = tokenStore.get()) {

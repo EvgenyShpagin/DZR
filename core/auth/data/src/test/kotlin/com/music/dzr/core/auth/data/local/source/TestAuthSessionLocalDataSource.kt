@@ -18,6 +18,7 @@ class TestAuthSessionLocalDataSource : AuthSessionLocalDataSource, HasForcedErro
 
     private val sessionStore = AtomicReference<AuthSession>()
     override var forcedError: StorageError? = null
+    override var isStickyForcedError: Boolean = false
 
     override suspend fun save(
         authSession: AuthSession

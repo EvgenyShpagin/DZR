@@ -16,6 +16,12 @@ interface HasForcedError<E> {
      * instead of executing the normal logic.
      */
     var forcedError: E?
+
+    /**
+     * When true, the same forced error will be returned on every invocation
+     * until you clear [forcedError] manually.
+     */
+    var isStickyForcedError: Boolean
 }
 
 /**
@@ -27,7 +33,9 @@ inline fun <D, E : AppError, EE : E> HasForcedError<E>.runUnlessForcedError(
 ): Result<D, EE> {
     val error = forcedError
     val result = if (error != null) {
-        forcedError = null
+        if (!isStickyForcedError) {
+            forcedError = null
+        }
         Result.Failure(error)
     } else {
         block()
@@ -45,6 +53,9 @@ inline fun <T> HasForcedError<NetworkError>.runUnlessForcedError(
 ): NetworkResponse<T> {
     val error = forcedError
     return if (error != null) {
+        if (!isStickyForcedError) {
+            forcedError = null
+        }
         NetworkResponse(error = error)
     } else {
         NetworkResponse(data = block())

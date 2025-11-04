@@ -25,6 +25,7 @@ class TestTokenRepository(
     private val tokenStore = AtomicReference(defaultToken)
 
     override var forcedError: AppError? = null
+    override var isStickyForcedError: Boolean = false
 
     fun resetTokens() {
         tokenStore.set(null)

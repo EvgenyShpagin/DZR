@@ -28,6 +28,7 @@ internal class TestAlbumRemoteDataSource(
 ) : AlbumRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
+    override var isStickyForcedError: Boolean = false
 
     override suspend fun getAlbum(id: String, market: String?) = runUnlessForcedError {
         albums.find { it.id == id } ?: defaultAlbum
