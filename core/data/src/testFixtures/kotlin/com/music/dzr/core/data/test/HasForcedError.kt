@@ -6,7 +6,7 @@ import com.music.dzr.core.network.dto.error.NetworkError
 import com.music.dzr.core.result.Result
 
 /**
- * A marker interface for test fakes that can simulate returning a forced error.
+ * A marker interface for test doubles that can simulate returning a forced error.
  */
 interface HasForcedError<E> {
     /**
