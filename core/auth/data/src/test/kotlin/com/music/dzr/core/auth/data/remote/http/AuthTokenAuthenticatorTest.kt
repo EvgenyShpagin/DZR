@@ -82,6 +82,7 @@ class AuthTokenAuthenticatorTest {
         val mockResponse = mockResponseWithHeader("Bearer old_token")
         tokenRepository.setTokens("old_token", "refresh_token")
         tokenRepository.forcedError = AuthError.InvalidGrant
+        tokenRepository.isStickyForcedError = true
 
         // Act
         val newRequest = authenticator.authenticate(mockRoute, mockResponse)
