@@ -27,10 +27,7 @@ fun <D, E : AppError> assertSuccessEquals(
     message: String? = null
 ) {
     contract { returns() implies (actual is Result.Success<D>) }
-    assertIs<Result.Success<D>>(
-        value = actual,
-        message = message ?: "Expected value to be Result.Success."
-    )
+    assertSuccess(actual, message)
     assertEquals(
         expected = expectedData,
         actual = actual.data,
@@ -59,13 +56,9 @@ inline fun <reified E : AppError> assertFailureIs(
     message: String? = null
 ) {
     contract { returns() implies (actual is Result.Failure<*>) }
-    assertIs<Result.Failure<*>>(
-        value = actual,
-        message = message ?: "Expected failure to be Result.Failure."
-    )
-    val error = actual.error
+    assertFailure(actual, message)
     assertIs<E>(
-        value = error,
+        value = actual.error,
         message = message ?: "Expected error of type ${E::class.simpleName}"
     )
 }
@@ -82,10 +75,7 @@ inline fun <reified E : AppError> assertFailureEquals(
     message: String? = null
 ) {
     contract { returns() implies (actual is Result.Failure<E>) }
-    assertIs<Result.Failure<E>>(
-        value = actual,
-        message = message ?: "Expected failure to be Result.Failure."
-    )
+    assertFailure(actual, message)
     assertEquals(
         expected = expectedError,
         actual = actual.error,
