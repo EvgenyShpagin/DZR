@@ -1,6 +1,8 @@
 import com.android.build.api.dsl.ApplicationExtension
 import com.music.dzr.configureGradleManagedDevices
 import com.music.dzr.configureKotlinAndroid
+import com.music.dzr.libs
+import com.music.dzr.versionInt
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -14,7 +16,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 35
+                defaultConfig.targetSdk = libs.versionInt("targetSdk")
                 // Disable animations during instrumented tests run from the command line
                 testOptions.animationsDisabled = true
                 configureGradleManagedDevices(this)

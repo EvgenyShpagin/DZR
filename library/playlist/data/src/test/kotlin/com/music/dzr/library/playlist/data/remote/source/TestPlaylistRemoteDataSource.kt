@@ -39,6 +39,7 @@ internal class TestPlaylistRemoteDataSource(
 ) : PlaylistRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
+    override var isStickyForcedError: Boolean = false
 
     private val playlists = mutableMapOf<String, Playlist<List<PlaylistTrack>>>()
     private val tracks = mutableMapOf<String, PlaylistTrack>()

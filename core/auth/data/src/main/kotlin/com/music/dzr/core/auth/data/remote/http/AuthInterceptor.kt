@@ -1,8 +1,9 @@
 package com.music.dzr.core.auth.data.remote.http
 
+import com.music.dzr.core.auth.domain.model.isExpired
 import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
-import com.music.dzr.core.auth.domain.repository.getAccessToken
-import com.music.dzr.core.result.isFailure
+import com.music.dzr.core.result.onFailure
+import com.music.dzr.core.result.requireData
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -27,15 +28,30 @@ internal class AuthInterceptor(
             return chain.proceed(originalRequest)
         }
 
-        val accessToken = runBlocking { tokenRepository.getAccessToken() }
-        if (accessToken.isFailure()) {
-            return chain.proceed(originalRequest)
+        val accessHeader = runBlocking {
+            var token = tokenRepository.getToken()
+                .onFailure { return@runBlocking null }
+                .requireData()
+
+            if (token.isExpired()) {
+                tokenRepository.refreshToken()
+                    .onFailure { return@runBlocking null }
+
+                token = tokenRepository.getToken()
+                    .onFailure { return@runBlocking null }
+                    .requireData()
+            }
+            "${token.tokenType} ${token.accessToken}"
         }
 
-        val requestWithHeader = originalRequest.newBuilder()
-            .header("Authorization", "Bearer ${accessToken.data}")
-            .build()
+        val request = if (accessHeader != null) {
+            originalRequest.newBuilder()
+                .header("Authorization", accessHeader)
+                .build()
+        } else {
+            originalRequest
+        }
 
-        return chain.proceed(requestWithHeader)
+        return chain.proceed(request)
     }
 }

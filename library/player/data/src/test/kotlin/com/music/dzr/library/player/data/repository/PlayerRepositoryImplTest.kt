@@ -2,8 +2,8 @@ package com.music.dzr.library.player.data.repository
 
 import com.music.dzr.core.coroutine.ApplicationScope
 import com.music.dzr.core.model.Market
-import com.music.dzr.core.result.Result
-import com.music.dzr.core.result.isSuccess
+import com.music.dzr.core.testing.assertion.assertFailureEquals
+import com.music.dzr.core.testing.assertion.assertSuccess
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
 import com.music.dzr.core.testing.data.networkDetailedTracksTestData
 import com.music.dzr.library.player.data.remote.dto.PlayHistory
@@ -17,7 +17,6 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertIs
 import kotlin.test.assertTrue
 import kotlin.time.Instant
 import com.music.dzr.core.error.NetworkError as DomainNetworkError
@@ -52,7 +51,7 @@ class PlayerRepositoryImplTest {
         val result = repository.getPlaybackState(market = market)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
     }
 
     @Test
@@ -64,7 +63,7 @@ class PlayerRepositoryImplTest {
         val result = repository.getAvailableDevices()
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         assertTrue(result.data.isNotEmpty())
     }
 
@@ -80,9 +79,9 @@ class PlayerRepositoryImplTest {
         val seekRes = repository.seekToPosition(positionMs = newPosition, device = device)
 
         // Assert
-        assertTrue(startRes.isSuccess())
-        assertTrue(pauseRes.isSuccess())
-        assertTrue(seekRes.isSuccess())
+        assertSuccess(startRes)
+        assertSuccess(pauseRes)
+        assertSuccess(seekRes)
     }
 
     @Test
@@ -99,9 +98,9 @@ class PlayerRepositoryImplTest {
         val volumeRes = repository.setPlaybackVolume(volumePercent = volume, device = device)
 
         // Assert
-        assertTrue(shuffleRes.isSuccess())
-        assertTrue(repeatRes.isSuccess())
-        assertTrue(volumeRes.isSuccess())
+        assertSuccess(shuffleRes)
+        assertSuccess(repeatRes)
+        assertSuccess(volumeRes)
     }
 
     @Test
@@ -121,7 +120,7 @@ class PlayerRepositoryImplTest {
         val result = repository.getRecentlyPlayed(filter)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         assertEquals(1, result.data.items.size)
     }
 
@@ -135,7 +134,7 @@ class PlayerRepositoryImplTest {
         val result = repository.getQueue()
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         assertEquals(1, result.data.upcoming.size)
     }
 
@@ -152,7 +151,7 @@ class PlayerRepositoryImplTest {
         )
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
     }
 
     @Test
@@ -170,7 +169,6 @@ class PlayerRepositoryImplTest {
         val result = repository.getPlaybackState(market = market)
 
         // Assert
-        assertIs<Result.Failure<DomainNetworkError>>(result)
-        assertEquals(DomainNetworkError.Unauthorized, result.error)
+        assertFailureEquals(DomainNetworkError.Unauthorized, result)
     }
 }

@@ -2,12 +2,12 @@ package com.music.dzr.library.track.data.repository
 
 import com.music.dzr.core.coroutine.ApplicationScope
 import com.music.dzr.core.model.Market
-import com.music.dzr.core.network.dto.ExternalUrls
-import com.music.dzr.core.network.dto.SimplifiedArtist
 import com.music.dzr.core.pagination.OffsetPageable
 import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.result.Result
-import com.music.dzr.core.result.isSuccess
+import com.music.dzr.core.testing.assertion.assertFailureEquals
+import com.music.dzr.core.testing.assertion.assertSuccess
+import com.music.dzr.core.testing.assertion.assertSuccessEquals
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
 import com.music.dzr.core.testing.data.networkDetailedTracksTestData
 import com.music.dzr.library.track.data.remote.source.TestTrackRemoteDataSource
@@ -19,8 +19,6 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertIs
-import kotlin.test.assertTrue
 import kotlin.test.fail
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.Instant
@@ -59,7 +57,7 @@ class TrackRepositoryImplTest {
         val result = repository.getTrack(id, market = Market("US"))
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         assertEquals(id, result.data.id)
     }
 
@@ -74,7 +72,7 @@ class TrackRepositoryImplTest {
         val result = repository.getMultipleTracks(listOf("a", "b"), market = Market.Unspecified)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         val list = result.data
         assertEquals(2, list.size)
         assertEquals("a", list[0].id)
@@ -96,7 +94,7 @@ class TrackRepositoryImplTest {
         val result = repository.getUserSavedTracks(pageable)
 
         // Assert
-        assertTrue(result.isSuccess())
+        assertSuccess(result)
         val page = result.data
         assertEquals(2, page.items.size)
         assertEquals("2", page.items[0].music.id)
@@ -118,9 +116,7 @@ class TrackRepositoryImplTest {
         }
 
         val checkRes = repository.checkUserSavedTracks(listOf("s1"))
-        assertTrue(checkRes.isSuccess())
-        assertEquals(listOf(true), checkRes.data)
-
+        assertSuccessEquals(listOf(true), checkRes)
     }
 
     @Test
@@ -144,8 +140,8 @@ class TrackRepositoryImplTest {
         val getResult = repository.getUserSavedTracks(market = Market.Unspecified)
 
         // Assert
-        assertTrue(saveResult.isSuccess())
-        assertTrue(getResult.isSuccess())
+        assertSuccess(saveResult)
+        assertSuccess(getResult)
         val page: Page<SavedTrack> = getResult.data
         assertEquals(2, page.items.count())
         assertEquals(t1, page.items[0].addedAt)
@@ -163,14 +159,14 @@ class TrackRepositoryImplTest {
         // Act & Assert
 
         val firstCheckResult = repository.checkUserSavedTracks(listOf("r1"))
-        assertTrue(firstCheckResult.isSuccess())
+        assertSuccess(firstCheckResult)
         assertEquals(listOf(true), firstCheckResult.data)
 
         val removeResult = repository.removeTracksForUser(listOf("r1"))
-        assertTrue(removeResult.isSuccess())
+        assertSuccess(removeResult)
 
         val lastCheckResult = repository.checkUserSavedTracks(listOf("r1"))
-        assertTrue(lastCheckResult.isSuccess())
+        assertSuccess(lastCheckResult)
         assertEquals(listOf(false), lastCheckResult.data)
     }
 
@@ -188,20 +184,6 @@ class TrackRepositoryImplTest {
         val result = repository.getTrack("any", market = Market.Unspecified)
 
         // Assert
-        assertIs<Result.Failure<DomainNetworkError>>(result)
-        assertEquals(DomainNetworkError.Unauthorized, result.error)
+        assertFailureEquals(DomainNetworkError.Unauthorized, result)
     }
-
-    private val testArtists = listOf(
-        SimplifiedArtist(
-            externalUrls = ExternalUrls(
-                spotify = "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
-            ),
-            href = "https://api.spotify.com/v1/artists/artist_1",
-            id = "artist_1",
-            name = "Queen",
-            type = "artist",
-            uri = "spotify:artist:artist_1"
-        )
-    )
 }

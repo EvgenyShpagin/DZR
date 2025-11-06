@@ -36,6 +36,7 @@ internal class TestPlayerRemoteDataSource(
 ) : PlayerRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
+    override var isStickyForcedError: Boolean = false
 
     // In-memory state
     private var devices: List<Device> = listOf(defaultDevice)

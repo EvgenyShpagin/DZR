@@ -25,25 +25,12 @@ class TestTokenRepository(
     private val tokenStore = AtomicReference(defaultToken)
 
     override var forcedError: AppError? = null
-
-    fun resetTokens() {
-        tokenStore.set(null)
-    }
-
-    fun setTokens(accessToken: String, refreshToken: String?) {
-        val oldToken = tokenStore.get() ?: NonNullAuthToken
-        val newToken = oldToken.copy(
-            accessToken = accessToken,
-            refreshToken = refreshToken
-        )
-        tokenStore.set(newToken)
-    }
+    override var isStickyForcedError: Boolean = false
 
     var tokenAfterRefresh: AuthToken = tokenStore.get() ?: NonNullAuthToken
 
     override suspend fun getToken(): Result<AuthToken, AppError> = runUnlessForcedError {
-        val token = tokenStore.get()
-        return when (token) {
+        return when (val token = tokenStore.get()) {
             null -> Result.Failure(AuthError.NotAuthenticated)
             else -> Result.Success(token)
         }

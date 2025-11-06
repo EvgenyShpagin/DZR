@@ -20,8 +20,8 @@ internal fun configureGradleManagedDevices(
 ) {
     // Defines the list of virtual devices to be used for testing.
     val devices = listOf(
-        DeviceConfig("Pixel 9", 35, "aosp-atd"),
-        DeviceConfig(device = "Pixel 4", apiLevel = 28, systemImageSource = "google"),
+        DeviceConfig("Pixel 9", 36, "google"),
+        DeviceConfig("Pixel 4", 28, "google"),
     )
 
     commonExtension.testOptions {
@@ -53,7 +53,7 @@ private data class DeviceConfig(
     val apiLevel: Int,
     val systemImageSource: String,
 ) {
-    // A unique name for the Gradle task, e.g., "pixel6api31aosp"
+    // A unique name for the Gradle task, e.g., "pixel6api31google"
     val taskName = buildString {
         append(device.lowercase().replace(" ", ""))
         append("api")

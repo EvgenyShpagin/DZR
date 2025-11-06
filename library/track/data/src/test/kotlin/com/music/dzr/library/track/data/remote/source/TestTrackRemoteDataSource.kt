@@ -25,6 +25,7 @@ internal class TestTrackRemoteDataSource(
 ) : TrackRemoteDataSource, HasForcedError<NetworkError> {
 
     override var forcedError: NetworkError? = null
+    override var isStickyForcedError: Boolean = false
     private val tracks = mutableMapOf<String, Track>()
     private val saved = linkedMapOf<String, Instant>()
 
