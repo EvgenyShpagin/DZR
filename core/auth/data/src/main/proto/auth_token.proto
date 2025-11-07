@@ -30,9 +30,5 @@ message AuthToken {
   string token_type = 5;
 
   // Acquisition time (wall clock) in ms since Unix epoch.
-  int64 created_at_current_time_ms = 6;
-
-  // Acquisition time (monotonic) in ms since boot.
-  // Used for robust expiry unaffected by wall-clock changes.
-  int64 created_at_elapsed_realtime_ms = 7;
+  int64 created_at_time_ms = 6;
 }
