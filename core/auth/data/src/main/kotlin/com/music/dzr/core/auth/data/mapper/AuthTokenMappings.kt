@@ -7,13 +7,16 @@ import com.music.dzr.core.auth.data.local.model.AuthToken as LocalToken
 import com.music.dzr.core.auth.data.remote.dto.AuthToken as NetworkToken
 import com.music.dzr.core.auth.domain.model.AuthToken as DomainToken
 
-internal fun NetworkToken.toDomain(): DomainToken {
+internal fun NetworkToken.toDomain(
+    createdAtMillis: Long = System.currentTimeMillis()
+): DomainToken {
     return DomainToken(
         accessToken = accessToken,
         tokenType = tokenType,
         expiresInSeconds = expiresIn,
         refreshToken = refreshToken,
-        scopes = scope?.let { AuthScope.parse(it) } ?: emptyList()
+        scopes = scope?.let { AuthScope.parse(it) } ?: emptyList(),
+        expiresAtMillis = createdAtMillis + expiresIn * 1000L
     )
 }
 
@@ -31,11 +34,12 @@ internal fun LocalToken.toDomain(): DomainToken {
     val refresh = if (this.hasRefreshToken()) this.refreshToken else null
     val scopes = if (this.hasScope()) AuthScope.parse(this.scope) else emptyList()
     return DomainToken(
-        accessToken = this.accessToken,
-        tokenType = this.tokenType,
-        expiresInSeconds = this.expiresIn,
+        accessToken = accessToken,
+        tokenType = tokenType,
+        expiresInSeconds = expiresIn,
         refreshToken = refresh,
-        scopes = scopes
+        scopes = scopes,
+        expiresAtMillis = createdAtTimeMs
     )
 }
 
@@ -44,6 +48,7 @@ internal fun DomainToken.toLocal(): LocalToken = authToken {
     accessToken = domain.accessToken
     tokenType = domain.tokenType
     expiresIn = domain.expiresInSeconds
+    createdAtTimeMs = domain.expiresAtMillis
 
     domain.refreshToken?.let { refreshToken = it }
 
