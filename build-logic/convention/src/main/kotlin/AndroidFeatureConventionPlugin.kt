@@ -11,6 +11,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "dzr.android.library")
+            apply(plugin = "dzr.android.library.compose")
+            apply(plugin = "dzr.screenshot")
             apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
             apply(plugin = "dzr.koin")
 
