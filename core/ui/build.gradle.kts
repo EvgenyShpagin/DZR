@@ -20,7 +20,7 @@ android {
 dependencies {
     api(projects.core.designSystem)
     api(projects.core.model)
-    implementation(libs.coil.compose)
+    api(libs.coil.compose)
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.junit)
