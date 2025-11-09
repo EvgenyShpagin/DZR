@@ -16,6 +16,7 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(projects.core.ui)
+    implementation(libs.androidx.palette.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
 }
