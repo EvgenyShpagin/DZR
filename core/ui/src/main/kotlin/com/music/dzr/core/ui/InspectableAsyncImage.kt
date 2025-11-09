@@ -11,7 +11,7 @@ import coil3.compose.AsyncImage
 
 @Composable
 fun InspectableAsyncImage(
-    model: Any,
+    model: Any?,
     contentDescription: String?,
     contentScale: ContentScale,
     placeholder: Painter,
