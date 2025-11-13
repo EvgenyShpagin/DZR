@@ -28,6 +28,7 @@ protobufPlugin = "0.9.5"
 koin-bom = "4.1.1"
 screenshot = "0.0.1-alpha11"
 secrets = "2.0.1"
+paletteKtx = "1.0.0"
 
 [libraries]
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
@@ -36,6 +37,7 @@ androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "d
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
 androidx-test-core-ktx = { module = "androidx.test:core-ktx", version.ref = "androidxTestCoreCtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
@@ -87,6 +89,7 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 compose-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 protobuf-gradlePlugin = { module = "com.google.protobuf:protobuf-gradle-plugin", version.ref = "protobufPlugin" }
+androidx-palette-ktx = { group = "androidx.palette", name = "palette-ktx", version.ref = "paletteKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -14,7 +14,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders["appAuthHost"] = "evgenyshpagin.github.io"
-        manifestPlaceholders["appAuthPath"] = "/DZR-app-links/callback"
+        manifestPlaceholders["appAuthPath"] = "/dzr-assets/callback"
     }
 
     buildTypes {
