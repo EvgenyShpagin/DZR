@@ -31,8 +31,8 @@ internal fun DomainToken.toNetwork(): NetworkToken {
 }
 
 internal fun LocalToken.toDomain(): DomainToken {
-    val refresh = if (this.hasRefreshToken()) this.refreshToken else null
-    val scopes = if (this.hasScope()) AuthScope.parse(this.scope) else emptyList()
+    val refresh = if (hasRefreshToken()) refreshToken else null
+    val scopes = if (hasScope()) AuthScope.parse(scope) else emptyList()
     return DomainToken(
         accessToken = accessToken,
         tokenType = tokenType,
