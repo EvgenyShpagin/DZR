@@ -49,7 +49,7 @@ class AuthTokenTest {
                 tokenType = tokenType,
                 expiresInSeconds = expiresInSeconds,
                 refreshToken = null,
-                scopes = null
+                scopes = emptyList()
             )
         }
         assertEquals("Access token cannot be blank", exception.message)
@@ -69,7 +69,7 @@ class AuthTokenTest {
                 tokenType = tokenType,
                 expiresInSeconds = expiresInSeconds,
                 refreshToken = null,
-                scopes = null
+                scopes = emptyList()
             )
         }
         assertEquals("Token type cannot be blank", exception.message)
@@ -89,7 +89,7 @@ class AuthTokenTest {
                 tokenType = tokenType,
                 expiresInSeconds = expiresInSeconds,
                 refreshToken = null,
-                scopes = null
+                scopes = emptyList()
             )
         }
         assertEquals("Expires in seconds must be positive", exception.message)
@@ -108,7 +108,7 @@ class AuthTokenTest {
             tokenType = tokenType,
             expiresInSeconds = expiresInSeconds,
             refreshToken = null,
-            scopes = null
+            scopes = emptyList()
         )
         val currentTimeMillis = System.currentTimeMillis()
         val expectedExpiryTime =
@@ -134,7 +134,7 @@ class AuthTokenTest {
             tokenType = tokenType,
             expiresInSeconds = expiresInSeconds,
             refreshToken = null,
-            scopes = null
+            scopes = emptyList()
         )
 
         // Assert
