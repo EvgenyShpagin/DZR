@@ -11,12 +11,12 @@ import androidx.compose.material.icons.sharp.Pause
 import androidx.compose.material.icons.sharp.PlayArrow
 
 object DzrIcons {
-    val Check = Icons.Sharp.Check
-    val Favorite = Icons.Sharp.Favorite
-    val FavoriteBorder = Icons.Sharp.FavoriteBorder
-    val KeyboardArrowRight = Icons.AutoMirrored.Sharp.KeyboardArrowRight
-    val ArrowBack = Icons.AutoMirrored.Sharp.ArrowBack
-    val MoreVert = Icons.Sharp.MoreVert
-    val Pause = Icons.Sharp.Pause
-    val PlayArrow = Icons.Sharp.PlayArrow
+    val Check get() = Icons.Sharp.Check
+    val Favorite get() = Icons.Sharp.Favorite
+    val FavoriteBorder get() = Icons.Sharp.FavoriteBorder
+    val KeyboardArrowRight get() = Icons.AutoMirrored.Sharp.KeyboardArrowRight
+    val ArrowBack get() = Icons.AutoMirrored.Sharp.ArrowBack
+    val MoreVert get() = Icons.Sharp.MoreVert
+    val Pause get() = Icons.Sharp.Pause
+    val PlayArrow get() = Icons.Sharp.PlayArrow
 }
