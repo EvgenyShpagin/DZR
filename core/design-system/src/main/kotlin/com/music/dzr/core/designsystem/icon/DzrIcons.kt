@@ -19,4 +19,5 @@ object DzrIcons {
     val MoreVert get() = Icons.Sharp.MoreVert
     val Pause get() = Icons.Sharp.Pause
     val PlayArrow get() = Icons.Sharp.PlayArrow
+    val Login get() = LoginBold
 }
