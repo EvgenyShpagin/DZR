@@ -157,7 +157,7 @@ private fun formatReleaseDetails(
     explicit: Boolean,
     releaseType: ReleaseType
 ): String {
-    return "$releaseYear • ${if (explicit) "🅴" else ""} ${releaseType.toString(context)}"
+    return "$releaseYear • ${if (explicit) "🅴 " else ""}${releaseType.toString(context)}"
 }
 
 @Preview
