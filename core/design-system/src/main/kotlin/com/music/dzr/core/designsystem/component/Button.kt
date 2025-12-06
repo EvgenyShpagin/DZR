@@ -155,7 +155,7 @@ private fun DzrButtonContent(
             leadingIcon()
         }
     }
-    ButtonDefaults
+
     Box(
         Modifier.padding(
             start = if (leadingIcon != null) {
