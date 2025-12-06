@@ -6,9 +6,6 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
@@ -25,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
 /**
@@ -140,7 +138,7 @@ private fun MediaListItemPreview_EnabledFull() {
             },
             icon = {
                 Icon(
-                    imageVector = Icons.Filled.MoreVert,
+                    imageVector = DzrIcons.MoreVert,
                     contentDescription = "More options"
                 )
             },
@@ -170,7 +168,7 @@ private fun MediaListItemPreview_DisabledFull() {
             },
             icon = {
                 Icon(
-                    imageVector = Icons.Filled.MoreVert,
+                    imageVector = DzrIcons.MoreVert,
                     contentDescription = "More options"
                 )
             },
@@ -189,7 +187,7 @@ private fun MediaListItemPreview_EnabledNoImage() {
             supportingContent = { Text("Anonymous Artist") },
             icon = {
                 Icon(
-                    imageVector = Icons.Filled.Favorite,
+                    imageVector = DzrIcons.Favorite,
                     contentDescription = "Favorite"
                 )
             },
@@ -218,7 +216,7 @@ private fun MediaListItemPreview_EnabledNoSupporting() {
             },
             icon = {
                 Icon(
-                    imageVector = Icons.Filled.MoreVert,
+                    imageVector = DzrIcons.MoreVert,
                     contentDescription = "More options"
                 )
             },
