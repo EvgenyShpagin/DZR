@@ -10,15 +10,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.music.dzr.core.designsystem.component.ImagePlaceholder
 import com.music.dzr.core.designsystem.theme.DzrTheme
-import com.music.dzr.core.designsystem.R as designSystemR
 
 @Composable
 fun ArtistCard(
@@ -44,7 +43,7 @@ fun ArtistCard(
             InspectableAsyncImage(
                 model = pictureUrl,
                 contentDescription = null,
-                placeholder = painterResource(designSystemR.drawable.core_design_system_ic_placeholder_default),
+                placeholder = ImagePlaceholder,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .sizeIn(minWidth = 128.dp)

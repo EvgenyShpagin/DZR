@@ -44,7 +44,7 @@ import coil3.request.SuccessResult
 import coil3.request.allowHardware
 import coil3.size.Size
 import coil3.toBitmap
-import com.music.dzr.core.designsystem.R.drawable.core_design_system_ic_placeholder_default
+import com.music.dzr.core.designsystem.component.ImagePlaceholder
 import com.music.dzr.core.designsystem.theme.DzrTheme
 import com.music.dzr.core.ui.InspectableAsyncImage
 import com.music.dzr.feature.auth.R
@@ -74,7 +74,7 @@ internal fun CoverMarqueeItem(
     shape: Shape = ShapeDefaults.ExtraSmall,
     glowRadius: Dp = 16.dp,
     isBright: Boolean = !isSystemInDarkTheme(),
-    placeholder: Painter = painterResource(core_design_system_ic_placeholder_default),
+    placeholder: Painter = ImagePlaceholder,
 ) {
     val imageBitmap by rememberBitmapFromUrl(item.imageUrl)
     val resolvedGlowColor = remember(imageBitmap) {

@@ -29,7 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.music.dzr.core.designsystem.R.drawable.core_design_system_ic_placeholder_default
+import com.music.dzr.core.designsystem.component.ImagePlaceholder
 import com.music.dzr.core.designsystem.theme.DzrTheme
 import com.music.dzr.feature.auth.R
 import kotlinx.coroutines.launch
@@ -58,7 +58,7 @@ internal fun CoverMarquee(
     velocity: Dp = CoverMarqueeDefaults.Velocity,
     itemLimit: Int = CoverMarqueeDefaults.ITEM_LIMIT,
     animationDelayMs: Int = 1000,
-    placeholder: Painter = painterResource(core_design_system_ic_placeholder_default)
+    placeholder: Painter = ImagePlaceholder
 ) {
     if (items.isEmpty()) return
 
