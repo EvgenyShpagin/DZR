@@ -31,15 +31,17 @@ All Previews must follow a strict naming pattern to ensure test logs are readabl
 **Pattern:** `[ComponentName]_[State]_[Variant]_Preview`
 
 * **ComponentName**: The PascalCase name of the Composable (e.g., `Track`, `PlayableHeader`).
-* **State**: The logical state being shown (e.g., `Enabled`, `Loading`, `Error`, `Content`).
+* **State**: The logical state being shown.
+    * Use **`Default`** for stateless components or the main visual state.
+    * Use specific states like `Enabled`, `Disabled`, `Loading`, `Error`, `Empty` when applicable.
 * **Variant** (Optional): Specific configuration or edge case (e.g., `Dark`, `FontScale150`,
   `LongText`, `NoCover`).
 
 **Examples:**
 
 * `Button_Enabled_Icon_Preview`
-* `Track_Content_LongTitle_Preview`
-* `PlayableHeader_Playing_SmallScreen_Preview`
+* `Track_Default_LongTitle_Preview`
+* `PlayableHeader_Default_SmallScreen_Preview`
 
 ### 3. Component Strategy
 
