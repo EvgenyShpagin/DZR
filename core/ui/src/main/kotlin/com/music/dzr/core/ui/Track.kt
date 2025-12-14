@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ShapeDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.music.dzr.core.designsystem.component.ImagePlaceholder
 import com.music.dzr.core.designsystem.icon.DzrIcons
@@ -78,7 +79,7 @@ fun Track(
     )
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun TrackPreview() {
     val uiState = TrackUiState(
@@ -88,28 +89,12 @@ private fun TrackPreview() {
         contributors = listOf("Artist 1", "Artist 2")
     )
     DzrTheme {
-        Track(
-            state = uiState,
-            onClick = {},
-            onMoreClick = {},
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun TrackWithoutCoverPreview() {
-    val uiState = TrackUiState(
-        coverUrl = "",
-        title = "Sample Track",
-        isExplicit = true,
-        contributors = listOf("Artist 1", "Artist 2")
-    )
-    DzrTheme {
-        Track(
-            state = uiState,
-            onClick = {},
-            onMoreClick = {},
-        )
+        Surface {
+            Track(
+                state = uiState,
+                onClick = {},
+                onMoreClick = {},
+            )
+        }
     }
 }

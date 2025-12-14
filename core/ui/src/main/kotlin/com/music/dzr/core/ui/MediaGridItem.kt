@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -24,7 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
@@ -115,146 +116,42 @@ class MediaGridItemColors(
         if (enabled) supportingTextColor else disabledSupportingTextColor
 }
 
-@Preview(name = "Enabled - Full")
+@PreviewLightDark
 @Composable
-private fun MediaGridItemPreview_EnabledFull() {
+private fun MediaGridItemPreview() {
     DzrTheme {
-        MediaGridItem(
-            headlineContent = {
-                Text(
-                    "Awesome Album",
-                    textAlign = TextAlign.Center,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            },
-            image = {
-                Image(
-                    painter = painterResource(id = android.R.drawable.ic_menu_gallery),
-                    contentDescription = "Album Art",
-                    modifier = Modifier
-                        .size(120.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(MaterialTheme.colorScheme.primaryContainer),
-                    contentScale = ContentScale.Crop
-                )
-            },
-            supportingContent = {
-                Text(
-                    "The Best Artist",
-                    textAlign = TextAlign.Center,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            },
-            enabled = true,
-            onClick = {}
-        )
-    }
-}
-
-@Preview(name = "Disabled - Full")
-@Composable
-private fun MediaGridItemPreview_DisabledFull() {
-    DzrTheme {
-        MediaGridItem(
-            headlineContent = {
-                Text(
-                    "Awesome Album (Off)",
-                    textAlign = TextAlign.Center,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            },
-            image = {
-                Image(
-                    painter = painterResource(id = android.R.drawable.ic_menu_gallery),
-                    contentDescription = "Album Art",
-                    modifier = Modifier
-                        .size(120.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(MaterialTheme.colorScheme.primaryContainer),
-                    contentScale = ContentScale.Crop
-                )
-            },
-            supportingContent = {
-                Text(
-                    "The Best Artist",
-                    textAlign = TextAlign.Center,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            },
-            enabled = false,
-            onClick = {}
-        )
-    }
-}
-
-@Preview(name = "Enabled - No Supporting")
-@Composable
-private fun MediaGridItem_EnabledNoSupporting_Preview() {
-    DzrTheme {
-        MediaGridItem(
-            headlineContent = {
-                Text(
-                    "Podcast Episode",
-                    textAlign = TextAlign.Center,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            },
-            image = {
-                Image(
-                    painter = painterResource(id = android.R.drawable.ic_menu_slideshow),
-                    contentDescription = "Episode Art",
-                    modifier = Modifier
-                        .size(120.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(MaterialTheme.colorScheme.secondaryContainer),
-                    contentScale = ContentScale.Crop
-                )
-            },
-            enabled = true,
-            onClick = {}
-        )
-    }
-}
-
-@Preview(name = "Long Headline")
-@Composable
-private fun MediaGridItem_LongHeadline_Preview() {
-    DzrTheme {
-        MediaGridItem(
-            headlineContent = {
-                Text(
-                    "A Very Long Title That Will Surely Be Ellipsized",
-                    textAlign = TextAlign.Center,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-            },
-            image = {
-                Image(
-                    painter = painterResource(id = android.R.drawable.ic_menu_mapmode),
-                    contentDescription = "Art",
-                    modifier = Modifier
-                        .size(100.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(MaterialTheme.colorScheme.tertiaryContainer),
-                    contentScale = ContentScale.Crop
-                )
-            },
-            supportingContent = {
-                Text(
-                    "Artist With A Fairly Long Name Also",
-                    textAlign = TextAlign.Center,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            },
-            enabled = true,
-            onClick = {}
-        )
+        Surface {
+            MediaGridItem(
+                headlineContent = {
+                    Text(
+                        "Awesome Album",
+                        textAlign = TextAlign.Center,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                },
+                image = {
+                    Image(
+                        painter = painterResource(id = android.R.drawable.ic_menu_gallery),
+                        contentDescription = "Album Art",
+                        modifier = Modifier
+                            .size(120.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(MaterialTheme.colorScheme.primaryContainer),
+                        contentScale = ContentScale.Crop
+                    )
+                },
+                supportingContent = {
+                    Text(
+                        "The Best Artist",
+                        textAlign = TextAlign.Center,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                },
+                enabled = true,
+                onClick = {}
+            )
+        }
     }
 }

@@ -1,9 +1,7 @@
 package com.music.dzr.feature.auth.ui.screen.welcome
 
-import android.content.res.Configuration
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -17,7 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -25,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -204,43 +202,18 @@ internal object CoverMarqueeDefaults {
     const val ITEM_LIMIT = 100
 }
 
-@Preview(name = "Light Mode, Standard Size")
+@PreviewLightDark
 @Composable
-private fun CoverMarqueePreviewLightStandardSize() {
+private fun CoverMarqueePreview() {
     DzrTheme {
-        Box(
-            Modifier
-                .background(MaterialTheme.colorScheme.surface)
-                .padding(vertical = 16.dp)
-        ) {
-            CoverMarquee(
-                items = previewItems,
-                modifier = Modifier.fillMaxWidth(),
-                placeholder = painterResource(R.drawable.feature_auth_preview_release_cover)
-            )
-        }
-    }
-}
-
-@Preview(
-    name = "Dark Mode, Compact Size",
-    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
-)
-@Composable
-private fun CoverMarqueePreviewDarkCompactSize() {
-    DzrTheme {
-        Box(
-            Modifier
-                .background(MaterialTheme.colorScheme.surface)
-                .padding(vertical = 16.dp)
-        ) {
-
-            CoverMarquee(
-                items = previewItems,
-                itemSize = 96.dp,
-                modifier = Modifier.fillMaxWidth(),
-                placeholder = painterResource(R.drawable.feature_auth_preview_release_cover)
-            )
+        Surface {
+            Box(Modifier.padding(vertical = 16.dp)) {
+                CoverMarquee(
+                    items = previewItems,
+                    modifier = Modifier.fillMaxWidth(),
+                    placeholder = painterResource(R.drawable.feature_auth_preview_release_cover)
+                )
+            }
         }
     }
 }

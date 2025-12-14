@@ -28,7 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.music.dzr.core.designsystem.icon.DzrIcons
@@ -150,38 +150,40 @@ private fun GroupedListItemContainer(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun GroupedListPreview() {
     DzrTheme {
-        GroupedList {
-            GroupedListItem(
-                leadingText = { Text("Default item") },
-                onClick = {}
-            )
-            GroupedListItem(
-                leadingText = { Text("With leading icon") },
-                leadingIcon = { Icon(DzrIcons.Favorite, contentDescription = null) },
-                onClick = {}
-            )
-            GroupedListItem(
-                leadingText = { Text("With trailing text") },
-                trailingText = { Text("Trailing text") },
-                onClick = {}
-            )
-            GroupedListItem(
-                leadingText = { Text("With trailing icon") },
-                trailingIcon = { Icon(DzrIcons.MoreVert, contentDescription = null) },
-                onClick = {}
-            )
-            GroupedListItem(
-                leadingText = { Text("Disabled") },
-                leadingIcon = { Icon(DzrIcons.PlayArrow, contentDescription = null) },
-                trailingText = { Text("Trailing") },
-                trailingIcon = { Icon(DzrIcons.MoreVert, contentDescription = null) },
-                enabled = false,
-                onClick = {}
-            )
+        Surface {
+            GroupedList {
+                GroupedListItem(
+                    leadingText = { Text("Default item") },
+                    onClick = {}
+                )
+                GroupedListItem(
+                    leadingText = { Text("With leading icon") },
+                    leadingIcon = { Icon(DzrIcons.Favorite, contentDescription = null) },
+                    onClick = {}
+                )
+                GroupedListItem(
+                    leadingText = { Text("With trailing text") },
+                    trailingText = { Text("Trailing text") },
+                    onClick = {}
+                )
+                GroupedListItem(
+                    leadingText = { Text("With trailing icon") },
+                    trailingIcon = { Icon(DzrIcons.MoreVert, contentDescription = null) },
+                    onClick = {}
+                )
+                GroupedListItem(
+                    leadingText = { Text("Disabled") },
+                    leadingIcon = { Icon(DzrIcons.PlayArrow, contentDescription = null) },
+                    trailingText = { Text("Trailing") },
+                    trailingIcon = { Icon(DzrIcons.MoreVert, contentDescription = null) },
+                    enabled = false,
+                    onClick = {}
+                )
+            }
         }
     }
 }

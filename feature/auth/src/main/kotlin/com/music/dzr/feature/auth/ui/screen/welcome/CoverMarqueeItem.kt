@@ -1,18 +1,17 @@
 package com.music.dzr.feature.auth.ui.screen.welcome
 
 import android.content.Context
-import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Color.RGBToHSV
-import androidx.compose.foundation.background
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ShapeDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
@@ -31,7 +30,7 @@ import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -209,79 +208,32 @@ private fun Color.hsvHue(): Float {
     return hsv[0]
 }
 
-
-@Preview(name = "Light Mode, 128dp")
+@PreviewLightDark
 @Composable
-private fun CoverMarqueeItemPreviewLight128dp() {
+private fun CoverMarqueeItemPreview() {
     DzrTheme {
-        Box(
-            Modifier
-                .background(MaterialTheme.colorScheme.surface)
-                .padding(16.dp)
-        ) {
-            CoverMarqueeItem(
-                item = CoverMarqueeItemUiState(
-                    imageUrl = "",
-                    dominantColor = previewImageDominantColor
-                ),
-                placeholder = previewImagePainter,
-                modifier = Modifier.size(128.dp)
-            )
+        Surface {
+            Box(Modifier.padding(16.dp)) {
+                CoverMarqueeItem(
+                    item = CoverMarqueeItemUiState(
+                        imageUrl = "",
+                        dominantColor = previewImageDominantColor
+                    ),
+                    placeholder = previewImagePainter,
+                    modifier = Modifier.size(128.dp)
+                )
+            }
         }
     }
 }
 
-@Preview(
-    name = "Dark Mode, 96dp",
-    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
-)
-@Composable
-private fun CoverMarqueeItemPreviewDark96dp() {
-    DzrTheme {
-        Box(
-            Modifier
-                .background(MaterialTheme.colorScheme.surface)
-                .padding(16.dp)
-        ) {
-            CoverMarqueeItem(
-                item = CoverMarqueeItemUiState(
-                    imageUrl = "",
-                    dominantColor = previewImageDominantColor
-                ),
-                placeholder = previewImagePainter,
-                modifier = Modifier.size(96.dp)
-            )
-        }
-    }
-}
-
-@Preview(name = "Light Mode, 64dp, Extra Glow")
-@Composable
-private fun CoverMarqueeItemPreviewLight64dpBigRadius() {
-    DzrTheme {
-        Box(
-            Modifier
-                .background(MaterialTheme.colorScheme.surface)
-                .padding(32.dp)
-        ) {
-            CoverMarqueeItem(
-                item = CoverMarqueeItemUiState(
-                    imageUrl = "",
-                    dominantColor = previewImageDominantColor
-                ),
-                glowRadius = 32.dp,
-                placeholder = previewImagePainter,
-                modifier = Modifier.size(64.dp)
-            )
-        }
-    }
-}
-
-private val previewImageDominantColor
+@VisibleForTesting
+val previewImageDominantColor
     @Composable get() = ContextCompat.getDrawable(
         LocalContext.current,
         R.drawable.feature_auth_preview_release_cover
     )!!.toBitmap().dominantColor()
 
-private val previewImagePainter
+@VisibleForTesting
+val previewImagePainter
     @Composable get() = painterResource(R.drawable.feature_auth_preview_release_cover)

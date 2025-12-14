@@ -3,12 +3,13 @@ package com.music.dzr.core.ui
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ShapeDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.music.dzr.core.designsystem.component.ImagePlaceholder
 import com.music.dzr.core.designsystem.theme.DzrTheme
@@ -31,13 +32,15 @@ fun TrackListCover(
     )
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 fun TrackListCoverPreview() {
     DzrTheme {
-        TrackListCover(
-            coverUrl = "",
-            modifier = Modifier.size(128.dp)
-        )
+        Surface {
+            TrackListCover(
+                coverUrl = "",
+                modifier = Modifier.size(128.dp)
+            )
+        }
     }
 }

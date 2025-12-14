@@ -7,6 +7,7 @@ import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -121,8 +122,10 @@ fun FilterChipPreview() {
 @Composable
 fun AssistChipPreview() {
     DzrTheme {
-        DzrAssistChip(onClick = {}) {
-            Text("Chip")
+        Surface {
+            DzrAssistChip(onClick = {}) {
+                Text("Chip")
+            }
         }
     }
 }

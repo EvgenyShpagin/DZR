@@ -10,6 +10,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.ShapeDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.WindowAdaptiveInfo
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
@@ -22,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
@@ -62,7 +63,7 @@ fun DzrNavigationBar(
     )
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun DzrNavigationBarPreview() {
     DzrTheme {
@@ -119,22 +120,24 @@ fun DzrNavigationRail(
     )
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun DzrNavigationRailPreview() {
     DzrTheme {
-        DzrNavigationRail {
-            repeat(3) { i ->
-                DzrNavigationRailItem(
-                    selected = i == 0,
-                    onClick = {},
-                    label = {
-                        Text("Item $i")
-                    },
-                    icon = {
-                        Icon(DzrIcons.Favorite, null)
-                    }
-                )
+        Surface {
+            DzrNavigationRail {
+                repeat(3) { i ->
+                    DzrNavigationRailItem(
+                        selected = i == 0,
+                        onClick = {},
+                        label = {
+                            Text("Item $i")
+                        },
+                        icon = {
+                            Icon(DzrIcons.Favorite, null)
+                        }
+                    )
+                }
             }
         }
     }

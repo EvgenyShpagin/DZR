@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -23,7 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -313,63 +314,25 @@ private enum class PlayableHeaderLayoutContent {
     MainContent
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun PlayableHeader_WithSubtitle_Preview() {
+private fun PlayableHeaderPlayingPreview() {
     DzrTheme {
-        PlayableHeader(
-            title = "Title",
-            subtitle = "This is a very long subtitle that should be wrapped and constrained by the title width",
-            onPlayClick = {},
-            isPlaying = false
-        ) { layout ->
-            Box(
-                Modifier
-                    .background(Color.LightGray)
-                    .height(layout.innerSpaceHeight)
-                    .width(layout.widthExcludePlayButton)
-            ) {
-                Text("Filled space")
-            }
-        }
-    }
-}
-
-@Preview
-@Composable
-private fun PlayableHeader_LongTitle_Preview() {
-    DzrTheme {
-        PlayableHeader(
-            title = "Some Very Long Title That Should Be Truncated",
-            onPlayClick = {},
-            isPlaying = true
-        ) { layout ->
-            Box(
-                Modifier
-                    .background(Color.LightGray)
-                    .height(64.dp)
-                    .width(layout.widthExcludePlayButton)
-            ) {
-                Text("Content")
-            }
-        }
-    }
-}
-
-@Preview
-@Composable
-private fun PlayableHeader_Playing_Preview() {
-    DzrTheme {
-        PlayableHeader(
-            title = "Now Playing",
-            subtitle = "Artist Name",
-            onPlayClick = {},
-            isPlaying = true
-        ) { layout ->
-            if (layout.isButtonDisplayed) {
-                Text("Button is visible")
-            } else {
-                Text("Button is hidden")
+        Surface {
+            PlayableHeader(
+                title = "Title",
+                subtitle = "This is a very long subtitle that should be wrapped and constrained by the title width",
+                onPlayClick = {},
+                isPlaying = false
+            ) { layout ->
+                Box(
+                    Modifier
+                        .background(Color.LightGray)
+                        .height(layout.innerSpaceHeight)
+                        .width(layout.widthExcludePlayButton)
+                ) {
+                    Text("Filled space")
+                }
             }
         }
     }

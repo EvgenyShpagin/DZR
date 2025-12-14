@@ -11,6 +11,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.ShapeDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -139,8 +140,10 @@ fun DzrOutlinedButton(
 @Composable
 private fun DzrOutlinedButtonPreview() {
     DzrTheme {
-        DzrOutlinedButton(onClick = {}) {
-            Text("Outlined button")
+        Surface {
+            DzrOutlinedButton(onClick = {}) {
+                Text("Outlined button")
+            }
         }
     }
 }
