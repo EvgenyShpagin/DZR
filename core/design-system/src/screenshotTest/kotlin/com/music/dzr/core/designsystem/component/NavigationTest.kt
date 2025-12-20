@@ -12,7 +12,7 @@ import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
 @PreviewTest
-@ThemeAndFontScalePreviews
+@PreviewLightDarkAndFontScale
 @Composable
 private fun DzrNavigationBar_Preview() {
     DzrTheme {
@@ -34,7 +34,7 @@ private fun DzrNavigationBar_Preview() {
 }
 
 @PreviewTest
-@ThemeAndFontScalePreviews
+@PreviewLightDarkAndFontScale
 @Composable
 private fun DzrNavigationRail_Preview() {
     DzrTheme {

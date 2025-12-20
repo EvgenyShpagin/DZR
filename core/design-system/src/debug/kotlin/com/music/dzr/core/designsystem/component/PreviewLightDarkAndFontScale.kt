@@ -20,4 +20,4 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 @PreviewLightDark
 @Preview(name = "150%", fontScale = 1.5f)
 @Preview(name = "85%", fontScale = 0.85f)
-annotation class ThemeAndFontScalePreviews
+annotation class PreviewLightDarkAndFontScale

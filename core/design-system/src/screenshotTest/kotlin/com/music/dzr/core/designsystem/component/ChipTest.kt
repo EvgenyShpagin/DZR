@@ -8,7 +8,7 @@ import com.android.tools.screenshot.PreviewTest
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
 @PreviewTest
-@ThemeAndFontScalePreviews
+@PreviewLightDarkAndFontScale
 @Composable
 private fun DzrFilterChip_Selected_Preview() {
     DzrTheme {
@@ -53,7 +53,7 @@ private fun DzrFilterChip_Disabled_Preview() {
 }
 
 @PreviewTest
-@ThemeAndFontScalePreviews
+@PreviewLightDarkAndFontScale
 @Composable
 private fun DzrAssistChip_Enabled_Preview() {
     DzrTheme {

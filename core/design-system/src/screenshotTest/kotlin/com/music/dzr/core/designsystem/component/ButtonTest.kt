@@ -11,7 +11,7 @@ import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
 @PreviewTest
-@ThemeAndFontScalePreviews
+@PreviewLightDarkAndFontScale
 @Composable
 private fun DzrButton_Enabled_Preview() {
     DzrTheme {
@@ -69,7 +69,7 @@ private fun DzrButton_Enabled_NoIcon_Preview() {
 }
 
 @PreviewTest
-@ThemeAndFontScalePreviews
+@PreviewLightDarkAndFontScale
 @Composable
 private fun DzrOutlinedButton_Enabled_Preview() {
     DzrTheme {

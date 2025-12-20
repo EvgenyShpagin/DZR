@@ -9,7 +9,7 @@ import com.music.dzr.core.designsystem.theme.DzrTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @PreviewTest
-@ThemeAndFontScalePreviews
+@PreviewLightDarkAndFontScale
 @Composable
 private fun DzrTopAppBar_Preview() {
     DzrTheme {

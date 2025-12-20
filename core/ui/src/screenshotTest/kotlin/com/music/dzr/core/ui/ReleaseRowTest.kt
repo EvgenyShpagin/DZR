@@ -4,13 +4,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.android.tools.screenshot.PreviewTest
-import com.music.dzr.core.designsystem.component.ThemeAndFontScalePreviews
+import com.music.dzr.core.designsystem.component.PreviewLightDarkAndFontScale
 import com.music.dzr.core.designsystem.theme.DzrTheme
 import com.music.dzr.core.model.ReleaseType
 
 
 @PreviewTest
-@ThemeAndFontScalePreviews
+@PreviewLightDarkAndFontScale
 @Composable
 private fun ReleaseRow_MultipleContributors_Preview() {
     DzrTheme {

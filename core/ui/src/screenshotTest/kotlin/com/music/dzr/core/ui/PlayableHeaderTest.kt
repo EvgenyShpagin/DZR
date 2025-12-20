@@ -17,13 +17,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.android.tools.screenshot.PreviewTest
-import com.music.dzr.core.designsystem.component.ThemeAndFontScalePreviews
+import com.music.dzr.core.designsystem.component.PreviewLightDarkAndFontScale
 import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
 
 @PreviewTest
-@ThemeAndFontScalePreviews
+@PreviewLightDarkAndFontScale
 @Composable
 private fun PlayableHeader_Paused_WithButton_Preview() {
     DzrTheme {

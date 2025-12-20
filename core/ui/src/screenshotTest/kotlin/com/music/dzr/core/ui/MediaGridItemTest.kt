@@ -18,11 +18,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.android.tools.screenshot.PreviewTest
-import com.music.dzr.core.designsystem.component.ThemeAndFontScalePreviews
+import com.music.dzr.core.designsystem.component.PreviewLightDarkAndFontScale
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
 @PreviewTest
-@ThemeAndFontScalePreviews
+@PreviewLightDarkAndFontScale
 @Composable
 private fun MediaGridItem_Enabled_Preview() {
     DzrTheme {
