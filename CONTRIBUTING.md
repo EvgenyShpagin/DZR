@@ -31,17 +31,18 @@ All Previews must follow a strict naming pattern to ensure test logs are readabl
 **Pattern:** `[ComponentName]_[State]_[Variant]_Preview`
 
 * **ComponentName**: The PascalCase name of the Composable (e.g., `Track`, `PlayableHeader`).
-* **State**: The logical state being shown.
-    * Use **`Default`** for stateless components or the main visual state.
+* **State** (Optional): The logical state being shown.
     * Use specific states like `Enabled`, `Disabled`, `Loading`, `Error`, `Empty` when applicable.
+    * Omit state if there is only a single preview or if the component is stateless (e.g.
+      DzrNavigationBar, SectionHeader).
 * **Variant** (Optional): Specific configuration or edge case (e.g., `Dark`, `FontScale150`,
   `LongText`, `NoCover`).
 
 **Examples:**
 
 * `Button_Enabled_Icon_Preview`
-* `Track_Default_LongTitle_Preview`
-* `PlayableHeader_Default_SmallScreen_Preview`
+* `Track_LongTitle_Preview`
+* `PlayableHeader_SmallScreen_Preview`
 
 ### 3. Component Strategy
 
@@ -60,10 +61,8 @@ All Previews must follow a strict naming pattern to ensure test logs are readabl
     * **MUST** use `@PreviewTest` in `screenshotTest` (required for the screenshot tool).
 * **Backgrounds:**
     * **Transparent Components:** If a component is transparent or relies on a background for
-      contrast (e.g., `Track`, `Icon`, `OutlinedButton`), **MUST** wrap it in a `Surface` in the
-      `main` source set to ensure visibility in Dark Mode.
-    * **Opaque Components:** If a component has a solid background (e.g., Filled `Button`, `Card`),
-      **DO NOT** add a `Surface` wrapper.
+      contrast (e.g., `Track`, `Icon`, `OutlinedButton`), **MUST** wrap it in a `Surface` in
+      both source sets to ensure visibility in Dark Mode and Disabled state.
 
 ### 5. Optimization & Best Practices
 
@@ -76,7 +75,8 @@ Based on official Android recommendations:
       screenshots.
     * *Why:* A button's layout reaction to large text is usually the same regardless of the color
       theme. Test properties in isolation when possible.
-    * **Solution:** Use **`@RegressionPreviews`** (defined in `debug` source set of `core:design-system`).
+    * **Solution:** Use **`@ThemeAndFontScalePreviews`** (defined in `debug` source set of
+      `core:design-system`).
       This single annotation automatically generates the necessary isolated snapshots.
       It is available in `debug` builds (including `screenshotTest`).
 * **Platform Consistency:** Text rendering and shadows vary significantly between OSs (
