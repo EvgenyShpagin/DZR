@@ -1,18 +1,21 @@
 package com.music.dzr.core.designsystem.component
 
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.android.tools.screenshot.PreviewTest
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
 @PreviewTest
-@PreviewLightDark
+@ThemeAndFontScalePreviews
 @Composable
-private fun DzrFilterChip_Preview() {
+private fun DzrFilterChip_Selected_Preview() {
     DzrTheme {
-        DzrFilterChip(selected = true, onSelectChange = {}) {
+        DzrFilterChip(
+            selected = true,
+            onSelectChange = {}
+        ) {
             Text("Chip")
         }
     }
@@ -21,32 +24,59 @@ private fun DzrFilterChip_Preview() {
 @PreviewTest
 @PreviewLightDark
 @Composable
-private fun DzrAssistChip_Preview() {
+private fun DzrFilterChip_NotSelected_Preview() {
     DzrTheme {
-        DzrAssistChip(onClick = {}) {
+        DzrFilterChip(
+            selected = true,
+            onSelectChange = {}
+        ) {
             Text("Chip")
         }
     }
 }
 
 @PreviewTest
-@Preview(fontScale = 1.5f)
+@PreviewLightDark
 @Composable
-private fun DzrFilterChip_FontScale_1_5_Preview() {
+private fun DzrFilterChip_Disabled_Preview() {
     DzrTheme {
-        DzrFilterChip(selected = true, onSelectChange = {}) {
-            Text("Chip With Large Font")
+        Surface {
+            DzrFilterChip(
+                selected = true,
+                onSelectChange = {},
+                enabled = false
+            ) {
+                Text("Chip")
+            }
         }
     }
 }
 
 @PreviewTest
-@Preview(fontScale = 1.5f)
+@ThemeAndFontScalePreviews
 @Composable
-private fun DzrAssistChip_FontScale_1_5_Preview() {
+private fun DzrAssistChip_Enabled_Preview() {
     DzrTheme {
-        DzrAssistChip(onClick = {}) {
-            Text("Chip With Large Font")
+        Surface {
+            DzrAssistChip(onClick = {}) {
+                Text("Chip")
+            }
+        }
+    }
+}
+
+@PreviewTest
+@PreviewLightDark
+@Composable
+private fun DzrAssistChip_Disabled_Preview() {
+    DzrTheme {
+        Surface {
+            DzrAssistChip(
+                onClick = {},
+                enabled = false
+            ) {
+                Text("Chip")
+            }
         }
     }
 }

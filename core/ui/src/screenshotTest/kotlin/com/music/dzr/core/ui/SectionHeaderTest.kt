@@ -2,16 +2,15 @@ package com.music.dzr.core.ui
 
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.android.tools.screenshot.PreviewTest
+import com.music.dzr.core.designsystem.component.ThemeAndFontScalePreviews
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
 
 @PreviewTest
-@Preview(fontScale = 1.5f)
+@ThemeAndFontScalePreviews
 @Composable
-private fun SectionHeader_FontScale_1_5_Preview() {
+private fun SectionHeader_Preview() {
     DzrTheme {
         Surface {
             SectionHeader(labelRes = android.R.string.untitled)
@@ -20,7 +19,7 @@ private fun SectionHeader_FontScale_1_5_Preview() {
 }
 
 @PreviewTest
-@PreviewLightDark
+@ThemeAndFontScalePreviews
 @Composable
 private fun ClickableSectionHeader_Preview() {
     DzrTheme {

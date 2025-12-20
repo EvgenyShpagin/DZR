@@ -3,12 +3,12 @@ package com.music.dzr.core.ui
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.android.tools.screenshot.PreviewTest
+import com.music.dzr.core.designsystem.component.ThemeAndFontScalePreviews
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
 @PreviewTest
-@Preview
+@ThemeAndFontScalePreviews
 @Composable
 private fun Track_ShortText_Preview() {
     val uiState = TrackUiState(
@@ -25,7 +25,7 @@ private fun Track_ShortText_Preview() {
 }
 
 @PreviewTest
-@PreviewLightDark
+@Preview
 @Composable
 private fun Track_LongText_Preview() {
     val uiState = TrackUiState(
@@ -42,7 +42,7 @@ private fun Track_LongText_Preview() {
 }
 
 @PreviewTest
-@PreviewLightDark
+@Preview
 @Composable
 private fun Track_NoCover_Preview() {
     val uiState = TrackUiState(

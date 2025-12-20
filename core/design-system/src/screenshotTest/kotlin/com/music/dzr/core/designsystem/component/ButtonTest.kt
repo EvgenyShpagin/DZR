@@ -1,6 +1,7 @@
 package com.music.dzr.core.designsystem.component
 
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -10,16 +11,15 @@ import com.music.dzr.core.designsystem.icon.DzrIcons
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
 @PreviewTest
-@Preview(fontScale = 1.5f)
+@ThemeAndFontScalePreviews
 @Composable
-private fun DzrButton_FontScale_1_5_Preview() {
+private fun DzrButton_Enabled_Preview() {
     DzrTheme {
         DzrButton(
             onClick = {},
             enabled = true,
-            text = {
-                Text("Filled button")
-            }
+            text = { Text("Filled Button") },
+            leadingIcon = { Icon(DzrIcons.PlayArrow, null) }
         )
     }
 }
@@ -27,35 +27,107 @@ private fun DzrButton_FontScale_1_5_Preview() {
 @PreviewTest
 @PreviewLightDark
 @Composable
-private fun DzrButton_Icon_Preview() {
+private fun DzrButton_Disabled_Preview() {
+    DzrTheme {
+        Surface {
+            DzrButton(
+                onClick = {},
+                enabled = false,
+                text = { Text("Disabled Button") },
+                leadingIcon = { Icon(DzrIcons.PlayArrow, null) }
+            )
+        }
+    }
+}
+
+@PreviewTest
+@Preview
+@Composable
+private fun DzrButton_Enabled_LongText_Preview() {
     DzrTheme {
         DzrButton(
             onClick = {},
-            enabled = true,
             text = {
-                Text("Filled button")
+                // Check truncation/wrapping behavior
+                Text("Very long button text that might overflow available space")
             },
-            leadingIcon = {
-                Icon(DzrIcons.PlayArrow, null)
-            }
+            leadingIcon = { Icon(DzrIcons.PlayArrow, null) }
         )
+    }
+}
+
+@PreviewTest
+@Preview
+@Composable
+private fun DzrButton_Enabled_NoIcon_Preview() {
+    DzrTheme {
+        DzrButton(
+            onClick = {},
+            text = { Text("Text Only") }
+        )
+    }
+}
+
+@PreviewTest
+@ThemeAndFontScalePreviews
+@Composable
+private fun DzrOutlinedButton_Enabled_Preview() {
+    DzrTheme {
+        Surface {
+            DzrOutlinedButton(
+                onClick = {},
+                enabled = true,
+                text = { Text("Outlined Button") },
+                leadingIcon = { Icon(DzrIcons.PlayArrow, null) }
+            )
+        }
     }
 }
 
 @PreviewTest
 @PreviewLightDark
 @Composable
-private fun DzrOutlineButton_Icon_Preview() {
+private fun DzrOutlinedButton_Disabled_Preview() {
     DzrTheme {
-        DzrOutlinedButton(
-            onClick = {},
-            enabled = true,
-            text = {
-                Text("Outlined button")
-            },
-            leadingIcon = {
-                Icon(DzrIcons.PlayArrow, null)
-            }
-        )
+        Surface {
+            DzrOutlinedButton(
+                onClick = {},
+                enabled = false,
+                text = { Text("Disabled Button") },
+                leadingIcon = { Icon(DzrIcons.PlayArrow, null) }
+            )
+        }
+    }
+}
+
+@PreviewTest
+@Preview
+@Composable
+private fun DzrOutlinedButton_Enabled_LongText_Preview() {
+    DzrTheme {
+        Surface {
+            DzrOutlinedButton(
+                onClick = {},
+                text = {
+                    // Check truncation/wrapping behavior
+                    Text("Very long button text that might overflow available space")
+                },
+                leadingIcon = { Icon(DzrIcons.PlayArrow, null) }
+            )
+        }
+    }
+}
+
+@PreviewTest
+@Preview
+@Composable
+private fun DzrOutlinedButton_Enabled_NoIcon_Preview() {
+    DzrTheme {
+        Surface {
+            DzrOutlinedButton(
+                onClick = {},
+                text = { Text("Text Only") }
+            )
+        }
     }
 }
