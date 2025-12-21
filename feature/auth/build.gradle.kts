@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.dzr.android.feature)
+    alias(libs.plugins.dzr.screenshot)
 }
 
 android {
