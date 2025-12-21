@@ -74,7 +74,7 @@ This project uses the [Compose Preview Screenshot Testing](https://developer.and
 **Run Validation**
 Checks current previews against stored reference images:
 ```bash
-./gradlew screenshotTest
+./gradlew validateScreenshotTest
 ```
 
 **Update Reference Images**
