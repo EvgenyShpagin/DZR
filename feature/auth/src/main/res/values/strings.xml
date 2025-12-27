@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="feature_auth_welcome_login">Login with Spotify</string>
     <string name="feature_auth_welcome_powered_by_label">Powered by</string>
 </resources>
