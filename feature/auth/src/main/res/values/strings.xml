@@ -4,4 +4,5 @@
     <string name="feature_auth_welcome_title_preposition">with</string>
     <string name="feature_auth_welcome_login">Login with Spotify</string>
     <string name="feature_auth_welcome_powered_by_label">Powered by</string>
+    <string name="feature_auth_welcome_restrict_access">Restrict access</string>
 </resources>
