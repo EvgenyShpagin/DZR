@@ -66,8 +66,8 @@ import com.music.dzr.feature.auth.R
  * @param placeholder Painter shown while loading. Also used as the preview image.
  */
 @Composable
-internal fun CoverMarqueeItem(
-    item: CoverMarqueeItemUiState,
+internal fun WelcomeCoverMarqueeItem(
+    state: WelcomeCoverMarqueeItemUiState,
     modifier: Modifier = Modifier,
     contentDescription: String? = null,
     shape: Shape = ShapeDefaults.ExtraSmall,
@@ -75,9 +75,9 @@ internal fun CoverMarqueeItem(
     isBright: Boolean = !isSystemInDarkTheme(),
     placeholder: Painter = ImagePlaceholder,
 ) {
-    val imageBitmap by rememberBitmapFromUrl(item.imageUrl)
+    val imageBitmap by rememberBitmapFromUrl(state.imageUrl)
     val resolvedGlowColor = remember(imageBitmap) {
-        item.dominantColor.takeOrElse {
+        state.dominantColor.takeOrElse {
             imageBitmap?.dominantColor() ?: Color.Unspecified
         }
     }
@@ -210,12 +210,12 @@ private fun Color.hsvHue(): Float {
 
 @PreviewLightDark
 @Composable
-private fun CoverMarqueeItemPreview() {
+private fun WelcomeCoverMarqueeItemPreview() {
     DzrTheme {
         Surface {
             Box(Modifier.padding(16.dp)) {
-                CoverMarqueeItem(
-                    item = CoverMarqueeItemUiState(
+                WelcomeCoverMarqueeItem(
+                    state = WelcomeCoverMarqueeItemUiState(
                         imageUrl = "",
                         dominantColor = previewImageDominantColor
                     ),

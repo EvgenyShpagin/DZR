@@ -8,8 +8,8 @@ import com.music.dzr.core.designsystem.theme.DzrTheme
 @PreviewTest
 @PreviewLightDarkAndFontScale
 @Composable
-private fun LoginButton_Preview() {
+private fun WelcomeLoginButton_Preview() {
     DzrTheme {
-        LoginButton(onClick = {})
+        WelcomeLoginButton(onClick = {})
     }
 }

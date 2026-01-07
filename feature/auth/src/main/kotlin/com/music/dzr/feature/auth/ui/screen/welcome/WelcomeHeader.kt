@@ -28,7 +28,7 @@ import com.music.dzr.feature.auth.R
 import kotlin.math.roundToInt
 
 @Composable
-internal fun Header(
+internal fun WelcomeHeader(
     modifier: Modifier = Modifier,
     appName: String = getAppName(),
     windowInsets: WindowInsets = PlayableHeaderDefaults.windowInsets
@@ -66,7 +66,7 @@ internal fun Header(
         )
     }
 
-    HeaderLayout(
+    WelcomeHeaderLayout(
         modifier = modifier.windowInsetsPadding(windowInsets),
         titleText = titleText,
         prepositionText = prepositionText,
@@ -77,7 +77,7 @@ internal fun Header(
 }
 
 @Composable
-private fun HeaderLayout(
+private fun WelcomeHeaderLayout(
     modifier: Modifier,
     titleText: @Composable () -> Unit,
     prepositionText: @Composable () -> Unit,
@@ -165,10 +165,10 @@ private fun rememberTextHeight(style: TextStyle, text: String): Float {
 
 @PreviewFontScale
 @Composable
-private fun HeaderPreview() {
+private fun WelcomeHeaderPreview() {
     DzrTheme {
         Surface {
-            Header(appName = "Audyra")
+            WelcomeHeader(appName = "Audyra")
         }
     }
 }

@@ -19,7 +19,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -37,7 +36,7 @@ import kotlinx.coroutines.launch
  *
  * The upper row scrolls in one direction, while the lower row scrolls in the opposite direction.
  *
- * @param items List of [CoverMarqueeItemUiState] to display.
+ * @param items List of [WelcomeCoverMarqueeItemUiState] to display.
  *  Ideally, pass enough items to fill the screen width twice.
  * @param modifier [Modifier] to be applied to the layout.
  * @param itemSize The size of each item in the marquee.
@@ -48,13 +47,13 @@ import kotlinx.coroutines.launch
  * @param placeholder Placeholder [Painter] to display while images are loading or if usage fails.
  */
 @Composable
-internal fun CoverMarquee(
-    items: List<CoverMarqueeItemUiState>,
+internal fun WelcomeCoverMarquee(
+    items: List<WelcomeCoverMarqueeItemUiState>,
     modifier: Modifier = Modifier,
-    itemSize: Dp = CoverMarqueeDefaults.ItemSize,
-    itemSpacing: Dp = CoverMarqueeDefaults.ItemSpacing,
-    velocity: Dp = CoverMarqueeDefaults.Velocity,
-    itemLimit: Int = CoverMarqueeDefaults.ITEM_LIMIT,
+    itemSize: Dp = WelcomeCoverMarqueeDefaults.ItemSize,
+    itemSpacing: Dp = WelcomeCoverMarqueeDefaults.ItemSpacing,
+    velocity: Dp = WelcomeCoverMarqueeDefaults.Velocity,
+    itemLimit: Int = WelcomeCoverMarqueeDefaults.ITEM_LIMIT,
     animationDelayMs: Int = 1000,
     placeholder: Painter = ImagePlaceholder
 ) {
@@ -112,8 +111,8 @@ internal fun CoverMarquee(
                 val sourceIndex = index % halfUrlCount
                 val item = items[sourceIndex]
 
-                CoverMarqueeItem(
-                    item = item,
+                WelcomeCoverMarqueeItem(
+                    state = item,
                     placeholder = placeholder,
                     isBright = !isDarkTheme,
                     modifier = itemModifier
@@ -133,8 +132,8 @@ internal fun CoverMarquee(
                 val sourceIndex = (index % halfUrlCount + halfUrlCount) % items.count()
                 val item = items[sourceIndex]
 
-                CoverMarqueeItem(
-                    item = item,
+                WelcomeCoverMarqueeItem(
+                    state = item,
                     placeholder = placeholder,
                     isBright = !isDarkTheme,
                     modifier = itemModifier
@@ -195,7 +194,7 @@ private suspend fun LazyListState.animateScrollToEnd(
     )
 }
 
-internal object CoverMarqueeDefaults {
+internal object WelcomeCoverMarqueeDefaults {
     val ItemSize = 128.dp
     val ItemSpacing = 16.dp
     val Velocity = 5.dp
@@ -204,12 +203,12 @@ internal object CoverMarqueeDefaults {
 
 @PreviewLightDark
 @Composable
-private fun CoverMarqueePreview() {
+private fun WelcomeCoverMarqueePreview() {
     DzrTheme {
         Surface {
             Box(Modifier.padding(vertical = 16.dp)) {
-                CoverMarquee(
-                    items = previewItems,
+                WelcomeCoverMarquee(
+                    items = previewCoverMarquees,
                     modifier = Modifier.fillMaxWidth(),
                     placeholder = painterResource(R.drawable.feature_auth_preview_release_cover)
                 )
@@ -217,12 +216,3 @@ private fun CoverMarqueePreview() {
         }
     }
 }
-
-private val previewItems = listOf(
-    CoverMarqueeItemUiState("", Color.Blue),
-    CoverMarqueeItemUiState("", Color.Cyan),
-    CoverMarqueeItemUiState("", Color.Red),
-    CoverMarqueeItemUiState("", Color.Magenta),
-    CoverMarqueeItemUiState("", Color.Yellow),
-    CoverMarqueeItemUiState("", Color.Green),
-)

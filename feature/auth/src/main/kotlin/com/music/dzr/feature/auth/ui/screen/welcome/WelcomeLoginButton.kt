@@ -15,7 +15,7 @@ import com.music.dzr.core.designsystem.theme.DzrTheme
 import com.music.dzr.feature.auth.R
 
 @Composable
-internal fun LoginButton(
+internal fun WelcomeLoginButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -40,9 +40,9 @@ internal fun LoginButton(
 
 @PreviewLightDark
 @Composable
-private fun LoginButtonPreview() {
+private fun WelcomeLoginButtonPreview() {
     DzrTheme {
-        LoginButton(
+        WelcomeLoginButton(
             onClick = {},
         )
     }

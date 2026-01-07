@@ -6,13 +6,13 @@ import com.android.tools.screenshot.PreviewTest
 import com.music.dzr.core.designsystem.component.PreviewLightDarkAndFontScale
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
-@PreviewLightDarkAndFontScale
 @PreviewTest
+@PreviewLightDarkAndFontScale
 @Composable
-private fun Header_Preview() {
+private fun WelcomeRestrictAccessButton_Preview() {
     DzrTheme {
         Surface {
-            Header(appName = "Audyra")
+            WelcomeRestrictAccessButton(onClick = {})
         }
     }
 }

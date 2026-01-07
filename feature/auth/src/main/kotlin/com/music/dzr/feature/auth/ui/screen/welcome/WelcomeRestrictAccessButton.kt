@@ -17,7 +17,7 @@ import com.music.dzr.core.designsystem.theme.DzrTheme
 import com.music.dzr.feature.auth.R
 
 @Composable
-internal fun RestrictAccessButton(
+internal fun WelcomeRestrictAccessButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -43,10 +43,10 @@ internal fun RestrictAccessButton(
 
 @PreviewLightDark
 @Composable
-private fun RestrictAccessButtonPreview() {
+private fun WelcomeRestrictAccessButtonPreview() {
     DzrTheme {
         Surface {
-            RestrictAccessButton(onClick = {})
+            WelcomeRestrictAccessButton(onClick = {})
         }
     }
 }

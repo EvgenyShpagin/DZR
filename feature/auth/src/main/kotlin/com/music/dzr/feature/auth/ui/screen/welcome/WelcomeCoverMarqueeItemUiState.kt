@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
  *                         Calculated dynamically if not specified.
  */
 @Immutable
-data class CoverMarqueeItemUiState(
+data class WelcomeCoverMarqueeItemUiState(
     val imageUrl: String,
     val dominantColor: Color = Color.Unspecified,
 )

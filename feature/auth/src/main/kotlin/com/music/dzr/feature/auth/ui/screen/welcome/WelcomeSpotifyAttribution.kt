@@ -26,7 +26,7 @@ private val AttributionLogoBaseline = 5.75.dp
 
 
 @Composable
-internal fun SpotifyAttribution(
+internal fun WelcomeSpotifyAttribution(
     modifier: Modifier = Modifier
 ) {
     val textStyle = MaterialTheme.typography.bodyMedium
@@ -57,10 +57,10 @@ internal fun SpotifyAttribution(
 
 @PreviewLightDark
 @Composable
-private fun SpotifyAttributionPreview() {
+private fun WelcomeSpotifyAttributionPreview() {
     DzrTheme {
         Surface {
-            SpotifyAttribution()
+            WelcomeSpotifyAttribution()
         }
     }
 }

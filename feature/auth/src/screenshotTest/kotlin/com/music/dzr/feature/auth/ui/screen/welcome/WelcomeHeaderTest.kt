@@ -6,13 +6,13 @@ import com.android.tools.screenshot.PreviewTest
 import com.music.dzr.core.designsystem.component.PreviewLightDarkAndFontScale
 import com.music.dzr.core.designsystem.theme.DzrTheme
 
-@PreviewTest
 @PreviewLightDarkAndFontScale
+@PreviewTest
 @Composable
-private fun SpotifyAttribution_Preview() {
+private fun WelcomeHeader_Preview() {
     DzrTheme {
         Surface {
-            SpotifyAttribution()
+            WelcomeHeader(appName = "Audyra")
         }
     }
 }

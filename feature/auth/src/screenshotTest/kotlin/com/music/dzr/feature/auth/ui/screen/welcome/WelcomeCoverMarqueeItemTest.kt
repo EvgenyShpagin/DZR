@@ -12,11 +12,11 @@ import com.music.dzr.core.designsystem.theme.DzrTheme
 @PreviewTest
 @PreviewLightDark
 @Composable
-private fun CoverMarqueeItem_Size96dp_Preview() {
+private fun WelcomeCoverMarqueeItem_Size96dp_Preview() {
     DzrTheme {
         Surface {
-            CoverMarqueeItem(
-                item = CoverMarqueeItemUiState(
+            WelcomeCoverMarqueeItem(
+                item = WelcomeCoverMarqueeItemUiState(
                     imageUrl = "",
                     dominantColor = previewImageDominantColor
                 ),
@@ -30,11 +30,11 @@ private fun CoverMarqueeItem_Size96dp_Preview() {
 @PreviewTest
 @PreviewLightDark
 @Composable
-private fun CoverMarqueeItem_64dpBigGlow_Preview() {
+private fun WelcomeCoverMarqueeItem_64dpBigGlow_Preview() {
     DzrTheme {
         Surface {
-            CoverMarqueeItem(
-                item = CoverMarqueeItemUiState(
+            WelcomeCoverMarqueeItem(
+                item = WelcomeCoverMarqueeItemUiState(
                     imageUrl = "",
                     dominantColor = previewImageDominantColor
                 ),

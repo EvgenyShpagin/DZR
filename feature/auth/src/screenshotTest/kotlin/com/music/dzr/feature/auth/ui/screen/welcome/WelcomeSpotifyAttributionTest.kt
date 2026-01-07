@@ -9,10 +9,10 @@ import com.music.dzr.core.designsystem.theme.DzrTheme
 @PreviewTest
 @PreviewLightDarkAndFontScale
 @Composable
-private fun RestrictAccessButton_Preview() {
+private fun WelcomeSpotifyAttribution_Preview() {
     DzrTheme {
         Surface {
-            RestrictAccessButton(onClick = {})
+            WelcomeSpotifyAttribution()
         }
     }
 }
