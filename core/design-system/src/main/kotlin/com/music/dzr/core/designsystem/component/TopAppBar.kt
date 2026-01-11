@@ -98,7 +98,7 @@ private fun DzrTopAppBarPreview() {
 object DzrTopAppBarDefaults {
     val colors
         @Composable get() = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0f),
-            scrolledContainerColor = MaterialTheme.colorScheme.surface
+            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0f),
+            scrolledContainerColor = MaterialTheme.colorScheme.primaryContainer
         )
 }
