@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="core_design_system_cd_navigation_back">Back</string>
+    <string name="core_design_system_navigate_up">Navigate up</string>
 </resources>

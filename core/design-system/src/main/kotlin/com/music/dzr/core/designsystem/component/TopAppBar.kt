@@ -5,11 +5,17 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TooltipAnchorPosition
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,17 +36,30 @@ fun DzrTopAppBar(
     actionIconContentDescription: String? = null,
     colors: TopAppBarColors = DzrTopAppBarDefaults.colors,
     onNavigationClick: () -> Unit = {},
-    onActionClick: () -> Unit = {}
+    onActionClick: () -> Unit = {},
+    scrollBehavior: TopAppBarScrollBehavior? = null
 ) {
     TopAppBar(
         title = { Text(text = stringResource(id = titleRes)) },
         navigationIcon = {
-            IconButton(onClick = onNavigationClick) {
-                Icon(
-                    imageVector = DzrIcons.ArrowBack,
-                    contentDescription = stringResource(R.string.core_design_system_cd_navigation_back),
-                    tint = MaterialTheme.colorScheme.onSurface,
-                )
+            TooltipBox(
+                positionProvider = TooltipDefaults.rememberTooltipPositionProvider(
+                    positioning = TooltipAnchorPosition.Below
+                ),
+                tooltip = {
+                    PlainTooltip {
+                        Text(stringResource(R.string.core_design_system_navigate_up))
+                    }
+                },
+                state = rememberTooltipState(),
+            ) {
+                IconButton(onClick = onNavigationClick) {
+                    Icon(
+                        imageVector = DzrIcons.ArrowBack,
+                        contentDescription = stringResource(R.string.core_design_system_navigate_up),
+                        tint = MaterialTheme.colorScheme.onSurface,
+                    )
+                }
             }
         },
         actions = {
@@ -55,6 +74,7 @@ fun DzrTopAppBar(
             }
         },
         colors = colors,
+        scrollBehavior = scrollBehavior,
         modifier = modifier.testTag("dzrTopAppBar"),
     )
 }
@@ -71,7 +91,6 @@ private fun DzrTopAppBarPreview() {
                 actionIconContentDescription = "Action icon",
             )
         }
-
     }
 }
 
@@ -79,7 +98,7 @@ private fun DzrTopAppBarPreview() {
 object DzrTopAppBarDefaults {
     val colors
         @Composable get() = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.Transparent,
-            scrolledContainerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.3f)
+            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0f),
+            scrolledContainerColor = MaterialTheme.colorScheme.surface
         )
 }
