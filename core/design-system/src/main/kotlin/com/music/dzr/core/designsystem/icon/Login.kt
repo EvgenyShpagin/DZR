@@ -1,9 +1,7 @@
 package com.music.dzr.core.designsystem.icon
 
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 
 internal val LoginBold: ImageVector
@@ -17,7 +15,7 @@ internal val LoginBold: ImageVector
             viewportWidth = 960f,
             viewportHeight = 960f
         ).apply {
-            path(fill = SolidColor(Color.Black)) {
+            materialPath {
                 moveTo(475.48f, 859.22f)
                 verticalLineToRelative(-106f)
                 horizontalLineToRelative(277.74f)
@@ -39,7 +37,6 @@ internal val LoginBold: ImageVector
                 lineTo(604.52f, 480f)
                 lineTo(377.96f, 707.13f)
                 close()
-
             }
         }.build()
 

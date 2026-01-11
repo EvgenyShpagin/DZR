@@ -1,15 +1,13 @@
 package com.music.dzr.core.designsystem.icon
 
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 
 internal val AccountCircle: ImageVector
     get() {
         if (_accountcircle != null) return _accountcircle!!
-        
+
         _accountcircle = ImageVector.Builder(
             name = "DzrIcons.AccountCircle",
             defaultWidth = 24.dp,
@@ -17,9 +15,7 @@ internal val AccountCircle: ImageVector
             viewportWidth = 960f,
             viewportHeight = 960f
         ).apply {
-            path(
-                fill = SolidColor(Color(0xFF000000))
-            ) {
+            materialPath {
                 moveTo(234f, 684f)
                 quadToRelative(51f, -39f, 114f, -61.5f)
                 reflectiveQuadTo(480f, 600f)
@@ -88,7 +84,7 @@ internal val AccountCircle: ImageVector
                 close()
             }
         }.build()
-        
+
         return _accountcircle!!
     }
 

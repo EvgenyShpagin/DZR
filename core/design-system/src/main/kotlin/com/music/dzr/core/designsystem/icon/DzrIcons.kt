@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.sharp.ArrowBack
 import androidx.compose.material.icons.automirrored.sharp.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.sharp.QueueMusic
+import androidx.compose.material.icons.sharp.AddPhotoAlternate
 import androidx.compose.material.icons.sharp.AlternateEmail
 import androidx.compose.material.icons.sharp.Check
 import androidx.compose.material.icons.sharp.DoneAll
@@ -13,17 +14,22 @@ import androidx.compose.material.icons.sharp.FavoriteBorder
 import androidx.compose.material.icons.sharp.History
 import androidx.compose.material.icons.sharp.LibraryMusic
 import androidx.compose.material.icons.sharp.LockPerson
+import androidx.compose.material.icons.sharp.ManageAccounts
 import androidx.compose.material.icons.sharp.MoreVert
 import androidx.compose.material.icons.sharp.Pause
+import androidx.compose.material.icons.sharp.PersonSearch
 import androidx.compose.material.icons.sharp.PlayArrow
 import androidx.compose.material.icons.sharp.PlayCircleOutline
 import androidx.compose.material.icons.sharp.RemoveDone
 import androidx.compose.material.icons.sharp.SettingsRemote
 import androidx.compose.material.icons.sharp.SkipNext
+import androidx.compose.material.icons.sharp.StarRate
 import androidx.compose.material.icons.sharp.SupervisorAccount
 import androidx.compose.material.icons.sharp.VisibilityOff
 import com.music.dzr.core.designsystem.icon.AccountCircle as DzrAccountCircle
+import com.music.dzr.core.designsystem.icon.EnhancedEncryption as DzrEnhancedEncryption
 import com.music.dzr.core.designsystem.icon.LockOpenRight as DzrLockOpenRight
+import com.music.dzr.core.designsystem.icon.MusicHistory as DzrMusicHistory
 
 object DzrIcons {
     val Check get() = Icons.Sharp.Check
@@ -50,4 +56,10 @@ object DzrIcons {
     val VisibilityOff get() = Icons.Sharp.VisibilityOff
     val SupervisorAccount get() = Icons.Sharp.SupervisorAccount
     val LockOpenRight get() = DzrLockOpenRight
+    val EnhancedEncryption get() = DzrEnhancedEncryption
+    val StarRate get() = Icons.Sharp.StarRate
+    val MusicHistory get() = DzrMusicHistory
+    val PersonSearch get() = Icons.Sharp.PersonSearch
+    val ManageAccounts get() = Icons.Sharp.ManageAccounts
+    val AddPhotoAlternate get() = Icons.Sharp.AddPhotoAlternate
 }
