@@ -5,4 +5,25 @@
     <string name="feature_auth_welcome_login">Login with Spotify</string>
     <string name="feature_auth_welcome_powered_by_label">Powered by</string>
     <string name="feature_auth_welcome_restrict_access">Restrict access</string>
+    <string name="feature_auth_permissions_save">Save</string>
+    <string name="feature_auth_permissions_account_type_and_premium_status">Account Type &amp; Premium Status</string>
+    <string name="feature_auth_permissions_email_address">Email address</string>
+    <string name="feature_auth_permissions_music_streaming">Music streaming</string>
+    <string name="feature_auth_permissions_read_playback_activity">Read playback activity</string>
+    <string name="feature_auth_permissions_see_whats_playing">See what’s playing</string>
+    <string name="feature_auth_permissions_control_playback">Control playback</string>
+    <string name="feature_auth_permissions_remote_app_control">Remote app control</string>
+    <string name="feature_auth_permissions_read_library">Read your library</string>
+    <string name="feature_auth_permissions_manage_library">Manage your library</string>
+    <string name="feature_auth_permissions_read_private_playlists">Read private playlists</string>
+    <string name="feature_auth_permissions_read_collaborative_playlists">Read collaborative playlists</string>
+    <string name="feature_auth_permissions_manage_public_playlists">Manage public playlists</string>
+    <string name="feature_auth_permissions_manage_private_playlists">Manage private playlists</string>
+    <string name="feature_auth_permissions_read_top_music">Read your top music</string>
+    <string name="feature_auth_permissions_read_recently_played">Read recently played</string>
+    <string name="feature_auth_permissions_read_follows">Read your follows</string>
+    <string name="feature_auth_permissions_manage_follows">Manage your follows</string>
+    <string name="feature_auth_permissions_upload_images">Upload images</string>
+    <string name="feature_auth_permissions_title">Permissions</string>
+    <string name="feature_auth_permissions_navigate_up">Navigate up</string>
 </resources>
