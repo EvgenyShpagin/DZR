@@ -14,9 +14,9 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(projects.core.ui)
+    implementation(projects.core.auth.domain)
     implementation(libs.androidx.palette.ktx)
     testImplementation(projects.core.testing)
     testImplementation(libs.junit)
