@@ -31,7 +31,7 @@ private fun PermissionListPreview() {
     DzrTheme {
         Surface {
             PermissionList(
-                items = previewPermissions,
+                items = previewPermissions.take(5),
                 onPermissionToggle = {}
             )
         }
