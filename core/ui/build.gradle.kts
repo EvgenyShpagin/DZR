@@ -24,7 +24,7 @@ dependencies {
     api(libs.coil.network.okhttp)
     testImplementation(libs.junit)
 
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.mockk.android)
 }

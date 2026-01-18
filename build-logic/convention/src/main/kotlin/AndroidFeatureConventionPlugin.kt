@@ -21,16 +21,16 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 implementation(project(":core:design-system"))
                 implementation(project(":core:mvi"))
 
-                implementation(libs.findLibrary("androidx.lifecycle.runtime.compose").get())
-                implementation(libs.findLibrary("androidx.lifecycle.viewModel.compose").get())
-                implementation(libs.findLibrary("koin.androidx.compose").get())
-                implementation(libs.findLibrary("koin.androidx.compose.navigation").get())
-                implementation(libs.findLibrary("kotlinx.serialization.json").get())
-                implementation(libs.findLibrary("androidx.navigation.compose").get())
+                implementation(libs.findLibrary("androidx-lifecycle-runtime-compose").get())
+                implementation(libs.findLibrary("androidx-lifecycle-viewmodel-compose").get())
+                implementation(libs.findLibrary("koin-androidx-compose").get())
+                implementation(libs.findLibrary("koin-compose-navigation3").get())
+                implementation(libs.findLibrary("kotlinx-serialization-json").get())
+                implementation(libs.findLibrary("androidx-navigation-compose").get())
 
-                testImplementation(libs.findLibrary("androidx.navigation.testing").get())
+                testImplementation(libs.findLibrary("androidx-navigation-testing").get())
                 androidTestImplementation(
-                    libs.findLibrary("androidx.lifecycle.runtime.testing").get()
+                    libs.findLibrary("androidx-lifecycle-runtime-testing").get()
                 )
             }
         }

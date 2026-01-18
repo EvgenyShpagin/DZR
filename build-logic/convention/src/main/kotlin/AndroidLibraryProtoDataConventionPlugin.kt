@@ -20,7 +20,7 @@ class AndroidLibraryProtoDataConventionPlugin : Plugin<Project> {
 
             extensions.configure<ProtobufExtension> {
                 protoc {
-                    artifact = libs.findLibrary("protobuf.protoc").get().get().toString()
+                    artifact = libs.findLibrary("protobuf-protoc").get().get().toString()
                 }
 
                 generateProtoTasks {
@@ -38,12 +38,12 @@ class AndroidLibraryProtoDataConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
-                implementation(libs.findLibrary("androidx.datastore").get())
-                implementation(libs.findLibrary("protobuf.kotlin.lite").get())
+                implementation(libs.findLibrary("androidx-datastore").get())
+                implementation(libs.findLibrary("protobuf-kotlin-lite").get())
 
                 androidTestImplementation(project(":core:testing"))
                 androidTestImplementation(libs.findLibrary("junit").get())
-                androidTestImplementation(libs.findLibrary("kotlinx.coroutines.test").get())
+                androidTestImplementation(libs.findLibrary("kotlinx-coroutines-test").get())
                 androidTestImplementation(libs.findLibrary("androidx-test-core-ktx").get())
             }
         }

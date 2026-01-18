@@ -18,8 +18,8 @@ class ScreenshotConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
-                screenshotTestImplementation(libs.findLibrary("androidx.ui.tooling").get())
-                screenshotTestImplementation(libs.findLibrary("screenshot.validation.api").get())
+                screenshotTestImplementation(libs.findLibrary("androidx-compose-ui-tooling").get())
+                screenshotTestImplementation(libs.findLibrary("screenshot-validation-api").get())
             }
         }
     }

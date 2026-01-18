@@ -21,11 +21,11 @@ kotlin {
 
 // Specify dependencies which are used by plugins for compilation
 dependencies {
-    compileOnly(libs.android.gradlePlugin)
-    compileOnly(libs.kotlin.gradlePlugin)
-    compileOnly(libs.compose.gradlePlugin)
-    implementation(libs.protobuf.gradlePlugin)
-    implementation(libs.compose.screenshot.gradlePlugin)
+    compileOnly(libs.android.gradle.plugin)
+    compileOnly(libs.kotlin.gradle.plugin)
+    compileOnly(libs.kotlin.compose.gradle.plugin)
+    implementation(libs.protobuf.gradle.plugin)
+    implementation(libs.screenshot.gradle.plugin)
 }
 
 tasks {

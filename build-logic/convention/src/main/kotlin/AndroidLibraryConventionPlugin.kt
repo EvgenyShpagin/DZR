@@ -32,8 +32,8 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 disableEmptyAndroidTests(target)
             }
             dependencies {
-                testImplementation(libs.findLibrary("kotlin.test").get())
-                androidTestImplementation(libs.findLibrary("kotlin.test").get())
+                testImplementation(libs.findLibrary("kotlin-test").get())
+                androidTestImplementation(libs.findLibrary("kotlin-test").get())
                 androidTestImplementation(libs.findLibrary("androidx-test-runner").get())
             }
         }

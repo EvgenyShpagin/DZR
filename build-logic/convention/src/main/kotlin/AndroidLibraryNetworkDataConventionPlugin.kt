@@ -23,9 +23,9 @@ class AndroidLibraryNetworkDataConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
-                implementation(libs.findLibrary("retrofit.core").get())
-                implementation(libs.findLibrary("kotlinx.serialization.json").get())
-                implementation(libs.findLibrary("retrofit.kotlin.serialization").get())
+                implementation(libs.findLibrary("retrofit-core").get())
+                implementation(libs.findLibrary("kotlinx-serialization-json").get())
+                implementation(libs.findLibrary("retrofit-kotlin-serialization").get())
                 implementation(project(":core:network"))
 
                 testImplementation(libs.findLibrary("mockwebserver").get())
