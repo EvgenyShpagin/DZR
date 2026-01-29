@@ -47,7 +47,7 @@ internal fun NetworkFullPlaylist.toDomain(): DomainFullPlaylist {
         isCollaborative = collaborative,
         description = description,
         externalUrl = externalUrls.spotify,
-        followersCount = null,
+        followersCount = followers?.total,
         id = id,
         images = images.map { it.toDomain() },
         name = name,
