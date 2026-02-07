@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.compose.ui.util.fastJoinToString
 import com.music.dzr.core.model.ReleaseType
 
-fun formatContributors(contributors: List<String>): String {
+internal fun formatContributors(contributors: List<String>): String {
     return contributors.fastJoinToString()
 }
 
-fun ReleaseType.toString(context: Context): String {
+internal fun ReleaseType.toString(context: Context): String {
     return when (this) {
         ReleaseType.ALBUM -> context.getString(R.string.core_ui_release_type_album)
         ReleaseType.EP -> context.getString(R.string.core_ui_release_type_ep)
