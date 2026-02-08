@@ -1,7 +1,7 @@
 package com.music.dzr.core.auth.data.mapper
 
 import com.music.dzr.core.auth.data.local.model.authToken
-import com.music.dzr.core.auth.domain.model.AuthScope
+import com.music.dzr.core.auth.domain.model.PermissionScope
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -32,7 +32,7 @@ class AuthTokenMappingsTest {
         assertEquals(3600, domain.expiresInSeconds)
         assertEquals("REFRESH", domain.refreshToken)
         assertEquals(
-            listOf(AuthScope("user-read-email"), AuthScope("user-read-private")),
+            listOf(PermissionScope.UserReadEmail, PermissionScope.UserReadPrivate),
             domain.scopes
         )
     }
@@ -65,7 +65,7 @@ class AuthTokenMappingsTest {
             tokenType = "Bearer",
             expiresInSeconds = 3600,
             refreshToken = "REFRESH",
-            scopes = listOf(AuthScope("a"), AuthScope("b"))
+            scopes = listOf(PermissionScope.UgcImageUpload, PermissionScope.UserReadPlaybackState)
         )
 
         // Act
@@ -76,7 +76,8 @@ class AuthTokenMappingsTest {
         assertEquals("Bearer", network.tokenType)
         assertEquals(3600, network.expiresIn)
         assertEquals("REFRESH", network.refreshToken)
-        assertEquals("a b", network.scope)
+        // Note: The order depends on mapping implementation, assuming strict order for now or adjust test if needed
+        assertEquals("ugc-image-upload user-read-playback-state", network.scope)
     }
 
     @Test
@@ -105,13 +106,16 @@ class AuthTokenMappingsTest {
             accessToken = "X"
             refreshToken = "R"
             expiresIn = 10
-            scope = "read write"
+            scope = "user-library-read user-library-modify"
             tokenType = "Bearer"
         }
         val domain = local.toDomain()
 
         // Assert optionals are mapped when present
         assertEquals("R", domain.refreshToken)
-        assertEquals(listOf(AuthScope("read"), AuthScope("write")), domain.scopes)
+        assertEquals(
+            listOf(PermissionScope.UserLibraryRead, PermissionScope.UserLibraryModify),
+            domain.scopes
+        )
     }
 }

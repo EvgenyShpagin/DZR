@@ -1,4 +1,4 @@
-package com.music.dzr.core.auth.domain.model
+package com.music.dzr.core.auth.data.model
 
 /**
  * Represents an OAuth 2.0 scope as defined in RFC 6749, Section 3.3.
@@ -26,7 +26,6 @@ value class AuthScope(
             "Scope value contains invalid characters. " +
                     "Only ASCII letters, digits, and specific symbols are allowed"
         }
-
     }
 
     companion object {

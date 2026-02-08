@@ -4,6 +4,7 @@ import com.music.dzr.core.auth.data.local.model.AuthSession
 import com.music.dzr.core.auth.data.local.model.authSession
 import com.music.dzr.core.auth.data.local.source.AuthSessionLocalDataSource
 import com.music.dzr.core.auth.data.local.source.AuthTokenLocalDataSource
+import com.music.dzr.core.auth.data.mapper.toAuthScope
 import com.music.dzr.core.auth.data.mapper.toDomain
 import com.music.dzr.core.auth.data.mapper.toLocal
 import com.music.dzr.core.auth.data.remote.model.RedirectUriParams
@@ -14,8 +15,8 @@ import com.music.dzr.core.auth.data.remote.oauth.parseRedirectUriParams
 import com.music.dzr.core.auth.data.remote.source.AuthTokenRemoteDataSource
 import com.music.dzr.core.auth.domain.error.AuthError
 import com.music.dzr.core.auth.domain.model.AuthConfig
-import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
+import com.music.dzr.core.auth.domain.model.PermissionScope
 import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
 import com.music.dzr.core.auth.domain.repository.getRefreshToken
 import com.music.dzr.core.coroutine.ApplicationScope
@@ -132,7 +133,9 @@ internal class AuthTokenRepositoryImpl(
         }
     }
 
-    override suspend fun initiateAuthorization(scopes: List<AuthScope>): Result<String, AppError> {
+    override suspend fun initiateAuthorization(
+        scopes: List<PermissionScope>
+    ): Result<String, AppError> {
         return withContext(dispatchers.io) {
             externalScope.async {
                 val codeVerifier = securityProvider.generateCodeVerifier()
@@ -152,7 +155,7 @@ internal class AuthTokenRepositoryImpl(
 
                 val url = authUrlBuilder.build(
                     redirectUri = authConfig.redirectUri,
-                    scopes = scopes,
+                    scopes = scopes.map { it.toAuthScope() },
                     state = state,
                     codeChallenge = codeChallenge
                 )

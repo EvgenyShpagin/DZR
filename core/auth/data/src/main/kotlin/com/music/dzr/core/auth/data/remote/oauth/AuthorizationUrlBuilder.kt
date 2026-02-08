@@ -1,7 +1,7 @@
 package com.music.dzr.core.auth.data.remote.oauth
 
-import com.music.dzr.core.auth.domain.model.AuthScope
-import com.music.dzr.core.auth.domain.model.AuthScope.Companion.join
+import com.music.dzr.core.auth.data.model.AuthScope
+import com.music.dzr.core.auth.data.model.AuthScope.Companion.join
 import okhttp3.HttpUrl.Companion.toHttpUrl
 
 /**

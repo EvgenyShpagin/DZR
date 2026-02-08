@@ -1,7 +1,7 @@
 package com.music.dzr.core.auth.domain.repository
 
-import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
+import com.music.dzr.core.auth.domain.model.PermissionScope
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.error.PersistenceError
 import com.music.dzr.core.result.Result
@@ -59,13 +59,13 @@ interface AuthTokenRepository {
     /**
      * Starts Authorization Code flow with PKCE and returns an authorization URL to open in a browser.
      *
-     * @param scopes The list of authorization scopes to request from the authorization server.
+     * @param scopes The list of permissions to request from the authorization server.
      * @return [Result] containing the authorization URL as [String] on success,
      * or one of these errors on failure:
      * - [com.music.dzr.core.auth.domain.error.AuthError],
      * - [com.music.dzr.core.error.PersistenceError].
      */
-    suspend fun initiateAuthorization(scopes: List<AuthScope>): Result<String, AppError>
+    suspend fun initiateAuthorization(scopes: List<PermissionScope>): Result<String, AppError>
 
     /**
      * Completes the PKCE flow by processing the OAuth redirect URL returned after user authorization.

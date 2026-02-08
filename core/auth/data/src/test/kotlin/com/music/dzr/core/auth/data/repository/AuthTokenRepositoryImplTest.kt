@@ -13,8 +13,8 @@ import com.music.dzr.core.auth.data.remote.oauth.OAuthSecurityProviderImpl
 import com.music.dzr.core.auth.data.remote.source.TestAuthTokenRemoteDataSource
 import com.music.dzr.core.auth.domain.error.AuthError
 import com.music.dzr.core.auth.domain.model.AuthConfig
-import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
+import com.music.dzr.core.auth.domain.model.PermissionScope
 import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
 import com.music.dzr.core.coroutine.ApplicationScope
 import com.music.dzr.core.error.PersistenceError
@@ -227,7 +227,7 @@ class AuthTokenRepositoryImplTest {
     @Test
     fun initiateAuthorization_returnsFailure_whenSessionDataSaveFailed() = runTest(scheduler) {
         // Arrange
-        val scopes = listOf(AuthScope("user-read-email"))
+        val scopes = listOf(PermissionScope.UserReadEmail)
         sessionDataSource.forcedError = SecureStorageError.DecryptionFailed(IOException())
         // Act
         val result = repository.initiateAuthorization(scopes)
@@ -238,7 +238,7 @@ class AuthTokenRepositoryImplTest {
     @Test
     fun initiateAuthorization_returnsSuccess_whenSessionDataSaved() = runTest(scheduler) {
         // Arrange
-        val scopes = listOf(AuthScope("user-read-email"))
+        val scopes = listOf(PermissionScope.UserReadEmail)
         // Act
         val result = repository.initiateAuthorization(scopes)
         // Assert
@@ -336,7 +336,7 @@ class AuthTokenRepositoryImplTest {
             accessToken = "ACCESS_TOKEN",
             refreshToken = "REFRESH_TOKEN",
             expiresInSeconds = 3600,
-            scopes = listOf(AuthScope("user-read-email")),
+            scopes = listOf(PermissionScope.UserReadEmail),
             tokenType = "Bearer",
             expiresAtMillis = System.currentTimeMillis() + 3600 * 1000
         )

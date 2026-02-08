@@ -1,8 +1,8 @@
 package com.music.dzr.core.auth.data.mapper
 
 import com.music.dzr.core.auth.data.local.model.authToken
-import com.music.dzr.core.auth.domain.model.AuthScope
-import com.music.dzr.core.auth.domain.model.AuthScope.Companion.join
+import com.music.dzr.core.auth.data.model.AuthScope.Companion.join
+import com.music.dzr.core.auth.domain.model.PermissionScope
 import com.music.dzr.core.auth.data.local.model.AuthToken as LocalToken
 import com.music.dzr.core.auth.data.remote.dto.AuthToken as NetworkToken
 import com.music.dzr.core.auth.domain.model.AuthToken as DomainToken
@@ -15,7 +15,7 @@ internal fun NetworkToken.toDomain(
         tokenType = tokenType,
         expiresInSeconds = expiresIn,
         refreshToken = refreshToken,
-        scopes = scope?.let { AuthScope.parse(it) } ?: emptyList(),
+        scopes = scope?.split(' ')?.map { PermissionScope.fromString(it) } ?: emptyList(),
         expiresAtMillis = createdAtMillis + expiresIn * 1000L
     )
 }
@@ -26,13 +26,17 @@ internal fun DomainToken.toNetwork(): NetworkToken {
         tokenType = tokenType,
         expiresIn = expiresInSeconds,
         refreshToken = refreshToken,
-        scope = scopes.join()
+        scope = scopes.map { it.toAuthScope() }.join()
     )
 }
 
 internal fun LocalToken.toDomain(): DomainToken {
     val refresh = if (hasRefreshToken()) refreshToken else null
-    val scopes = if (hasScope()) AuthScope.parse(scope) else emptyList()
+    val scopes = if (hasScope()) {
+        scope.split(' ').map { PermissionScope.fromString(it) }
+    } else {
+        emptyList()
+    }
     return DomainToken(
         accessToken = accessToken,
         tokenType = tokenType,
@@ -53,6 +57,6 @@ internal fun DomainToken.toLocal(): LocalToken = authToken {
     domain.refreshToken?.let { refreshToken = it }
 
     if (domain.scopes.isNotEmpty()) {
-        scope = domain.scopes.join()
+        scope = domain.scopes.map { it.toAuthScope() }.join()
     }
 }

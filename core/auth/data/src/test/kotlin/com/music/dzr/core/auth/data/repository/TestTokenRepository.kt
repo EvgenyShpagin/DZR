@@ -1,8 +1,8 @@
 package com.music.dzr.core.auth.data.repository
 
 import com.music.dzr.core.auth.domain.error.AuthError
-import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
+import com.music.dzr.core.auth.domain.model.PermissionScope
 import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
 import com.music.dzr.core.data.test.HasForcedError
 import com.music.dzr.core.data.test.runUnlessForcedError
@@ -66,7 +66,7 @@ class TestTokenRepository(
         Result.Success(Unit)
     }
 
-    override suspend fun initiateAuthorization(scopes: List<AuthScope>): Result<String, AppError> =
+    override suspend fun initiateAuthorization(scopes: List<PermissionScope>): Result<String, AppError> =
         runUnlessForcedError { return Result.Success("https://example.com/auth") }
 
     override suspend fun completeAuthorization(

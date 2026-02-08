@@ -94,5 +94,7 @@ enum class PermissionScope {
     /**
      * Read access to user's subscription details (type of user account).
      */
-    UserReadPrivate,
+    UserReadPrivate;
+
+    companion object
 }

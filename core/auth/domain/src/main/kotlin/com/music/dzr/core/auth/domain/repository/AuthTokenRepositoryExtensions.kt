@@ -1,7 +1,7 @@
 package com.music.dzr.core.auth.domain.repository
 
-import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
+import com.music.dzr.core.auth.domain.model.PermissionScope
 import com.music.dzr.core.auth.domain.model.isExpired
 import com.music.dzr.core.error.AppError
 import com.music.dzr.core.result.Result
@@ -41,7 +41,7 @@ suspend fun AuthTokenRepository.getRefreshToken() = getToken().mapSuccess { it.r
 /**
  * Retrieves the list of authorization scopes associated with the current authentication state.
  *
- * @return [Result] containing a list of [AuthScope] representing the authorized scopes on success,
+ * @return [Result] containing a list of [PermissionScope] representing the authorized scopes on success,
  * or one of these errors on failure:
  * - [com.music.dzr.core.auth.domain.error.AuthError],
  * - [com.music.dzr.core.error.PersistenceError].
