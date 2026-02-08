@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.dzr.android.application)
     alias(libs.plugins.dzr.android.application.compose)
+    alias(libs.plugins.secrets.gradle)
 }
 
 android {
@@ -26,6 +27,11 @@ android {
             )
         }
     }
+}
+
+secrets {
+    propertiesFileName = "app/secrets.properties"
+    defaultPropertiesFileName = "app/secrets.defaults.properties"
 }
 
 dependencies {
