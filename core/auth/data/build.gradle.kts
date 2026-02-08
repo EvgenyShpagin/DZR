@@ -7,7 +7,7 @@ android {
     namespace = "com.music.dzr.core.auth.data"
 
     defaultConfig {
-        buildConfigField("String", "SPOTIFY_AUTH_BASE_URL ", "\"https://accounts.spotify.com/\"")
+        buildConfigField("String", "SPOTIFY_AUTH_BASE_URL", "\"https://accounts.spotify.com/\"")
     }
 
     buildFeatures {
