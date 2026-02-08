@@ -23,7 +23,9 @@ import com.music.dzr.core.auth.data.remote.oauth.OAuthSecurityProvider
 import com.music.dzr.core.auth.data.remote.oauth.OAuthSecurityProviderImpl
 import com.music.dzr.core.auth.data.remote.source.AuthTokenRemoteDataSource
 import com.music.dzr.core.auth.data.remote.source.AuthTokenRemoteDataSourceImpl
+import com.music.dzr.core.auth.data.repository.AuthTokenRepositoryImpl
 import com.music.dzr.core.auth.domain.model.AuthConfig
+import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
 import com.music.dzr.core.coroutine.ApplicationScope
 import com.music.dzr.core.coroutine.DispatcherProvider
 import com.music.dzr.core.network.di.AuthInterceptorQualifier
@@ -119,6 +121,19 @@ val authModule = module {
 
     single<AuthSessionLocalDataSource> {
         AuthSessionLocalDataSourceImpl(dataStore = get())
+    }
+
+    single<AuthTokenRepository> {
+        AuthTokenRepositoryImpl(
+            tokenLocalDataSource = get(),
+            tokenRemoteDataSource = get(),
+            sessionDataSource = get(),
+            dispatchers = get(),
+            externalScope = get(),
+            authConfig = get(),
+            authUrlBuilder = get(),
+            securityProvider = get()
+        )
     }
 }
 
