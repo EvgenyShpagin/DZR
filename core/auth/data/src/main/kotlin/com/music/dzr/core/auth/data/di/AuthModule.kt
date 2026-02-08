@@ -102,7 +102,7 @@ val authModule = module {
     }
 
     single<DataStore<AuthToken>> {
-        createDataStore(filename = AUTH_TOKEN_DS_FILE)
+        createDataStore<AuthToken, AuthTokenSerializer>(filename = AUTH_TOKEN_DS_FILE)
     }
 
     single<AuthTokenLocalDataSource> {
@@ -114,7 +114,7 @@ val authModule = module {
     }
 
     single<DataStore<AuthSession>> {
-        createDataStore(filename = AUTH_SESSION_DS_FILE)
+        createDataStore<AuthSession, AuthSessionSerializer>(filename = AUTH_SESSION_DS_FILE)
     }
 
     single<AuthSessionLocalDataSource> {
