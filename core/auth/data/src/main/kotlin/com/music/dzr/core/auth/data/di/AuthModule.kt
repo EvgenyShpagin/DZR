@@ -98,7 +98,7 @@ val authModule = module {
     }
 
     single<AuthTokenSerializer> {
-        AuthTokenSerializer(encryptor = get())
+        AuthTokenSerializer(encryptor = get(AuthTokenEncryptorQualifier))
     }
 
     single<DataStore<AuthToken>> {
@@ -110,7 +110,7 @@ val authModule = module {
     }
 
     single<AuthSessionSerializer> {
-        AuthSessionSerializer(encryptor = get())
+        AuthSessionSerializer(encryptor = get(AuthSessionEncryptorQualifier))
     }
 
     single<DataStore<AuthSession>> {
