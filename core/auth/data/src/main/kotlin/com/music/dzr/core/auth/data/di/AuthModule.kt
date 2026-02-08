@@ -23,6 +23,7 @@ import com.music.dzr.core.auth.data.remote.oauth.OAuthSecurityProvider
 import com.music.dzr.core.auth.data.remote.oauth.OAuthSecurityProviderImpl
 import com.music.dzr.core.auth.data.remote.source.AuthTokenRemoteDataSource
 import com.music.dzr.core.auth.data.remote.source.AuthTokenRemoteDataSourceImpl
+import com.music.dzr.core.auth.domain.model.AuthConfig
 import com.music.dzr.core.coroutine.ApplicationScope
 import com.music.dzr.core.coroutine.DispatcherProvider
 import com.music.dzr.core.network.di.AuthInterceptorQualifier
@@ -38,7 +39,6 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.create
 import com.music.dzr.core.auth.data.BuildConfig as AuthBuildConfig
-import com.music.dzr.core.network.BuildConfig as NetworkBuildConfig
 
 private const val AUTH_TOKEN_DS_FILE = "auth_token.pb"
 private const val AUTH_SESSION_DS_FILE = "auth_session.pb"
@@ -74,7 +74,7 @@ val authModule = module {
 
     single {
         AuthorizationUrlBuilder(
-            clientId = NetworkBuildConfig.SPOTIFY_CLIENT_ID,
+            clientId = get<AuthConfig>().clientId,
             authBaseUrl = AuthBuildConfig.SPOTIFY_AUTH_BASE_URL,
         )
     }

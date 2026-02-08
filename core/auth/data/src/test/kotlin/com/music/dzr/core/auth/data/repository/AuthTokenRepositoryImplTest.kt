@@ -12,6 +12,7 @@ import com.music.dzr.core.auth.data.remote.oauth.OAuthSecurityProvider
 import com.music.dzr.core.auth.data.remote.oauth.OAuthSecurityProviderImpl
 import com.music.dzr.core.auth.data.remote.source.TestAuthTokenRemoteDataSource
 import com.music.dzr.core.auth.domain.error.AuthError
+import com.music.dzr.core.auth.domain.model.AuthConfig
 import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
 import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
@@ -67,8 +68,10 @@ class AuthTokenRepositoryImplTest {
             sessionDataSource = sessionDataSource,
             dispatchers = dispatchers,
             externalScope = externalScope,
-            clientId = clientId,
-            redirectUri = redirectUri,
+            authConfig = AuthConfig(
+                clientId = clientId,
+                redirectUri = redirectUri
+            ),
             authUrlBuilder = authUrlBuilder,
             securityProvider = securityProvider,
         )

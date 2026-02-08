@@ -13,6 +13,7 @@ import com.music.dzr.core.auth.data.remote.oauth.OAuthSecurityProvider
 import com.music.dzr.core.auth.data.remote.oauth.parseRedirectUriParams
 import com.music.dzr.core.auth.data.remote.source.AuthTokenRemoteDataSource
 import com.music.dzr.core.auth.domain.error.AuthError
+import com.music.dzr.core.auth.domain.model.AuthConfig
 import com.music.dzr.core.auth.domain.model.AuthScope
 import com.music.dzr.core.auth.domain.model.AuthToken
 import com.music.dzr.core.auth.domain.repository.AuthTokenRepository
@@ -35,8 +36,7 @@ internal class AuthTokenRepositoryImpl(
     private val sessionDataSource: AuthSessionLocalDataSource,
     private val dispatchers: DispatcherProvider,
     private val externalScope: ApplicationScope,
-    private val clientId: String,
-    private val redirectUri: String,
+    private val authConfig: AuthConfig,
     private val authUrlBuilder: AuthorizationUrlBuilder,
     private val securityProvider: OAuthSecurityProvider
 ) : AuthTokenRepository {
@@ -99,7 +99,7 @@ internal class AuthTokenRepositoryImpl(
 
                 val tokenResponse = tokenRemoteDataSource.refreshToken(
                     refreshToken = refreshToken,
-                    clientId = clientId
+                    clientId = authConfig.clientId
                 )
 
                 val newToken = tokenResponse.data
@@ -151,7 +151,7 @@ internal class AuthTokenRepositoryImpl(
                 }
 
                 val url = authUrlBuilder.build(
-                    redirectUri = redirectUri,
+                    redirectUri = authConfig.redirectUri,
                     scopes = scopes,
                     state = state,
                     codeChallenge = codeChallenge
@@ -218,8 +218,8 @@ internal class AuthTokenRepositoryImpl(
             is RedirectUriParams.Success -> {
                 val tokenResponse = tokenRemoteDataSource.getToken(
                     code = redirectUriParams.code,
-                    redirectUri = redirectUri,
-                    clientId = clientId,
+                    redirectUri = authConfig.redirectUri,
+                    clientId = authConfig.clientId,
                     codeVerifier = session.codeVerifier
                 )
 
