@@ -1,4 +1,4 @@
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.LibraryExtension
 import com.music.dzr.implementation
 import com.music.dzr.libs
 import com.music.dzr.testImplementation

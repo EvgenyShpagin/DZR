@@ -1,5 +1,5 @@
+import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
-import com.android.build.gradle.LibraryExtension
 import com.music.dzr.androidTestImplementation
 import com.music.dzr.configureGradleManagedDevices
 import com.music.dzr.configureKotlinAndroid
