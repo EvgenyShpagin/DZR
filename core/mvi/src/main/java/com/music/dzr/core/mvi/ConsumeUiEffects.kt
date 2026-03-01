@@ -3,31 +3,30 @@ package com.music.dzr.core.mvi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Collects one-time [UiEffect]s from this [Flow] in a lifecycle-aware manner.
+ *
+ * Collection is active only while the [lifecycleOwner] is at least in [minActiveState].
+ * Uses [repeatOnLifecycle] internally — the same pattern as `collectAsStateWithLifecycle`.
+ */
+@Suppress("ComposableNaming")
 @Composable
-fun <E : UiEffect> Flow<E>.consumeWithLifecycle(onReceive: suspend (E) -> Unit) {
-    val uiEffect = rememberFlowWithLifecycle(this)
+fun <E : UiEffect> Flow<E>.consumeWithLifecycle(
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
+    minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
+    onReceive: suspend (E) -> Unit
+) {
     val currentOnReceive by rememberUpdatedState(onReceive)
-    LaunchedEffect(uiEffect) {
-        uiEffect.collect { currentOnReceive(it) }
-    }
-}
-
-@Composable
-private fun <T> rememberFlowWithLifecycle(
-    flow: Flow<T>,
-    lifecycle: Lifecycle = LocalLifecycleOwner.current.lifecycle
-): Flow<T> {
-    return remember(flow, lifecycle) {
-        flow.flowWithLifecycle(
-            lifecycle,
-            Lifecycle.State.STARTED
-        )
+    LaunchedEffect(this, lifecycleOwner.lifecycle) {
+        lifecycleOwner.lifecycle.repeatOnLifecycle(minActiveState) {
+            this@consumeWithLifecycle.collect { currentOnReceive(it) }
+        }
     }
 }
