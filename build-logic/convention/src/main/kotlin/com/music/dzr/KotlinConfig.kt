@@ -16,16 +16,12 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
  * Configure base Kotlin with Android options
  */
 internal fun Project.configureKotlinAndroid(
-    commonExtension: CommonExtension<*, *, *, *, *, *>,
+    commonExtension: CommonExtension,
 ) {
     commonExtension.apply {
         compileSdk = libs.versionInt("compileSdk")
-
-        defaultConfig {
-            minSdk = libs.versionInt("minSdk")
-        }
-
-        compileOptions {
+        defaultConfig.minSdk = libs.versionInt("minSdk")
+        compileOptions.apply {
             // This allows using Java 11 APIs even on older Android versions, as missing
             // classes are added to the app during the build process through desugaring.
             sourceCompatibility = JavaVersion.VERSION_11

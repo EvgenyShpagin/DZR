@@ -16,7 +16,7 @@ import org.gradle.kotlin.dsl.invoke
  * allowing you to run tests on all of them with a single command.
  */
 internal fun configureGradleManagedDevices(
-    commonExtension: CommonExtension<*, *, *, *, *, *>,
+    commonExtension: CommonExtension,
 ) {
     // Defines the list of virtual devices to be used for testing.
     val devices = listOf(
@@ -24,24 +24,22 @@ internal fun configureGradleManagedDevices(
         DeviceConfig("Pixel 4", 28, "google"),
     )
 
-    commonExtension.testOptions {
-        managedDevices {
-            allDevices {
-                devices.forEach { deviceConfig ->
-                    maybeCreate(deviceConfig.taskName, ManagedVirtualDevice::class.java).apply {
-                        device = deviceConfig.device
-                        apiLevel = deviceConfig.apiLevel
-                        systemImageSource = deviceConfig.systemImageSource
-                    }
+    commonExtension.testOptions.managedDevices {
+        allDevices {
+            devices.forEach { deviceConfig ->
+                maybeCreate(deviceConfig.taskName, ManagedVirtualDevice::class.java).apply {
+                    device = deviceConfig.device
+                    apiLevel = deviceConfig.apiLevel
+                    systemImageSource = deviceConfig.systemImageSource
                 }
             }
-            groups {
-                // Create a group that includes all the devices defined above.
-                // Running `./gradlew allDevicesDebugAndroidTest` will execute tests on all these emulators.
-                maybeCreate("allDevices").apply {
-                    devices.forEach { deviceConfig ->
-                        targetDevices.add(allDevices[deviceConfig.taskName])
-                    }
+        }
+        groups {
+            // Create a group that includes all the devices defined above.
+            // Running `./gradlew allDevicesDebugAndroidTest` will execute tests on all these emulators.
+            maybeCreate("allDevices").apply {
+                devices.forEach { deviceConfig ->
+                    targetDevices.add(allDevices[deviceConfig.taskName])
                 }
             }
         }

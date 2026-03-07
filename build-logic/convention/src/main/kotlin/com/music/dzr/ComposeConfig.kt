@@ -13,21 +13,17 @@ import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginE
  * Configure Compose-specific options for an Android module.
  */
 internal fun Project.configureAndroidCompose(
-    commonExtension: CommonExtension<*, *, *, *, *, *>,
+    commonExtension: CommonExtension,
 ) {
-    commonExtension.apply {
-        buildFeatures {
-            compose = true
-        }
+    commonExtension.buildFeatures.compose = true
 
-        dependencies {
-            val bom = libs.findLibrary("androidx-compose-bom").get()
-            implementation(platform(bom))
-            androidTestImplementation(platform(bom))
-            implementation(libs.findLibrary("androidx-compose-ui-tooling-preview").get())
-            debugImplementation(libs.findLibrary("androidx-compose-ui-tooling").get())
-            debugImplementation(libs.findLibrary("androidx-compose-ui-test-manifest").get())
-        }
+    dependencies {
+        val bom = libs.findLibrary("androidx-compose-bom").get()
+        implementation(platform(bom))
+        androidTestImplementation(platform(bom))
+        implementation(libs.findLibrary("androidx-compose-ui-tooling-preview").get())
+        debugImplementation(libs.findLibrary("androidx-compose-ui-tooling").get())
+        debugImplementation(libs.findLibrary("androidx-compose-ui-test-manifest").get())
     }
 
     // Configure the Compose compiler extension to enable features like metrics, reports,

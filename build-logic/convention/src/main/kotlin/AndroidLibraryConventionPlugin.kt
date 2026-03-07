@@ -20,7 +20,9 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = libs.versionInt("targetSdk")
+                val targetSdk = libs.versionInt("targetSdk")
+                testOptions.targetSdk = targetSdk
+                lint.targetSdk = targetSdk
                 defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 // Disable animations during instrumented tests run from the command line
                 testOptions.animationsDisabled = true
@@ -32,6 +34,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             }
             dependencies {
                 testImplementation(libs.findLibrary("kotlin-test").get())
+                testImplementation(libs.findLibrary("junit").get())
                 androidTestImplementation(libs.findLibrary("kotlin-test").get())
                 androidTestImplementation(libs.findLibrary("androidx-test-runner").get())
             }
