@@ -56,7 +56,9 @@ private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() =
     // Treat all Kotlin warnings as errors (disabled by default)
     // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
     val warningsAsErrors = providers.gradleProperty("warningsAsErrors")
-        .map { it.toBoolean() }.orElse(false)
+        .map(String::toBoolean)
+        .orElse(false)
+
     when (this) {
         is KotlinAndroidProjectExtension -> compilerOptions
         is KotlinJvmProjectExtension -> compilerOptions
@@ -78,7 +80,6 @@ private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() =
              */
             "-Xconsistent-data-class-copy-visibility"
         )
-
         freeCompilerArgs.add(
             /**
              * Avoids widespread `@OptIn(kotlin.time.ExperimentalTime::class)` annotations
