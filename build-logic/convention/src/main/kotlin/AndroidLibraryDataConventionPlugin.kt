@@ -17,7 +17,6 @@ class AndroidLibraryDataConventionPlugin : Plugin<Project> {
 
             dependencies {
                 testImplementation(project(":core:testing"))
-                testImplementation(libs.findLibrary("junit").get())
                 testImplementation(libs.findLibrary("mockk").get())
                 testImplementation(libs.findLibrary("kotlinx-coroutines-test").get())
             }

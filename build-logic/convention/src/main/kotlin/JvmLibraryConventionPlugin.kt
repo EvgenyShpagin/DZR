@@ -15,6 +15,7 @@ class JvmLibraryConventionPlugin : Plugin<Project> {
 
             dependencies {
                 testImplementation(libs.findLibrary("kotlin-test").get())
+                testImplementation(libs.findLibrary("kotlin-test-junit").get())
             }
         }
     }
