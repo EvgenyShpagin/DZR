@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.dzr.android.library.network.data)
-    alias(libs.plugins.dzr.android.library.proto.data)
 }
 
 android {
@@ -16,9 +15,11 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.auth.dataProto)
     implementation(projects.core.auth.domain)
     implementation(projects.dzr.core.data)
     implementation(projects.dzr.core.storage)
+    implementation(libs.androidx.datastore)
     implementation(libs.okhttp.logging)
     testImplementation(testFixtures(projects.core.data))
 }

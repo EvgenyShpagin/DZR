@@ -24,7 +24,6 @@ dependencies {
     compileOnly(libs.android.gradle.plugin)
     compileOnly(libs.kotlin.gradle.plugin)
     compileOnly(libs.kotlin.compose.gradle.plugin)
-    implementation(libs.protobuf.gradle.plugin)
     implementation(libs.screenshot.gradle.plugin)
 }
 
@@ -81,10 +80,6 @@ gradlePlugin {
         register("androidLibraryDataNetwork") {
             id = libs.plugins.dzr.android.library.network.data.get().pluginId
             implementationClass = "AndroidLibraryNetworkDataConventionPlugin"
-        }
-        register("androidLibraryProtoData") {
-            id = libs.plugins.dzr.android.library.proto.data.get().pluginId
-            implementationClass = "AndroidLibraryProtoDataConventionPlugin"
         }
     }
 }
