@@ -16,4 +16,6 @@ android {
 dependencies {
     api(libs.kotlinx.coroutines.core)
     api(libs.androidx.lifecycle.viewmodel.ktx)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(projects.dzr.core.testing)
 }
