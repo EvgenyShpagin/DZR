@@ -16,7 +16,8 @@ import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.cancellation.CancellationException
 
 internal const val DEFAULT_EVENTS_CAPACITY = 16
-internal const val DEFAULT_UI_EFFECTS_CAPACITY = 4
+internal const val DEFAULT_EFFECTS_CAPACITY = 4
+internal val DefaultCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
 /**
  * Base ViewModel for immutable MVI state with centralized event queueing and routing.
@@ -35,14 +36,14 @@ internal const val DEFAULT_UI_EFFECTS_CAPACITY = 4
  * @param Event The type representing user-driven events.
  * @param Effect The type representing one-time effects.
  * @param eventsCapacity Capacity of the incoming/routing UI events queue.
- * @param uiEffectsCapacity Capacity of the one-time UI effects queue.
+ * @param effectsCapacity Capacity of the one-time UI effects queue.
  * @param coroutineScope Scope used for internal event routing and handling coroutines.
  * @param elapsedRealtime Clock source for throttle timestamps. Defaults to [android.os.SystemClock.elapsedRealtime].
  */
 abstract class ImmutableStateViewModel<State : UiState, Event : UiEvent, Effect : UiEffect>(
     eventsCapacity: Int = DEFAULT_EVENTS_CAPACITY,
-    uiEffectsCapacity: Int = DEFAULT_UI_EFFECTS_CAPACITY,
-    coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate),
+    effectsCapacity: Int = DEFAULT_EFFECTS_CAPACITY,
+    coroutineScope: CoroutineScope = DefaultCoroutineScope,
     private val elapsedRealtime: () -> Long = { android.os.SystemClock.elapsedRealtime() },
 ) : ViewModel(coroutineScope) {
 
@@ -50,8 +51,8 @@ abstract class ImmutableStateViewModel<State : UiState, Event : UiEvent, Effect 
         require(eventsCapacity > 0) {
             "eventsCapacity must be > 0, was $eventsCapacity"
         }
-        require(uiEffectsCapacity > 0) {
-            "uiEffectsCapacity must be > 0, was $uiEffectsCapacity"
+        require(effectsCapacity > 0) {
+            "uiEffectsCapacity must be > 0, was $effectsCapacity"
         }
     }
 
@@ -63,7 +64,7 @@ abstract class ImmutableStateViewModel<State : UiState, Event : UiEvent, Effect 
     /**
      * Channel of one-time effects (navigation, snackbar, etc.).
      */
-    private val _uiEffects = Channel<Effect>(capacity = uiEffectsCapacity)
+    private val _uiEffects = Channel<Effect>(capacity = effectsCapacity)
 
     /**
      * One-time effects stream (navigation, snackbar, etc.).
@@ -156,9 +157,9 @@ abstract class ImmutableStateViewModel<State : UiState, Event : UiEvent, Effect 
     private suspend fun routeWithThrottle(event: Event, policy: UiEvent.ThrottleFirst) {
         val key = policy.scope ?: event::class
         val now = elapsedRealtime()
-        val lastHandledAt = throttleLastHandledAt[key] ?: Long.MIN_VALUE
+        val lastHandledAt = throttleLastHandledAt[key]
 
-        if (now - lastHandledAt >= policy.windowMs) {
+        if (lastHandledAt == null || now - lastHandledAt >= policy.windowMs) {
             throttleLastHandledAt[key] = now
             routedEvents.send(event)
         }
