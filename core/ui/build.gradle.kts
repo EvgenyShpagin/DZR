@@ -22,7 +22,6 @@ dependencies {
     api(projects.core.model)
     api(libs.coil.compose)
     api(libs.coil.network.okhttp)
-    testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.test.junit)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

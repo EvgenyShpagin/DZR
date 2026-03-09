@@ -19,6 +19,5 @@ dependencies {
     implementation(projects.core.auth.domain)
     implementation(libs.androidx.palette)
     testImplementation(projects.core.testing)
-    testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.junit)
 }
