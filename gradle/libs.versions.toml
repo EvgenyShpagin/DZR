@@ -130,7 +130,6 @@ dzr-android-library = { id = "dzr.android.library" }
 dzr-android-library-compose = { id = "dzr.android.library.compose" }
 dzr-android-library-data = { id = "dzr.android.library.data" }
 dzr-android-library-network-data = { id = "dzr.android.library.network.data" }
-dzr-android-library-proto-data = { id = "dzr.android.library.proto.data" }
 dzr-jvm-library = { id = "dzr.jvm.library" }
 dzr-koin = { id = "dzr.koin" }
 dzr-screenshot = { id = "dzr.screenshot" }
