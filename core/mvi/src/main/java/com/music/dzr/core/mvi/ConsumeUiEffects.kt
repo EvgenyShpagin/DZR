@@ -26,7 +26,7 @@ fun <E : UiEffect> Flow<E>.consumeWithLifecycle(
     val currentOnReceive by rememberUpdatedState(onReceive)
     LaunchedEffect(this, lifecycleOwner.lifecycle) {
         lifecycleOwner.lifecycle.repeatOnLifecycle(minActiveState) {
-            this@consumeWithLifecycle.collect { currentOnReceive(it) }
+            collect { currentOnReceive(it) }
         }
     }
 }
