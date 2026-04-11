@@ -4,4 +4,6 @@ plugins {
 
 dependencies {
     api(projects.dzr.core.common)
+    testImplementation(projects.core.testing)
+    testImplementation(libs.mockk)
 }
