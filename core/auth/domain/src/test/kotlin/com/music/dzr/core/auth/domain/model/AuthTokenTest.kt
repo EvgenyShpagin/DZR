@@ -16,7 +16,7 @@ class AuthTokenTest {
         val tokenType = "Bearer"
         val expiresInSeconds = 3600
         val refreshToken = "validRefreshToken"
-        val scopes = listOf(AuthScope("read"), AuthScope("write"))
+        val scopes = listOf(PermissionScope.UserReadEmail)
 
         // Act
         val token = AuthToken(
