@@ -9,7 +9,7 @@ import com.music.dzr.core.testing.assertion.assertFailureEquals
 import com.music.dzr.core.testing.assertion.assertSuccess
 import com.music.dzr.core.testing.assertion.assertSuccessEquals
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
-import com.music.dzr.core.testing.data.networkDetailedTracksTestData
+import com.music.dzr.core.network.test.networkDetailedTracksTestData
 import com.music.dzr.library.track.data.remote.source.TestTrackRemoteDataSource
 import com.music.dzr.library.track.domain.model.SavedTrack
 import com.music.dzr.library.track.domain.model.TimestampedId

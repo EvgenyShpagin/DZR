@@ -1,4 +1,4 @@
-package com.music.dzr.core.testing.data
+package com.music.dzr.core.network.test
 
 import com.music.dzr.core.network.dto.AlbumType
 import com.music.dzr.core.network.dto.ExternalIds

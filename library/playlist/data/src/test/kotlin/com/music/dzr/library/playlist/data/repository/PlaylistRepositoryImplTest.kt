@@ -7,7 +7,7 @@ import com.music.dzr.core.pagination.Page
 import com.music.dzr.core.testing.assertion.assertFailureEquals
 import com.music.dzr.core.testing.assertion.assertSuccess
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
-import com.music.dzr.core.testing.data.networkDetailedTracksTestData
+import com.music.dzr.core.network.test.networkDetailedTracksTestData
 import com.music.dzr.library.playlist.data.mapper.toNetwork
 import com.music.dzr.library.playlist.data.remote.source.TestPlaylistRemoteDataSource
 import com.music.dzr.library.playlist.domain.model.InsertPosition

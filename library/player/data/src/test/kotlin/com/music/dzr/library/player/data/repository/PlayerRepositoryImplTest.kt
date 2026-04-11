@@ -5,7 +5,7 @@ import com.music.dzr.core.model.Market
 import com.music.dzr.core.testing.assertion.assertFailureEquals
 import com.music.dzr.core.testing.assertion.assertSuccess
 import com.music.dzr.core.testing.coroutine.TestDispatcherProvider
-import com.music.dzr.core.testing.data.networkDetailedTracksTestData
+import com.music.dzr.core.network.test.networkDetailedTracksTestData
 import com.music.dzr.library.player.data.remote.dto.PlayHistory
 import com.music.dzr.library.player.data.remote.source.TestPlayerRemoteDataSource
 import com.music.dzr.player.domain.model.RecentlyPlayedFilter
