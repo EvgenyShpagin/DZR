@@ -19,23 +19,7 @@ value class AuthScope(
      */
     val value: String
 ) {
-    init {
-        require(value.isNotBlank()) { "Scope value cannot be blank" }
-        require(' ' !in value) { "Scope value cannot contain spaces" }
-        require(value.all { it.isValidScopeChar() }) {
-            "Scope value contains invalid characters. " +
-                    "Only ASCII letters, digits, and specific symbols are allowed"
-        }
-    }
-
     companion object {
-
-        private fun Char.isValidScopeChar(): Boolean {
-            // RFC 6749: scope-token characters are %x21, %x23-5B, %x5D-7E
-            return this in '\u0021'..'\u007E' && this != '"' && this != '\\'
-        }
-
-
         fun Collection<AuthScope>.join(): String =
             joinToString(" ") { scope -> scope.value }
 
@@ -43,5 +27,24 @@ value class AuthScope(
             scopes.split(' ')
                 .filter { it.isNotBlank() }
                 .map { scopeValue -> AuthScope(scopeValue) }
+
+        val UgcImageUpload = AuthScope("ugc-image-upload")
+        val UserReadPlaybackState = AuthScope("user-read-playback-state")
+        val UserModifyPlaybackState = AuthScope("user-modify-playback-state")
+        val UserReadCurrentlyPlaying = AuthScope("user-read-currently-playing")
+        val AppRemoteControl = AuthScope("app-remote-control")
+        val Streaming = AuthScope("streaming")
+        val PlaylistReadPrivate = AuthScope("playlist-read-private")
+        val PlaylistReadCollaborative = AuthScope("playlist-read-collaborative")
+        val PlaylistModifyPrivate = AuthScope("playlist-modify-private")
+        val PlaylistModifyPublic = AuthScope("playlist-modify-public")
+        val UserFollowModify = AuthScope("user-follow-modify")
+        val UserFollowRead = AuthScope("user-follow-read")
+        val UserTopRead = AuthScope("user-top-read")
+        val UserReadRecentlyPlayed = AuthScope("user-read-recently-played")
+        val UserLibraryModify = AuthScope("user-library-modify")
+        val UserLibraryRead = AuthScope("user-library-read")
+        val UserReadEmail = AuthScope("user-read-email")
+        val UserReadPrivate = AuthScope("user-read-private")
     }
 }

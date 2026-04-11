@@ -1,8 +1,8 @@
 package com.music.dzr.core.auth.data.mapper
 
 import com.music.dzr.core.auth.data.local.model.authToken
+import com.music.dzr.core.auth.data.model.AuthScope
 import com.music.dzr.core.auth.data.model.AuthScope.Companion.join
-import com.music.dzr.core.auth.domain.model.PermissionScope
 import com.music.dzr.core.auth.data.local.model.AuthToken as LocalToken
 import com.music.dzr.core.auth.data.remote.dto.AuthToken as NetworkToken
 import com.music.dzr.core.auth.domain.model.AuthToken as DomainToken
@@ -15,7 +15,9 @@ internal fun NetworkToken.toDomain(
         tokenType = tokenType,
         expiresInSeconds = expiresIn,
         refreshToken = refreshToken,
-        scopes = scope?.split(' ')?.map { PermissionScope.fromString(it) } ?: emptyList(),
+        scopes = scope?.let { scope ->
+            AuthScope.parse(scope).map { it.toDomain() }
+        } ?: emptyList(),
         expiresAtMillis = createdAtMillis + expiresIn * 1000L
     )
 }
@@ -33,7 +35,7 @@ internal fun DomainToken.toNetwork(): NetworkToken {
 internal fun LocalToken.toDomain(): DomainToken {
     val refresh = if (hasRefreshToken()) refreshToken else null
     val scopes = if (hasScope()) {
-        scope.split(' ').map { PermissionScope.fromString(it) }
+        AuthScope.parse(scope).map { it.toDomain() }
     } else {
         emptyList()
     }

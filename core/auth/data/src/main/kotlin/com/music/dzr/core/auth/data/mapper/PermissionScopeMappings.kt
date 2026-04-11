@@ -8,52 +8,49 @@ import com.music.dzr.core.auth.domain.model.PermissionScope
  * This mapping defines the specific OAuth strings required by the Spotify API.
  */
 internal fun PermissionScope.toAuthScope(): AuthScope = when (this) {
-    PermissionScope.UgcImageUpload -> AuthScope("ugc-image-upload")
-    PermissionScope.UserReadPlaybackState -> AuthScope("user-read-playback-state")
-    PermissionScope.UserModifyPlaybackState -> AuthScope("user-modify-playback-state")
-    PermissionScope.UserReadCurrentlyPlaying -> AuthScope("user-read-currently-playing")
-    PermissionScope.AppRemoteControl -> AuthScope("app-remote-control")
-    PermissionScope.Streaming -> AuthScope("streaming")
-    PermissionScope.PlaylistReadPrivate -> AuthScope("playlist-read-private")
-    PermissionScope.PlaylistReadCollaborative -> AuthScope("playlist-read-collaborative")
-    PermissionScope.PlaylistModifyPrivate -> AuthScope("playlist-modify-private")
-    PermissionScope.PlaylistModifyPublic -> AuthScope("playlist-modify-public")
-    PermissionScope.UserFollowModify -> AuthScope("user-follow-modify")
-    PermissionScope.UserFollowRead -> AuthScope("user-follow-read")
-    PermissionScope.UserTopRead -> AuthScope("user-top-read")
-    PermissionScope.UserReadRecentlyPlayed -> AuthScope("user-read-recently-played")
-    PermissionScope.UserLibraryModify -> AuthScope("user-library-modify")
-    PermissionScope.UserLibraryRead -> AuthScope("user-library-read")
-    PermissionScope.UserReadEmail -> AuthScope("user-read-email")
-    PermissionScope.UserReadPrivate -> AuthScope("user-read-private")
+    PermissionScope.UgcImageUpload -> AuthScope.UgcImageUpload
+    PermissionScope.UserReadPlaybackState -> AuthScope.UserReadPlaybackState
+    PermissionScope.UserModifyPlaybackState -> AuthScope.UserModifyPlaybackState
+    PermissionScope.UserReadCurrentlyPlaying -> AuthScope.UserReadCurrentlyPlaying
+    PermissionScope.AppRemoteControl -> AuthScope.AppRemoteControl
+    PermissionScope.Streaming -> AuthScope.Streaming
+    PermissionScope.PlaylistReadPrivate -> AuthScope.PlaylistReadPrivate
+    PermissionScope.PlaylistReadCollaborative -> AuthScope.PlaylistReadCollaborative
+    PermissionScope.PlaylistModifyPrivate -> AuthScope.PlaylistModifyPrivate
+    PermissionScope.PlaylistModifyPublic -> AuthScope.PlaylistModifyPublic
+    PermissionScope.UserFollowModify -> AuthScope.UserFollowModify
+    PermissionScope.UserFollowRead -> AuthScope.UserFollowRead
+    PermissionScope.UserTopRead -> AuthScope.UserTopRead
+    PermissionScope.UserReadRecentlyPlayed -> AuthScope.UserReadRecentlyPlayed
+    PermissionScope.UserLibraryModify -> AuthScope.UserLibraryModify
+    PermissionScope.UserLibraryRead -> AuthScope.UserLibraryRead
+    PermissionScope.UserReadEmail -> AuthScope.UserReadEmail
+    PermissionScope.UserReadPrivate -> AuthScope.UserReadPrivate
 }
 
 /**
- * Parses an OAuth scope string into the corresponding domain [PermissionScope].
- *
- * Use this when converting API scope strings (e.g. received from storage or a callback response)
- * back into domain permissions. Returns `null` if the scope is not recognized.
+ * Maps an [AuthScope] to domain [PermissionScope].
  */
-internal fun PermissionScope.Companion.fromString(value: String): PermissionScope {
-    return when (value) {
-        "ugc-image-upload" -> PermissionScope.UgcImageUpload
-        "user-read-playback-state" -> PermissionScope.UserReadPlaybackState
-        "user-modify-playback-state" -> PermissionScope.UserModifyPlaybackState
-        "user-read-currently-playing" -> PermissionScope.UserReadCurrentlyPlaying
-        "app-remote-control" -> PermissionScope.AppRemoteControl
-        "streaming" -> PermissionScope.Streaming
-        "playlist-read-private" -> PermissionScope.PlaylistReadPrivate
-        "playlist-read-collaborative" -> PermissionScope.PlaylistReadCollaborative
-        "playlist-modify-private" -> PermissionScope.PlaylistModifyPrivate
-        "playlist-modify-public" -> PermissionScope.PlaylistModifyPublic
-        "user-follow-modify" -> PermissionScope.UserFollowModify
-        "user-follow-read" -> PermissionScope.UserFollowRead
-        "user-top-read" -> PermissionScope.UserTopRead
-        "user-read-recently-played" -> PermissionScope.UserReadRecentlyPlayed
-        "user-library-modify" -> PermissionScope.UserLibraryModify
-        "user-library-read" -> PermissionScope.UserLibraryRead
-        "user-read-email" -> PermissionScope.UserReadEmail
-        "user-read-private" -> PermissionScope.UserReadPrivate
+internal fun AuthScope.toDomain(): PermissionScope {
+    return when (this) {
+        AuthScope.UgcImageUpload -> PermissionScope.UgcImageUpload
+        AuthScope.UserReadPlaybackState -> PermissionScope.UserReadPlaybackState
+        AuthScope.UserModifyPlaybackState -> PermissionScope.UserModifyPlaybackState
+        AuthScope.UserReadCurrentlyPlaying -> PermissionScope.UserReadCurrentlyPlaying
+        AuthScope.AppRemoteControl -> PermissionScope.AppRemoteControl
+        AuthScope.Streaming -> PermissionScope.Streaming
+        AuthScope.PlaylistReadPrivate -> PermissionScope.PlaylistReadPrivate
+        AuthScope.PlaylistReadCollaborative -> PermissionScope.PlaylistReadCollaborative
+        AuthScope.PlaylistModifyPrivate -> PermissionScope.PlaylistModifyPrivate
+        AuthScope.PlaylistModifyPublic -> PermissionScope.PlaylistModifyPublic
+        AuthScope.UserFollowModify -> PermissionScope.UserFollowModify
+        AuthScope.UserFollowRead -> PermissionScope.UserFollowRead
+        AuthScope.UserTopRead -> PermissionScope.UserTopRead
+        AuthScope.UserReadRecentlyPlayed -> PermissionScope.UserReadRecentlyPlayed
+        AuthScope.UserLibraryModify -> PermissionScope.UserLibraryModify
+        AuthScope.UserLibraryRead -> PermissionScope.UserLibraryRead
+        AuthScope.UserReadEmail -> PermissionScope.UserReadEmail
+        AuthScope.UserReadPrivate -> PermissionScope.UserReadPrivate
         else -> throw IllegalArgumentException("Invalid AuthScope: $value")
     }
 }
