@@ -1,11 +1,11 @@
 package com.music.dzr.feature.auth.ui.screen.welcome
 
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -24,7 +24,7 @@ internal fun WelcomeRestrictAccessButton(
     DzrOutlinedButton(
         onClick = onClick,
         modifier = modifier
-            .padding(vertical = 8.dp)
+            .minimumInteractiveComponentSize()
             .height(36.dp),
         text = {
             Text(
