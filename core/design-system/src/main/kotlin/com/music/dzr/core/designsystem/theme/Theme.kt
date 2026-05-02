@@ -2,9 +2,13 @@ package com.music.dzr.core.designsystem.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.remember
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
@@ -89,7 +93,26 @@ fun DzrTheme(
 ) {
     MaterialTheme(
         colorScheme = if (darkTheme) darkScheme else lightScheme,
-        typography = DzrTypography,
-        content = content
-    )
+        typography = DzrTypography
+    ) {
+        ProvideLocalDimensions(content)
+    }
+}
+
+@Composable
+private fun ProvideLocalDimensions(content: @Composable () -> Unit) {
+    val sizeClass = currentWindowAdaptiveInfo().windowSizeClass
+    val dimensions = remember(sizeClass) { sizeClass.resolveDimensions() }
+    CompositionLocalProvider(LocalDimensions provides dimensions, content)
+}
+
+/**
+ * Contains functions to access the current theme values
+ * provided at the call site's position in the hierarchy.
+ */
+object DzrTheme {
+    /** Current spacing tokens, resolved from the active WindowSizeClass. */
+    val dimensions: Dimensions
+        @Composable @ReadOnlyComposable
+        get() = LocalDimensions.current
 }
