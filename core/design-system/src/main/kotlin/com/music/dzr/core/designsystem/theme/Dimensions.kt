@@ -24,18 +24,39 @@ data class Dimensions(
      * logically distinct blocks within a single screen.
      */
     val sectionSpacing: Dp,
+    /**
+     * The max width for text-heavy screens such as auth forms,
+     * settings, and other reading-oriented content.
+     */
+    val maxWidthNarrow: Dp,
+    /**
+     * The max width for standard content screens such as
+     * feeds, lists, and detail screens.
+     */
+    val maxWidthStandard: Dp,
+    /**
+     * The max width for multi-pane scaffolds such as
+     * list-detail and supporting-pane layouts.
+     */
+    val maxWidthMultiPane: Dp,
 )
 
 @VisibleForTesting
 internal val CompactDimensions = Dimensions(
     spacing = 16.dp,
     sectionSpacing = 32.dp,
+    maxWidthNarrow = Dp.Unspecified,
+    maxWidthStandard = Dp.Unspecified,
+    maxWidthMultiPane = Dp.Unspecified,
 )
 
 @VisibleForTesting
 internal val LargeDimensions = Dimensions(
     spacing = 24.dp,
     sectionSpacing = 48.dp,
+    maxWidthNarrow = 600.dp,
+    maxWidthStandard = 1040.dp,
+    maxWidthMultiPane = 1400.dp,
 )
 
 internal fun WindowSizeClass.resolveDimensions(): Dimensions {

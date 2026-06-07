@@ -45,7 +45,7 @@ For a detailed architecture deep-dive, refer to [Architecture.md](Architecture.m
 ### Prerequisites
 
 *   Android Studio Ladybug (or newer)
-*   JDK 17+
+*   JDK 24+
 
 ### Build the Project
 

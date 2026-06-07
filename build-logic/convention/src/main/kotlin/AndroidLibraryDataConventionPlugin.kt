@@ -23,3 +23,5 @@ class AndroidLibraryDataConventionPlugin : Plugin<Project> {
         }
     }
 }
+
+// TODO: mb need to add androidTestImplementations

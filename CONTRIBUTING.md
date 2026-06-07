@@ -44,14 +44,7 @@ All Previews must follow a strict naming pattern to ensure test logs are readabl
 * `Track_LongTitle_Preview`
 * `PlayableHeader_SmallScreen_Preview`
 
-### 3. Component Strategy
-
-| Source Set           | Purpose                                                                            | Scope                                                                                                                                |
-|:---------------------|:-----------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|
-| **`main`**           | **Dev / Visual Check**<br>Quick verification during development in Android Studio. | **Minimal**<br>1-2 previews per component.<br>Standard "Happy Path" state.<br>Light/Dark theme check.                                |
-| **`screenshotTest`** | **QA / Regression**<br>Automated visual regression testing and edge-case coverage. | **Exhaustive**<br>All states (Loading, Error, Empty).<br>All variants (Font Scales, Screen Sizes).<br>Edge cases (Long text, Nulls). |
-
-### 4. Technical Checklist
+### 3. Technical Checklist
 
 * **Theme Wrapper:** Always wrap Previews in `DzrTheme`.
 * **No Name Param:** Do not use the `name` parameter in `@Preview`. The function name itself should
@@ -64,7 +57,7 @@ All Previews must follow a strict naming pattern to ensure test logs are readabl
       contrast (e.g., `Track`, `Icon`, `OutlinedButton`), **MUST** wrap it in a `Surface` in
       both source sets to ensure visibility in Dark Mode and Disabled state.
 
-### 5. Optimization & Best Practices
+### 4. Optimization & Best Practices
 
 Based on official Android recommendations:
 
@@ -84,3 +77,12 @@ Based on official Android recommendations:
     * Generate your "Goldens" (reference images) in the same environment where you run validation (
       e.g., CI/Linux).
     * If running locally, expect small diffs if your OS differs from CI.
+
+### 5. Adaptive Layout
+
+Here the WindowSizeClass is used. WindowSizeClass changes content of:
+
+* ExtendedFab <-> Fab
+* BottomNavigation <-> NavigationRaild
+* SearchAppBar with menu only icon <-> SearchAppBar with Search icon
+* 

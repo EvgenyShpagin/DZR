@@ -14,6 +14,7 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFontFamilyResolver
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -137,6 +138,9 @@ private fun WelcomeHeaderLayout(
 
 @Composable
 private fun getAppName(): String {
+    if (LocalInspectionMode.current) {
+        return "Audyra"
+    }
     return with(LocalContext.current) {
         packageManager.getApplicationLabel(applicationInfo).toString()
     }

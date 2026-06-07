@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.dzr.android.application)
     alias(libs.plugins.dzr.android.application.compose)
+    alias(libs.plugins.dzr.koin)
     alias(libs.plugins.secrets.gradle)
 }
 
@@ -48,7 +49,9 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    testImplementation(libs.junit)
+    implementation(projects.feature.auth)
+    implementation(projects.core.navigation)
+    implementation(projects.core.auth.domain)
     androidTestImplementation(libs.androidx.test.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
